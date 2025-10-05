@@ -50,3 +50,7 @@ Follow `docs/COLLABORATION_PLAN.md` for the day-by-day breakdown. Upcoming prior
 ## Deployment
 
 A Vercel project should be provisioned once environment variables are available. For now, run locally with the placeholder configuration above.
+
+## Need Help Applying Plan Updates?
+
+If you are unsure how to copy the planning documents or reviews into your production workflow, follow [docs/guides/how-to-apply-updates.md](docs/guides/how-to-apply-updates.md) for a quick walkthrough of editing files directly in GitHub or opening a pull request.
