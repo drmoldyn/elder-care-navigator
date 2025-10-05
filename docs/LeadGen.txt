@@ -1,0 +1,1639 @@
+Automated Elder Care Lead Generation System - Build Specification
+Project Overview
+Product: Automated lead generation platform connecting families seeking elder care with home care agencies.
+Business Model:
+Capture leads via landing page
+Automatically match and distribute to 3 agencies in the service area
+First agency to claim gets the lead
+Charge $75-200 per lead
+Automated monthly invoicing
+Core Value: Fully automated system that generates revenue 24/7 with minimal human intervention.
+Success Metrics:
+100+ leads/month capacity
+<30 second agency notification time
+90%+ lead assignment rate
+Automated billing with 95%+ collection rate
+<2 hours/month human involvement
+Tech Stack
+Core
+Framework: Next.js 14 (App Router)
+Language: TypeScript (strict mode)
+Database: Supabase (PostgreSQL)
+Authentication: Supabase Auth (for agency portal)
+Email: Resend API
+SMS: Twilio API (optional, for urgent leads)
+Payments: Stripe
+Deployment: Vercel
+Monitoring: Sentry
+UI
+Styling: Tailwind CSS
+Components: shadcn/ui
+Forms: React Hook Form + Zod
+Icons: Lucide React
+Development
+Package Manager: pnpm
+Linting: ESLint + Prettier
+Type Checking: TypeScript strict
+Git Hooks: Husky + lint-staged
+Database Schema
+Core Tables
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Leads table
+CREATE TABLE leads (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  -- Lead information
+  zip_code VARCHAR(10) NOT NULL,
+  city VARCHAR(100),
+  state VARCHAR(2),
+  care_type VARCHAR(50) NOT NULL, -- 'dementia_care', 'post_hospital', 'daily_assistance', 'around_the_clock'
+  urgency VARCHAR(20) NOT NULL, -- 'immediate', 'within_week', 'within_month', 'researching'
+  
+  -- Contact information
+  contact_name VARCHAR(200) NOT NULL,
+  contact_email VARCHAR(255) NOT NULL,
+  contact_phone VARCHAR(20) NOT NULL,
+  additional_notes TEXT,
+  
+  -- Assignment tracking
+  status VARCHAR(20) NOT NULL DEFAULT 'new', -- 'new', 'notified', 'claimed', 'contacted', 'converted', 'lost'
+  assigned_agency_id UUID REFERENCES agencies(id),
+  assigned_at TIMESTAMPTZ,
+  notified_agencies UUID[] DEFAULT '{}',
+  
+  -- Security
+  claim_token VARCHAR(64) UNIQUE NOT NULL,
+  
+  -- Revenue tracking
+  lead_value DECIMAL(10,2) NOT NULL DEFAULT 75.00,
+  converted_value DECIMAL(10,2),
+  conversion_confirmed_at TIMESTAMPTZ,
+  
+  -- Analytics
+  source VARCHAR(50), -- 'google_ads', 'organic', 'facebook', 'referral'
+  utm_campaign VARCHAR(100),
+  utm_source VARCHAR(100),
+  utm_medium VARCHAR(100),
+  landing_page VARCHAR(255),
+  user_agent TEXT,
+  ip_address INET,
+  
+  -- Quality scoring
+  quality_score INTEGER, -- 0-100, calculated based on completeness and urgency
+  
+  CONSTRAINT valid_status CHECK (status IN ('new', 'notified', 'claimed', 'contacted', 'converted', 'lost')),
+  CONSTRAINT valid_urgency CHECK (urgency IN ('immediate', 'within_week', 'within_month', 'researching')),
+  CONSTRAINT valid_care_type CHECK (care_type IN ('dementia_care', 'post_hospital', 'daily_assistance', 'around_the_clock'))
+);
+-- Agencies table
+CREATE TABLE agencies (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  -- Basic information
+  name VARCHAR(200) NOT NULL,
+  contact_email VARCHAR(255) NOT NULL UNIQUE,
+  contact_phone VARCHAR(20),
+  website VARCHAR(255),
+  
+  -- Authentication
+  user_id UUID UNIQUE, -- Links to Supabase auth.users
+  
+  -- Service area
+  service_zip_codes TEXT[] NOT NULL DEFAULT '{}',
+  service_radius_miles INTEGER,
+  service_center_lat DECIMAL(10,8),
+  service_center_lng DECIMAL(11,8),
+  
+  -- Preferences
+  care_types TEXT[] DEFAULT '{}', -- Empty array = all types
+  min_urgency VARCHAR(20), -- Won't receive leads below this urgency
+  max_leads_per_day INTEGER,
+  max_leads_per_month INTEGER,
+  
+  -- Pricing
+  lead_price DECIMAL(10,2) NOT NULL DEFAULT 75.00,
+  pricing_model VARCHAR(20) NOT NULL DEFAULT 'per_lead', -- 'per_lead' or 'per_conversion'
+  conversion_price DECIMAL(10,2),
+  
+  -- Current usage
+  leads_today INTEGER NOT NULL DEFAULT 0,
+  leads_this_month INTEGER NOT NULL DEFAULT 0,
+  last_reset_daily DATE,
+  last_reset_monthly DATE,
+  
+  -- Status
+  status VARCHAR(20) NOT NULL DEFAULT 'active', -- 'active', 'paused', 'suspended'
+  paused_until TIMESTAMPTZ,
+  
+  -- Billing
+  stripe_customer_id VARCHAR(100),
+  auto_billing BOOLEAN NOT NULL DEFAULT false,
+  payment_terms INTEGER NOT NULL DEFAULT 30, -- Days until payment due
+  
+  -- Performance metrics
+  total_leads_received INTEGER NOT NULL DEFAULT 0,
+  total_leads_converted INTEGER NOT NULL DEFAULT 0,
+  conversion_rate DECIMAL(5,2),
+  avg_response_time_seconds INTEGER,
+  avg_claim_time_seconds INTEGER,
+  
+  -- Notification preferences
+  email_notifications BOOLEAN NOT NULL DEFAULT true,
+  sms_notifications BOOLEAN NOT NULL DEFAULT false,
+  sms_number VARCHAR(20),
+  notification_email VARCHAR(255), -- Can differ from contact_email
+  
+  -- Quality metrics
+  quality_score INTEGER DEFAULT 100, -- Decreases with slow responses, missed leads
+  
+  CONSTRAINT valid_status CHECK (status IN ('active', 'paused', 'suspended')),
+  CONSTRAINT valid_pricing_model CHECK (pricing_model IN ('per_lead', 'per_conversion'))
+);
+-- Lead claims tracking
+CREATE TABLE lead_claims (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  lead_id UUID NOT NULL REFERENCES leads(id) ON DELETE CASCADE,
+  agency_id UUID NOT NULL REFERENCES agencies(id) ON DELETE CASCADE,
+  
+  -- Timing
+  notified_at TIMESTAMPTZ NOT NULL,
+  claimed_at TIMESTAMPTZ,
+  response_time_seconds INTEGER,
+  
+  -- Outcome
+  successful BOOLEAN NOT NULL DEFAULT false,
+  claim_token VARCHAR(64) NOT NULL,
+  
+  -- Tracking
+  notification_method VARCHAR(20), -- 'email', 'sms', 'both'
+  claim_method VARCHAR(20), -- 'email_link', 'dashboard', 'api'
+  
+  UNIQUE(lead_id, agency_id)
+);
+-- Invoices
+CREATE TABLE invoices (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  agency_id UUID NOT NULL REFERENCES agencies(id) ON DELETE CASCADE,
+  
+  -- Period
+  invoice_month DATE NOT NULL, -- First day of the month
+  
+  -- Line items (calculated from leads)
+  leads_count INTEGER NOT NULL,
+  amount_due DECIMAL(10,2) NOT NULL,
+  
+  -- Status
+  status VARCHAR(20) NOT NULL DEFAULT 'draft', -- 'draft', 'sent', 'paid', 'overdue', 'cancelled'
+  sent_at TIMESTAMPTZ,
+  due_date DATE,
+  paid_at TIMESTAMPTZ,
+  
+  -- Stripe integration
+  stripe_invoice_id VARCHAR(100),
+  stripe_payment_intent_id VARCHAR(100),
+  stripe_invoice_url TEXT,
+  
+  -- Payment tracking
+  payment_method VARCHAR(50), -- 'stripe', 'manual', 'check'
+  payment_reference VARCHAR(100),
+  
+  CONSTRAINT valid_invoice_status CHECK (status IN ('draft', 'sent', 'paid', 'overdue', 'cancelled')),
+  UNIQUE(agency_id, invoice_month)
+);
+-- Invoice line items (detailed breakdown)
+CREATE TABLE invoice_line_items (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  invoice_id UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+  lead_id UUID NOT NULL REFERENCES leads(id),
+  
+  description TEXT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+-- Analytics events
+CREATE TABLE analytics_events (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  event_type VARCHAR(50) NOT NULL, -- 'page_view', 'form_start', 'form_submit', 'lead_claimed', etc.
+  
+  -- Context
+  lead_id UUID REFERENCES leads(id),
+  agency_id UUID REFERENCES agencies(id),
+  
+  -- Data
+  event_data JSONB,
+  
+  -- Request context
+  user_agent TEXT,
+  ip_address INET,
+  referrer TEXT,
+  
+  -- Performance
+  page_load_time_ms INTEGER,
+  api_response_time_ms INTEGER
+);
+-- System configuration
+CREATE TABLE config (
+  key VARCHAR(100) PRIMARY KEY,
+  value JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+Indexes
+-- Performance indexes
+CREATE INDEX idx_leads_status ON leads(status);
+CREATE INDEX idx_leads_created_at ON leads(created_at DESC);
+CREATE INDEX idx_leads_zip_code ON leads(zip_code);
+CREATE INDEX idx_leads_assigned_agency ON leads(assigned_agency_id) WHERE assigned_agency_id IS NOT NULL;
+CREATE INDEX idx_leads_source ON leads(source);
+CREATE INDEX idx_agencies_status ON agencies(status) WHERE status = 'active';
+CREATE INDEX idx_agencies_zip_codes ON agencies USING GIN(service_zip_codes);
+CREATE INDEX idx_agencies_care_types ON agencies USING GIN(care_types);
+CREATE INDEX idx_lead_claims_lead ON lead_claims(lead_id);
+CREATE INDEX idx_lead_claims_agency ON lead_claims(agency_id);
+CREATE INDEX idx_lead_claims_successful ON lead_claims(successful) WHERE successful = true;
+CREATE INDEX idx_invoices_agency_month ON invoices(agency_id, invoice_month);
+CREATE INDEX idx_invoices_status ON invoices(status);
+CREATE INDEX idx_invoices_due_date ON invoices(due_date) WHERE status != 'paid';
+CREATE INDEX idx_analytics_event_type ON analytics_events(event_type);
+CREATE INDEX idx_analytics_created_at ON analytics_events(created_at DESC);
+Database Functions
+-- Function to increment agency lead counts
+CREATE OR REPLACE FUNCTION increment_agency_leads(p_agency_id UUID)
+RETURNS void AS $$
+DECLARE
+  today DATE := CURRENT_DATE;
+  current_month DATE := DATE_TRUNC('month', CURRENT_DATE)::DATE;
+BEGIN
+  UPDATE agencies
+  SET 
+    leads_today = CASE 
+      WHEN last_reset_daily = today THEN leads_today + 1
+      ELSE 1
+    END,
+    leads_this_month = CASE
+      WHEN last_reset_monthly = current_month THEN leads_this_month + 1
+      ELSE 1
+    END,
+    last_reset_daily = today,
+    last_reset_monthly = current_month,
+    total_leads_received = total_leads_received + 1
+  WHERE id = p_agency_id;
+END;
+$$ LANGUAGE plpgsql;
+-- Function to calculate quality score for a lead
+CREATE OR REPLACE FUNCTION calculate_lead_quality_score(p_lead_id UUID)
+RETURNS INTEGER AS $$
+DECLARE
+  v_score INTEGER := 0;
+  v_lead RECORD;
+BEGIN
+  SELECT * INTO v_lead FROM leads WHERE id = p_lead_id;
+  
+  -- Base score
+  v_score := 50;
+  
+  -- Urgency bonus
+  CASE v_lead.urgency
+    WHEN 'immediate' THEN v_score := v_score + 30;
+    WHEN 'within_week' THEN v_score := v_score + 20;
+    WHEN 'within_month' THEN v_score := v_score + 10;
+    ELSE v_score := v_score + 0;
+  END CASE;
+  
+  -- Completeness bonus
+  IF v_lead.contact_phone IS NOT NULL AND LENGTH(v_lead.contact_phone) >= 10 THEN
+    v_score := v_score + 10;
+  END IF;
+  
+  IF v_lead.additional_notes IS NOT NULL AND LENGTH(v_lead.additional_notes) > 20 THEN
+    v_score := v_score + 10;
+  END IF;
+  
+  RETURN LEAST(v_score, 100);
+END;
+$$ LANGUAGE plpgsql;
+-- Trigger to update quality score on insert/update
+CREATE OR REPLACE FUNCTION update_lead_quality_score()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.quality_score := calculate_lead_quality_score(NEW.id);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER trigger_update_lead_quality_score
+BEFORE INSERT OR UPDATE ON leads
+FOR EACH ROW
+EXECUTE FUNCTION update_lead_quality_score();
+-- Function to update updated_at timestamp
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER update_leads_updated_at BEFORE UPDATE ON leads FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_agencies_updated_at BEFORE UPDATE ON agencies FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_invoices_updated_at BEFORE UPDATE ON invoices FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+Row Level Security (RLS)
+-- Enable RLS
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+ALTER TABLE agencies ENABLE ROW LEVEL SECURITY;
+ALTER TABLE lead_claims ENABLE ROW LEVEL SECURITY;
+ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+-- Policies for agencies table (agencies can only see their own data)
+CREATE POLICY "Agencies can view own data" ON agencies
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Agencies can update own data" ON agencies
+  FOR UPDATE USING (auth.uid() = user_id);
+-- Policies for leads (agencies can only see leads assigned to them or available to claim)
+CREATE POLICY "Agencies can view assigned leads" ON leads
+  FOR SELECT USING (
+    assigned_agency_id IN (SELECT id FROM agencies WHERE user_id = auth.uid())
+    OR id IN (
+      SELECT lead_id FROM lead_claims 
+      WHERE agency_id IN (SELECT id FROM agencies WHERE user_id = auth.uid())
+    )
+  );
+-- Policies for invoices (agencies can only see their own invoices)
+CREATE POLICY "Agencies can view own invoices" ON invoices
+  FOR SELECT USING (
+    agency_id IN (SELECT id FROM agencies WHERE user_id = auth.uid())
+  );
+-- Service role has full access (bypass RLS)
+Application Structure
+elder-care-lead-gen/
+├── app/
+│   ├── layout.tsx                          # Root layout
+│   ├── page.tsx                            # Landing page (lead capture)
+│   ├── thank-you/
+│   │   └── page.tsx                        # Post-submission confirmation
+│   ├── claim/
+│   │   └── [token]/
+│   │       └── page.tsx                    # Agency claim page
+│   ├── agency/
+│   │   ├── layout.tsx                      # Agency portal layout
+│   │   ├── login/
+│   │   │   └── page.tsx                    # Agency login
+│   │   ├── dashboard/
+│   │   │   └── page.tsx                    # Available leads + claimed leads
+│   │   ├── leads/
+│   │   │   ├── page.tsx                    # Lead history
+│   │   │   └── [id]/
+│   │   │       └── page.tsx                # Lead details
+│   │   ├── billing/
+│   │   │   ├── page.tsx                    # Invoices
+│   │   │   └── [invoiceId]/
+│   │   │       └── page.tsx                # Invoice details
+│   │   └── settings/
+│   │       └── page.tsx                    # Agency settings
+│   ├── admin/
+│   │   ├── dashboard/
+│   │   │   └── page.tsx                    # Admin overview
+│   │   ├── agencies/
+│   │   │   └── page.tsx                    # Manage agencies
+│   │   └── analytics/
+│   │       └── page.tsx                    # System analytics
+│   └── api/
+│       ├── leads/
+│       │   ├── submit/
+│       │   │   └── route.ts                # Submit new lead
+│       │   ├── assign/
+│       │   │   └── route.ts                # Assign lead to agencies
+│       │   └── claim/
+│       │       └── route.ts                # Claim a lead
+│       ├── agencies/
+│       │   ├── register/
+│       │   │   └── route.ts                # Register new agency
+│       │   └── update-settings/
+│       │       └── route.ts                # Update agency settings
+│       ├── webhooks/
+│       │   └── stripe/
+│       │       └── route.ts                # Stripe webhook handler
+│       └── cron/
+│           ├── generate-invoices/
+│           │   └── route.ts                # Monthly invoice generation
+│           ├── send-invoice-reminders/
+│           │   └── route.ts                # Send payment reminders
+│           └── reset-daily-counts/
+│               └── route.ts                # Reset daily lead counts
+├── components/
+│   ├── ui/                                 # shadcn/ui components
+│   ├── LeadForm.tsx                        # Main lead capture form
+│   ├── LeadCard.tsx                        # Display lead in dashboard
+│   ├── AgencyNav.tsx                       # Agency portal navigation
+│   └── InvoiceTable.tsx                    # Invoice display
+├── lib/
+│   ├── supabase/
+│   │   ├── client.ts                       # Supabase client (browser)
+│   │   ├── server.ts                       # Supabase client (server)
+│   │   └── admin.ts                        # Supabase admin client
+│   ├── services/
+│   │   ├── lead-assignment.ts              # Core lead assignment logic
+│   │   ├── notifications.ts                # Email/SMS notifications
+│   │   ├── billing.ts                      # Invoice generation
+│   │   └── analytics.ts                    # Analytics tracking
+│   ├── utils/
+│   │   ├── geo.ts                          # Zip code distance calculations
+│   │   ├── validation.ts                   # Zod schemas
+│   │   └── formatting.ts                   # Display formatters
+│   └── constants.ts                        # App constants
+├── types/
+│   └── index.ts                            # TypeScript types
+├── emails/
+│   ├── agency-notification.tsx             # React Email template
+│   ├── lead-details.tsx                    # React Email template
+│   └── invoice.tsx                         # React Email template
+└── public/
+    └── images/
+Core Implementation
+Lead Submission API
+// app/api/leads/submit/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { createServerClient } from '@/lib/supabase/server';
+import { assignLeadToAgencies } from '@/lib/services/lead-assignment';
+import { trackEvent } from '@/lib/services/analytics';
+import crypto from 'crypto';
+const leadSchema = z.object({
+  zipCode: z.string().regex(/^\d{5}$/),
+  careType: z.enum(['dementia_care', 'post_hospital', 'daily_assistance', 'around_the_clock']),
+  urgency: z.enum(['immediate', 'within_week', 'within_month', 'researching']),
+  contactName: z.string().min(2).max(200),
+  contactEmail: z.string().email(),
+  contactPhone: z.string().regex(/^\d{10,}$/),
+  additionalNotes: z.string().optional(),
+  source: z.string().optional(),
+  utmCampaign: z.string().optional(),
+  utmSource: z.string().optional(),
+  utmMedium: z.string().optional(),
+});
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const validated = leadSchema.parse(body);
+    
+    const supabase = createServerClient();
+    
+    // Get city/state from zip code
+    const geoData = await fetch(`https://api.zippopotam.us/us/${validated.zipCode}`).then(r => r.json());
+    const city = geoData.places?.[0]?.['place name'];
+    const state = geoData.places?.[0]?.['state abbreviation'];
+    
+    // Generate unique claim token
+    const claimToken = crypto.randomBytes(32).toString('hex');
+    
+    // Calculate lead value based on urgency
+    const leadValue = validated.urgency === 'immediate' ? 100 : 
+                     validated.urgency === 'within_week' ? 75 : 50;
+    
+    // Create lead
+    const { data: lead, error } = await supabase
+      .from('leads')
+      .insert({
+        zip_code: validated.zipCode,
+        city,
+        state,
+        care_type: validated.careType,
+        urgency: validated.urgency,
+        contact_name: validated.contactName,
+        contact_email: validated.contactEmail,
+        contact_phone: validated.contactPhone,
+        additional_notes: validated.additionalNotes,
+        claim_token: claimToken,
+        lead_value: leadValue,
+        source: validated.source || 'direct',
+        utm_campaign: validated.utmCampaign,
+        utm_source: validated.utmSource,
+        utm_medium: validated.utmMedium,
+        ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
+        user_agent: request.headers.get('user-agent'),
+      })
+      .select()
+      .single();
+    
+    if (error) throw error;
+    
+    // Track analytics
+    await trackEvent({
+      event_type: 'lead_submitted',
+      lead_id: lead.id,
+      event_data: {
+        care_type: validated.careType,
+        urgency: validated.urgency,
+        source: validated.source,
+      },
+    });
+    
+    // Trigger async lead assignment (don't wait for it)
+    assignLeadToAgencies(lead.id).catch(err => {
+      console.error('Lead assignment failed:', err);
+      // Log to monitoring service
+    });
+    
+    return NextResponse.json({
+      success: true,
+      message: 'Thank you! Local agencies will contact you within 24 hours.',
+      leadId: lead.id,
+    });
+    
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid form data', details: error.errors },
+        { status: 400 }
+      );
+    }
+    
+    console.error('Lead submission error:', error);
+    return NextResponse.json(
+      { error: 'Failed to submit lead. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
+Lead Assignment Service
+// lib/services/lead-assignment.ts
+import { createAdminClient } from '@/lib/supabase/admin';
+import { sendAgencyNotification } from './notifications';
+import { calculateDistance } from '@/lib/utils/geo';
+export async function assignLeadToAgencies(leadId: string) {
+  const supabase = createAdminClient();
+  
+  // Get lead details
+  const { data: lead, error: leadError } = await supabase
+    .from('leads')
+    .select('*')
+    .eq('id', leadId)
+    .single();
+  
+  if (leadError || !lead) {
+    throw new Error(`Lead not found: ${leadId}`);
+  }
+  
+  // Find matching agencies
+  const { data: allAgencies } = await supabase
+    .from('agencies')
+    .select('*')
+    .eq('status', 'active');
+  
+  if (!allAgencies || allAgencies.length === 0) {
+    console.error('No active agencies found');
+    // TODO: Alert admin
+    return;
+  }
+  
+  // Filter agencies by service area
+  const matchingAgencies = allAgencies.filter(agency => {
+    // Check if agency serves this zip code
+    if (agency.service_zip_codes.includes(lead.zip_code)) {
+      return true;
+    }
+    
+    // Check if within radius (if agency uses radius-based service area)
+    if (agency.service_radius_miles && agency.service_center_lat && agency.service_center_lng) {
+      const distance = calculateDistance(
+        agency.service_center_lat,
+        agency.service_center_lng,
+        lead.zip_code // This would need geocoding
+      );
+      return distance <= agency.service_radius_miles;
+    }
+    
+    return false;
+  });
+  
+  // Filter by preferences
+  const eligibleAgencies = matchingAgencies.filter(agency => {
+    // Check care type preference
+    if (agency.care_types.length > 0 && !agency.care_types.includes(lead.care_type)) {
+      return false;
+    }
+    
+    // Check urgency preference
+    if (agency.min_urgency) {
+      const urgencyOrder = ['researching', 'within_month', 'within_week', 'immediate'];
+      const agencyMinIndex = urgencyOrder.indexOf(agency.min_urgency);
+      const leadUrgencyIndex = urgencyOrder.indexOf(lead.urgency);
+      if (leadUrgencyIndex < agencyMinIndex) {
+        return false;
+      }
+    }
+    
+    // Check daily/monthly caps
+    if (agency.max_leads_per_day && agency.leads_today >= agency.max_leads_per_day) {
+      return false;
+    }
+    if (agency.max_leads_per_month && agency.leads_this_month >= agency.max_leads_per_month) {
+      return false;
+    }
+    
+    // Check if paused
+    if (agency.paused_until && new Date(agency.paused_until) > new Date()) {
+      return false;
+    }
+    
+    return true;
+  });
+  
+  if (eligibleAgencies.length === 0) {
+    console.error('No eligible agencies found for lead', leadId);
+    // TODO: Alert admin, expand search criteria, or refund customer
+    return;
+  }
+  
+  // Prioritize by quality score and conversion rate
+  const sortedAgencies = eligibleAgencies.sort((a, b) => {
+    const scoreA = (a.quality_score || 50) + ((a.conversion_rate || 0) * 10);
+    const scoreB = (b.quality_score || 50) + ((b.conversion_rate || 0) * 10);
+    return scoreB - scoreA;
+  });
+  
+  // Select top 3 agencies
+  const selectedAgencies = sortedAgencies.slice(0, 3);
+  
+  // Update lead with notified agencies
+  await supabase
+    .from('leads')
+    .update({
+      status: 'notified',
+      notified_agencies: selectedAgencies.map(a => a.id),
+    })
+    .eq('id', leadId);
+  
+  // Create claim records
+  const claimRecords = selectedAgencies.map(agency => ({
+    lead_id: leadId,
+    agency_id: agency.id,
+    claim_token: lead.claim_token,
+    notified_at: new Date().toISOString(),
+    notification_method: agency.sms_notifications ? 'both' : 'email',
+  }));
+  
+  await supabase.from('lead_claims').insert(claimRecords);
+  
+  // Send notifications to all selected agencies
+  await Promise.all(
+    selectedAgencies.map(agency => 
+      sendAgencyNotification(agency, lead)
+        .catch(err => console.error(`Failed to notify agency ${agency.id}:`, err))
+    )
+  );
+  
+  console.log(`Lead ${leadId} assigned to ${selectedAgencies.length} agencies`);
+}
+Notification Service
+// lib/services/notifications.ts
+import { Resend } from 'resend';
+import { Twilio } from 'twilio';
+import AgencyNotificationEmail from '@/emails/agency-notification';
+import LeadDetailsEmail from '@/emails/lead-details';
+const resend = new Resend(process.env.RESEND_API_KEY);
+const twilioClient = process.env.TWILIO_ACCOUNT_SID 
+  ? new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+  : null;
+export async function sendAgencyNotification(agency: any, lead: any) {
+  const claimUrl = `${process.env.NEXT_PUBLIC_APP_URL}/claim/${lead.claim_token}?agency=${agency.id}`;
+  
+  // Send email
+  if (agency.email_notifications) {
+    try {
+      await resend.emails.send({
+        from: 'Elder Care Leads <leads@eldercareleads.com>',
+        to: agency.notification_email || agency.contact_email,
+        subject: `New ${formatUrgency(lead.urgency)} Lead in ${lead.city}`,
+        react: AgencyNotificationEmail({
+          agencyName: agency.name,
+          lead,
+          claimUrl,
+        }),
+      });
+    } catch (error) {
+      console.error('Email notification failed:', error);
+    }
+  }
+  
+  // Send SMS for immediate leads
+  if (agency.sms_notifications && agency.sms_number && lead.urgency === 'immediate' && twilioClient) {
+    try {
+      await twilioClient.messages.create({
+        to: agency.sms_number,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        body: `URGENT: New ${formatCareType(lead.care_type)} lead in ${lead.city}. Claim now: ${claimUrl}`,
+      });
+    } catch (error) {
+      console.error('SMS notification failed:', error);
+    }
+  }
+}
+export async function sendLeadDetails(agency: any, lead: any) {
+  try {
+    await resend.emails.send({
+      from: 'Elder Care Leads <leads@eldercareleads.com>',
+      to: agency.notification_email || agency.contact_email,
+      subject: `Lead Details - ${lead.contact_name}`,
+      react: LeadDetailsEmail({
+        agencyName: agency.name,
+        lead,
+      }),
+    });
+  } catch (error) {
+    console.error('Failed to send lead details:', error);
+    throw error;
+  }
+}
+export async function sendLeadClaimedNotification(agency: any, lead: any) {
+  try {
+    await resend.emails.send({
+      from: 'Elder Care Leads <leads@eldercareleads.com>',
+      to: agency.notification_email || agency.contact_email,
+      subject: `Lead Already Claimed - ${lead.city}`,
+      html: `
+        <p>Hi ${agency.name},</p>
+        <p>The lead in ${lead.city} for ${formatCareType(lead.care_type)} has already been claimed by another agency.</p>
+        <p>You'll receive notification when the next lead in your area becomes available.</p>
+        <p>Best regards,<br>Elder Care Leads</p>
+      `,
+    });
+  } catch (error) {
+    console.error('Failed to send claimed notification:', error);
+  }
+}
+function formatUrgency(urgency: string): string {
+  const map: Record<string, string> = {
+    immediate: 'Immediate',
+    within_week: 'This Week',
+    within_month: 'This Month',
+    researching: 'Researching',
+  };
+  return map[urgency] || urgency;
+}
+function formatCareType(careType: string): string {
+  const map: Record<string, string> = {
+    dementia_care: 'Dementia Care',
+    post_hospital: 'Post-Hospital Care',
+    daily_assistance: 'Daily Assistance',
+    around_the_clock: '24/7 Care',
+  };
+  return map[careType] || careType;
+}
+Lead Claim API
+// app/api/leads/claim/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@/lib/supabase/server';
+import { sendLeadDetails, sendLeadClaimedNotification } from '@/lib/services/notifications';
+import { trackEvent } from '@/lib/services/analytics';
+export async function POST(request: NextRequest) {
+  try {
+    const { token, agencyId } = await request.json();
+    
+    if (!token || !agencyId) {
+      return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
+    }
+    
+    const supabase = createServerClient();
+    
+    // Get lead by token
+    const { data: lead, error: leadError } = await supabase
+      .from('leads')
+      .select('*')
+      .eq('claim_token', token)
+      .single();
+    
+    if (leadError || !lead) {
+      return NextResponse.json({ error: 'Invalid claim token' }, { status: 404 });
+    }
+    
+    // Check if lead already claimed (atomic check)
+    if (lead.status === 'claimed') {
+      // Get agency info for notification
+      const { data: agency } = await supabase
+        .from('agencies')
+        .select('*')
+        .eq('id', agencyId)
+        .single();
+      
+      if (agency) {
+        await sendLeadClaimedNotification(agency, lead);
+      }
+      
+      return NextResponse.json({
+        error: 'Lead already claimed',
+        message: 'Another agency claimed this lead first.',
+      }, { status: 409 });
+    }
+    
+    // Verify agency was notified about this lead
+    if (!lead.notified_agencies.includes(agencyId)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+    }
+    
+    // Get claim start time for response time calculation
+    const { data: claimRecord } = await supabase
+      .from('lead_claims')
+      .select('notified_at')
+      .eq('lead_id', lead.id)
+      .eq('agency_id', agencyId)
+      .single();
+    
+    const claimedAt = new Date();
+    const responseTimeSeconds = claimRecord 
+      ? Math.floor((claimedAt.getTime() - new Date(claimRecord.notified_at).getTime()) / 1000)
+      : null;
+    
+    // Atomic claim operation
+    const { data: updated, error: updateError } = await supabase
+      .from('leads')
+      .update({
+        status: 'claimed',
+        assigned_agency_id: agencyId,
+        assigned_at: claimedAt.toISOString(),
+      })
+      .eq('id', lead.id)
+      .eq('status', 'notified') // Only update if still in notified state
+      .select()
+      .single();
+    
+    if (updateError || !updated) {
+      // Race condition - another agency claimed it
+      return NextResponse.json({
+        error: 'Lead already claimed',
+        message: 'Another agency claimed this lead just now.',
+      }, { status: 409 });
+    }
+    
+    // Update claim record
+    await supabase
+      .from('lead_claims')
+      .update({
+        successful: true,
+        claimed_at: claimedAt.toISOString(),
+        response_time_seconds: responseTimeSeconds,
+        claim_method: 'email_link',
+      })
+      .eq('lead_id', lead.id)
+      .eq('agency_id', agencyId);
+    
+    // Increment agency counters
+    await supabase.rpc('increment_agency_leads', { p_agency_id: agencyId });
+    
+    // Get full agency details
+    const { data: agency } = await supabase
+      .from('agencies')
+      .select('*')
+      .eq('id', agencyId)
+      .single();
+    
+    if (!agency) {
+      return NextResponse.json({ error: 'Agency not found' }, { status: 404 });
+    }
+    
+    // Send lead details to winning agency
+    await sendLeadDetails(agency, lead);
+    
+    // Notify other agencies that lead was claimed
+    const otherAgencies = lead.notified_agencies.filter((id: string) => id !== agencyId);
+    for (const otherAgencyId of otherAgencies) {
+      const { data: otherAgency } = await supabase
+        .from('agencies')
+        .select('*')
+        .eq('id', otherAgencyId)
+        .single();
+      
+      if (otherAgency) {
+        await sendLeadClaimedNotification(otherAgency, lead);
+      }
+    }
+    
+    // Track analytics
+    await trackEvent({
+      event_type: 'lead_claimed',
+      lead_id: lead.id,
+      agency_id: agencyId,
+      event_data: {
+        response_time_seconds: responseTimeSeconds,
+        claim_method: 'email_link',
+      },
+    });
+    
+    return NextResponse.json({
+      success: true,
+      lead: {
+        id: lead.id,
+        name: lead.contact_name,
+        email: lead.contact_email,
+        phone: lead.contact_phone,
+        city: lead.city,
+        state: lead.state,
+        zipCode: lead.zip_code,
+        careType: lead.care_type,
+        urgency: lead.urgency,
+        notes: lead.additional_notes,
+      },
+    });
+    
+  } catch (error) {
+    console.error('Claim error:', error);
+    return NextResponse.json(
+      { error: 'Failed to claim lead. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
+Automated Invoice Generation
+// app/api/cron/generate-invoices/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { Resend } from 'resend';
+import InvoiceEmail from '@/emails/invoice';
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2023-10-16' });
+const resend = new Resend(process.env.RESEND_API_KEY);
+export async function GET(request: NextRequest) {
+  // Verify cron secret
+  const authHeader = request.headers.get('authorization');
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  
+  const supabase = createAdminClient();
+  
+  // Calculate last month
+  const now = new Date();
+  const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const invoiceMonth = lastMonth.toISOString().slice(0, 7) + '-01';
+  
+  // Get all active agencies
+  const { data: agencies } = await supabase
+    .from('agencies')
+    .select('*')
+    .neq('status', 'suspended');
+  
+  if (!agencies) {
+    return NextResponse.json({ error: 'No agencies found' }, { status: 404 });
+  }
+  
+  const results = [];
+  
+  for (const agency of agencies) {
+    try {
+      // Get leads from last month
+      const { data: leads, count } = await supabase
+        .from('leads')
+        .select('*', { count: 'exact' })
+        .eq('assigned_agency_id', agency.id)
+        .gte('assigned_at', lastMonth.toISOString())
+        .lt('assigned_at', new Date(now.getFullYear(), now.getMonth(), 1).toISOString());
+      
+      if (!count || count === 0) {
+        results.push({ agency: agency.name, status: 'no_leads' });
+        continue;
+      }
+      
+      // Calculate total amount
+      const totalAmount = leads!.reduce((sum, lead) => {
+        return sum + Number(lead.lead_value);
+      }, 0);
+      
+      // Check if invoice already exists
+      const { data: existingInvoice } = await supabase
+        .from('invoices')
+        .select('id')
+        .eq('agency_id', agency.id)
+        .eq('invoice_month', invoiceMonth)
+        .single();
+      
+      if (existingInvoice) {
+        results.push({ agency: agency.name, status: 'already_exists' });
+        continue;
+      }
+      
+      // Create invoice
+      const dueDate = new Date();
+      dueDate.setDate(dueDate.getDate() + agency.payment_terms);
+      
+      const { data: invoice, error: invoiceError } = await supabase
+        .from('invoices')
+        .insert({
+          agency_id: agency.id,
+          invoice_month: invoiceMonth,
+          leads_count: count,
+          amount_due: totalAmount,
+          due_date: dueDate.toISOString().split('T')[0],
+          status: 'draft',
+        })
+        .select()
+        .single();
+      
+      if (invoiceError) throw invoiceError;
+      
+      // Create line items
+      const lineItems = leads!.map(lead => ({
+        invoice_id: invoice.id,
+        lead_id: lead.id,
+        description: `${formatCareType(lead.care_type)} lead in ${lead.city} - ${formatDate(lead.assigned_at)}`,
+        amount: lead.lead_value,
+      }));
+      
+      await supabase.from('invoice_line_items').insert(lineItems);
+      
+      // Handle billing based on agency settings
+      if (agency.auto_billing && agency.stripe_customer_id) {
+        // Create Stripe invoice
+        const stripeInvoice = await stripe.invoices.create({
+          customer: agency.stripe_customer_id,
+          auto_advance: true,
+          collection_method: 'charge_automatically',
+          description: `Elder Care Leads - ${formatMonth(invoiceMonth)}`,
+          metadata: {
+            invoice_id: invoice.id,
+            agency_id: agency.id,
+          },
+        });
+        
+        // Add line items to Stripe invoice
+        for (const lineItem of lineItems) {
+          await stripe.invoiceItems.create({
+            customer: agency.stripe_customer_id,
+            invoice: stripeInvoice.id,
+            amount: Math.round(Number(lineItem.amount) * 100), // Convert to cents
+            currency: 'usd',
+            description: lineItem.description,
+          });
+        }
+        
+        // Finalize and send
+        const finalizedInvoice = await stripe.invoices.finalizeInvoice(stripeInvoice.id);
+        
+        // Update database with Stripe info
+        await supabase
+          .from('invoices')
+          .update({
+            status: 'sent',
+            sent_at: new Date().toISOString(),
+            stripe_invoice_id: stripeInvoice.id,
+            stripe_invoice_url: finalizedInvoice.hosted_invoice_url,
+          })
+          .eq('id', invoice.id);
+        
+        results.push({ agency: agency.name, status: 'stripe_billed', amount: totalAmount });
+        
+      } else {
+        // Send email invoice
+        await resend.emails.send({
+          from: 'Elder Care Leads Billing <billing@eldercareleads.com>',
+          to: agency.contact_email,
+          subject: `Invoice for ${formatMonth(invoiceMonth)} - $${totalAmount.toFixed(2)}`,
+          react: InvoiceEmail({
+            agencyName: agency.name,
+            invoice,
+            lineItems,
+          }),
+        });
+        
+        await supabase
+          .from('invoices')
+          .update({
+            status: 'sent',
+            sent_at: new Date().toISOString(),
+          })
+          .eq('id', invoice.id);
+        
+        results.push({ agency: agency.name, status: 'email_sent', amount: totalAmount });
+      }
+      
+    } catch (error) {
+      console.error(`Failed to generate invoice for ${agency.name}:`, error);
+      results.push({ agency: agency.name, status: 'error', error: String(error) });
+    }
+  }
+  
+  return NextResponse.json({ 
+    success: true,
+    month: invoiceMonth,
+    results 
+  });
+}
+function formatCareType(careType: string): string {
+  const map: Record<string, string> = {
+    dementia_care: 'Dementia Care',
+    post_hospital: 'Post-Hospital Care',
+    daily_assistance: 'Daily Assistance',
+    around_the_clock: '24/7 Care',
+  };
+  return map[careType] || careType;
+}
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+function formatMonth(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'long',
+    year: 'numeric',
+  });
+}
+Landing Page Implementation
+// app/page.tsx
+import LeadForm from '@/components/LeadForm';
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <header className="container mx-auto px-4 py-6">
+        <h1 className="text-2xl font-bold text-blue-900">Elder Care Help</h1>
+      </header>
+      
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Find Trusted Home Care for Your Parent
+            </h2>
+            <p className="text-xl text-gray-600 mb-2">
+              We'll connect you with 3 vetted home care agencies in your area.
+            </p>
+            <p className="text-lg text-gray-500">
+              Free, no obligation. Get responses within 24 hours.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-xl p-8">
+            <LeadForm />
+          </div>
+          
+          <div className="mt-8 text-center text-sm text-gray-500">
+            <p>✓ Free service</p>
+            <p>✓ No obligation</p>
+            <p>✓ Agencies contact you</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+// components/LeadForm.tsx
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
+const formSchema = z.object({
+  zipCode: z.string().regex(/^\d{5}$/, 'Please enter a valid 5-digit zip code'),
+  careType: z.enum(['dementia_care', 'post_hospital', 'daily_assistance', 'around_the_clock']),
+  urgency: z.enum(['immediate', 'within_week', 'within_month', 'researching']),
+  contactName: z.string().min(2, 'Please enter your name'),
+  contactEmail: z.string().email('Please enter a valid email'),
+  contactPhone: z.string().regex(/^\d{10}$/, 'Please enter a 10-digit phone number'),
+  additionalNotes: z.string().optional(),
+});
+type FormData = z.infer<typeof formSchema>;
+export default function LeadForm() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+  
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/leads/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+      
+      router.push('/thank-you');
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Something went wrong. Please try again.');
+      setIsSubmitting(false);
+    }
+  };
+  
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div>
+        <Label htmlFor="zipCode">Your Parent's Zip Code *</Label>
+        <Input
+          id="zipCode"
+          {...register('zipCode')}
+          placeholder="e.g., 85001"
+          className="mt-1"
+        />
+        {errors.zipCode && (
+          <p className="text-sm text-red-600 mt-1">{errors.zipCode.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label>What type of care do you need? *</Label>
+        <RadioGroup
+          onValueChange={(value) => setValue('careType', value as any)}
+          className="mt-2 space-y-2"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="dementia_care" id="dementia" />
+            <Label htmlFor="dementia" className="font-normal cursor-pointer">
+              Dementia/Alzheimer's Care
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="post_hospital" id="hospital" />
+            <Label htmlFor="hospital" className="font-normal cursor-pointer">
+              Post-Hospital Recovery
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="daily_assistance" id="daily" />
+            <Label htmlFor="daily" className="font-normal cursor-pointer">
+              Daily Living Assistance
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="around_the_clock" id="24_7" />
+            <Label htmlFor="24_7" className="font-normal cursor-pointer">
+              24/7 Care
+            </Label>
+          </div>
+        </RadioGroup>
+        {errors.careType && (
+          <p className="text-sm text-red-600 mt-1">{errors.careType.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label>When do you need care? *</Label>
+        <RadioGroup
+          onValueChange={(value) => setValue('urgency', value as any)}
+          className="mt-2 space-y-2"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="immediate" id="immediate" />
+            <Label htmlFor="immediate" className="font-normal cursor-pointer">
+              Immediately
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="within_week" id="week" />
+            <Label htmlFor="week" className="font-normal cursor-pointer">
+              Within a week
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="within_month" id="month" />
+            <Label htmlFor="month" className="font-normal cursor-pointer">
+              Within a month
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="researching" id="research" />
+            <Label htmlFor="research" className="font-normal cursor-pointer">
+              Just researching options
+            </Label>
+          </div>
+        </RadioGroup>
+        {errors.urgency && (
+          <p className="text-sm text-red-600 mt-1">{errors.urgency.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label htmlFor="contactName">Your Name *</Label>
+        <Input
+          id="contactName"
+          {...register('contactName')}
+          placeholder="John Smith"
+          className="mt-1"
+        />
+        {errors.contactName && (
+          <p className="text-sm text-red-600 mt-1">{errors.contactName.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label htmlFor="contactEmail">Your Email *</Label>
+        <Input
+          id="contactEmail"
+          type="email"
+          {...register('contactEmail')}
+          placeholder="john@example.com"
+          className="mt-1"
+        />
+        {errors.contactEmail && (
+          <p className="text-sm text-red-600 mt-1">{errors.contactEmail.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label htmlFor="contactPhone">Your Phone Number *</Label>
+        <Input
+          id="contactPhone"
+          {...register('contactPhone')}
+          placeholder="5555551234"
+          className="mt-1"
+        />
+        {errors.contactPhone && (
+          <p className="text-sm text-red-600 mt-1">{errors.contactPhone.message}</p>
+        )}
+      </div>
+      
+      <div>
+        <Label htmlFor="additionalNotes">Additional Information (Optional)</Label>
+        <Textarea
+          id="additionalNotes"
+          {...register('additionalNotes')}
+          placeholder="Any specific needs or preferences..."
+          className="mt-1"
+          rows={4}
+        />
+      </div>
+      
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-lg"
+      >
+        {isSubmitting ? 'Submitting...' : 'Get Matched With Agencies'}
+      </Button>
+      
+      <p className="text-xs text-gray-500 text-center">
+        By submitting, you agree to be contacted by home care agencies in your area.
+      </p>
+    </form>
+  );
+}
+Week-by-Week Build Plan
+Week 1: Foundation (Days 1-7)
+Day 1: Project Setup
+Initialize Next.js 14 with TypeScript
+Install dependencies (Tailwind, shadcn/ui, etc.)
+Set up Supabase project
+Configure environment variables
+Set up Git repository
+Deploy skeleton to Vercel
+Day 2-3: Database Setup
+Create all database tables using provided schema
+Set up indexes
+Create database functions
+Configure RLS policies
+Test database connections
+Seed with test data (3-5 test agencies)
+Day 4-5: Core API Routes
+Implement /api/leads/submit
+Implement /api/leads/assign
+Implement /api/leads/claim
+Test full lead flow end-to-end
+Day 6-7: Landing Page & Form
+Build responsive landing page
+Implement lead capture form with validation
+Build thank-you page
+Test form submission
+Deliverable: Working lead submission and assignment system
+Week 2: Automation & Notifications (Days 8-14)
+Day 8-9: Email System
+Set up Resend account
+Create email templates (React Email)
+Implement agency notification emails
+Implement lead details emails
+Implement lead claimed notifications
+Test all email flows
+Day 10-11: Lead Assignment Logic
+Implement geo-matching algorithm
+Implement preference filtering
+Implement agency caps/limits
+Implement prioritization (quality score, conversion rate)
+Test with various scenarios
+Day 12-13: Claim System
+Build claim landing page (/claim/[token])
+Implement atomic claim logic (race condition handling)
+Track response times
+Test simultaneous claims
+Day 14: Testing & Refinement
+End-to-end testing with real scenarios
+Fix bugs
+Optimize database queries
+Add error monitoring
+Deliverable: Fully automated lead distribution and claiming
+Week 3: Agency Portal (Days 15-21)
+Day 15-16: Authentication
+Set up Supabase Auth
+Implement agency registration
+Implement agency login
+Implement password reset
+Day 17-18: Agency Dashboard
+Build dashboard layout
+Display available leads (real-time with Supabase subscriptions)
+Display claimed leads
+Display lead history
+Implement one-click claim from dashboard
+Day 19-20: Agency Settings
+Build settings page
+Implement service area management
+Implement notification preferences
+Implement capacity limits
+Test all settings updates
+Day 21: Agency Billing View
+Display current month's leads
+Display invoice history
+Show payment status
+Add Stripe payment integration (basic)
+Deliverable: Functional agency portal
+Week 4: Billing & Analytics (Days 22-28)
+Day 22-23: Automated Invoicing
+Implement invoice generation cron job
+Integrate Stripe for auto-billing
+Create invoice email template
+Test invoice generation
+Day 24: Payment Reminders
+Implement overdue invoice detection
+Send payment reminder emails
+Update invoice statuses
+Day 25-26: Analytics & Tracking
+Implement analytics event tracking
+Build admin dashboard (basic)
+Display key metrics: 
+Leads per day/week/month
+Assignment rate
+Claim rate
+Revenue tracking
+Agency performance
+Day 27: Optimization
+Performance optimization (Lighthouse audit)
+SEO optimization
+Error handling improvements
+Add monitoring (Sentry)
+Day 28: Launch Preparation
+Final end-to-end testing
+Load testing
+Set up production environment
+Deploy to production
+Monitor for issues
+Deliverable: Production-ready automated lead generation system
+Environment Variables
+# .env.local
+# App
+NEXT_PUBLIC_APP_URL=https://eldercareleads.com
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+# Resend
+RESEND_API_KEY=your_resend_api_key
+# Twilio (optional)
+TWILIO_ACCOUNT_SID=your_twilio_sid
+TWILIO_AUTH_TOKEN=your_twilio_token
+TWILIO_PHONE_NUMBER=+1234567890
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_WEBHOOK_SECRET=your_webhook_secret
+# Cron Jobs
+CRON_SECRET=your_random_secret_string
+# Internal API
+INTERNAL_API_SECRET=your_internal_secret
+# Monitoring
+SENTRY_DSN=your_sentry_dsn
+Deployment Configuration
+Vercel Configuration
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next"
+}
+Cron Jobs (vercel.json)
+{
+  "crons": [
+    {
+      "path": "/api/cron/generate-invoices",
+      "schedule": "0 0 1 * *"
+    },
+    {
+      "path": "/api/cron/send-invoice-reminders",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/reset-daily-counts",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
+Testing Strategy
+Unit Tests
+Geo-matching functions
+Validation schemas
+Utility functions
+Integration Tests
+Lead submission flow
+Assignment algorithm
+Claim system (race conditions)
+Invoice generation
+End-to-End Tests
+Full user journey (submit lead → agency claims)
+Agency registration → settings → claiming
+Invoice generation → payment
+Load Testing
+100 concurrent lead submissions
+50 simultaneous claim attempts
+Database performance under load
+Monitoring & Alerting
+Critical Alerts
+Failed lead assignment (no agencies available)
+Email delivery failures
+Database connection errors
+Payment processing failures
+Performance Monitoring
+API response times
+Database query performance
+Email delivery rates
+Page load times
+Business Metrics
+Leads per day
+Assignment rate (% of leads assigned)
+Claim rate (% of assigned leads claimed)
+Average claim time
+Revenue per month
+Agency churn rate
+Success Criteria
+Technical
+✅ 99.9% uptime
+✅ <2s API response times
+✅ <30s lead assignment time
+✅ Zero race condition bugs in claiming
+✅ 100% email delivery rate
+Business
+✅ 90%+ leads assigned to agencies
+✅ 80%+ claimed within 1 hour
+✅ 95%+ invoice collection rate
+✅ <2 hours/month human intervention
+✅ $5,000/month revenue by month 3
+Post-Launch Optimization
+Month 2
+A/B test landing page copy
+Optimize Google Ads campaigns
+Add more agency partners
+Implement agency quality scoring
+Month 3
+Add SMS notifications for immediate leads
+Build mobile app for agencies
+Implement automated quality follow-up
+Add lead feedback loop
+Month 4-6
+Expand to multiple cities
+Add additional service types (memory care, elder law)
+Implement dynamic pricing based on urgency
+Build affiliate program for referrals
+Security Considerations
+All sensitive data encrypted at rest (Supabase handles this)
+RLS policies prevent unauthorized access
+Rate limiting on public APIs
+Input sanitization on all user inputs
+CSRF protection (Next.js handles this)
+Secure webhook verification (Stripe)
+Regular security audits
+PCI compliance for payment processing (Stripe handles this)
+Compliance
+HIPAA considerations (no PHI collected)
+TCPA compliance for SMS (opt-in required)
+CAN-SPAM compliance for emails (unsubscribe links)
+GDPR compliance (data deletion on request)
+Terms of Service
+Privacy Policy
+Notes
+This system is designed for maximum automation and profitability. Once built and tested, it should require minimal human intervention while generating consistent revenue. The key is maintaining high-quality agency partnerships and ensuring fast lead distribution and claiming.
