@@ -7,6 +7,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { GuidancePollResponse } from "@/types/api";
 
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  category: string[];
+  conditions: string[];
+  cost: string;
+  contact_phone?: string;
+  contact_email?: string;
+  location_type: string;
+  states?: string[];
+  source_authority: string;
+  best_for?: string;
+}
+
 export default function ResultsPage() {
   const params = useParams();
   const sessionId = params.sessionId as string;
@@ -14,11 +30,29 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [guidance, setGuidance] = useState<GuidancePollResponse | null>(null);
+  const [resources, setResources] = useState<Resource[]>([]);
 
   useEffect(() => {
-    pollGuidance();
+    loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId]);
+
+  const loadData = async () => {
+    try {
+      // Fetch session and matched resources
+      const sessionRes = await fetch(`/api/sessions/${sessionId}`);
+      if (!sessionRes.ok) throw new Error("Failed to load session");
+
+      const sessionData = await sessionRes.json();
+      setResources(sessionData.resources || []);
+
+      // Also poll guidance
+      pollGuidance();
+    } catch {
+      setError("Failed to load your personalized plan");
+      setLoading(false);
+    }
+  };
 
   const pollGuidance = async () => {
     try {
@@ -34,7 +68,7 @@ export default function ResultsPage() {
         setTimeout(pollGuidance, 2000);
       }
     } catch {
-      setError("Failed to load your personalized plan");
+      // Don't set error here, just stop polling
       setLoading(false);
     }
   };
@@ -121,17 +155,103 @@ export default function ResultsPage() {
         </Card>
       )}
 
-      {/* Resources Placeholder */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recommended Resources</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">
-            Resource display coming soon. Your session ID: {sessionId}
-          </p>
-        </CardContent>
-      </Card>
+      {/* Matched Resources */}
+      {resources.length > 0 && (
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">
+            Recommended Resources ({resources.length})
+          </h2>
+          {resources.map((resource) => (
+            <Card key={resource.id} className="hover:border-primary/50 transition-colors">
+              <CardHeader>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <CardTitle className="text-xl">{resource.title}</CardTitle>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {resource.category.map((cat) => (
+                        <Badge key={cat} variant="secondary">
+                          {cat.replace(/_/g, " ")}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  {resource.source_authority && (
+                    <Badge variant="outline" className="shrink-0">
+                      {resource.source_authority}
+                    </Badge>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-muted-foreground">{resource.description}</p>
+
+                {resource.best_for && (
+                  <div className="rounded-lg bg-primary/5 p-3">
+                    <p className="text-sm font-medium">Best for:</p>
+                    <p className="text-sm text-muted-foreground">{resource.best_for}</p>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap gap-4 text-sm">
+                  {resource.cost && (
+                    <div>
+                      <span className="font-medium">Cost:</span>{" "}
+                      <span className="text-muted-foreground">{resource.cost}</span>
+                    </div>
+                  )}
+                  {resource.location_type && (
+                    <div>
+                      <span className="font-medium">Availability:</span>{" "}
+                      <span className="text-muted-foreground capitalize">
+                        {resource.location_type.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                  )}
+                  {resource.states && resource.states.length > 0 && (
+                    <div>
+                      <span className="font-medium">States:</span>{" "}
+                      <span className="text-muted-foreground">
+                        {resource.states.join(", ")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <Button asChild>
+                    <a href={resource.url} target="_blank" rel="noopener noreferrer">
+                      Visit Resource
+                    </a>
+                  </Button>
+                  {resource.contact_phone && (
+                    <Button variant="outline" asChild>
+                      <a href={`tel:${resource.contact_phone}`}>
+                        Call {resource.contact_phone}
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {resources.length === 0 && !loading && (
+        <Card>
+          <CardHeader>
+            <CardTitle>No Resources Found</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">
+              We couldn&apos;t find any resources matching your criteria. Try adjusting your search.
+            </p>
+            <Button onClick={() => window.location.href = "/navigator"} className="mt-4">
+              Start New Search
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Actions */}
       <div className="flex justify-center gap-4">
