@@ -110,7 +110,6 @@ async function importResources(csvPath: string): Promise<ImportSummary> {
         // Address fields (NEW)
         street_address: parseString(row.address) || parseString(row.street_address),
         city: parseString(row.city),
-        state: parseString(row.state),
         zip_code: parseString(row.zip_code),
         county: parseString(row.county),
 
@@ -155,10 +154,7 @@ async function importResources(csvPath: string): Promise<ImportSummary> {
       // Insert into Supabase
       const { error } = await supabase
         .from("resources")
-        .upsert(dbRecord, {
-          onConflict: "facility_id",
-          ignoreDuplicates: false,
-        });
+        .insert(dbRecord);
 
       if (error) {
         summary.errors.push({
