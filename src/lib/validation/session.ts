@@ -113,11 +113,11 @@ export const resourceRecordSchema = z.object({
   audience: z.string(),
   living_situation: z.string().optional(),
   cost: costTypeSchema,
-  contact_phone: z.string().optional(),
-  contact_email: z.string().email().optional(),
-  hours_available: z.string().optional(),
-  affiliate_url: z.string().url().optional(),
-  affiliate_network: z.string().optional(),
+  contact_phone: z.string().optional().or(z.literal("")),
+  contact_email: z.string().email().optional().or(z.literal("")),
+  hours_available: z.string().optional().or(z.literal("")),
+  affiliate_url: z.string().url().optional().or(z.literal("")),
+  affiliate_network: z.string().optional().or(z.literal("")),
   is_sponsored: z
     .enum(["TRUE", "FALSE"] as const)
     .transform((value) => value === "TRUE")
