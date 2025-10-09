@@ -1,0 +1,170 @@
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+const US_STATES = [
+  { value: "AL", label: "Alabama" },
+  { value: "AK", label: "Alaska" },
+  { value: "AZ", label: "Arizona" },
+  { value: "AR", label: "Arkansas" },
+  { value: "CA", label: "California" },
+  { value: "CO", label: "Colorado" },
+  { value: "CT", label: "Connecticut" },
+  { value: "DE", label: "Delaware" },
+  { value: "FL", label: "Florida" },
+  { value: "GA", label: "Georgia" },
+  { value: "HI", label: "Hawaii" },
+  { value: "ID", label: "Idaho" },
+  { value: "IL", label: "Illinois" },
+  { value: "IN", label: "Indiana" },
+  { value: "IA", label: "Iowa" },
+  { value: "KS", label: "Kansas" },
+  { value: "KY", label: "Kentucky" },
+  { value: "LA", label: "Louisiana" },
+  { value: "ME", label: "Maine" },
+  { value: "MD", label: "Maryland" },
+  { value: "MA", label: "Massachusetts" },
+  { value: "MI", label: "Michigan" },
+  { value: "MN", label: "Minnesota" },
+  { value: "MS", label: "Mississippi" },
+  { value: "MO", label: "Missouri" },
+  { value: "MT", label: "Montana" },
+  { value: "NE", label: "Nebraska" },
+  { value: "NV", label: "Nevada" },
+  { value: "NH", label: "New Hampshire" },
+  { value: "NJ", label: "New Jersey" },
+  { value: "NM", label: "New Mexico" },
+  { value: "NY", label: "New York" },
+  { value: "NC", label: "North Carolina" },
+  { value: "ND", label: "North Dakota" },
+  { value: "OH", label: "Ohio" },
+  { value: "OK", label: "Oklahoma" },
+  { value: "OR", label: "Oregon" },
+  { value: "PA", label: "Pennsylvania" },
+  { value: "RI", label: "Rhode Island" },
+  { value: "SC", label: "South Carolina" },
+  { value: "SD", label: "South Dakota" },
+  { value: "TN", label: "Tennessee" },
+  { value: "TX", label: "Texas" },
+  { value: "UT", label: "Utah" },
+  { value: "VT", label: "Vermont" },
+  { value: "VA", label: "Virginia" },
+  { value: "WA", label: "Washington" },
+  { value: "WV", label: "West Virginia" },
+  { value: "WI", label: "Wisconsin" },
+  { value: "WY", label: "Wyoming" },
+];
+
+interface LocationStepProps {
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  onChange: (field: "city" | "state" | "zipCode", value: string) => void;
+  onNext: () => void;
+  onBack: () => void;
+  onSkip?: () => void;
+}
+
+export function LocationStep({
+  city,
+  state,
+  zipCode,
+  onChange,
+  onNext,
+  onBack,
+  onSkip,
+}: LocationStepProps) {
+  const isValid = state || zipCode;
+
+  return (
+    <Card className="w-full max-w-2xl">
+      <CardHeader>
+        <CardTitle>Where does your loved one live?</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          This helps us find local resources, support groups, and services in
+          their area.
+        </p>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-4">
+          <div>
+            <label
+              htmlFor="city"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
+              City (optional)
+            </label>
+            <Input
+              id="city"
+              type="text"
+              placeholder="e.g., Portland"
+              value={city || ""}
+              onChange={(e) => onChange("city", e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="state"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
+              State
+            </label>
+            <select
+              id="state"
+              value={state || ""}
+              onChange={(e) => onChange("state", e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <option value="">Select a state</option>
+              {US_STATES.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="zipCode"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
+              ZIP Code (optional)
+            </label>
+            <Input
+              id="zipCode"
+              type="text"
+              placeholder="e.g., 97201"
+              value={zipCode || ""}
+              onChange={(e) => onChange("zipCode", e.target.value)}
+              pattern="[0-9]{5}"
+              maxLength={5}
+            />
+            <p className="mt-1 text-xs text-muted-foreground">
+              For more precise local resource matching
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between pt-4">
+          <Button variant="ghost" onClick={onBack}>
+            Back
+          </Button>
+          <div className="flex gap-2">
+            {onSkip && (
+              <Button variant="ghost" onClick={onSkip}>
+                Skip
+              </Button>
+            )}
+            <Button onClick={onNext} disabled={!isValid}>
+              Continue
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

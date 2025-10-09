@@ -1,24 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { RelationshipStep } from "@/components/navigator/relationship-step";
+import { ConditionsStep } from "@/components/navigator/conditions-step";
+import { LocationStep } from "@/components/navigator/location-step";
+import { LivingSituationStep } from "@/components/navigator/living-situation-step";
+import { UrgencyStep } from "@/components/navigator/urgency-step";
+import { ReviewStep } from "@/components/navigator/review-step";
 import {
   createInitialNavigatorState,
   getNextStep,
+  getPreviousStep,
+  NAVIGATOR_STEPS,
 } from "@/lib/navigator/state";
-import type { NavigatorRelationshipOption } from "@/types/domain";
+import type {
+  NavigatorRelationshipOption,
+  ResourceCondition,
+  LivingSituation,
+  NavigatorUrgencyFactor,
+} from "@/types/domain";
 
 export default function NavigatorPage() {
+  const router = useRouter();
   const [state, setState] = useState(createInitialNavigatorState());
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleRelationshipChange = (
-    value: NavigatorRelationshipOption["value"]
-  ) => {
-    setState((prev) => ({
-      ...prev,
-      session: { ...prev.session, relationship: value },
-    }));
-  };
+  const currentStepIndex = NAVIGATOR_STEPS.indexOf(state.step);
 
   const handleNext = () => {
     setState((prev) => ({
@@ -28,8 +36,49 @@ export default function NavigatorPage() {
     }));
   };
 
+  const handleBack = () => {
+    setState((prev) => ({
+      ...prev,
+      step: getPreviousStep(prev.step),
+    }));
+  };
+
   const handleSkip = () => {
     handleNext();
+  };
+
+  const handleEdit = (step: string) => {
+    setState((prev) => ({
+      ...prev,
+      step: step as typeof state.step,
+    }));
+  };
+
+  const handleSubmit = async (email?: string) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/match", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session: {
+            ...state.session,
+            email,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to match resources");
+      }
+
+      const data = await response.json();
+      router.push(`/results/${data.sessionId}`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -45,11 +94,11 @@ export default function NavigatorPage() {
 
       {/* Progress indicator */}
       <div className="flex w-full max-w-2xl items-center gap-2">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {NAVIGATOR_STEPS.map((_, i) => (
           <div
             key={i}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              i === 0 ? "bg-primary" : "bg-muted"
+              i <= currentStepIndex ? "bg-primary" : "bg-muted"
             }`}
           />
         ))}
@@ -59,22 +108,91 @@ export default function NavigatorPage() {
       {state.step === "relationship" && (
         <RelationshipStep
           value={state.session.relationship}
-          onChange={handleRelationshipChange}
+          onChange={(value: NavigatorRelationshipOption["value"]) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, relationship: value },
+            }))
+          }
           onNext={handleNext}
           onSkip={handleSkip}
         />
       )}
 
-      {/* TODO: Add remaining steps (conditions, location, living_situation, urgency, review) */}
-      {state.step !== "relationship" && (
-        <div className="rounded-lg border border-dashed border-primary/40 bg-muted/30 p-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            Step &quot;{state.step}&quot; is under construction
-          </p>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Current session: {JSON.stringify(state.session, null, 2)}
-          </p>
-        </div>
+      {/* Step 2: Conditions */}
+      {state.step === "conditions" && (
+        <ConditionsStep
+          value={state.session.conditions}
+          onChange={(value: ResourceCondition[]) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, conditions: value },
+            }))
+          }
+          onNext={handleNext}
+          onBack={handleBack}
+          onSkip={handleSkip}
+        />
+      )}
+
+      {/* Step 3: Location */}
+      {state.step === "location" && (
+        <LocationStep
+          city={state.session.city}
+          state={state.session.state}
+          zipCode={state.session.zipCode}
+          onChange={(field, value) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, [field]: value },
+            }))
+          }
+          onNext={handleNext}
+          onBack={handleBack}
+          onSkip={handleSkip}
+        />
+      )}
+
+      {/* Step 4: Living Situation */}
+      {state.step === "living_situation" && (
+        <LivingSituationStep
+          value={state.session.livingSituation}
+          onChange={(value: LivingSituation) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, livingSituation: value },
+            }))
+          }
+          onNext={handleNext}
+          onBack={handleBack}
+          onSkip={handleSkip}
+        />
+      )}
+
+      {/* Step 5: Urgency */}
+      {state.step === "urgency" && (
+        <UrgencyStep
+          value={state.session.urgencyFactors}
+          onChange={(value: NavigatorUrgencyFactor["value"][]) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, urgencyFactors: value },
+            }))
+          }
+          onNext={handleNext}
+          onBack={handleBack}
+        />
+      )}
+
+      {/* Step 6: Review */}
+      {state.step === "review" && (
+        <ReviewStep
+          session={state.session}
+          onEdit={handleEdit}
+          onSubmit={handleSubmit}
+          onBack={handleBack}
+          isSubmitting={isSubmitting}
+        />
       )}
     </div>
   );
