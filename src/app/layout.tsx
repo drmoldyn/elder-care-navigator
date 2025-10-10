@@ -18,9 +18,61 @@ const merriweather = Merriweather({
 });
 
 export const metadata: Metadata = {
-  title: "Elder Care Navigator",
+  metadataBase: new URL('https://sunsetwell.com'),
+  title: {
+    default: "SunsetWell | Find Senior Care Facilities Near You",
+    template: "%s | SunsetWell"
+  },
   description:
-    "Personalized guidance and trusted resources for families supporting loved ones with dementia from afar.",
+    "Search 75,000+ nursing homes, assisted living facilities, and home health agencies nationwide. Find Medicare & Medicaid accepted senior care with verified CMS data.",
+  keywords: [
+    "senior care",
+    "nursing homes near me",
+    "assisted living facilities",
+    "home health care",
+    "Medicare facilities",
+    "Medicaid facilities",
+    "elder care",
+    "memory care",
+    "skilled nursing",
+    "senior housing"
+  ],
+  authors: [{ name: "SunsetWell" }],
+  creator: "SunsetWell",
+  publisher: "SunsetWell",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://sunsetwell.com",
+    title: "SunsetWell | Find Senior Care Facilities Near You",
+    description: "Search 75,000+ verified senior care facilities. Medicare.gov data updated daily.",
+    siteName: "SunsetWell",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SunsetWell | Find Senior Care Facilities",
+    description: "Search 75,000+ verified senior care facilities near you.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add your verification tokens when available
+    // google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({
