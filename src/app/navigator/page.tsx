@@ -141,6 +141,7 @@ export default function NavigatorPage() {
           city={state.session.city}
           state={state.session.state}
           zipCode={state.session.zipCode}
+          searchRadiusMiles={state.session.searchRadiusMiles}
           onChange={(field, value) =>
             setState((prev) => ({
               ...prev,

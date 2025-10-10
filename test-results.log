@@ -1,0 +1,161 @@
+[dotenv@17.2.3] injecting env (5) from .env.local -- tip: ⚙️  write to custom object with { processEnv: myObject }
+
+🔍 Testing Elder Care Navigator Data Quality
+
+============================================================
+
+📊 Total Facilities: 61,346
+
+🏥 Sample High-Quality Facilities:
+
+   1. MAPLE HEALTHCARE
+      📍 200 S MAPLE STREET
+      ⭐ Quality Rating: 5/5
+      💳 Insurance: Medicare: ✓, Medicaid: ✓, VA: ✗
+      🏷️  Type: nursing_home
+      🛏️  Beds: 70
+
+   2. THE BLOSSOMS AT STAMPS REHAB & NURSING CENTER
+      📍 826 NORTH STREET
+      ⭐ Quality Rating: 5/5
+      💳 Insurance: Medicare: ✓, Medicaid: ✓, VA: ✗
+      🏷️  Type: nursing_home
+      🛏️  Beds: 59
+
+   3. DES ARC NURSING AND REHABILITATION CENTER
+      📍 2216 WEST MAIN STREET
+      ⭐ Quality Rating: 1/5
+      💳 Insurance: Medicare: ✓, Medicaid: ✓, VA: ✗
+      🏷️  Type: nursing_home
+      🛏️  Beds: 98
+
+   4. BELLE VIEW ESTATES REHABILITATION AND CARE CENTER
+      📍 1052 OLD WARREN ROAD
+      ⭐ Quality Rating: 5/5
+      💳 Insurance: Medicare: ✓, Medicaid: ✓, VA: ✗
+      🏷️  Type: nursing_home
+      🛏️  Beds: 80
+
+   5. BAILEY CREEK HEALTH AND REHAB
+      📍 1621 EAST 42ND ST
+      ⭐ Quality Rating: 2/5
+      💳 Insurance: Medicare: ✓, Medicaid: ✓, VA: ✗
+      🏷️  Type: nursing_home
+      🛏️  Beds: 74
+
+============================================================
+
+📂 Facilities by Type:
+
+   Nursing Homes: 16,708
+   Assisted Living: 44,636
+
+💳 Insurance Acceptance:
+
+   Medicare: 61,344 facilities
+   Medicaid: 61,344 facilities
+   VA Benefits: 44,636 facilities
+
+⭐ 4+ Star Rated: 6,262 facilities
+
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+=
+
+🎯 Realistic Search Test:
+
+   Scenario: Medicare + Medicaid, 4+ stars, Nursing Homes
+
+   Found: 6,262 matching facilities
+   Top 5 results:
+
+      1. SOUTH MOUNTAIN HC
+         ⭐ 4/5 | 🛏️ 195 beds | 📍 2385 SPRINGFIELD AVENUE
+
+      2. BARTLEY NURSING & REHAB
+         ⭐ 5/5 | 🛏️ 234 beds | 📍 175 BARTLEY RD
+
+      3. ATRIUM POST ACUTE CARE OF WAYNEVIEW
+         ⭐ 5/5 | 🛏️ 170 beds | 📍 2020 ROUTE 23 NORTH
+
+      4. APPLEWOOD ESTATES
+         ⭐ 4/5 | 🛏️ 60 beds | 📍 ONE APPLEWOOD DRIVE
+
+      5. CRESTWOOD MANOR
+         ⭐ 5/5 | 🛏️ 64 beds | 📍 50 LACEY ROAD
+
+============================================================
+
+✅ Data Completeness:
+
+   Quality Ratings: 27.0%
+   Street Addresses: 99.7%
+   Bed Counts: 89.7%
+
+============================================================
+
+✨ Data Quality Test Complete!
+
+🎉 Summary: 61,346 facilities ready to search
+   - 16,708 nursing homes
+   - 44,636 assisted living facilities
+   - 61,344 accept Medicare
+   - 6,262 rated 4+ stars
+

@@ -61,7 +61,8 @@ interface LocationStepProps {
   city?: string;
   state?: string;
   zipCode?: string;
-  onChange: (field: "city" | "state" | "zipCode", value: string) => void;
+  searchRadiusMiles?: number;
+  onChange: (field: "city" | "state" | "zipCode" | "searchRadiusMiles", value: string | number) => void;
   onNext: () => void;
   onBack: () => void;
   onSkip?: () => void;
@@ -71,6 +72,7 @@ export function LocationStep({
   city,
   state,
   zipCode,
+  searchRadiusMiles = 50,
   onChange,
   onNext,
   onBack,
@@ -147,6 +149,38 @@ export function LocationStep({
               For more precise local resource matching
             </p>
           </div>
+
+          {zipCode && (
+            <div>
+              <label
+                htmlFor="searchRadius"
+                className="mb-2 block text-sm font-medium text-foreground"
+              >
+                Search radius: {searchRadiusMiles} miles
+              </label>
+              <input
+                id="searchRadius"
+                type="range"
+                min="10"
+                max="500"
+                step="10"
+                value={searchRadiusMiles}
+                onChange={(e) => onChange("searchRadiusMiles", parseInt(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+              />
+              <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                <span>10 mi</span>
+                <span>250 mi</span>
+                <span>500 mi</span>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {searchRadiusMiles <= 30 && "Nearby facilities only"}
+                {searchRadiusMiles > 30 && searchRadiusMiles <= 100 && "Within your metro area"}
+                {searchRadiusMiles > 100 && searchRadiusMiles <= 250 && "Regional search - good for rural areas"}
+                {searchRadiusMiles > 250 && "Wide search - covers multiple states"}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between pt-4">

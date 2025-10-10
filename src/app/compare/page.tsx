@@ -1,0 +1,405 @@
+"use client";
+
+import { useComparison } from "@/contexts/comparison-context";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
+
+export default function ComparePage() {
+  const { selectedFacilities, removeFacility, clearAll } = useComparison();
+  const router = useRouter();
+
+  if (selectedFacilities.length === 0) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="mb-4 font-serif text-3xl font-bold">
+            No Facilities Selected
+          </h1>
+          <p className="mb-6 text-gray-600">
+            Select 2-4 facilities from the results page to compare them side by side.
+          </p>
+          <Button onClick={() => router.back()}>
+            Go Back to Results
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const getBestValue = (key: keyof typeof selectedFacilities[0], direction: "low" | "high") => {
+    const values = selectedFacilities.map((f) => f[key]);
+    if (direction === "low") {
+      return Math.min(...values.filter((v) => typeof v === "number") as number[]);
+    }
+    return Math.max(...values.filter((v) => typeof v === "number") as number[]);
+  };
+
+  const bestDistance = selectedFacilities.some((f) => f.distance !== undefined)
+    ? getBestValue("distance", "low")
+    : null;
+  const bestRating = selectedFacilities.some((f) => f.overall_rating !== undefined)
+    ? getBestValue("overall_rating", "high")
+    : null;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="border-b bg-white px-4 py-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="font-serif text-2xl font-bold md:text-3xl">
+                Compare Facilities
+              </h1>
+              <p className="mt-1 text-sm text-gray-600">
+                Side-by-side comparison of {selectedFacilities.length} facilities
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.print()}
+              >
+                Print
+              </Button>
+              <Button variant="outline" size="sm" onClick={clearAll}>
+                Clear All
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => router.back()}>
+                Back
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Comparison Table - Desktop */}
+      <div className="hidden lg:block px-6 py-8">
+        <div className="mx-auto max-w-7xl overflow-x-auto">
+          <table className="w-full border-collapse bg-white shadow-sm">
+            <thead>
+              <tr className="border-b bg-gray-50">
+                <th className="sticky left-0 z-10 bg-gray-50 px-4 py-3 text-left font-semibold">
+                  Feature
+                </th>
+                {selectedFacilities.map((facility) => (
+                  <th key={facility.id} className="border-l px-4 py-3">
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="font-serif text-lg font-semibold">
+                        {facility.title}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFacility(facility.id)}
+                        className="text-xs text-gray-500 hover:text-red-600"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {/* Distance */}
+              <ComparisonRow label="Distance">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                    {facility.distance !== undefined ? (
+                      <span
+                        className={
+                          facility.distance === bestDistance
+                            ? "font-semibold text-green-600"
+                            : ""
+                        }
+                      >
+                        {facility.distance.toFixed(1)} miles
+                        {facility.distance === bestDistance && " ⭐"}
+                      </span>
+                    ) : (
+                      <span className="text-gray-400">N/A</span>
+                    )}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Rating */}
+              <ComparisonRow label="Overall Rating">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                    {facility.overall_rating ? (
+                      <div className="flex flex-col items-center gap-1">
+                        <span
+                          className={
+                            facility.overall_rating === bestRating
+                              ? "font-semibold text-green-600"
+                              : ""
+                          }
+                        >
+                          {"⭐".repeat(Math.round(facility.overall_rating))}
+                          {facility.overall_rating === bestRating && " 🏆"}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {facility.overall_rating}/5
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-gray-400">Not rated</span>
+                    )}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Beds Available */}
+              <ComparisonRow label="Beds Available">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                    {facility.available_beds !== undefined &&
+                    facility.available_beds > 0 ? (
+                      <span className="font-semibold text-green-600">
+                        ✓ {facility.available_beds} bed
+                        {facility.available_beds !== 1 ? "s" : ""}
+                      </span>
+                    ) : (
+                      <span className="text-red-600">Waitlist</span>
+                    )}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Cost */}
+              <ComparisonRow label="Monthly Cost">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                    {facility.cost || <span className="text-gray-400">Contact</span>}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Address */}
+              <ComparisonRow label="Address">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center text-sm">
+                    {facility.address ? (
+                      <div>
+                        <div>{facility.address}</div>
+                        <div className="text-gray-600">
+                          {facility.city}, {facility.state} {facility.zip}
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-gray-400">N/A</span>
+                    )}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Insurance */}
+              <ComparisonRow label="Insurance Accepted">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3">
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {facility.insurance_accepted &&
+                      facility.insurance_accepted.length > 0 ? (
+                        facility.insurance_accepted.map((ins) => (
+                          <Badge key={ins} variant="secondary" className="text-xs">
+                            {ins}
+                          </Badge>
+                        ))
+                      ) : (
+                        <span className="text-gray-400 text-sm">Contact facility</span>
+                      )}
+                    </div>
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Categories */}
+              <ComparisonRow label="Services">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3">
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {facility.category.slice(0, 3).map((cat) => (
+                        <Badge key={cat} variant="outline" className="text-xs">
+                          {cat.replace(/_/g, " ")}
+                        </Badge>
+                      ))}
+                    </div>
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Phone */}
+              <ComparisonRow label="Contact">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                    {facility.contact_phone ? (
+                      <Button size="sm" variant="outline" asChild>
+                        <a href={`tel:${facility.contact_phone}`}>
+                          📞 {facility.contact_phone}
+                        </a>
+                      </Button>
+                    ) : (
+                      <span className="text-gray-400">N/A</span>
+                    )}
+                  </td>
+                ))}
+              </ComparisonRow>
+
+              {/* Actions */}
+              <ComparisonRow label="Actions">
+                {selectedFacilities.map((facility) => (
+                  <td key={facility.id} className="border-l border-t px-4 py-3">
+                    <div className="flex flex-col gap-2">
+                      <Button size="sm" asChild>
+                        <a
+                          href={facility.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View Details
+                        </a>
+                      </Button>
+                      <Button size="sm" variant="outline" asChild>
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                            `${facility.address}, ${facility.city}, ${facility.state} ${facility.zip}`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Directions
+                        </a>
+                      </Button>
+                    </div>
+                  </td>
+                ))}
+              </ComparisonRow>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Mobile View - Cards */}
+      <div className="lg:hidden px-4 py-6 space-y-6">
+        {selectedFacilities.map((facility, index) => (
+          <div key={facility.id} className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h3 className="font-serif text-lg font-semibold">
+                  {index + 1}. {facility.title}
+                </h3>
+                {facility.distance !== undefined && (
+                  <span className="text-sm text-indigo-600 font-semibold">
+                    📍 {facility.distance.toFixed(1)} miles away
+                  </span>
+                )}
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeFacility(facility.id)}
+                className="text-red-600"
+              >
+                Remove
+              </Button>
+            </div>
+
+            <div className="space-y-3">
+              {facility.overall_rating && (
+                <div>
+                  <span className="text-sm font-medium text-gray-600">Rating: </span>
+                  <span>
+                    {"⭐".repeat(Math.round(facility.overall_rating))} (
+                    {facility.overall_rating}/5)
+                  </span>
+                </div>
+              )}
+
+              {facility.available_beds !== undefined && (
+                <div>
+                  <span className="text-sm font-medium text-gray-600">
+                    Beds Available:{" "}
+                  </span>
+                  {facility.available_beds > 0 ? (
+                    <span className="text-green-600 font-semibold">
+                      {facility.available_beds}
+                    </span>
+                  ) : (
+                    <span className="text-red-600">Waitlist</span>
+                  )}
+                </div>
+              )}
+
+              {facility.address && (
+                <div>
+                  <span className="text-sm font-medium text-gray-600">Address: </span>
+                  <span className="text-sm">
+                    {facility.address}, {facility.city}, {facility.state}{" "}
+                    {facility.zip}
+                  </span>
+                </div>
+              )}
+
+              {facility.contact_phone && (
+                <div>
+                  <span className="text-sm font-medium text-gray-600">Phone: </span>
+                  <a
+                    href={`tel:${facility.contact_phone}`}
+                    className="text-sm text-indigo-600"
+                  >
+                    {facility.contact_phone}
+                  </a>
+                </div>
+              )}
+
+              <div className="flex gap-2 pt-2">
+                <Button size="sm" asChild className="flex-1">
+                  <a
+                    href={facility.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Details
+                  </a>
+                </Button>
+                <Button size="sm" variant="outline" asChild className="flex-1">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      `${facility.address}, ${facility.city}, ${facility.state} ${facility.zip}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Directions
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Helper component for table rows
+function ComparisonRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <tr>
+      <td className="sticky left-0 z-10 border-t bg-gray-50 px-4 py-3 font-medium">
+        {label}
+      </td>
+      {children}
+    </tr>
+  );
+}

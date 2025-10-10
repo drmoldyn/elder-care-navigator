@@ -75,6 +75,12 @@ export const sessionContextSchema = z
       .length(2, "Use 2-letter state code")
       .transform((value) => value.toUpperCase())
       .optional(),
+    searchRadiusMiles: z
+      .number()
+      .min(10)
+      .max(500)
+      .default(50)
+      .optional(),
     livingSituation: livingSituationSchema.optional(),
     urgencyLevel: urgencyLevelSchema.optional(),
     urgencyFactors: z

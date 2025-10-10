@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
 import { sessionContextSchema } from "@/lib/validation/session";
-import { rankResources, filterByMinimumScore } from "@/lib/matching/scorer";
+import { matchResourcesSQL } from "@/lib/matching/sql-matcher";
 import { rateLimit } from "@/lib/middleware/rate-limit";
-import type { Resource } from "@/types/domain";
 import type { MatchResponsePayload } from "@/types/api";
 
 export const runtime = "nodejs";
@@ -55,54 +54,10 @@ export async function POST(request: NextRequest) {
 
     const sessionContext = validation.data;
 
-    // 2. Fetch all resources from Supabase
-    const { data: resources, error: fetchError } = await supabaseServer
-      .from("resources")
-      .select("*");
+    // 2. Run SQL-based matching (deterministic, database-driven)
+    const matchedResources = await matchResourcesSQL(sessionContext);
 
-    if (fetchError) {
-      console.error("Failed to fetch resources:", fetchError);
-      return NextResponse.json(
-        { error: "Failed to fetch resources" },
-        { status: 500 }
-      );
-    }
-
-    // 3. Transform snake_case DB fields to camelCase TypeScript
-    const typedResources: Resource[] = (resources || []).map((r) => ({
-      id: r.id,
-      createdAt: r.created_at,
-      updatedAt: r.updated_at,
-      title: r.title,
-      url: r.url,
-      description: r.description,
-      bestFor: r.best_for,
-      category: r.category,
-      conditions: r.conditions,
-      urgencyLevel: r.urgency_level,
-      locationType: r.location_type,
-      states: r.states,
-      requiresZip: r.requires_zip,
-      audience: r.audience,
-      livingSituation: r.living_situation,
-      cost: r.cost,
-      contactPhone: r.contact_phone,
-      contactEmail: r.contact_email,
-      hoursAvailable: r.hours_available,
-      affiliateUrl: r.affiliate_url,
-      affiliateNetwork: r.affiliate_network,
-      isSponsored: r.is_sponsored,
-      sourceAuthority: r.source_authority,
-      lastVerified: r.last_verified,
-      clickCount: r.click_count,
-      upvotes: r.upvotes,
-    }));
-
-    // 4. Run matching algorithm
-    const rankedMatches = rankResources(typedResources, sessionContext);
-    const filteredMatches = filterByMinimumScore(rankedMatches, 20);
-
-    // 5. Create user session record
+    // 3. Create user session record
     const { data: session, error: sessionError } = await supabaseServer
       .from("user_sessions")
       .insert({
@@ -114,7 +69,7 @@ export async function POST(request: NextRequest) {
         living_situation: sessionContext.livingSituation || "long_distance",
         urgency_factors: sessionContext.urgencyFactors,
         email: sessionContext.email,
-        matched_resources: filteredMatches.map((m) => m.resource.id),
+        matched_resources: matchedResources.map((r) => r.id),
       })
       .select("id")
       .single();
@@ -127,13 +82,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 6. Prepare response
+    // 4. Prepare response (simplified - no scoring, just matched resources)
     const response: MatchResponsePayload = {
       sessionId: session.id,
-      resources: filteredMatches.map((m) => ({
-        resourceId: m.resource.id,
-        score: m.score,
-        rank: m.priority,
+      resources: matchedResources.map((r, index) => ({
+        resourceId: r.id,
+        score: 100, // All matches are relevant (no scoring)
+        rank: "recommended" as const, // All are recommended
       })),
       guidance: {
         status: "pending",

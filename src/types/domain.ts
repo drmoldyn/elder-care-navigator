@@ -117,6 +117,7 @@ export interface SessionContext {
   zipCode?: string;
   city?: string;
   state?: string;
+  searchRadiusMiles?: number; // Default: 50 miles
   livingSituation?: LivingSituation;
   urgencyLevel?: UrgencyLevel;
   urgencyFactors: NavigatorUrgencyFactor["value"][];

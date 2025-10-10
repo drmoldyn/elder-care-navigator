@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style 3: Ultra-Minimal (Google-inspired)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #fff;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.375rem;
+            font-weight: 500;
+            color: #202124;
+        }
+        .crisis-link {
+            background: #ea4335;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .crisis-link:hover {
+            background: #d33426;
+            box-shadow: 0 2px 8px rgba(234, 67, 53, 0.3);
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: #5f6368;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        .search-box {
+            background: white;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            padding: 1.25rem 1.5rem;
+            transition: box-shadow 0.2s;
+        }
+        .search-box:hover {
+            box-shadow: 0 2px 8px rgba(32,33,36,.28);
+        }
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+        label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #5f6368;
+            margin-bottom: 0.5rem;
+            padding-left: 0.25rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            border: 1px solid #dfe1e5;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #fff;
+            transition: all 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 1px 6px rgba(26,115,232,.3);
+        }
+        .needs-section {
+            margin-top: 1rem;
+        }
+        .checkbox-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.625rem;
+            margin-top: 0.5rem;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        .checkbox-item label {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #202124;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        .button-group {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.75rem 2.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 3px rgba(0,0,0,.3);
+        }
+        footer {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #5f6368;
+            border-top: 1px solid #e8eaed;
+        }
+        .data-source {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ElderCare Navigator</div>
+        <a href="/urgent-placement" class="crisis-link">🚨 Urgent placement</a>
+    </header>
+
+    <main>
+        <h1>Find elder care facilities</h1>
+        <p class="subtitle">Search nursing homes and assisted living by location and insurance</p>
+
+        <form>
+            <div class="search-box">
+                <div class="input-group">
+                    <label for="zip">Location</label>
+                    <input
+                        type="text"
+                        id="zip"
+                        placeholder="Enter ZIP code"
+                        maxlength="5"
+                        pattern="[0-9]{5}"
+                        autofocus
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="insurance">Insurance</label>
+                    <select id="insurance">
+                        <option value="">Select type</option>
+                        <option value="medicare">Medicare</option>
+                        <option value="medicaid">Medicaid</option>
+                        <option value="va">VA Benefits</option>
+                        <option value="private">Private Insurance</option>
+                        <option value="private-pay">Private Pay</option>
+                    </select>
+                </div>
+
+                <div class="needs-section">
+                    <label>Care needs (optional)</label>
+                    <div class="checkbox-wrapper">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="memory" name="needs" value="memory">
+                            <label for="memory">Memory care</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="medical" name="needs" value="medical">
+                            <label for="medical">Medical care</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="daily" name="needs" value="daily">
+                            <label for="daily">Daily living help</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="companion" name="needs" value="companion">
+                            <label for="companion">Companionship</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <div>Powered by verified CMS Medicare data</div>
+        <div class="data-source">59,389 facilities nationwide</div>
+    </footer>
+</body>
+</html>

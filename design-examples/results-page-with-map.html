@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Elder Care Navigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #1a202c;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4f46e5;
+        }
+        .search-summary {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .modify-search {
+            background: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 73px);
+        }
+
+        /* Filter Sidebar */
+        .filters {
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            overflow-y: auto;
+            height: calc(100vh - 73px);
+            position: sticky;
+            top: 73px;
+        }
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+        .filter-section h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            margin-right: 0.5rem;
+            accent-color: #4f46e5;
+        }
+        .filter-option label {
+            font-size: 0.875rem;
+            color: #374151;
+            cursor: pointer;
+            flex: 1;
+        }
+        .filter-count {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+        .clear-filters {
+            color: #4f46e5;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Results Area */
+        .results-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        /* Results List */
+        .results-list {
+            background: #f9fafb;
+            padding: 1.5rem;
+            overflow-y: auto;
+            height: calc(100vh - 73px);
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .results-count {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a202c;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .view-btn {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .view-btn.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        /* Facility Card */
+        .facility-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .facility-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #4f46e5;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+        }
+        .facility-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.25rem;
+        }
+        .facility-type {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+        }
+        .availability.immediate {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .availability.waitlist {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.625rem;
+            background: #eff6ff;
+            color: #1e40af;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge.rating {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .card-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .info-item {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .info-item strong {
+            color: #374151;
+            font-weight: 500;
+        }
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .btn {
+            flex: 1;
+            padding: 0.625rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+        .btn-secondary {
+            background: white;
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+        }
+        .btn-secondary:hover {
+            background: #f0f9ff;
+        }
+
+        /* Map */
+        .map-container {
+            background: #e5e7eb;
+            position: sticky;
+            top: 73px;
+            height: calc(100vh - 73px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+        .map-placeholder {
+            text-align: center;
+        }
+        .map-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .filters {
+                position: static;
+                height: auto;
+            }
+            .results-area {
+                grid-template-columns: 1fr;
+            }
+            .map-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">ElderCare Navigator</div>
+            <div class="search-summary">
+                Showing results for: <strong>Atlanta, GA 30303</strong> • <strong>Medicare</strong>
+            </div>
+            <a href="/" class="modify-search">Modify Search</a>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1rem; font-weight: 600;">Filters</h2>
+                <a href="#" class="clear-filters">Clear all</a>
+            </div>
+
+            <div class="filter-section">
+                <h3>Availability</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="immediate" checked>
+                    <label for="immediate">Immediate openings</label>
+                    <span class="filter-count">(12)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="waitlist">
+                    <label for="waitlist">Waitlist (2-4 weeks)</label>
+                    <span class="filter-count">(23)</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Distance</h3>
+                <div class="filter-option">
+                    <input type="radio" name="distance" id="5mi" checked>
+                    <label for="5mi">Within 5 miles</label>
+                    <span class="filter-count">(8)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="distance" id="10mi">
+                    <label for="10mi">Within 10 miles</label>
+                    <span class="filter-count">(28)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="distance" id="25mi">
+                    <label for="25mi">Within 25 miles</label>
+                    <span class="filter-count">(47)</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Provider Type</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="nursing" checked>
+                    <label for="nursing">Nursing home</label>
+                    <span class="filter-count">(15)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="assisted" checked>
+                    <label for="assisted">Assisted living</label>
+                    <span class="filter-count">(32)</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Quality Rating</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="5star">
+                    <label for="5star">⭐⭐⭐⭐⭐ 5 stars</label>
+                    <span class="filter-count">(4)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="4star">
+                    <label for="4star">⭐⭐⭐⭐ 4+ stars</label>
+                    <span class="filter-count">(18)</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Near Hospital</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="emory">
+                    <label for="emory">Emory University Hospital</label>
+                    <span class="filter-count">(7)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="piedmont">
+                    <label for="piedmont">Piedmont Hospital</label>
+                    <span class="filter-count">(5)</span>
+                </div>
+            </div>
+        </aside>
+
+        <div class="results-area">
+            <!-- Results List -->
+            <div class="results-list">
+                <div class="results-header">
+                    <div class="results-count">47 facilities found</div>
+                    <div class="view-toggle">
+                        <button class="view-btn active">List</button>
+                        <button class="view-btn">Map</button>
+                    </div>
+                </div>
+
+                <!-- Facility Card 1 -->
+                <div class="facility-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="facility-name">Sunrise Senior Living</div>
+                            <div class="facility-type">Assisted Living • Memory Care</div>
+                        </div>
+                        <div class="availability immediate">
+                            <span>●</span> Available now
+                        </div>
+                    </div>
+
+                    <div class="card-badges">
+                        <span class="badge">✓ Medicare certified</span>
+                        <span class="badge">✓ Medicaid accepted</span>
+                        <span class="badge rating">⭐ 4.5 rating</span>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="info-item">
+                            <strong>Distance:</strong> 2.3 miles
+                        </div>
+                        <div class="info-item">
+                            <strong>Est. cost:</strong> $4,200-5,800/mo
+                        </div>
+                        <div class="info-item">
+                            <strong>Near hospital:</strong> Emory (1.8 mi)
+                        </div>
+                        <div class="info-item">
+                            <strong>Capacity:</strong> 120 beds
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-primary">View Details</button>
+                        <button class="btn btn-secondary">📞 Call Now</button>
+                    </div>
+                </div>
+
+                <!-- Facility Card 2 -->
+                <div class="facility-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="facility-name">Brookdale Buckhead</div>
+                            <div class="facility-type">Assisted Living</div>
+                        </div>
+                        <div class="availability waitlist">
+                            <span>●</span> 2-4 weeks
+                        </div>
+                    </div>
+
+                    <div class="card-badges">
+                        <span class="badge">✓ Medicare certified</span>
+                        <span class="badge rating">⭐ 4.2 rating</span>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="info-item">
+                            <strong>Distance:</strong> 3.7 miles
+                        </div>
+                        <div class="info-item">
+                            <strong>Est. cost:</strong> $3,800-5,200/mo
+                        </div>
+                        <div class="info-item">
+                            <strong>Near hospital:</strong> Piedmont (2.1 mi)
+                        </div>
+                        <div class="info-item">
+                            <strong>Capacity:</strong> 85 beds
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-primary">View Details</button>
+                        <button class="btn btn-secondary">Request Tour</button>
+                    </div>
+                </div>
+
+                <!-- Facility Card 3 -->
+                <div class="facility-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="facility-name">Atria Druid Hills</div>
+                            <div class="facility-type">Assisted Living • Memory Care</div>
+                        </div>
+                        <div class="availability immediate">
+                            <span>●</span> Available now
+                        </div>
+                    </div>
+
+                    <div class="card-badges">
+                        <span class="badge">✓ Medicare certified</span>
+                        <span class="badge">✓ Medicaid accepted</span>
+                        <span class="badge">✓ VA Benefits</span>
+                        <span class="badge rating">⭐ 4.8 rating</span>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="info-item">
+                            <strong>Distance:</strong> 4.2 miles
+                        </div>
+                        <div class="info-item">
+                            <strong>Est. cost:</strong> $5,100-6,500/mo
+                        </div>
+                        <div class="info-item">
+                            <strong>Near hospital:</strong> Emory (0.9 mi)
+                        </div>
+                        <div class="info-item">
+                            <strong>Capacity:</strong> 150 beds
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-primary">View Details</button>
+                        <button class="btn btn-secondary">📞 Call Now</button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 2rem; color: #6b7280;">
+                    <p>Showing 3 of 47 results</p>
+                    <button class="btn btn-secondary" style="margin-top: 1rem; max-width: 200px;">Load More</button>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    <div>Google Maps integration will display here</div>
+                    <div style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Interactive map with facility pins and directions
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

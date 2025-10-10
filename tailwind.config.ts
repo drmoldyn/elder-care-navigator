@@ -12,7 +12,8 @@ const config = {
         // Spacing scale placeholder – adjust when design tokens are defined.
       },
       fontFamily: {
-        // Typography tokens placeholder – map to brand fonts here.
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-merriweather)", "Georgia", "serif"],
       },
       borderRadius: {
         // Radius tokens placeholder – keeps border radii consistent across UI.
