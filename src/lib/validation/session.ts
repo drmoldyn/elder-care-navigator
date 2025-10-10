@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   AUDIENCE_TYPES,
   COST_TYPES,
+  CARE_TYPES,
   LIVING_SITUATIONS,
   LOCATION_TYPES,
   NavigatorStep,
@@ -46,13 +47,17 @@ export const costTypeSchema = enumSchema(
   COST_TYPES as unknown as typeof COST_TYPES & readonly [string, ...string[]]
 );
 
+export const careTypeSchema = enumSchema(
+  CARE_TYPES as unknown as typeof CARE_TYPES & readonly [string, ...string[]]
+);
+
 export const sourceAuthoritySchema = enumSchema(
   SOURCE_AUTHORITIES as unknown as typeof SOURCE_AUTHORITIES &
     readonly [string, ...string[]]
 );
 
 export const navigatorStepSchema = enumSchema(
-  ["relationship", "conditions", "location", "living_situation", "urgency", "review"] as const
+  ["relationship", "conditions", "care_type", "location", "living_situation", "urgency", "review"] as const
 );
 
 export const zipCodeSchema = z
@@ -98,7 +103,9 @@ export const sessionContextSchema = z
       .min(1, "Select at least one urgency factor"),
     careGoals: z.array(z.string().min(2).max(120)).optional(),
     budget: costTypeSchema.optional(),
+    careType: careTypeSchema.optional(),
     email: z.string().email().optional(),
+    emailSubscribed: z.boolean().optional(),
   });
 
 export type SessionContextInput = z.infer<typeof sessionContextSchema>;

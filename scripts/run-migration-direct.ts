@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Run geocoding migration directly via PostgreSQL connection
  * This bypasses the Supabase REST API and connects directly to the database

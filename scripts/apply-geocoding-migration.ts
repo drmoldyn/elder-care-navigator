@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Apply geocoding migration by executing raw SQL via Supabase
  */

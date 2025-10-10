@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,9 @@ import type { SessionContext } from "@/types/domain";
 interface ReviewStepProps {
   session: SessionContext;
   onEdit: (step: string) => void;
-  onSubmit: (email?: string) => void;
+  onSubmit: (email?: string, emailSubscribed?: boolean) => void;
   onBack: () => void;
+  onEmailSubscribedChange: (value: boolean) => void;
   isSubmitting?: boolean;
 }
 
@@ -20,13 +21,29 @@ export function ReviewStep({
   onEdit,
   onSubmit,
   onBack,
+  onEmailSubscribedChange,
   isSubmitting = false,
 }: ReviewStepProps) {
   const [email, setEmail] = useState(session.email || "");
-  const [emailSubscribed, setEmailSubscribed] = useState(false);
+  const [emailSubscribed, setEmailSubscribed] = useState(session.emailSubscribed ?? false);
+
+  useEffect(() => {
+    setEmail(session.email || "");
+  }, [session.email]);
+
+  useEffect(() => {
+    setEmailSubscribed(session.emailSubscribed ?? false);
+  }, [session.emailSubscribed]);
+
+  const careTypeLabelMap: Record<string, string> = {
+    facility: "Care facility",
+    home_services: "Home services",
+    both: "Both facility and home services",
+  };
 
   const handleSubmit = () => {
-    onSubmit(email || undefined);
+    const subscribed = email ? emailSubscribed : false;
+    onSubmit(email || undefined, subscribed);
   };
 
   return (
@@ -77,6 +94,25 @@ export function ReviewStep({
             ))}
           </div>
         </div>
+
+        {/* Care Type */}
+        {session.careType && (
+          <div className="rounded-lg border border-border bg-muted/30 p-4">
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="font-medium">Care Preferences</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onEdit("care_type")}
+              >
+                Edit
+              </Button>
+            </div>
+            <p className="text-sm">
+              {careTypeLabelMap[session.careType] ?? session.careType.replace("_", " ")}
+            </p>
+          </div>
+        )}
 
         {/* Location */}
         {(session.city || session.state || session.zipCode) && (
@@ -153,7 +189,14 @@ export function ReviewStep({
               type="email"
               placeholder="your.email@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                const nextEmail = e.target.value;
+                setEmail(nextEmail);
+                if (!nextEmail) {
+                  setEmailSubscribed(false);
+                  onEmailSubscribedChange(false);
+                }
+              }}
             />
             <p className="mt-1 text-xs text-muted-foreground">
               Get your personalized care plan and resource list via email
@@ -165,7 +208,10 @@ export function ReviewStep({
               <input
                 type="checkbox"
                 checked={emailSubscribed}
-                onChange={(e) => setEmailSubscribed(e.target.checked)}
+                onChange={(e) => {
+                  setEmailSubscribed(e.target.checked);
+                  onEmailSubscribedChange(e.target.checked);
+                }}
                 className="mt-0.5"
               />
               <span className="text-muted-foreground">

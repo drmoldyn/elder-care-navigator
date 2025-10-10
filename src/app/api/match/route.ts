@@ -66,9 +66,11 @@ export async function POST(request: NextRequest) {
         zip_code: sessionContext.zipCode,
         city: sessionContext.city,
         state: sessionContext.state,
+        care_type: sessionContext.careType,
         living_situation: sessionContext.livingSituation || "long_distance",
         urgency_factors: sessionContext.urgencyFactors,
         email: sessionContext.email,
+        email_subscribed: sessionContext.emailSubscribed ?? false,
         matched_resources: matchedResources.map((r) => r.id),
       })
       .select("id")
@@ -85,7 +87,7 @@ export async function POST(request: NextRequest) {
     // 4. Prepare response (simplified - no scoring, just matched resources)
     const response: MatchResponsePayload = {
       sessionId: session.id,
-      resources: matchedResources.map((r, index) => ({
+      resources: matchedResources.map((r) => ({
         resourceId: r.id,
         score: 100, // All matches are relevant (no scoring)
         rank: "recommended" as const, // All are recommended

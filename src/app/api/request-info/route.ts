@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
       timeline,
       facilityId,
       facilityName,
-      timestamp,
     } = body;
 
     // Validate required fields
@@ -40,7 +39,6 @@ export async function POST(request: NextRequest) {
         facility_id: facilityId,
         facility_name: facilityName,
         status: "new",
-        created_at: timestamp,
       })
       .select()
       .single();

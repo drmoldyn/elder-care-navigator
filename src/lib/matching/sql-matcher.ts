@@ -1,6 +1,26 @@
 import type { SessionContext } from "@/types/domain";
 import { supabaseServer } from "@/lib/supabase/server";
 
+export interface ResourceRecord {
+  id?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  quality_rating?: number | null;
+  title?: string;
+  category?: string[];
+  address?: string | null;
+  city?: string | null;
+  state?: string | null;
+  zip?: string | null;
+  insurance_accepted?: string[] | null;
+  available_beds?: number | null;
+  overall_rating?: number | null;
+  service_area_match?: boolean;
+  service_area_zip?: string;
+  distance?: number;
+  [key: string]: unknown;
+}
+
 /**
  * SQL-based matching using database queries
  * No AI, no scoring - just direct filtering based on user criteria
@@ -16,10 +36,43 @@ interface MatchFilters {
   minQualityRating?: number;
 }
 
+type CareScope = "facility" | "home_services" | "both";
+
+export const FACILITY_PROVIDER_TYPES = [
+  "nursing_home",
+  "assisted_living_facility",
+  "skilled_nursing_facility",
+  "memory_care_facility",
+];
+
+export const HOME_SERVICE_PROVIDER_TYPES = [
+  "home_health_agency",
+  "home_health",
+  "home_care_agency",
+  "hospice",
+];
+
+export const FACILITY_CATEGORIES = [
+  "nursing_home",
+  "assisted_living",
+  "memory_care",
+  "skilled_nursing",
+];
+
+export const HOME_SERVICE_CATEGORIES = [
+  "home_health",
+  "home_care",
+  "hospice",
+  "home_services",
+];
+
 /**
  * Build filters from session context
  */
-export function buildFiltersFromSession(session: SessionContext): MatchFilters {
+export function buildFiltersFromSession(
+  session: SessionContext,
+  scope: CareScope = (session.careType ?? "facility") as CareScope
+): MatchFilters {
   const filters: MatchFilters = {};
 
   // Location: Support multiple ZIPs/regions
@@ -34,9 +87,28 @@ export function buildFiltersFromSession(session: SessionContext): MatchFilters {
   // Search radius (default 50 miles)
   filters.searchRadiusMiles = session.searchRadiusMiles || 50;
 
-  // Default to looking for nursing homes and assisted living
-  filters.categories = ["nursing_home", "assisted_living"];
-  filters.providerTypes = ["nursing_home", "assisted_living_facility"];
+  const categories = new Set<string>();
+  const providerTypes = new Set<string>();
+
+  const carePreference = scope;
+
+  if (carePreference === "facility" || carePreference === "both") {
+    FACILITY_CATEGORIES.forEach((category) => categories.add(category));
+    FACILITY_PROVIDER_TYPES.forEach((type) => providerTypes.add(type));
+  }
+
+  if (carePreference === "home_services" || carePreference === "both") {
+    HOME_SERVICE_CATEGORIES.forEach((category) => categories.add(category));
+    HOME_SERVICE_PROVIDER_TYPES.forEach((type) => providerTypes.add(type));
+  }
+
+  if (categories.size > 0) {
+    filters.categories = Array.from(categories);
+  }
+
+  if (providerTypes.size > 0) {
+    filters.providerTypes = Array.from(providerTypes);
+  }
 
   return filters;
 }
@@ -76,71 +148,60 @@ function getProximityZips(zipCode: string, radiusMiles: number = 50): string[] {
   return proximityPrefixes;
 }
 
-/**
- * Main SQL-based matching function
- * Returns ALL matching facilities (no artificial limit)
- */
-export async function matchResourcesSQL(
+async function fetchFacilityResources(
   session: SessionContext
-): Promise<Array<any>> {
-  const filters = buildFiltersFromSession(session);
+): Promise<ResourceRecord[]> {
+  const filters = buildFiltersFromSession(session, "facility");
 
   let query = supabaseServer
-    .from("resources")
+    .from<ResourceRecord>("resources")
     .select("*");
 
-  // Location filter with configurable search radius (default 50 miles)
   if (filters.zipCodes && filters.zipCodes.length > 0) {
     const primaryZip = filters.zipCodes[0];
-    const radiusMiles = filters.searchRadiusMiles || 50; // Default to 50 miles
+    const radiusMiles = filters.searchRadiusMiles || 50;
     const proximityPrefixes = getProximityZips(primaryZip, radiusMiles);
-
-    // Match facilities within proximity
     const zipConditions = proximityPrefixes.map((prefix) => `zip_code.like.${prefix}%`);
     query = query.or(zipConditions.join(","));
   } else if (filters.states && filters.states.length > 0) {
-    // State-level fallback if no ZIP provided
     query = query.contains("states", filters.states);
   }
 
-  // Provider type filter
   if (filters.providerTypes && filters.providerTypes.length > 0) {
     query = query.in("provider_type", filters.providerTypes);
   }
 
-  // Category filter
   if (filters.categories && filters.categories.length > 0) {
     query = query.overlaps("category", filters.categories);
   }
 
-  // Insurance filter (if we add this to form later)
   if (filters.insuranceTypes && filters.insuranceTypes.length > 0) {
-    const insuranceConditions = filters.insuranceTypes.map((type) => {
-      switch (type) {
-        case "medicare":
-          return "medicare_accepted.eq.true";
-        case "medicaid":
-          return "medicaid_accepted.eq.true";
-        case "private":
-          return "private_insurance_accepted.eq.true";
-        case "veterans_affairs":
-          return "veterans_affairs_accepted.eq.true";
-        default:
-          return "";
-      }
-    }).filter(Boolean);
+    const insuranceConditions = filters.insuranceTypes
+      .map((type) => {
+        switch (type) {
+          case "medicare":
+            return "medicare_accepted.eq.true";
+          case "medicaid":
+            return "medicaid_accepted.eq.true";
+          case "private":
+            return "private_insurance_accepted.eq.true";
+          case "veterans_affairs":
+            return "veterans_affairs_accepted.eq.true";
+          default:
+            return "";
+        }
+      })
+      .filter(Boolean);
 
     if (insuranceConditions.length > 0) {
       query = query.or(insuranceConditions.join(","));
     }
   }
 
-  // Quality filter (optional - only show 3+ star facilities)
   if (filters.minQualityRating !== undefined) {
     query = query.gte("quality_rating", filters.minQualityRating);
   }
 
-  // Order by quality rating (best first), then alphabetically
   query = query.order("quality_rating", { ascending: false, nullsFirst: false });
   query = query.order("title", { ascending: true });
 
@@ -151,7 +212,98 @@ export async function matchResourcesSQL(
     throw new Error(`Failed to match resources: ${error.message}`);
   }
 
-  return data || [];
+  return (data ?? []) as ResourceRecord[];
+}
+
+export async function fetchHomeServiceResources(
+  session: SessionContext
+): Promise<ResourceRecord[]> {
+  const zipCode = session.zipCode?.slice(0, 5);
+
+  if (!zipCode) {
+    return [];
+  }
+
+  const { data: serviceAreas, error } = await supabaseServer
+    .from<{ ccn: string | null }>("home_health_service_areas")
+    .select("ccn")
+    .eq("zip_code", zipCode);
+
+  if (error) {
+    console.error("Service area lookup failed:", error);
+    return [];
+  }
+
+  const ccns = Array.from(
+    new Set((serviceAreas ?? []).map((row) => row.ccn).filter((ccn): ccn is string => Boolean(ccn)))
+  );
+
+  if (ccns.length === 0) {
+    return [];
+  }
+
+  const { data: agencies, error: agencyError } = await supabaseServer
+    .from<ResourceRecord>("resources")
+    .select("*")
+    .in("facility_id", ccns)
+    .in("provider_type", HOME_SERVICE_PROVIDER_TYPES);
+
+  if (agencyError) {
+    console.error("Failed to load home service agencies:", agencyError);
+    return [];
+  }
+
+  const unique = new Map<string, ResourceRecord>();
+  (agencies ?? []).forEach((agency) => {
+    const id = String(agency.id ?? "");
+    if (!id) {
+      return;
+    }
+    unique.set(id, {
+      ...agency,
+      service_area_match: true,
+      service_area_zip: zipCode,
+    });
+  });
+
+  return Array.from(unique.values());
+}
+
+/**
+ * Main SQL-based matching function
+ * Returns ALL matching facilities (no artificial limit)
+ */
+export async function matchResourcesSQL(
+  session: SessionContext
+): Promise<ResourceRecord[]> {
+  const carePreference = (session.careType ?? "facility") as CareScope;
+
+  const shouldIncludeFacilities = carePreference === "facility" || carePreference === "both";
+  const shouldIncludeHomeServices = carePreference === "home_services" || carePreference === "both";
+
+  const uniqueResources = new Map<string, ResourceRecord>();
+  const orderedResults: ResourceRecord[] = [];
+
+  const addResource = (resource: ResourceRecord) => {
+    const id = String(resource.id ?? "");
+    if (!id || uniqueResources.has(id)) {
+      return;
+    }
+    uniqueResources.set(id, resource);
+    orderedResults.push(resource);
+  };
+
+  if (shouldIncludeFacilities) {
+    const facilityResources = await fetchFacilityResources(session);
+    facilityResources.forEach(addResource);
+  }
+
+  if (shouldIncludeHomeServices) {
+    const homeServices = await fetchHomeServiceResources(session);
+    homeServices.forEach(addResource);
+  }
+
+  return orderedResults;
 }
 
 /**
@@ -160,7 +312,7 @@ export async function matchResourcesSQL(
 export async function matchResourcesMultipleLocations(
   session: SessionContext,
   additionalZips: string[]
-): Promise<Array<any>> {
+): Promise<ResourceRecord[]> {
   // Combine primary ZIP with additional ZIPs
   const allZips = [
     ...(session.zipCode ? [session.zipCode] : []),
@@ -176,11 +328,15 @@ export async function matchResourcesMultipleLocations(
   );
 
   // Deduplicate by facility_id
-  const uniqueMatches = new Map();
+  const uniqueMatches = new Map<string, ResourceRecord>();
   for (const matches of allMatches) {
     for (const match of matches) {
-      if (!uniqueMatches.has(match.id)) {
-        uniqueMatches.set(match.id, match);
+      const resourceId = String(match.id ?? "");
+      if (!resourceId) {
+        continue;
+      }
+      if (!uniqueMatches.has(resourceId)) {
+        uniqueMatches.set(resourceId, match);
       }
     }
   }

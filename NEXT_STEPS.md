@@ -26,7 +26,7 @@
 # In Supabase Dashboard:
 # 1. Database → Extensions → Enable "postgis"
 # 2. SQL Editor → New Query
-# 3. Copy/paste content from: supabase/migrations/0002_add_geolocation_and_medical_systems.sql
+# 3. Copy/paste content from: supabase/migrations/0003_add_geolocation_and_medical_systems.sql
 # 4. Run migration
 ```
 
@@ -423,7 +423,7 @@ pnpm tsx scripts/import-resources-enhanced.ts data/assisted-living.csv
 ### Database Operations
 ```bash
 # Apply migration (Supabase SQL Editor)
-# Copy: supabase/migrations/0002_add_geolocation_and_medical_systems.sql
+# Copy: supabase/migrations/0003_add_geolocation_and_medical_systems.sql
 
 # Download CMS data
 ./scripts/download-cms-data.sh

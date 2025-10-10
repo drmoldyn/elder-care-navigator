@@ -437,7 +437,7 @@ With network effects and B2B data licensing.
 
 1. **Apply Database Migration**
    - Enable PostGIS in Supabase
-   - Run `0002_add_geolocation_and_medical_systems.sql`
+   - Run `0003_add_geolocation_and_medical_systems.sql`
 
 2. **Import Initial Data**
    - Run `download-cms-data.sh` (get 38,000 facilities)

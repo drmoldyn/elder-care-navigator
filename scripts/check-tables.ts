@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Quick check to see if database tables exist
  */

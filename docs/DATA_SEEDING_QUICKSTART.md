@@ -30,7 +30,7 @@ Open Supabase SQL Editor and run:
 
 ```bash
 # Copy content from:
-supabase/migrations/0002_add_geolocation_and_medical_systems.sql
+supabase/migrations/0003_add_geolocation_and_medical_systems.sql
 ```
 
 This adds:
@@ -169,7 +169,7 @@ ORDER BY quality_rating DESC;
 ## Troubleshooting
 
 **Q: Import fails with "column does not exist"**
-A: Make sure you ran migration `0002_add_geolocation_and_medical_systems.sql`
+A: Make sure you ran migration `0003_add_geolocation_and_medical_systems.sql`
 
 **Q: Geocoding is too slow**
 A: Use Option A to import without coordinates first. Geocode in background.

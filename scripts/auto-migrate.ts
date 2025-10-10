@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Automated migration using Supabase connection info
  * This script will guide you through getting the DB password if needed

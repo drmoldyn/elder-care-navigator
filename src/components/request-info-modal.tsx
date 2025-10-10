@@ -48,7 +48,6 @@ export function RequestInfoModal({
           ...formData,
           facilityId,
           facilityName,
-          timestamp: new Date().toISOString(),
         }),
       });
 

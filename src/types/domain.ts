@@ -48,6 +48,14 @@ export const LIVING_SITUATIONS = [
 
 export type LivingSituation = (typeof LIVING_SITUATIONS)[number];
 
+export const CARE_TYPES = [
+  "facility",
+  "home_services",
+  "both",
+] as const;
+
+export type CareType = (typeof CARE_TYPES)[number];
+
 export const COST_TYPES = [
   "free",
   "paid",
@@ -123,6 +131,9 @@ export interface SessionContext {
   urgencyFactors: NavigatorUrgencyFactor["value"][];
   careGoals?: string[];
   budget?: CostType;
+  careType?: CareType;
+  email?: string;
+  emailSubscribed?: boolean;
 }
 
 export interface UserSession {
@@ -133,6 +144,7 @@ export interface UserSession {
   zipCode?: string;
   city?: string;
   state?: string;
+  careType?: CareType;
   livingSituation: LivingSituation;
   urgencyFactors: NavigatorUrgencyFactor["value"][];
   email?: string;
@@ -167,6 +179,7 @@ export interface GuidanceJobMetadata {
 export const MATCH_STEPS = [
   "relationship",
   "conditions",
+  "care_type",
   "location",
   "living_situation",
   "urgency",

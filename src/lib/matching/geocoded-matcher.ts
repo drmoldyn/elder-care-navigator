@@ -1,11 +1,12 @@
 import type { SessionContext } from "@/types/domain";
 import { supabaseServer } from "@/lib/supabase/server";
 import { calculateDistance, getBoundingBox, type Coordinates } from "@/lib/utils/distance";
-
-/**
- * Geocode-based matching using precise lat/lng coordinates
- * Much more accurate than ZIP code prefix approximation
- */
+import {
+  FACILITY_CATEGORIES,
+  FACILITY_PROVIDER_TYPES,
+  fetchHomeServiceResources,
+  type ResourceRecord,
+} from "./sql-matcher";
 
 interface MatchFilters {
   location?: Coordinates;
@@ -16,15 +17,11 @@ interface MatchFilters {
   minQualityRating?: number;
 }
 
-/**
- * Geocode a ZIP code to get lat/lng
- * Uses Google Geocoding API
- */
 async function geocodeZipCode(zipCode: string): Promise<Coordinates | null> {
   const apiKey = process.env.GOOGLE_GEOCODING_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   if (!apiKey) {
-    console.warn('Google Geocoding API key not configured. Falling back to ZIP prefix matching.');
+    console.warn("Google Geocoding API key not configured. Falling back to ZIP prefix matching.");
     return null;
   }
 
@@ -33,7 +30,7 @@ async function geocodeZipCode(zipCode: string): Promise<Coordinates | null> {
     const response = await fetch(url);
     const data = await response.json();
 
-    if (data.status === 'OK' && data.results.length > 0) {
+    if (data.status === "OK" && data.results.length > 0) {
       const location = data.results[0].geometry.location;
       return {
         latitude: location.lat,
@@ -41,97 +38,93 @@ async function geocodeZipCode(zipCode: string): Promise<Coordinates | null> {
       };
     }
   } catch (error) {
-    console.error('Geocoding error:', error);
+    console.error("Geocoding error:", error);
   }
 
   return null;
 }
 
-/**
- * Build filters from session context
- */
-export async function buildFiltersFromSession(session: SessionContext): Promise<MatchFilters> {
+async function buildFacilityFiltersFromSession(session: SessionContext): Promise<MatchFilters> {
   const filters: MatchFilters = {};
 
-  // Geocode the user's ZIP code
   if (session.zipCode) {
     filters.location = await geocodeZipCode(session.zipCode);
   }
 
-  // Search radius (default 50 miles)
   filters.searchRadiusMiles = session.searchRadiusMiles || 50;
-
-  // Default to looking for nursing homes and assisted living
-  filters.categories = ["nursing_home", "assisted_living"];
-  filters.providerTypes = ["nursing_home", "assisted_living_facility"];
+  filters.categories = [...FACILITY_CATEGORIES];
+  filters.providerTypes = [...FACILITY_PROVIDER_TYPES];
 
   return filters;
 }
 
-/**
- * Main geocoded matching function
- * Returns facilities sorted by distance from user's location
- */
 export async function matchResourcesGeocoded(
   session: SessionContext
-): Promise<Array<any>> {
-  const filters = await buildFiltersFromSession(session);
+): Promise<ResourceRecord[]> {
+  const carePreference = session.careType ?? "facility";
+  const includeFacilities = carePreference === "facility" || carePreference === "both";
+  const includeHomeServices = carePreference === "home_services" || carePreference === "both";
 
-  // If we couldn't geocode the ZIP, fall back to SQL matcher
+  if (!includeFacilities) {
+    if (!includeHomeServices) {
+      return [];
+    }
+
+    return fetchHomeServiceResources(session);
+  }
+
+  const filters = await buildFacilityFiltersFromSession(session);
+
   if (!filters.location) {
-    console.warn('No location found, using fallback matching');
-    // Import and use the original SQL matcher as fallback
-    const { matchResourcesSQL } = await import('./sql-matcher');
+    console.warn("No location found, using fallback matching");
+    const { matchResourcesSQL } = await import("./sql-matcher");
     return matchResourcesSQL(session);
   }
 
   let query = supabaseServer
-    .from("resources")
+    .from<ResourceRecord>("resources")
     .select("*")
-    .not('latitude', 'is', null)
-    .not('longitude', 'is', null);
+    .not("latitude", "is", null)
+    .not("longitude", "is", null);
 
-  // Use bounding box to pre-filter results (optimization)
   const bbox = getBoundingBox(filters.location, filters.searchRadiusMiles || 50);
   query = query
-    .gte('latitude', bbox.minLat)
-    .lte('latitude', bbox.maxLat)
-    .gte('longitude', bbox.minLng)
-    .lte('longitude', bbox.maxLng);
+    .gte("latitude", bbox.minLat)
+    .lte("latitude", bbox.maxLat)
+    .gte("longitude", bbox.minLng)
+    .lte("longitude", bbox.maxLng);
 
-  // Provider type filter
   if (filters.providerTypes && filters.providerTypes.length > 0) {
     query = query.in("provider_type", filters.providerTypes);
   }
 
-  // Category filter
   if (filters.categories && filters.categories.length > 0) {
     query = query.overlaps("category", filters.categories);
   }
 
-  // Insurance filter
   if (filters.insuranceTypes && filters.insuranceTypes.length > 0) {
-    const insuranceConditions = filters.insuranceTypes.map((type) => {
-      switch (type) {
-        case "medicare":
-          return "medicare_accepted.eq.true";
-        case "medicaid":
-          return "medicaid_accepted.eq.true";
-        case "private":
-          return "private_insurance_accepted.eq.true";
-        case "veterans_affairs":
-          return "veterans_affairs_accepted.eq.true";
-        default:
-          return "";
-      }
-    }).filter(Boolean);
+    const insuranceConditions = filters.insuranceTypes
+      .map((type) => {
+        switch (type) {
+          case "medicare":
+            return "medicare_accepted.eq.true";
+          case "medicaid":
+            return "medicaid_accepted.eq.true";
+          case "private":
+            return "private_insurance_accepted.eq.true";
+          case "veterans_affairs":
+            return "veterans_affairs_accepted.eq.true";
+          default:
+            return "";
+        }
+      })
+      .filter(Boolean);
 
     if (insuranceConditions.length > 0) {
       query = query.or(insuranceConditions.join(","));
     }
   }
 
-  // Quality filter
   if (filters.minQualityRating !== undefined) {
     query = query.gte("quality_rating", filters.minQualityRating);
   }
@@ -143,59 +136,77 @@ export async function matchResourcesGeocoded(
     throw new Error(`Failed to match resources: ${error.message}`);
   }
 
-  if (!data || data.length === 0) {
-    return [];
-  }
+  const resourceRows = (data ?? []) as ResourceRecord[];
+  const uniqueResources = new Map<string, ResourceRecord>();
+  const orderedResults: ResourceRecord[] = [];
 
-  // Calculate precise distances and filter by radius
-  const facilitiesWithDistance = data
+  const addResource = (resource: ResourceRecord) => {
+    const id = String(resource.id ?? "");
+    if (!id || uniqueResources.has(id)) {
+      return;
+    }
+    uniqueResources.set(id, resource);
+    orderedResults.push(resource);
+  };
+
+  resourceRows
     .map((facility) => {
+      const latitude = typeof facility.latitude === "number" ? facility.latitude : Number(facility.latitude ?? Number.NaN);
+      const longitude = typeof facility.longitude === "number" ? facility.longitude : Number(facility.longitude ?? Number.NaN);
+
+      if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+        return null;
+      }
+
       const distance = calculateDistance(filters.location!, {
-        latitude: facility.latitude,
-        longitude: facility.longitude,
+        latitude,
+        longitude,
       });
 
       return {
         ...facility,
         distance,
-      };
+      } as ResourceRecord;
     })
-    .filter((facility) => facility.distance <= (filters.searchRadiusMiles || 50))
+    .filter((facility): facility is ResourceRecord & { distance: number } => {
+      return Boolean(facility) && typeof facility.distance === "number";
+    })
     .sort((a, b) => {
-      // Sort by distance first, then by quality rating
       if (a.distance !== b.distance) {
         return a.distance - b.distance;
       }
-      // Higher quality rating first (nulls last)
-      const aRating = a.quality_rating || 0;
-      const bRating = b.quality_rating || 0;
+      const aRating = typeof a.quality_rating === "number" ? a.quality_rating : 0;
+      const bRating = typeof b.quality_rating === "number" ? b.quality_rating : 0;
       return bRating - aRating;
-    });
+    })
+    .forEach(addResource);
 
-  return facilitiesWithDistance;
+  if (includeHomeServices) {
+    const homeServices = await fetchHomeServiceResources(session);
+    homeServices.forEach(addResource);
+  }
+
+  return orderedResults;
 }
 
-/**
- * Get statistics about geocoded facilities
- */
 export async function getGeocodingStats(): Promise<{
   total: number;
   geocoded: number;
   percentage: number;
 }> {
   const { count: total } = await supabaseServer
-    .from('resources')
-    .select('*', { count: 'exact', head: true });
+    .from("resources")
+    .select("*", { count: "exact", head: true });
 
   const { count: geocoded } = await supabaseServer
-    .from('resources')
-    .select('*', { count: 'exact', head: true })
-    .not('latitude', 'is', null)
-    .not('longitude', 'is', null);
+    .from("resources")
+    .select("*", { count: "exact", head: true })
+    .not("latitude", "is", null)
+    .not("longitude", "is", null);
 
   return {
     total: total || 0,
     geocoded: geocoded || 0,
-    percentage: total ? Math.round((geocoded! / total) * 100) : 0,
+    percentage: total ? Math.round(((geocoded ?? 0) / total) * 100) : 0,
   };
 }

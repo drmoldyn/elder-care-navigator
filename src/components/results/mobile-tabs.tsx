@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type TabType = "list" | "map" | "filters";
 
 interface MobileTabsProps {

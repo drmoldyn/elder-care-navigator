@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { RequestInfoModal } from "@/components/request-info-modal";
 import { ComparisonProvider, useComparison } from "@/contexts/comparison-context";
 import { ComparisonBar } from "@/components/comparison/comparison-bar";
 import type { GuidancePollResponse } from "@/types/api";
+import { FacilityMap, type MapResource } from "@/components/map/facility-map";
 
 type MobileTab = "list" | "map" | "filters";
 
@@ -36,7 +37,26 @@ interface Resource {
   available_beds?: number;
   overall_rating?: number;
   distance?: number; // Distance in miles from user's location
+  latitude?: number | null;
+  longitude?: number | null;
+  provider_type?: string;
+  service_area_match?: boolean;
+  service_area_zip?: string;
 }
+
+const FACILITY_PROVIDER_TYPES = new Set([
+  "nursing_home",
+  "assisted_living_facility",
+  "skilled_nursing_facility",
+  "memory_care_facility",
+]);
+
+const HOME_SERVICE_PROVIDER_TYPES = new Set([
+  "home_health_agency",
+  "home_health",
+  "home_care_agency",
+  "hospice",
+]);
 
 function ResultsPageContent() {
   const params = useParams();
@@ -46,7 +66,12 @@ function ResultsPageContent() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [guidance, setGuidance] = useState<GuidancePollResponse | null>(null);
+  const [guidanceLoading, setGuidanceLoading] = useState(true);
+  const [guidanceError, setGuidanceError] = useState<string | null>(null);
+  const [guidanceExpanded, setGuidanceExpanded] = useState(true);
+  const [guidanceRequestVersion, setGuidanceRequestVersion] = useState(0);
   const [resources, setResources] = useState<Resource[]>([]);
+  const [sessionDetails, setSessionDetails] = useState<{ care_type?: string; zip_code?: string; state?: string } | null>(null);
   const [mobileTab, setMobileTab] = useState<MobileTab>("list");
   const [filterCount] = useState(0); // Will be dynamic when filters are implemented
   const [requestInfoModal, setRequestInfoModal] = useState<{
@@ -54,62 +79,154 @@ function ResultsPageContent() {
     facilityName: string;
     facilityId: string;
   }>({ isOpen: false, facilityName: "", facilityId: "" });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const viewParam = searchParams.get("view");
+  const activeView: "list" | "map" = viewParam === "map" ? "map" : "list";
+
+  const handleGuidanceRetry = () => {
+    setGuidanceRequestVersion((prev) => prev + 1);
+  };
 
   useEffect(() => {
-    loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (typeof window !== "undefined" && sessionId) {
+      window.localStorage.setItem("sunsetwell:lastSessionId", sessionId);
+    }
   }, [sessionId]);
 
-  const loadData = async () => {
-    try {
-      // Fetch session and matched resources
-      const sessionRes = await fetch(`/api/sessions/${sessionId}`);
-      if (!sessionRes.ok) throw new Error("Failed to load session");
+  useEffect(() => {
+    if (mobileTab === "filters") {
+      return;
+    }
+    if (mobileTab !== activeView) {
+      setMobileTab(activeView);
+    }
+  }, [activeView, mobileTab]);
 
-      const sessionData = await sessionRes.json();
-      const resourceData = sessionData.resources || [];
+  const setViewParam = (nextView: "list" | "map") => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    if (nextView === "list") {
+      nextParams.delete("view");
+    } else {
+      nextParams.set("view", "map");
+    }
 
-      // Sort by distance if available, otherwise keep original order
-      const sortedResources = resourceData.sort((a: Resource, b: Resource) => {
-        // If both have distances, sort by distance (closest first)
-        if (a.distance !== undefined && b.distance !== undefined) {
-          return a.distance - b.distance;
+    const queryString = nextParams.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  };
+
+  const handleMobileTabChange = (tab: MobileTab) => {
+    if (tab === "filters") {
+      setMobileTab(tab);
+      return;
+    }
+    setViewParam(tab);
+  };
+  useEffect(() => {
+    let isActive = true;
+
+    const fetchResources = async () => {
+      setLoading(true);
+      setError(null);
+      setResources([]);
+
+      try {
+        const sessionRes = await fetch(`/api/sessions/${sessionId}`);
+        if (!sessionRes.ok) throw new Error("Failed to load session");
+
+        const sessionData = await sessionRes.json();
+        const resourceData: Resource[] = sessionData.resources || [];
+
+        if (!isActive) {
+          return;
         }
-        // If only one has distance, prioritize it
-        if (a.distance !== undefined) return -1;
-        if (b.distance !== undefined) return 1;
-        // Otherwise maintain original order
-        return 0;
-      });
 
-      setResources(sortedResources);
+        setSessionDetails(sessionData.session ?? null);
 
-      // Also poll guidance
-      pollGuidance();
-    } catch {
-      setError("Failed to load your personalized plan");
-      setLoading(false);
-    }
-  };
+        const sortedResources = [...resourceData].sort((a: Resource, b: Resource) => {
+          if (a.distance !== undefined && b.distance !== undefined) {
+            return a.distance - b.distance;
+          }
+          if (a.distance !== undefined) return -1;
+          if (b.distance !== undefined) return 1;
+          return 0;
+        });
 
-  const pollGuidance = async () => {
-    try {
-      const response = await fetch(`/api/guidance/${sessionId}`);
-      if (!response.ok) throw new Error("Failed to load guidance");
-
-      const data: GuidancePollResponse = await response.json();
-      setGuidance(data);
-      setLoading(false);
-
-      // Keep polling if still pending
-      if (data.status === "pending") {
-        setTimeout(pollGuidance, 2000);
+        setResources(sortedResources);
+      } catch {
+        if (!isActive) {
+          return;
+        }
+        setError("Failed to load your personalized plan");
+      } finally {
+        if (!isActive) {
+          return;
+        }
+        setLoading(false);
       }
-    } catch {
-      // Don't set error here, just stop polling
-      setLoading(false);
+    };
+
+    fetchResources();
+
+    return () => {
+      isActive = false;
+    };
+  }, [sessionId]);
+
+  useEffect(() => {
+    let isCancelled = false;
+    let retryTimeout: ReturnType<typeof setTimeout> | undefined;
+    let firstAttempt = true;
+
+    const fetchGuidance = async () => {
+      try {
+        if (firstAttempt) {
+          setGuidanceLoading(true);
+          firstAttempt = false;
+        }
+
+        const response = await fetch(`/api/guidance/${sessionId}`);
+        if (!response.ok) {
+          throw new Error("Failed to load guidance");
+        }
+
+        const data: GuidancePollResponse = await response.json();
+        if (isCancelled) {
+          return;
+        }
+
+        setGuidance(data);
+        setGuidanceError(null);
+        setGuidanceLoading(false);
+
+        if (data.status === "pending") {
+          retryTimeout = setTimeout(fetchGuidance, 2000);
+        }
+      } catch {
+        if (isCancelled) {
+          return;
+        }
+        setGuidanceError("We couldn't load your personalized plan right now.");
+        setGuidanceLoading(false);
+      }
+    };
+
+    if (sessionId) {
+      setGuidance(null);
+      setGuidanceError(null);
+      setGuidanceExpanded(true);
+      firstAttempt = true;
+      fetchGuidance();
     }
-  };
+
+    return () => {
+      isCancelled = true;
+      if (retryTimeout) {
+        clearTimeout(retryTimeout);
+      }
+    };
+  }, [sessionId, guidanceRequestVersion]);
 
   if (loading) {
     return (
@@ -145,34 +262,250 @@ function ResultsPageContent() {
     );
   }
 
+  const facilityResources = resources.filter((resource) =>
+    resource.provider_type ? FACILITY_PROVIDER_TYPES.has(resource.provider_type) : true
+  );
+
+  const homeServiceResources = resources
+    .filter((resource) => resource.provider_type && HOME_SERVICE_PROVIDER_TYPES.has(resource.provider_type))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  const facilityCount = facilityResources.length;
+  const homeServiceCount = homeServiceResources.length;
+  const totalCount = facilityCount + homeServiceCount;
+  const resultsHeading = homeServiceCount > 0
+    ? facilityCount > 0
+      ? "Care Options Near You"
+      : "Home Services Available in Your Area"
+    : "Care Facilities Near You";
+  const anyDistance = facilityResources.some((resource) => typeof resource.distance === "number");
+  const userZip = sessionDetails?.zip_code;
+
+  const renderResourceCard = (resource: Resource, isHomeService: boolean) => {
+    const isSelectedResource = isSelected(resource.id);
+
+    return (
+      <div key={resource.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start pt-1">
+            <input
+              type="checkbox"
+              checked={isSelectedResource}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  if (selectedFacilities.length >= maxSelection) {
+                    alert(`You can only compare up to ${maxSelection} facilities at once`);
+                    return;
+                  }
+                  addFacility(resource);
+                } else {
+                  removeFacility(resource.id);
+                }
+              }}
+              className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+              title="Add to comparison"
+            />
+          </div>
+
+          <div className="flex-1">
+            <div className="flex items-start gap-3">
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg">{resource.title}</h3>
+
+                {!isHomeService && resource.distance !== undefined && (
+                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
+                    <span className="text-base">📍</span>
+                    {resource.distance.toFixed(1)} miles away
+                  </div>
+                )}
+
+                {isHomeService && (
+                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
+                    <span className="text-base">🏠</span>
+                    {userZip ? `Serves ZIP ${userZip}` : "Serves your area"}
+                  </div>
+                )}
+
+                {resource.address && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    {resource.address}, {resource.city}, {resource.state} {resource.zip}
+                  </p>
+                )}
+              </div>
+              {resource.overall_rating && (
+                <div className="text-right">
+                  <div className="font-semibold text-indigo-600">
+                    {"⭐".repeat(Math.round(resource.overall_rating))}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {resource.overall_rating}/5
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {resource.category.slice(0, 2).map((cat) => (
+                <Badge key={cat} variant="secondary" className="text-xs">
+                  {cat.replace(/_/g, " ")}
+                </Badge>
+              ))}
+              {resource.insurance_accepted && resource.insurance_accepted.length > 0 && (
+                <Badge variant="outline" className="text-xs">
+                  {resource.insurance_accepted[0]}
+                </Badge>
+              )}
+            </div>
+
+            {resource.available_beds !== undefined && resource.available_beds > 0 && (
+              <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
+                ✓ {resource.available_beds} bed{resource.available_beds !== 1 ? "s" : ""} available
+              </div>
+            )}
+
+            <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <Button
+                size="sm"
+                className="flex-1 sm:flex-none"
+                onClick={() => setRequestInfoModal({
+                  isOpen: true,
+                  facilityName: resource.title,
+                  facilityId: resource.id,
+                })}
+              >
+                📧 Request Info
+              </Button>
+              {resource.contact_phone && (
+                <Button size="sm" variant="outline" className="flex-1 sm:flex-none" asChild>
+                  <a href={`tel:${resource.contact_phone}`}>
+                    📞 Call Now
+                  </a>
+                </Button>
+              )}
+              {resource.address && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex-1 sm:flex-none"
+                  onClick={() => {
+                    const address = `${resource.address}, ${resource.city}, ${resource.state} ${resource.zip}`;
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, "_blank");
+                  }}
+                >
+                  📍 Directions
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex h-screen flex-col">
       {/* Header */}
       <div className="border-b bg-white px-4 md:px-6 py-4">
         <div className="mx-auto max-w-7xl">
           <h1 className="font-serif text-xl md:text-2xl font-bold">
-            Care Facilities Near You
+            {resultsHeading}
           </h1>
           <p className="mt-1 text-sm text-gray-600">
-            {resources.length.toLocaleString()} facilities found
-            {resources.some(r => r.distance !== undefined) && (
+            {totalCount.toLocaleString()} match{totalCount === 1 ? "" : "es"}
+            {anyDistance && facilityCount > 0 && (
               <span className="ml-2 text-indigo-600 font-medium">• Sorted by distance</span>
+            )}
+            {homeServiceCount > 0 && (
+              <span className="ml-2 text-indigo-600 font-medium">
+                • {homeServiceCount.toLocaleString()} home service{homeServiceCount === 1 ? "" : "s"}
+                {userZip ? ` serving ZIP ${userZip}` : " serving your area"}
+              </span>
             )}
           </p>
         </div>
       </div>
 
+      {/* Guidance Section */}
+      {(guidanceLoading || guidance || guidanceError) && (
+        <div className="border-b border-indigo-100 bg-indigo-50/70">
+          <div className="mx-auto max-w-7xl px-4 py-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-indigo-800">
+                  Personalized recommendations
+                </p>
+                {guidanceLoading && !guidanceError && (
+                  <p className="mt-1 text-sm text-indigo-700">
+                    <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-indigo-400 border-t-transparent align-middle"></span>
+                    We&apos;re preparing a care plan tailored to your answers…
+                  </p>
+                )}
+                {guidanceError && (
+                  <p className="mt-1 text-sm text-red-700">
+                    {guidanceError}
+                  </p>
+                )}
+                {!guidanceLoading && !guidanceError && guidance && guidance.status === "pending" && (
+                  <p className="mt-1 text-sm text-indigo-700">
+                    Nearly there—your personalized care plan is being generated.
+                  </p>
+                )}
+                {!guidanceLoading && !guidanceError && guidance && guidance.status === "complete" && (
+                  <p className="mt-1 text-sm text-indigo-700">
+                    Your personalized care plan is ready.
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {guidance && guidance.status === "complete" && guidance.guidance && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-indigo-700 hover:text-indigo-900"
+                    onClick={() => setGuidanceExpanded((prev) => !prev)}
+                  >
+                    {guidanceExpanded ? "Hide" : "Show"} plan
+                  </Button>
+                )}
+                {guidanceError && (
+                  <Button size="sm" variant="outline" onClick={handleGuidanceRetry}>
+                    Try again
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            {!guidanceLoading && !guidanceError && guidance && guidance.status === "complete" && guidance.guidance && guidanceExpanded && (
+              <div className="mt-4 rounded-lg border border-indigo-200 bg-white p-4 text-sm leading-relaxed text-slate-800 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-indigo-900">Care plan overview</p>
+                  {guidance.fallback && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                      Using fallback guidance
+                    </span>
+                  )}
+                </div>
+                <div className="mt-2 whitespace-pre-wrap text-slate-700">
+                  {guidance.guidance}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Tabs (only on mobile) */}
       <MobileTabs
         activeTab={mobileTab}
-        onTabChange={setMobileTab}
+        onTabChange={handleMobileTabChange}
         filterCount={filterCount}
       />
 
       {/* Mobile Filter Modal */}
       <MobileFilterModal
         isOpen={mobileTab === "filters"}
-        onClose={() => setMobileTab("list")}
+        onClose={() => setMobileTab(activeView)}
         resultCount={resources.length}
       />
 
@@ -235,10 +568,10 @@ function ResultsPageContent() {
         {/* Middle: Facility List (show on desktop or when list tab active on mobile) */}
         <div className={`flex-1 overflow-y-auto bg-white ${mobileTab !== "list" ? "hidden lg:block" : ""}`}>
           <div className="divide-y">
-            {resources.length === 0 && !loading && (
+            {totalCount === 0 && !loading && (
               <div className="p-8 text-center">
                 <p className="text-gray-600">
-                  No facilities found. Try adjusting your filters.
+                  No matches found. Try adjusting your filters.
                 </p>
                 <Button onClick={() => window.location.href = "/navigator"} className="mt-4">
                   Start New Search
@@ -246,115 +579,20 @@ function ResultsPageContent() {
               </div>
             )}
 
-            {resources.map((resource) => (
-              <div key={resource.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-                <div className="flex items-start justify-between gap-4">
-                  {/* Comparison Checkbox */}
-                  <div className="flex items-start pt-1">
-                    <input
-                      type="checkbox"
-                      checked={isSelected(resource.id)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          if (selectedFacilities.length >= maxSelection) {
-                            alert(`You can only compare up to ${maxSelection} facilities at once`);
-                            return;
-                          }
-                          addFacility(resource);
-                        } else {
-                          removeFacility(resource.id);
-                        }
-                      }}
-                      className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
-                      title="Add to comparison"
-                    />
-                  </div>
+            {facilityResources.map((resource) => renderResourceCard(resource, false))}
 
-                  <div className="flex-1">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{resource.title}</h3>
-
-                        {/* Distance Badge - Prominent placement right under title */}
-                        {resource.distance !== undefined && (
-                          <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
-                            <span className="text-base">📍</span>
-                            {resource.distance.toFixed(1)} miles away
-                          </div>
-                        )}
-
-                        {resource.address && (
-                          <p className="mt-2 text-sm text-gray-600">
-                            {resource.address}, {resource.city}, {resource.state} {resource.zip}
-                          </p>
-                        )}
-                      </div>
-                      {resource.overall_rating && (
-                        <div className="text-right">
-                          <div className="font-semibold text-indigo-600">
-                            {"⭐".repeat(Math.round(resource.overall_rating))}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            {resource.overall_rating}/5
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {resource.category.slice(0, 2).map((cat) => (
-                        <Badge key={cat} variant="secondary" className="text-xs">
-                          {cat.replace(/_/g, " ")}
-                        </Badge>
-                      ))}
-                      {resource.insurance_accepted && resource.insurance_accepted.length > 0 && (
-                        <Badge variant="outline" className="text-xs">
-                          {resource.insurance_accepted[0]}
-                        </Badge>
-                      )}
-                    </div>
-
-                    {resource.available_beds !== undefined && resource.available_beds > 0 && (
-                      <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
-                        ✓ {resource.available_beds} bed{resource.available_beds !== 1 ? 's' : ''} available
-                      </div>
-                    )}
-
-                    <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
-                      <Button
-                        size="sm"
-                        className="flex-1 sm:flex-none"
-                        onClick={() => setRequestInfoModal({
-                          isOpen: true,
-                          facilityName: resource.title,
-                          facilityId: resource.id,
-                        })}
-                      >
-                        📧 Request Info
-                      </Button>
-                      {resource.contact_phone && (
-                        <Button size="sm" variant="outline" className="flex-1 sm:flex-none" asChild>
-                          <a href={`tel:${resource.contact_phone}`}>
-                            📞 Call Now
-                          </a>
-                        </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="flex-1 sm:flex-none"
-                        onClick={() => {
-                          const address = `${resource.address}, ${resource.city}, ${resource.state} ${resource.zip}`;
-                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
-                        }}
-                      >
-                        📍 Directions
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+            {homeServiceCount > 0 && (
+              <div className="px-4 py-6 bg-slate-50 text-sm text-gray-700">
+                <h2 className="text-base font-semibold text-gray-900">
+                  Home Services Serving {userZip ? `ZIP ${userZip}` : "Your Area"}
+                </h2>
+                <p className="mt-1">
+                  Licensed agencies that come to you. Request information or call to get started.
+                </p>
               </div>
-            ))}
+            )}
+
+            {homeServiceResources.map((resource) => renderResourceCard(resource, true))}
           </div>
         </div>
 

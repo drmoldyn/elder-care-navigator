@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Apply migration by creating a temporary function in Supabase
  * and executing it via RPC

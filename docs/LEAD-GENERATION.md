@@ -48,7 +48,7 @@ CREATE TABLE info_requests (
 ### Files Created
 - `/src/components/request-info-modal.tsx` - Modal form component
 - `/src/app/api/request-info/route.ts` - API endpoint to save leads
-- `/supabase/migrations/003_create_info_requests.sql` - Database migration
+- `/supabase/migrations/0004_create_info_requests.sql` - Database migration
 
 ### Revenue Potential
 - **Lead Generation Model**: Sell leads to facilities at $20-50 each
@@ -56,7 +56,7 @@ CREATE TABLE info_requests (
 - **Affiliate Model**: Commission from successful placements
 
 ### Next Steps
-1. Run migration: Execute `003_create_info_requests.sql` in Supabase SQL Editor
+1. Run migration: Execute `0004_create_info_requests.sql` in Supabase SQL Editor
 2. Add email notifications:
    - SendGrid/Resend integration
    - Email template for facility notifications
@@ -139,7 +139,7 @@ CREATE TABLE info_requests (
 ### Database Migration
 ```bash
 # Run in Supabase SQL Editor:
-supabase/migrations/003_create_info_requests.sql
+supabase/migrations/0004_create_info_requests.sql
 ```
 
 ### Environment Variables

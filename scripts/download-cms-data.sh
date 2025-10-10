@@ -46,6 +46,6 @@ ls -lh
 
 echo ""
 echo "🔄 Next steps:"
-echo "  1. Run migration: Apply 0002_add_geolocation_and_medical_systems.sql to your Supabase database"
+echo "  1. Run migration: Apply 0003_add_geolocation_and_medical_systems.sql to your Supabase database"
 echo "  2. Process datasets: pnpm tsx scripts/process-cms-data.ts"
 echo "  3. Import resources: pnpm tsx scripts/import-resources-enhanced.ts data/cms/processed/*.csv"

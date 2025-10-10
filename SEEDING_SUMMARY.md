@@ -8,7 +8,7 @@ A complete data pipeline infrastructure to seed **thousands of elder care resour
 
 ### 1. Enhanced Database Schema
 
-**New Migration:** `supabase/migrations/0002_add_geolocation_and_medical_systems.sql`
+**New Migration:** `supabase/migrations/0003_add_geolocation_and_medical_systems.sql`
 
 **Enhancements to `resources` table:**
 - ✅ Geolocation fields (address, city, state, ZIP, county, lat/long)
@@ -170,7 +170,7 @@ ORDER BY rmp.distance_miles;
 ### Quick Start (30 minutes to 38,000 resources)
 
 1. **Enable PostGIS** in Supabase Dashboard
-2. **Apply migration:** Run `0002_add_geolocation_and_medical_systems.sql`
+2. **Apply migration:** Run `0003_add_geolocation_and_medical_systems.sql`
 3. **Download data:** `./scripts/download-cms-data.sh` (5 min)
 4. **Process data:** `pnpm tsx scripts/process-cms-data.ts` (2 min)
 5. **Import data:** `pnpm tsx scripts/import-resources-enhanced.ts data/cms/processed/*.csv` (10 min)
@@ -233,7 +233,7 @@ Run overnight or over weekend.
 ## Files Created
 
 ### Database
-- `supabase/migrations/0002_add_geolocation_and_medical_systems.sql`
+- `supabase/migrations/0003_add_geolocation_and_medical_systems.sql`
 
 ### Scripts
 - `scripts/download-cms-data.sh`

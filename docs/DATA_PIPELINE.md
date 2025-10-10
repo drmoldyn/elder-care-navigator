@@ -139,7 +139,7 @@ resource_medical_proximity (
 1. **Apply database migration:**
    ```bash
    # Copy migration SQL to Supabase SQL Editor and run:
-   supabase/migrations/0002_add_geolocation_and_medical_systems.sql
+   supabase/migrations/0003_add_geolocation_and_medical_systems.sql
    ```
 
 2. **Install dependencies:**
@@ -439,7 +439,7 @@ Computing proximity for 30,000 resources × 6,000 hospitals = 180M calculations.
 
 ## Next Steps
 
-1. **Apply migration:** Run `0002_add_geolocation_and_medical_systems.sql` in Supabase
+1. **Apply migration:** Run `0003_add_geolocation_and_medical_systems.sql` in Supabase
 2. **Download data:** Execute `./scripts/download-cms-data.sh`
 3. **Process data:** Run `pnpm tsx scripts/process-cms-data.ts`
 4. **Geocode (background):** Start geocoding overnight

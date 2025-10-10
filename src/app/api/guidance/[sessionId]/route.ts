@@ -95,12 +95,14 @@ export async function GET(
       zipCode: session.zip_code,
       city: session.city,
       state: session.state,
+      careType: session.care_type ?? undefined,
       livingSituation: session.living_situation,
       urgencyLevel: undefined, // Not stored separately in DB
       urgencyFactors: session.urgency_factors,
       careGoals: undefined,
       budget: undefined,
       email: session.email,
+      emailSubscribed: session.email_subscribed ?? false,
     };
 
     const { guidance, fallback } = await generateGuidance({

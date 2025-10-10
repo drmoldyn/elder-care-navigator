@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RelationshipStep } from "@/components/navigator/relationship-step";
 import { ConditionsStep } from "@/components/navigator/conditions-step";
+import { CareTypeStep } from "@/components/navigator/care-type-step";
 import { LocationStep } from "@/components/navigator/location-step";
 import { LivingSituationStep } from "@/components/navigator/living-situation-step";
 import { UrgencyStep } from "@/components/navigator/urgency-step";
@@ -54,17 +55,24 @@ export default function NavigatorPage() {
     }));
   };
 
-  const handleSubmit = async (email?: string) => {
+  const handleSubmit = async (email?: string, emailSubscribed?: boolean) => {
     setIsSubmitting(true);
+    const sessionPayload = {
+      ...state.session,
+      email,
+      emailSubscribed,
+    };
+    setState((prev) => ({
+      ...prev,
+      session: sessionPayload,
+    }));
+
     try {
       const response = await fetch("/api/match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          session: {
-            ...state.session,
-            email,
-          },
+          session: sessionPayload,
         }),
       });
 
@@ -135,7 +143,22 @@ export default function NavigatorPage() {
         />
       )}
 
-      {/* Step 3: Location */}
+      {/* Step 3: Care Type */}
+      {state.step === "care_type" && (
+        <CareTypeStep
+          value={state.session.careType}
+          onChange={(value) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, careType: value },
+            }))
+          }
+          onNext={handleNext}
+          onBack={handleBack}
+        />
+      )}
+
+      {/* Step 4: Location */}
       {state.step === "location" && (
         <LocationStep
           city={state.session.city}
@@ -154,7 +177,7 @@ export default function NavigatorPage() {
         />
       )}
 
-      {/* Step 4: Living Situation */}
+      {/* Step 5: Living Situation */}
       {state.step === "living_situation" && (
         <LivingSituationStep
           value={state.session.livingSituation}
@@ -170,7 +193,7 @@ export default function NavigatorPage() {
         />
       )}
 
-      {/* Step 5: Urgency */}
+      {/* Step 6: Urgency */}
       {state.step === "urgency" && (
         <UrgencyStep
           value={state.session.urgencyFactors}
@@ -185,13 +208,19 @@ export default function NavigatorPage() {
         />
       )}
 
-      {/* Step 6: Review */}
+      {/* Step 7: Review */}
       {state.step === "review" && (
         <ReviewStep
           session={state.session}
           onEdit={handleEdit}
           onSubmit={handleSubmit}
           onBack={handleBack}
+          onEmailSubscribedChange={(value) =>
+            setState((prev) => ({
+              ...prev,
+              session: { ...prev.session, emailSubscribed: value },
+            }))
+          }
           isSubmitting={isSubmitting}
         />
       )}
