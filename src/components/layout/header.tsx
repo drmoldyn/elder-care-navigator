@@ -9,8 +9,8 @@ export function Header() {
   return (
     <header className="border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-4 md:px-6">
-        <Link href="/" className="text-lg font-semibold tracking-tight font-serif">
-          Elder Care Navigator
+        <Link href="/" className="text-xl font-bold tracking-wide font-serif text-sunset-orange hover:text-sunset-gold transition-colors">
+          SunsetWell.com
         </Link>
 
         {/* Desktop Navigation */}

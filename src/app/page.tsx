@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -26,16 +27,34 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-[85vh] flex flex-col justify-center items-center px-4 py-8 bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 text-white relative overflow-hidden">
+    <div className="min-h-[85vh] flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
+      {/* Background Hero Image with Gradient Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-7.jpg"
+          alt="Diverse group of seniors laughing together at sunset"
+          fill
+          priority
+          className="object-cover"
+          quality={90}
+        />
+        {/* Gradient overlays for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+        {/* Decorative transparent columns on left and right */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
+      </div>
 
       <div className="relative z-10 max-w-6xl w-full">
         {/* Hero Section */}
-        <div className="text-center mb-10">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight tracking-tight">
+        <div className="text-center mb-10 text-white">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight tracking-tight drop-shadow-lg">
             Find the right care for your loved one
           </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto font-normal">
-            Search verified nursing homes and assisted living facilities by location and insurance coverage
+          <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto font-normal drop-shadow-md">
+            Search senior care options including home health, assisted living, and skilled nursing by location and insurance coverage
           </p>
 
           {/* Trust Bar */}
@@ -56,8 +75,8 @@ export default function Home() {
         </div>
 
         {/* Search Card */}
-        <form onSubmit={handleSubmit} className="bg-white text-gray-900 rounded-2xl shadow-2xl p-8 md:p-10 max-w-2xl mx-auto">
-          <h2 className="text-xl font-bold text-center mb-6">Start your search</h2>
+        <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-sm text-gray-900 rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12 max-w-2xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">Start your search</h2>
 
           <div className="space-y-5">
             {/* ZIP Code */}
@@ -73,7 +92,7 @@ export default function Home() {
                 pattern="[0-9]{5}"
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-600 transition-all"
+                className="w-full px-5 py-3.5 border border-gray-300 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-sunset-orange/50 focus:border-sunset-orange transition-all shadow-sm hover:border-gray-400 bg-white"
               />
             </div>
 
@@ -86,7 +105,8 @@ export default function Home() {
                 id="insurance"
                 value={insurance}
                 onChange={(e) => setInsurance(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-600 transition-all bg-white"
+                className="w-full px-5 py-3.5 border border-gray-300 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-sunset-orange/50 focus:border-sunset-orange transition-all shadow-sm hover:border-gray-400 bg-white appearance-none cursor-pointer"
+                style={{backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`, backgroundPosition: 'right 0.75rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em'}}
               >
                 <option value="">Select insurance type</option>
                 <option value="medicare">Medicare</option>
@@ -111,7 +131,7 @@ export default function Home() {
                 ].map((need) => (
                   <div
                     key={need.id}
-                    className="flex items-center p-3 border-2 border-gray-200 rounded-xl hover:border-indigo-600 hover:bg-gray-50 transition-all cursor-pointer"
+                    className="flex items-center p-4 border border-gray-300 rounded-xl hover:border-sunset-orange hover:bg-sunset-orange/5 transition-all cursor-pointer shadow-sm"
                   >
                     <input
                       type="checkbox"
@@ -120,7 +140,7 @@ export default function Home() {
                       value={need.id}
                       checked={needs.includes(need.id)}
                       onChange={() => toggleNeed(need.id)}
-                      className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                      className="w-5 h-5 text-sunset-orange border-gray-300 rounded focus:ring-sunset-orange/50 cursor-pointer"
                     />
                     <label htmlFor={need.id} className="ml-3 text-sm font-medium text-gray-700 cursor-pointer flex-1">
                       {need.label}
@@ -129,23 +149,35 @@ export default function Home() {
                 ))}
               </div>
               <p className="mt-3 text-xs text-gray-500 italic">
-                We'll match you with facilities that specialize in these areas
+                We&apos;ll match you with facilities that specialize in these areas
               </p>
             </div>
 
-            {/* CTA Button */}
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-xl text-lg transition-all hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
-            >
-              Find Facilities
-            </button>
+            {/* CTA Buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange text-white font-semibold py-4 rounded-xl text-lg transition-all hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shadow-lg"
+              >
+                Find Facilities
+              </button>
+              <button
+                type="button"
+                onClick={() => router.push('/navigator?view=map')}
+                className="w-full bg-sky-blue hover:bg-sky-blue/90 text-white font-semibold py-4 rounded-xl text-lg transition-all hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shadow-lg flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                Search on Map
+              </button>
+            </div>
           </div>
 
           {/* Crisis Banner */}
           <div className="mt-6 bg-red-50 border-2 border-red-200 rounded-xl p-4 text-center">
             <strong className="block text-red-900 text-sm font-semibold mb-1">
-              🚨 Need urgent placement?
+              Need urgent placement?
             </strong>
             <Link
               href="/urgent-placement"

@@ -6,7 +6,26 @@ const config = {
   theme: {
     extend: {
       colors: {
-        // Design tokens placeholder – populate with brand palette once finalized.
+        // Sunset-inspired brand palette
+        sunset: {
+          orange: '#FF9B6A',
+          gold: '#FFD16A',
+          DEFAULT: '#FF9B6A',
+        },
+        sky: {
+          blue: '#6BA3C4',
+          DEFAULT: '#6BA3C4',
+        },
+        lavender: {
+          DEFAULT: '#B4A5C7',
+          light: '#D4CBE0',
+        },
+        teal: {
+          soft: '#7DBBC3',
+        },
+        neutral: {
+          warm: '#F5F1E8',
+        },
       },
       spacing: {
         // Spacing scale placeholder – adjust when design tokens are defined.
