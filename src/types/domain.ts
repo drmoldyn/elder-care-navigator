@@ -20,6 +20,15 @@ export const RESOURCE_CONDITIONS = [
 
 export type ResourceCondition = (typeof RESOURCE_CONDITIONS)[number];
 
+export const INSURANCE_TYPES = [
+  "medicare",
+  "medicaid",
+  "private",
+  "veterans_affairs",
+] as const;
+
+export type InsuranceType = (typeof INSURANCE_TYPES)[number];
+
 export const URGENCY_LEVELS = ["immediate", "this_week", "ongoing"] as const;
 export type UrgencyLevel = (typeof URGENCY_LEVELS)[number];
 
@@ -132,6 +141,7 @@ export interface SessionContext {
   careGoals?: string[];
   budget?: CostType;
   careType?: CareType;
+  insuranceTypes?: InsuranceType[];
   email?: string;
   emailSubscribed?: boolean;
 }
