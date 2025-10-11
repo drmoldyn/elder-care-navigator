@@ -22,6 +22,7 @@ export interface MatchResponseResourceSummary {
   state?: string | null;
   zip?: string | null;
   overallRating?: number | null;
+  sunsetwellScore?: number | null;
   distanceMiles?: number | null;
   serviceAreaMatch?: boolean;
   serviceAreaZip?: string | null;

@@ -4,6 +4,10 @@ import { useComparison } from "@/contexts/comparison-context";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+// Disable static generation for this page since it uses context
+export const dynamic = 'force-dynamic';
 
 export default function ComparePage() {
   const { selectedFacilities, removeFacility, clearAll } = useComparison();
@@ -11,8 +15,20 @@ export default function ComparePage() {
 
   if (selectedFacilities.length === 0) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center px-4 bg-gradient-to-b from-lavender/10 via-white to-sky-blue/10">
-        <div className="text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center px-4 relative overflow-hidden">
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero/hero-6.jpg"
+            alt="Senior care background"
+            fill
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-blue/30 via-lavender/20 to-sunset-orange/20" />
+          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+        </div>
+        <div className="text-center relative z-10">
           <h1 className="mb-4 font-serif text-4xl font-bold text-gray-900">
             Compare Senior Care Facilities
           </h1>
@@ -43,9 +59,21 @@ export default function ComparePage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-lavender/10 via-white to-sky-blue/10">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background Hero Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-6.jpg"
+          alt="Senior care background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-blue/30 via-lavender/20 to-sunset-orange/20" />
+        <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+      </div>
       {/* Header */}
-      <div className="border-b bg-white/80 backdrop-blur-sm px-4 py-6 shadow-sm">
+      <div className="border-b bg-white/80 backdrop-blur-sm px-4 py-6 shadow-sm relative z-10">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <div>
@@ -76,7 +104,7 @@ export default function ComparePage() {
       </div>
 
       {/* Comparison Table - Desktop */}
-      <div className="hidden md:block px-6 py-8">
+      <div className="hidden md:block px-6 py-8 relative z-10">
         <div className="mx-auto max-w-7xl overflow-x-auto">
           <table className="w-full border-collapse bg-white shadow-sm">
             <thead>
@@ -284,7 +312,7 @@ export default function ComparePage() {
       </div>
 
       {/* Mobile View - Accordion-Style Cards */}
-      <div className="md:hidden px-4 py-6 space-y-4 pb-24">
+      <div className="md:hidden px-4 py-6 space-y-4 pb-24 relative z-10">
         {selectedFacilities.map((facility) => (
           <div key={facility.id} className="bg-white rounded-xl shadow-md border border-gray-200">
             {/* Facility Header */}
@@ -503,7 +531,7 @@ export default function ComparePage() {
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 p-4 shadow-lg z-50">
         <Button
           size="lg"
-          className="w-full bg-gradient-to-r from-[#FF9B6A] to-[#FFD16A] hover:from-[#FFD16A] hover:to-[#FF9B6A] text-white font-semibold py-3 rounded-xl shadow-md"
+          className="w-full bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange text-white font-semibold py-3 rounded-xl shadow-md transition-all"
         >
           Request Info for All ({selectedFacilities.length})
         </Button>

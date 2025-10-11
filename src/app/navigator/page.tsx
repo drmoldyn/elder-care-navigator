@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { RelationshipStep } from "@/components/navigator/relationship-step";
 import { ConditionsStep } from "@/components/navigator/conditions-step";
 import { CareTypeStep } from "@/components/navigator/care-type-step";
@@ -24,7 +25,10 @@ import type {
 } from "@/types/domain";
 import type { MatchResponsePayload } from "@/types/api";
 
-export default function NavigatorPage() {
+// Disable static generation for this page since it uses searchParams
+export const dynamic = 'force-dynamic';
+
+function NavigatorContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -143,24 +147,51 @@ export default function NavigatorPage() {
 
   if (isMapView) {
     return (
-      <div className="min-h-screen bg-slate-50">
-        {viewToggle}
-        <NavigatorMapView />
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero/hero-5.jpg"
+            alt="Senior care background"
+            fill
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+        </div>
+        <div className="relative z-10">
+          {viewToggle}
+          <NavigatorMapView />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-8 px-6 py-16 pb-32 md:pb-16">
-      {viewToggle}
-      <div className="w-full space-y-2 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Personalized Senior Care Search
-        </h1>
-        <p className="text-muted-foreground">
-          Answer a few questions to get matched with trusted support
-        </p>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background Hero Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-5.jpg"
+          alt="Senior care background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
       </div>
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-8 px-6 py-16 pb-32 md:pb-16">
+        {viewToggle}
+        <div className="w-full space-y-2 text-center">
+          <h1 className="font-serif text-3xl font-bold tracking-tight text-gray-900">
+            Personalized Senior Care Search
+          </h1>
+          <p className="text-gray-600">
+            Answer a few questions to get matched with trusted support
+          </p>
+        </div>
 
       {/* Desktop Progress Bar */}
       <div className="hidden w-full max-w-2xl items-center gap-2 md:flex">
@@ -308,32 +339,48 @@ export default function NavigatorPage() {
         />
       )}
 
-      {/* Sticky Mobile Navigation - Only shown on mobile */}
-      {state.step !== "review" && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-4 shadow-lg md:hidden">
-          <div className="mx-auto flex max-w-4xl gap-3">
-            {currentStepIndex > 0 && (
+        {/* Sticky Mobile Navigation - Only shown on mobile */}
+        {state.step !== "review" && (
+          <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-4 shadow-lg md:hidden">
+            <div className="mx-auto flex max-w-4xl gap-3">
+              {currentStepIndex > 0 && (
+                <button
+                  onClick={handleBack}
+                  className="flex-1 rounded-xl bg-gray-200 py-3.5 font-semibold text-gray-700 transition-colors hover:bg-gray-300"
+                >
+                  ← Back
+                </button>
+              )}
               <button
-                onClick={handleBack}
-                className="flex-1 rounded-xl bg-gray-200 py-3.5 font-semibold text-gray-700 transition-colors hover:bg-gray-300"
+                onClick={handleNext}
+                disabled={
+                  (state.step === "relationship" && !state.session.relationship) ||
+                  (state.step === "conditions" && state.session.conditions.length === 0) ||
+                  (state.step === "care_type" && !state.session.careType)
+                }
+                className="flex-1 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-gold py-3.5 font-semibold text-white transition-all hover:from-sunset-gold hover:to-sunset-orange disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-500"
               >
-                ← Back
+                Continue →
               </button>
-            )}
-            <button
-              onClick={handleNext}
-              disabled={
-                (state.step === "relationship" && !state.session.relationship) ||
-                (state.step === "conditions" && state.session.conditions.length === 0) ||
-                (state.step === "care_type" && !state.session.careType)
-              }
-              className="flex-1 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-gold py-3.5 font-semibold text-white transition-all hover:from-sunset-gold hover:to-sunset-orange disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-500"
-            >
-              Continue →
-            </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
+  );
+}
+
+export default function NavigatorPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 text-4xl">⏳</div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    }>
+      <NavigatorContent />
+    </Suspense>
   );
 }

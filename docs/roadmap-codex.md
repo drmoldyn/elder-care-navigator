@@ -1,6 +1,6 @@
 # Codex Monetization Roadmap
 
-_Last updated: 2025-10-10_
+_Last updated: 2025-10-11_
 
 ## Active Focus Areas
 
@@ -40,9 +40,31 @@ _Last updated: 2025-10-10_
 _Short URL for status sharing: `docs/roadmap-codex.md`_
 
 
+## SunsetWell Score Integration ✅ COMPLETED
+
+### Completed ✅
+- [x] **Scoring Model Development**: Empirical weight derivation via regression analysis (see `docs/scoring-model.md`)
+- [x] **Database Schema**: Tables for `facility_scores`, `facility_metrics_normalized`, `peer_groups`, `benchmark_metrics`
+- [x] **Peer Group Hierarchy**: State → Census division → national with size/ownership stratification
+- [x] **Metrics Dashboard**: Interactive visualization at `/metrics` with component breakdowns
+- [x] **Documentation**: Comprehensive specs in `docs/SUNSETWELL-SCORE-UI-SPEC.md`
+- [x] **Table View UI**: Replaced card layout with scannable comparison table showing:
+  - Distance | Facility Name | Health ⭐ | Staffing ⭐ | Quality ⭐ | **SunsetWell Score (bold, color-coded)**
+- [x] **Color-Coded Markers**: Map pins color-coded by SunsetWell Score (green 90+/light green 75+/yellow 60+/orange 40+/red <40)
+- [x] **API Integration**: Joined `facility_scores` table v2 in matching API route with proper versioning
+- [x] **Score Helper Utilities**: Created `score-helpers.ts` with color coding and badge functions
+- [x] **Data Plumbing Fixes**: Fixed field names, null handling, and version filtering per Codex review
+- [x] **Score Calculation Pipeline**: Migrations completed, automated refresh via `scripts/normalize-facility-metrics.ts`
+
+### Next Steps
+- [ ] **Facility Detail Pages**: Deep-dive quality breakdown with score explanations
+- [ ] **Professional Dashboard**: Benchmark comparisons and trend analysis for facility partners
+- [ ] **Score Expansion**: Extend to assisted living, home health, and hospice providers
+- [ ] **Transparency Page**: Public methodology documentation for end users
+
 ## Future Considerations
 
-- [ ] Normalization engine for facility metrics (aggregate 5-Star components, staffing ratios, deficiencies) with facility-type and region-aware scaling.
+- [x] Normalization engine for facility metrics (aggregate 5-Star components, staffing ratios, deficiencies) with facility-type and region-aware scaling.
 - [ ] Public/partner API surface for agent-to-agent integrations (social workers, hospital EMRs, virtual assistants).
 - [ ] Sandboxed developer portal + API keys for third-party agent testing.
 - [ ] Intent-specific product bundles (DME, home safety) tied to matching logic.

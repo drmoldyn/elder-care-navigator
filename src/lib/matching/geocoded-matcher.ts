@@ -48,7 +48,10 @@ async function buildFacilityFiltersFromSession(session: SessionContext): Promise
   const filters: MatchFilters = {};
 
   if (session.zipCode) {
-    filters.location = await geocodeZipCode(session.zipCode);
+    const location = await geocodeZipCode(session.zipCode);
+    if (location) {
+      filters.location = location;
+    }
   }
 
   filters.searchRadiusMiles = session.searchRadiusMiles || 50;
@@ -82,7 +85,7 @@ export async function matchResourcesGeocoded(
   }
 
   let query = supabaseServer
-    .from<ResourceRecord>("resources")
+    .from("resources")
     .select("*")
     .not("latitude", "is", null)
     .not("longitude", "is", null);
@@ -169,7 +172,7 @@ export async function matchResourcesGeocoded(
       } as ResourceRecord;
     })
     .filter((facility): facility is ResourceRecord & { distance: number } => {
-      return Boolean(facility) && typeof facility.distance === "number";
+      return Boolean(facility) && facility !== null && typeof facility.distance === "number";
     })
     .sort((a, b) => {
       if (a.distance !== b.distance) {

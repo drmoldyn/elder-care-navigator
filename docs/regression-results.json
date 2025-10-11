@@ -1,0 +1,111 @@
+{
+  "model_results": {
+    "log_complaints": {
+      "intercept": 1.3101984310998906,
+      "coef": {
+        "health_inspection_rating": -0.5427787387562321,
+        "quality_measure_rating": 0.03593779724844537,
+        "staffing_rating": -0.21015304672947963,
+        "total_nurse_hours_per_resident_per_day": 0.06303248553915872,
+        "rn_hours_per_resident_per_day": -0.08647952067717815,
+        "total_nurse_staff_turnover": 0.07589079953084998,
+        "rn_turnover": 0.014709038028423034
+      },
+      "std_err": {
+        "health_inspection_rating": 0.009026652692420114,
+        "quality_measure_rating": 0.008694081549380051,
+        "staffing_rating": 0.012470926801379081,
+        "total_nurse_hours_per_resident_per_day": 0.012724897471655,
+        "rn_hours_per_resident_per_day": 0.011699732431888037,
+        "total_nurse_staff_turnover": 0.011397568228518725,
+        "rn_turnover": 0.0117376098617127
+      },
+      "r_squared": 0.35131878443380316,
+      "n": 12470
+    },
+    "log_incidents": {
+      "intercept": 0.6632752770195367,
+      "coef": {
+        "health_inspection_rating": -0.3245932454038692,
+        "quality_measure_rating": -0.02815650821717264,
+        "staffing_rating": 0.041399272915393366,
+        "total_nurse_hours_per_resident_per_day": 0.07099950787590532,
+        "rn_hours_per_resident_per_day": -0.07145910450123137,
+        "total_nurse_staff_turnover": -0.02448413921354217,
+        "rn_turnover": 0.047125184357344176
+      },
+      "std_err": {
+        "health_inspection_rating": 0.007330691294920168,
+        "quality_measure_rating": 0.007060604866838951,
+        "staffing_rating": 0.010127842253111623,
+        "total_nurse_hours_per_resident_per_day": 0.010334095960349092,
+        "rn_hours_per_resident_per_day": 0.00950154277713126,
+        "total_nurse_staff_turnover": 0.009256150318735699,
+        "rn_turnover": 0.009532303653233517
+      },
+      "r_squared": 0.16342514273264697,
+      "n": 12470
+    },
+    "overall_rating": {
+      "intercept": 2.93517631939869,
+      "coef": {
+        "health_inspection_rating": 1.1195460509513868,
+        "quality_measure_rating": 0.3903401387687173,
+        "staffing_rating": 0.26019369489732735,
+        "total_nurse_hours_per_resident_per_day": 0.012564789281768993,
+        "rn_hours_per_resident_per_day": -0.004907588998888716,
+        "total_nurse_staff_turnover": -0.007164983961301869,
+        "rn_turnover": -0.022836861919166555
+      },
+      "std_err": {
+        "health_inspection_rating": 0.004126492840620238,
+        "quality_measure_rating": 0.003974459469279375,
+        "staffing_rating": 0.005701026938258404,
+        "total_nurse_hours_per_resident_per_day": 0.005817128464298189,
+        "rn_hours_per_resident_per_day": 0.005348478972487692,
+        "total_nurse_staff_turnover": 0.005210345994031325,
+        "rn_turnover": 0.005365794465652044
+      },
+      "r_squared": 0.9110994804001817,
+      "n": 12470
+    }
+  },
+  "derived_weights": {
+    "overall_rating": {
+      "health_inspection_rating": 1.1195460509513868,
+      "quality_measure_rating": 0.3903401387687173,
+      "staffing_rating": 0.26019369489732735,
+      "total_nurse_hours_per_resident_per_day": 0.012564789281768993,
+      "rn_hours_per_resident_per_day": -0.004907588998888716,
+      "total_nurse_staff_turnover": -0.007164983961301869,
+      "rn_turnover": -0.022836861919166555
+    },
+    "log_complaints_normalized": {
+      "health_inspection_rating": 0.527491288737154,
+      "quality_measure_rating": 0.03492560343906679,
+      "staffing_rating": 0.2042340525448589,
+      "total_nurse_hours_per_resident_per_day": 0.06125716549905133,
+      "rn_hours_per_resident_per_day": 0.08404381114099468,
+      "total_nurse_staff_turnover": 0.07375332301989772,
+      "rn_turnover": 0.014294755618976585
+    },
+    "log_incidents_normalized": {
+      "health_inspection_rating": 0.5336800277288608,
+      "quality_measure_rating": 0.046293526741112756,
+      "staffing_rating": 0.06806662008616908,
+      "total_nurse_hours_per_resident_per_day": 0.11673385034492453,
+      "rn_hours_per_resident_per_day": 0.11748949619776079,
+      "total_nurse_staff_turnover": 0.040255600753929664,
+      "rn_turnover": 0.07748087814724235
+    },
+    "combined_adverse_importance": {
+      "health_inspection_rating": 0.5305856582330074,
+      "quality_measure_rating": 0.04060956509008977,
+      "staffing_rating": 0.136150336315514,
+      "total_nurse_hours_per_resident_per_day": 0.08899550792198793,
+      "rn_hours_per_resident_per_day": 0.10076665366937773,
+      "total_nurse_staff_turnover": 0.05700446188691369,
+      "rn_turnover": 0.045887816883109465
+    }
+  }
+}

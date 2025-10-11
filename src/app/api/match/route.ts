@@ -80,6 +80,10 @@ export async function POST(request: NextRequest) {
             typeof resource.overall_rating === "number"
               ? resource.overall_rating
               : null,
+          sunsetwellScore:
+            typeof resource.sunsetwell_score === "number"
+              ? resource.sunsetwell_score
+              : null,
           distanceMiles:
             typeof resource.distance === "number" ? resource.distance : null,
           serviceAreaMatch: resource.service_area_match ?? false,

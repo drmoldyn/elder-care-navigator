@@ -15,6 +15,8 @@ export interface ResourceRecord {
   insurance_accepted?: string[] | null;
   available_beds?: number | null;
   overall_rating?: number | null;
+  sunsetwell_score?: number | null;
+  facility_scores?: Array<{ score: number }> | null;
   service_area_match?: boolean;
   service_area_zip?: string;
   distance?: number;
@@ -158,8 +160,14 @@ async function fetchFacilityResources(
   const filters = buildFiltersFromSession(session, "facility");
 
   let query = supabaseServer
-    .from<ResourceRecord>("resources")
-    .select("*");
+    .from("resources")
+    .select(`
+      *,
+      facility_scores!left(score, version, calculated_at)
+    `)
+    .eq("facility_scores.version", "v2")
+    .order("facility_scores.calculated_at", { ascending: false, referencedTable: "facility_scores" })
+    .limit(1, { referencedTable: "facility_scores" });
 
   if (filters.zipCodes && filters.zipCodes.length > 0) {
     const primaryZip = filters.zipCodes[0];
@@ -216,7 +224,19 @@ async function fetchFacilityResources(
     throw new Error(`Failed to match resources: ${error.message}`);
   }
 
-  return (data ?? []) as ResourceRecord[];
+  // Process facility_scores join to extract sunsetwell_score
+  const processed = (data ?? []).map((resource: ResourceRecord) => {
+    const score = Array.isArray(resource.facility_scores) && resource.facility_scores.length > 0
+      ? resource.facility_scores[0].score
+      : null;
+
+    return {
+      ...resource,
+      sunsetwell_score: typeof score === "number" ? score : null,
+    };
+  });
+
+  return processed as ResourceRecord[];
 }
 
 export async function fetchHomeServiceResources(
@@ -229,7 +249,7 @@ export async function fetchHomeServiceResources(
   }
 
   const { data: serviceAreas, error } = await supabaseServer
-    .from<{ ccn: string | null }>("home_health_service_areas")
+    .from("home_health_service_areas")
     .select("ccn")
     .eq("zip_code", zipCode);
 
@@ -247,7 +267,7 @@ export async function fetchHomeServiceResources(
   }
 
   const { data: agencies, error: agencyError } = await supabaseServer
-    .from<ResourceRecord>("resources")
+    .from("resources")
     .select("*")
     .in("facility_id", ccns)
     .in("provider_type", HOME_SERVICE_PROVIDER_TYPES);

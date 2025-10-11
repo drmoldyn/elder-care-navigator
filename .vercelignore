@@ -1,0 +1,14 @@
+# Data files - too large for Vercel deployment
+/data/cms/*.csv
+/data/cms/processed/*.csv
+/data/cms/geocoded/*.csv
+
+# Scripts - not needed in production
+/scripts
+
+# Docs - not needed in production
+/docs
+
+# Log files
+*.log
+import-*.log

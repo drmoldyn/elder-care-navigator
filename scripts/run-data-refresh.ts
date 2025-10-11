@@ -178,6 +178,12 @@ const importTasks: Task[] = [
     args: ["tsx", "scripts/update-staffing-metrics.ts"],
     requiredPaths: ["scripts/update-staffing-metrics.ts"],
   },
+  {
+    title: "Normalize facility metrics and update composite scores",
+    command: "pnpm",
+    args: ["tsx", "scripts/normalize-facility-metrics.ts"],
+    requiredPaths: ["scripts/normalize-facility-metrics.ts"],
+  },
 ];
 
 const reportingTasks: Task[] = [

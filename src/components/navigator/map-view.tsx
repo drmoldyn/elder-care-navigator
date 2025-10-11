@@ -241,6 +241,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         state: summary.state ?? undefined,
         zip: summary.zip ?? undefined,
         overall_rating: summary.overallRating ?? undefined,
+        sunsetwell_score: summary.sunsetwellScore ?? undefined,
         distance: summary.distanceMiles ?? undefined,
         service_area_match: summary.serviceAreaMatch ?? false,
         service_area_zip: summary.serviceAreaZip ?? undefined,
@@ -503,7 +504,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
                             : resource.provider_type.replace(/_/g, " ")}
                         </Badge>
                       )}
-                      {resource.overall_rating !== undefined && (
+                      {resource.overall_rating !== undefined && resource.overall_rating !== null && (
                         <span>⭐ {resource.overall_rating.toFixed(1)} / 5</span>
                       )}
                     </div>

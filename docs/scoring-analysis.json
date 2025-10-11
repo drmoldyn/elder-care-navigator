@@ -1,0 +1,322 @@
+{
+  "summary": {
+    "health_inspection_rating": {
+      "mean": 2.8113362541073386,
+      "std": 1.282189230466135,
+      "min": 1.0,
+      "max": 5.0
+    },
+    "quality_measure_rating": {
+      "mean": 3.4356497136153474,
+      "std": 1.2831321494841337,
+      "min": 1.0,
+      "max": 5.0
+    },
+    "staffing_rating": {
+      "mean": 2.8569659442724458,
+      "std": 1.2670098256593023,
+      "min": 1.0,
+      "max": 5.0
+    },
+    "quality_rating": {
+      "mean": 2.923261226725082,
+      "std": 1.4204680814514345,
+      "min": 1.0,
+      "max": 5.0
+    },
+    "total_nurse_hours_per_resident_per_day": {
+      "mean": 3.8502059562841526,
+      "std": 0.917644350274361,
+      "min": 0.01088,
+      "max": 15.14653
+    },
+    "rn_hours_per_resident_per_day": {
+      "mean": 0.6780811620668188,
+      "std": 0.48299471847537023,
+      "min": 0.0,
+      "max": 9.42402
+    },
+    "lpn_hours_per_resident_per_day": {
+      "mean": 0.8676171584699452,
+      "std": 0.360517529811139,
+      "min": 0.0,
+      "max": 5.19093
+    },
+    "cna_hours_per_resident_per_day": {
+      "mean": 2.304507692467317,
+      "std": 0.5601212507972615,
+      "min": 0.0,
+      "max": 12.13409
+    },
+    "total_nurse_staff_turnover": {
+      "mean": 46.8755748955202,
+      "std": 14.612718803127397,
+      "min": 2.564,
+      "max": 100.0
+    },
+    "rn_turnover": {
+      "mean": 43.82305785449673,
+      "std": 20.867295864663824,
+      "min": 0.0,
+      "max": 100.0
+    },
+    "number_of_facility_reported_incidents": {
+      "mean": 2.042977223427332,
+      "std": 4.290678445968619,
+      "min": 0.0,
+      "max": 85.0
+    },
+    "number_of_substantiated_complaints": {
+      "mean": 6.391472342733189,
+      "std": 11.460614653651431,
+      "min": 0.0,
+      "max": 169.0
+    }
+  },
+  "pair_corr": {
+    "number_of_facility_reported_incidents__health_inspection_rating": {
+      "corr": -0.3181407080302963,
+      "n": 14608
+    },
+    "number_of_facility_reported_incidents__quality_rating": {
+      "corr": -0.28587768734743263,
+      "n": 14608
+    },
+    "number_of_facility_reported_incidents__staffing_rating": {
+      "corr": -0.07100252074624022,
+      "n": 14535
+    },
+    "number_of_substantiated_complaints__health_inspection_rating": {
+      "corr": -0.44073911708884855,
+      "n": 14608
+    },
+    "number_of_substantiated_complaints__quality_rating": {
+      "corr": -0.41370236433683155,
+      "n": 14608
+    },
+    "total_nurse_hours_per_resident_per_day__quality_rating": {
+      "corr": 0.3301849483161034,
+      "n": 14339
+    },
+    "total_nurse_hours_per_resident_per_day__health_inspection_rating": {
+      "corr": 0.24417030511476054,
+      "n": 14339
+    },
+    "total_nurse_hours_per_resident_per_day__quality_measure_rating": {
+      "corr": 0.08983367388384425,
+      "n": 14242
+    },
+    "rn_hours_per_resident_per_day__staffing_rating": {
+      "corr": 0.5019888577487738,
+      "n": 14339
+    },
+    "total_nurse_staff_turnover__staffing_rating": {
+      "corr": -0.460960881312964,
+      "n": 13534
+    },
+    "rn_turnover__staffing_rating": {
+      "corr": -0.5093818634626469,
+      "n": 12588
+    },
+    "total_nurse_staff_turnover__quality_rating": {
+      "corr": -0.3681835764540818,
+      "n": 13550
+    }
+  },
+  "staff_corr": {
+    "total_nurse_hours_per_resident_per_day": {
+      "total_nurse_hours_per_resident_per_day": 1.0,
+      "rn_hours_per_resident_per_day": 0.6672216245532551,
+      "lpn_hours_per_resident_per_day": 0.3881364363341666,
+      "cna_hours_per_resident_per_day": 0.8131272719482342
+    },
+    "rn_hours_per_resident_per_day": {
+      "total_nurse_hours_per_resident_per_day": 0.6672216245532551,
+      "rn_hours_per_resident_per_day": 1.0,
+      "lpn_hours_per_resident_per_day": -0.12442516082271139,
+      "cna_hours_per_resident_per_day": 0.3108877472358214
+    },
+    "lpn_hours_per_resident_per_day": {
+      "total_nurse_hours_per_resident_per_day": 0.3881364363341666,
+      "rn_hours_per_resident_per_day": -0.12442516082271139,
+      "lpn_hours_per_resident_per_day": 1.0,
+      "cna_hours_per_resident_per_day": 0.09953277614927829
+    },
+    "cna_hours_per_resident_per_day": {
+      "total_nurse_hours_per_resident_per_day": 0.8131272719482342,
+      "rn_hours_per_resident_per_day": 0.3108877472358214,
+      "lpn_hours_per_resident_per_day": 0.09953277614927829,
+      "cna_hours_per_resident_per_day": 1.0
+    }
+  },
+  "overall_corr": {
+    "health_inspection_rating": {
+      "health_inspection_rating": 1.0,
+      "quality_measure_rating": 0.16181829763002709,
+      "staffing_rating": 0.29137862777641105,
+      "quality_rating": 0.888010576133829,
+      "total_nurse_hours_per_resident_per_day": 0.24417030511476048,
+      "rn_hours_per_resident_per_day": 0.22024097525202577,
+      "lpn_hours_per_resident_per_day": 0.025025830196671085,
+      "cna_hours_per_resident_per_day": 0.19359934578356447,
+      "total_nurse_staff_turnover": -0.2796344042294614,
+      "rn_turnover": -0.29631696194598167,
+      "number_of_facility_reported_incidents": -0.3181407080302984,
+      "number_of_substantiated_complaints": -0.44073911708884894
+    },
+    "quality_measure_rating": {
+      "health_inspection_rating": 0.16181829763002709,
+      "quality_measure_rating": 1.0,
+      "staffing_rating": 0.10315631240197878,
+      "quality_rating": 0.42721097073268527,
+      "total_nurse_hours_per_resident_per_day": 0.08983367388384393,
+      "rn_hours_per_resident_per_day": 0.12917182943784516,
+      "lpn_hours_per_resident_per_day": 0.06310830361625085,
+      "cna_hours_per_resident_per_day": -0.00400635783486889,
+      "total_nurse_staff_turnover": -0.1756170851156054,
+      "rn_turnover": -0.13669357754009057,
+      "number_of_facility_reported_incidents": -0.06499742890853107,
+      "number_of_substantiated_complaints": -0.07327788348608238
+    },
+    "staffing_rating": {
+      "health_inspection_rating": 0.29137862777641105,
+      "quality_measure_rating": 0.10315631240197878,
+      "staffing_rating": 1.0,
+      "quality_rating": 0.4647345392059373,
+      "total_nurse_hours_per_resident_per_day": 0.5710332744812651,
+      "rn_hours_per_resident_per_day": 0.5019888577487791,
+      "lpn_hours_per_resident_per_day": -0.05181126149593546,
+      "cna_hours_per_resident_per_day": 0.5349795313411548,
+      "total_nurse_staff_turnover": -0.4609608813129668,
+      "rn_turnover": -0.5093818634626462,
+      "number_of_facility_reported_incidents": -0.0710025207462402,
+      "number_of_substantiated_complaints": -0.24797598721335004
+    },
+    "quality_rating": {
+      "health_inspection_rating": 0.888010576133829,
+      "quality_measure_rating": 0.42721097073268527,
+      "staffing_rating": 0.4647345392059373,
+      "quality_rating": 1.0,
+      "total_nurse_hours_per_resident_per_day": 0.33018494831610373,
+      "rn_hours_per_resident_per_day": 0.30615788111950154,
+      "lpn_hours_per_resident_per_day": 0.026101998098119257,
+      "cna_hours_per_resident_per_day": 0.25958806878809093,
+      "total_nurse_staff_turnover": -0.36818357645408106,
+      "rn_turnover": -0.3823226928469349,
+      "number_of_facility_reported_incidents": -0.2858776873474353,
+      "number_of_substantiated_complaints": -0.4137023643368322
+    },
+    "total_nurse_hours_per_resident_per_day": {
+      "health_inspection_rating": 0.24417030511476048,
+      "quality_measure_rating": 0.08983367388384393,
+      "staffing_rating": 0.5710332744812651,
+      "quality_rating": 0.33018494831610373,
+      "total_nurse_hours_per_resident_per_day": 1.0,
+      "rn_hours_per_resident_per_day": 0.6672216245532551,
+      "lpn_hours_per_resident_per_day": 0.3881364363341666,
+      "cna_hours_per_resident_per_day": 0.8131272719482342,
+      "total_nurse_staff_turnover": -0.20893773535091287,
+      "rn_turnover": -0.18352200357947945,
+      "number_of_facility_reported_incidents": -0.03731312204816358,
+      "number_of_substantiated_complaints": -0.1444515322201732
+    },
+    "rn_hours_per_resident_per_day": {
+      "health_inspection_rating": 0.22024097525202577,
+      "quality_measure_rating": 0.12917182943784516,
+      "staffing_rating": 0.5019888577487791,
+      "quality_rating": 0.30615788111950154,
+      "total_nurse_hours_per_resident_per_day": 0.6672216245532551,
+      "rn_hours_per_resident_per_day": 1.0,
+      "lpn_hours_per_resident_per_day": -0.12442516082271139,
+      "cna_hours_per_resident_per_day": 0.3108877472358214,
+      "total_nurse_staff_turnover": -0.19559469716063616,
+      "rn_turnover": -0.2281214442954577,
+      "number_of_facility_reported_incidents": -0.09468914989296452,
+      "number_of_substantiated_complaints": -0.15867124810055333
+    },
+    "lpn_hours_per_resident_per_day": {
+      "health_inspection_rating": 0.025025830196671085,
+      "quality_measure_rating": 0.06310830361625085,
+      "staffing_rating": -0.05181126149593546,
+      "quality_rating": 0.026101998098119257,
+      "total_nurse_hours_per_resident_per_day": 0.3881364363341666,
+      "rn_hours_per_resident_per_day": -0.12442516082271139,
+      "lpn_hours_per_resident_per_day": 1.0,
+      "cna_hours_per_resident_per_day": 0.09953277614927829,
+      "total_nurse_staff_turnover": 0.0005144999150116888,
+      "rn_turnover": 0.0753488048665836,
+      "number_of_facility_reported_incidents": 0.027212249510581973,
+      "number_of_substantiated_complaints": 0.04948480298472903
+    },
+    "cna_hours_per_resident_per_day": {
+      "health_inspection_rating": 0.19359934578356447,
+      "quality_measure_rating": -0.00400635783486889,
+      "staffing_rating": 0.5349795313411548,
+      "quality_rating": 0.25958806878809093,
+      "total_nurse_hours_per_resident_per_day": 0.8131272719482342,
+      "rn_hours_per_resident_per_day": 0.3108877472358214,
+      "lpn_hours_per_resident_per_day": 0.09953277614927829,
+      "cna_hours_per_resident_per_day": 1.0,
+      "total_nurse_staff_turnover": -0.17014702380659305,
+      "rn_turnover": -0.14818905369515534,
+      "number_of_facility_reported_incidents": 0.0030060305788975074,
+      "number_of_substantiated_complaints": -0.13168214512539816
+    },
+    "total_nurse_staff_turnover": {
+      "health_inspection_rating": -0.2796344042294614,
+      "quality_measure_rating": -0.1756170851156054,
+      "staffing_rating": -0.4609608813129668,
+      "quality_rating": -0.36818357645408106,
+      "total_nurse_hours_per_resident_per_day": -0.20893773535091287,
+      "rn_hours_per_resident_per_day": -0.19559469716063616,
+      "lpn_hours_per_resident_per_day": 0.0005144999150116888,
+      "cna_hours_per_resident_per_day": -0.17014702380659305,
+      "total_nurse_staff_turnover": 1.0,
+      "rn_turnover": 0.6538478233738766,
+      "number_of_facility_reported_incidents": 0.06930468054380798,
+      "number_of_substantiated_complaints": 0.21684736690273443
+    },
+    "rn_turnover": {
+      "health_inspection_rating": -0.29631696194598167,
+      "quality_measure_rating": -0.13669357754009057,
+      "staffing_rating": -0.5093818634626462,
+      "quality_rating": -0.3823226928469349,
+      "total_nurse_hours_per_resident_per_day": -0.18352200357947945,
+      "rn_hours_per_resident_per_day": -0.2281214442954577,
+      "lpn_hours_per_resident_per_day": 0.0753488048665836,
+      "cna_hours_per_resident_per_day": -0.14818905369515534,
+      "total_nurse_staff_turnover": 0.6538478233738766,
+      "rn_turnover": 1.0,
+      "number_of_facility_reported_incidents": 0.11322471665180837,
+      "number_of_substantiated_complaints": 0.22689715107308778
+    },
+    "number_of_facility_reported_incidents": {
+      "health_inspection_rating": -0.3181407080302984,
+      "quality_measure_rating": -0.06499742890853107,
+      "staffing_rating": -0.0710025207462402,
+      "quality_rating": -0.2858776873474353,
+      "total_nurse_hours_per_resident_per_day": -0.03731312204816358,
+      "rn_hours_per_resident_per_day": -0.09468914989296452,
+      "lpn_hours_per_resident_per_day": 0.027212249510581973,
+      "cna_hours_per_resident_per_day": 0.0030060305788975074,
+      "total_nurse_staff_turnover": 0.06930468054380798,
+      "rn_turnover": 0.11322471665180837,
+      "number_of_facility_reported_incidents": 1.0,
+      "number_of_substantiated_complaints": 0.4072979257278598
+    },
+    "number_of_substantiated_complaints": {
+      "health_inspection_rating": -0.44073911708884894,
+      "quality_measure_rating": -0.07327788348608238,
+      "staffing_rating": -0.24797598721335004,
+      "quality_rating": -0.4137023643368322,
+      "total_nurse_hours_per_resident_per_day": -0.1444515322201732,
+      "rn_hours_per_resident_per_day": -0.15867124810055333,
+      "lpn_hours_per_resident_per_day": 0.04948480298472903,
+      "cna_hours_per_resident_per_day": -0.13168214512539816,
+      "total_nurse_staff_turnover": 0.21684736690273443,
+      "rn_turnover": 0.22689715107308778,
+      "number_of_facility_reported_incidents": 0.4072979257278598,
+      "number_of_substantiated_complaints": 1.0
+    }
+  }
+}

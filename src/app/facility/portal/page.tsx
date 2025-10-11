@@ -88,7 +88,7 @@ export default function FacilityPortalPage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 bg-gradient-to-b from-sunset-orange/10 via-white to-lavender/10">
+    <main className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 bg-gradient-to-br from-sunset-orange/10 via-white to-lavender/10">
       <header className="space-y-3 text-center">
         <p className="text-sm font-medium text-sunset-orange">SunsetWell Partner Portal</p>
         <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Facility Partner Portal</h1>

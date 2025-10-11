@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AdSenseScript } from "@/components/ads/adsense-script";
 import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
+import { ComparisonProvider } from "@/contexts/comparison-context";
 import "./globals.css";
 
 const inter = Inter({
@@ -137,11 +138,13 @@ export default function RootLayout({
         {/* Google AdSense - Only load if publisher ID is configured */}
         {adsensePublisherId && <AdSenseScript publisherId={adsensePublisherId} />}
 
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <ComparisonProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ComparisonProvider>
       </body>
     </html>
   );

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function MedicaidFacilitiesLandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sunset-gold/20 via-white to-neutral-warm/20">
+    <div className="min-h-screen bg-gradient-to-br from-sunset-gold/20 via-white to-neutral-warm/20">
       {/* Hero Section */}
       <section className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8">
         {/* Background Image */}

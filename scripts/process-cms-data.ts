@@ -42,10 +42,15 @@ interface CmsNursingHomeRow {
   "Provider Name"?: string;
   "Provider Address"?: string;
   "Provider City"?: string;
+  "City/Town"?: string;
+  State?: string;
   "Provider State"?: string;
   "Provider Zip Code"?: string;
+  "ZIP Code"?: string;
   "Provider County Name"?: string;
+  "County/Parish"?: string;
   "Provider Phone Number"?: string;
+  "Telephone Number"?: string;
   "Ownership Type"?: string;
   "Number of Certified Beds"?: string;
   "Overall Rating"?: string;
@@ -134,6 +139,12 @@ function cleanPhone(phone: string | undefined): string {
 function cleanZip(zip: string | undefined): string {
   if (!zip) return "";
   return zip.replace(/[^\d]/g, "").slice(0, 5);
+}
+
+function cleanState(value: string | undefined): string {
+  const cleaned = cleanString(value);
+  if (!cleaned) return "";
+  return cleaned.length === 2 ? cleaned.toUpperCase() : cleaned;
 }
 
 function processHomeHealthAgencies(): number {
@@ -241,15 +252,15 @@ function processNursingHomes(): number {
 
   const processed: ProcessedRow[] = records.map((row) => {
     return {
-      facility_id: cleanString(row["Federal Provider Number"]),
+      facility_id: cleanString(row["CMS Certification Number (CCN)"] || row["Federal Provider Number"]),
       facility_name: cleanString(row["Provider Name"]),
       category: "nursing_home",
       address: cleanString(row["Provider Address"]),
-      city: cleanString(row["Provider City"]),
-      state: cleanString(row["Provider State"]),
-      zip_code: cleanZip(row["Provider Zip Code"]),
-      county: cleanString(row["Provider County Name"]),
-      phone: cleanPhone(row["Provider Phone Number"]),
+      city: cleanString(row["Provider City"] || row["City/Town"]),
+      state: cleanState(row["Provider State"] || row.State),
+      zip_code: cleanZip(row["Provider Zip Code"] || row["ZIP Code"]),
+      county: cleanString(row["Provider County Name"] || row["County/Parish"]),
+      phone: cleanPhone(row["Provider Phone Number"] || row["Telephone Number"]),
       website: "",
       email: "",
       npi: "",
@@ -262,13 +273,13 @@ function processNursingHomes(): number {
       quality_rating: cleanString(row["Overall Rating"]),
       services_offered: "Skilled Nursing;Long-term Care;Rehabilitation;Memory Care",
       specialties: "Dementia Care;Post-Acute Rehabilitation;Complex Medical Needs",
-      latitude: "",
-      longitude: "",
+      latitude: cleanString((row as any).Latitude),
+      longitude: cleanString((row as any).Longitude),
       description: `Medicare-certified nursing home with ${row["Number of Certified Beds"] || "multiple"} beds providing 24/7 skilled nursing care`,
       best_for: "Individuals requiring 24/7 skilled nursing care or long-term residential care",
       urgency_level: "high",
       location_type: "local",
-      states: cleanString(row["Provider State"]),
+      states: cleanState(row["Provider State"] || row.State),
       audience: "caregiver;patient;family",
       living_situation: "facility",
       cost: "Covered by Medicare (up to 100 days post-hospitalization), Medicaid, or private pay",

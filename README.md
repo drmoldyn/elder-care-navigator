@@ -1,19 +1,31 @@
-# Elder Care Navigator
+# SunsetWell Elder Care Navigator
 
-**A production-ready tool to help families find nursing homes and assisted living facilities based on location, insurance, and care needs.**
+**A production-ready tool to help families find nursing homes and assisted living facilities with empirically-derived quality scores and peer-group comparisons.**
 
-🔍 **61,346 facilities nationwide** | 💊 **Medicare.gov verified** | 📱 **Mobile-optimized**
+🔍 **75,000+ facilities nationwide** | 📊 **SunsetWell Score** | 💊 **Medicare.gov verified** | 📱 **Mobile-optimized**
 
 ---
 
 ## ✨ Features
 
-- **Address-Level Geocoding**: Precise distance calculations using facility street addresses (not ZIP codes)
+### 🌟 SunsetWell Score (NEW)
+- **Empirical Scoring Model**: Composite 0-100 score derived from regression analysis of safety outcomes
+- **Peer-Group Normalization**: Facilities compared within their region and facility type for fair "apples-to-apples" comparisons
+- **Component Breakdown**:
+  - Inspection & Compliance (53%)
+  - Staffing Capacity & Hours (32%)
+  - Safety & Stability (15%)
+- **Visual Quality Indicators**: Color-coded scores (green/yellow/orange/red) in table view and map markers
+- **Transparent Methodology**: Weights based on predicting substantiated complaints and facility-reported incidents
+
+### Search & Discovery
+- **Table View**: Scannable comparison table showing distance, quality metrics, and SunsetWell Score
+- **Interactive Map**: Color-coded markers by SunsetWell Score for geographic quality insights
+- **Address-Level Geocoding**: Precise distance calculations using facility street addresses
 - **Insurance-First Search**: Filter by Medicare, Medicaid, VA Benefits, or Private Insurance
 - **Distance Sorting**: Results sorted by actual distance from your location
-- **Quality Ratings**: CMS 5-Star ratings for nursing homes
+- **Quality Metrics**: Health inspection, staffing, and quality measure ratings from CMS
 - **Mobile-Responsive**: Tab-based interface optimized for stressed users on phones
-- **Professional Design**: Healthcare-specific typography and UX patterns
 - **One-Tap Actions**: Call facilities or get directions with a single tap
 
 ---
@@ -153,12 +165,21 @@ src/
 
 ## 📖 Documentation
 
-- **[GEOCODING-SETUP.md](./GEOCODING-SETUP.md)**: Complete geocoding setup guide ⭐ **START HERE**
+### Core Documentation
+- **[docs/scoring-model.md](./docs/scoring-model.md)**: SunsetWell Score methodology and peer group strategy ⭐ **SCORING**
+- **[docs/SUNSETWELL-SCORE-UI-SPEC.md](./docs/SUNSETWELL-SCORE-UI-SPEC.md)**: UI specification for score integration
+- **[GEOCODING-SETUP.md](./GEOCODING-SETUP.md)**: Complete geocoding setup guide
 - **[docs/GEOCODING.md](./docs/GEOCODING.md)**: Technical geocoding documentation
+
+### Product Documentation
 - **[PRODUCTION-READY-SUMMARY.md](./PRODUCTION-READY-SUMMARY.md)**: Complete feature list, test results, and roadmap
 - **[IMPLEMENTATION-SUMMARY.md](./IMPLEMENTATION-SUMMARY.md)**: Technical implementation details
 - **[docs/ADDITIONAL_SERVICES.md](./docs/ADDITIONAL_SERVICES.md)**: Future service expansion plan
 - **[design-examples/MOBILE-DESIGN-PLAN.md](./design-examples/MOBILE-DESIGN-PLAN.md)**: Mobile UX strategy
+
+### Data & Analysis
+- **[docs/regression-approach.md](./docs/regression-approach.md)**: Regression methodology for weight derivation
+- **[docs/codex-scoring-prompt.md](./docs/codex-scoring-prompt.md)**: Context for scoring model development
 
 ---
 
@@ -235,23 +256,32 @@ See [PRODUCTION-READY-SUMMARY.md](./PRODUCTION-READY-SUMMARY.md) for complete li
 
 ## 📈 Roadmap
 
-### Phase 1 (Current)
-- ✅ Database: 61,346 facilities
-- ✅ Search: ZIP code + insurance filtering
-- ✅ Design: Professional, mobile-responsive
+### Phase 1 (COMPLETED ✅)
+- ✅ Database: 75,000+ facilities (nursing homes, assisted living, home health, hospice)
+- ✅ Search: ZIP code + insurance filtering with distance sorting
+- ✅ Design: Professional, mobile-responsive with table & map views
+- ✅ Address-level geocoding for precise distance calculations
+- ✅ Google Maps integration with interactive markers
+- ✅ Production deployment on Vercel (sunsetwell.com)
 
-### Phase 2 (Next 2 weeks)
-- [ ] Address-level geocoding (see [GEOCODING-SETUP.md](./GEOCODING-SETUP.md))
-- [ ] Google Maps integration with facility markers
-- [ ] Crisis mode page (`/urgent-placement`)
-- [ ] Production deployment on Vercel
+### Phase 2 (IN PROGRESS 🚧)
+- ✅ **SunsetWell Score**: Empirically-derived composite quality scoring
+- ✅ **Peer Group Normalization**: Hierarchical comparison groups (state → division → national)
+- ✅ **Metrics Dashboard**: Interactive visualization at /metrics
+- 🚧 **UI Integration**: Table view with quality metrics and color-coded scores
+- 🚧 **Map Markers**: Color coding by SunsetWell Score
+- [ ] **Facility Detail Pages**: Deep-dive into individual facility quality breakdown
+- [ ] **Score Explanations**: Transparent methodology display for end users
 
-### Phase 3 (Month 2)
-- [ ] Home health agencies (12,112 providers)
-- [ ] Hospice care (7,006 providers)
-- [ ] Elder law attorney directory
+### Phase 3 (Next)
+- [ ] **Professional Portal**: Facility dashboards with trend analysis and benchmarking
+- [ ] **Score Calculations**: Automated nightly score refresh pipeline
+- [ ] **Expand Scoring**: Extend SunsetWell Score to assisted living, home health, hospice
+- [ ] **Crisis Mode Page**: `/urgent-placement` with emergency contact forms
+- [ ] **SEO Optimization**: Location-specific landing pages
+- [ ] **Elder Law Directory**: Attorney referral network integration
 
-See [docs/ADDITIONAL_SERVICES.md](./docs/ADDITIONAL_SERVICES.md) for full roadmap.
+See [docs/ADDITIONAL_SERVICES.md](./docs/ADDITIONAL_SERVICES.md) and [docs/roadmap-codex.md](./docs/roadmap-codex.md) for full roadmap.
 
 ---
 

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
 
 const DEFAULT_CENTER = { lat: 39.8283, lng: -98.5795 };
 const DEFAULT_ZOOM = 11;
@@ -34,15 +35,23 @@ export interface MapResource {
   state?: string | null;
   zip?: string | null;
   overall_rating?: number | null;
+  sunsetwell_score?: number | null;
   distance?: number;
   service_area_match?: boolean;
   service_area_zip?: string | null;
 }
 
+interface LatLngBoundsLiteral {
+  east: number;
+  north: number;
+  south: number;
+  west: number;
+}
+
 export interface FacilityMapProps {
   resources: MapResource[];
   userZip?: string;
-  onBoundsSearch?: (bounds: google.maps.LatLngBoundsLiteral) => void;
+  onBoundsSearch?: (bounds: LatLngBoundsLiteral) => void;
   onVisibleChange?: (visible: number) => void;
 }
 
@@ -121,19 +130,52 @@ function createInfoWindowContent(resource: MapResource, distanceText: string): H
     container.appendChild(address);
   }
 
-  if (typeof resource.overall_rating === "number") {
-    const rating = document.createElement("p");
-    rating.style.margin = "4px 0";
-    rating.textContent = `⭐ ${resource.overall_rating}/5 Stars`;
-    container.appendChild(rating);
-  }
-
   if (distanceText) {
     const distance = document.createElement("p");
     distance.style.margin = "4px 0";
     distance.style.color = "#6b7280";
     distance.textContent = distanceText;
     container.appendChild(distance);
+  }
+
+  // SunsetWell Score - PROMINENT
+  if (typeof resource.sunsetwell_score === "number") {
+    const scoreContainer = document.createElement("div");
+    scoreContainer.style.marginTop = "12px";
+    scoreContainer.style.marginBottom = "8px";
+    scoreContainer.style.padding = "8px";
+    scoreContainer.style.borderRadius = "6px";
+    scoreContainer.style.fontWeight = "bold";
+    scoreContainer.style.fontSize = "16px";
+    scoreContainer.style.textAlign = "center";
+
+    // Parse Tailwind classes to inline styles for map InfoWindow
+    if (resource.sunsetwell_score >= 90) {
+      scoreContainer.style.background = "#15803d"; // green-700
+      scoreContainer.style.color = "white";
+    } else if (resource.sunsetwell_score >= 75) {
+      scoreContainer.style.background = "#22c55e"; // green-500
+      scoreContainer.style.color = "white";
+    } else if (resource.sunsetwell_score >= 60) {
+      scoreContainer.style.background = "#facc15"; // yellow-400
+      scoreContainer.style.color = "#111827"; // gray-900
+    } else if (resource.sunsetwell_score >= 40) {
+      scoreContainer.style.background = "#f97316"; // orange-500
+      scoreContainer.style.color = "white";
+    } else {
+      scoreContainer.style.background = "#ef4444"; // red-500
+      scoreContainer.style.color = "white";
+    }
+
+    scoreContainer.textContent = `SunsetWell Score: ${getSunsetWellScoreBadge(resource.sunsetwell_score)}`;
+    container.appendChild(scoreContainer);
+  }
+
+  if (typeof resource.overall_rating === "number") {
+    const rating = document.createElement("p");
+    rating.style.margin = "4px 0";
+    rating.textContent = `⭐ CMS Rating: ${resource.overall_rating}/5`;
+    container.appendChild(rating);
   }
 
   const link = document.createElement("a");
@@ -226,10 +268,14 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
         }
       }
 
-      const googleMaps = await loader.load();
+      // Load the Google Maps API
+      // Type assertion needed because @googlemaps/js-api-loader types are incomplete
+      const { Map } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MapsLibrary> }).importLibrary("maps");
+      const { Marker } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MarkerLibrary> }).importLibrary("marker");
+      const { InfoWindow } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MapsLibrary> }).importLibrary("maps");
       if (!isMounted || !mapContainerRef.current) return;
 
-      const map = new googleMaps.Map(mapContainerRef.current, {
+      const map = new Map(mapContainerRef.current, {
         center: mapCenter,
         zoom: clusteredFacilities.length === 0 && userZip ? HOME_SERVICE_ZOOM : DEFAULT_ZOOM,
         mapTypeControl: false,
@@ -249,11 +295,15 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
       const markers = clusteredFacilities.map((resource) => {
         const providerType = resource.provider_type ?? "";
         const isHomeService = resource.service_area_match === true;
-        const color = isHomeService
+
+        // Use SunsetWell Score for color if available, otherwise fall back to provider type colors
+        const color = resource.sunsetwell_score !== undefined && resource.sunsetwell_score !== null
+          ? getMarkerColor(resource.sunsetwell_score)
+          : isHomeService
           ? HOME_SERVICE_COLORS[providerType] ?? "#22c55e"
           : FACILITY_COLORS[providerType] ?? "#3b82f6";
 
-        const marker = new googleMaps.Marker({
+        const marker = new Marker({
           position: { lat: Number(resource.latitude), lng: Number(resource.longitude) },
           title: resource.title,
           icon: createMarkerIcon(color, isHomeService),
@@ -261,17 +311,17 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
 
         marker.addListener("click", () => {
           if (!infoWindowRef.current) {
-            infoWindowRef.current = new googleMaps.InfoWindow();
+            infoWindowRef.current = new InfoWindow();
           }
 
           const center = map.getCenter();
           let distanceText = "";
           if (resource.distance !== undefined) {
             distanceText = `${resource.distance.toFixed(1)} miles away`;
-          } else if (center && googleMaps.geometry?.spherical) {
+          } else if (center && google.maps.geometry?.spherical) {
             const markerPosition = marker.getPosition();
             if (markerPosition) {
-              const distanceMeters = googleMaps.geometry.spherical.computeDistanceBetween(center, markerPosition);
+              const distanceMeters = google.maps.geometry.spherical.computeDistanceBetween(center, markerPosition);
               distanceText = `${(distanceMeters / 1609.34).toFixed(1)} miles away`;
             }
           }

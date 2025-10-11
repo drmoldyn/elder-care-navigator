@@ -1,0 +1,101 @@
+[dotenv@17.2.3] injecting env (7) from .env.local -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+🔍 Validating name matching accuracy (sample size: 500)
+
+📊 Testing 500 random facilities...
+
+  Processed 100/500...
+  Processed 200/500...
+  Processed 300/500...
+  Processed 400/500...
+  Processed 500/500...
+
+======================================================================
+📊 MATCHING VALIDATION RESULTS
+======================================================================
+Sample size:              500
+
+🎯 Name Matching Results:
+  ✅ Exact matches:         386 (77.2%)
+  ✅ Case-insensitive:      0 (0.0%)
+  ⚠️  Multiple matches:      114 (22.8%)
+  ❌ No match found:        0 (0.0%)
+
+📍 Location Verification (for matched records):
+  City matches:           0 (0.0% of matched)
+  State matches:          0 (0.0% of matched)
+  Address matches:        492 (127.5% of matched)
+
+🎯 Overall Match Rate:    77.2%
+======================================================================
+
+⚠️  MULTIPLE MATCH EXAMPLES (first 10):
+  "CADIA REHABILITATION RENAISSANCE" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "JEROME HOME" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "BAY BREEZE SENIOR LIVING AND REHABILITATION CENTER" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "FALCON HEIGHTS REHABILITATION AND NURSING LLC" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "BAY MARINA POST ACUTE" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "ORCHARDS AT TULARE" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "ROYAL PALMS POST ACUTE" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "THE TERRACE OF DELRAY BEACH NURSING AND REHABILITA" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "GEER NURSING AND REHABILITATION" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+  "BRUCE MCCANDLESS CO STATE VETERANS NURSING HOME" → 2 matches in DB
+    CSV Location: , 
+    DB Location:  N/A, N/A
+
+🚨 POTENTIAL MISASSIGNMENTS (name matched but location differs - first 10):
+  CSV: "PARK MANOR OF CONROE" (, )
+  DB:  "PARK MANOR OF CONROE" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "MERCYHEALTH JAVON BEA HOSPITAL -SNF" (, )
+  DB:  "MERCYHEALTH JAVON BEA HOSPITAL -SNF" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "WYNSCAPE HEALTH & REHAB" (, )
+  DB:  "WYNSCAPE HEALTH & REHAB" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "ST GERTRUDES HEALTH & REHABILITATION CENTER" (, )
+  DB:  "ST GERTRUDES HEALTH & REHABILITATION CENTER" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "ASPEN PARK OF CASCADIA" (, )
+  DB:  "ASPEN PARK OF CASCADIA" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "OAKS - ATHENS SKILLED NURSING, THE" (, )
+  DB:  "OAKS - ATHENS SKILLED NURSING, THE" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "PRAIRIE VILLAGE HEALTHCARE CTR" (, )
+  DB:  "PRAIRIE VILLAGE HEALTHCARE CTR" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "CLIFFORD CHESTER SIMS STATE VETERANS NURSING HOME" (, )
+  DB:  "CLIFFORD CHESTER SIMS STATE VETERANS NURSING HOME" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "APOSTOLIC CHRISTIAN SKYLINES" (, )
+  DB:  "APOSTOLIC CHRISTIAN SKYLINES" (N/A, N/A)
+    City match: ❌ | State match: ❌
+  CSV: "APOSTOLIC CHRISTIAN RESTMOR" (, )
+  DB:  "APOSTOLIC CHRISTIAN RESTMOR" (N/A, N/A)
+    City match: ❌ | State match: ❌
+
+💡 RECOMMENDATION:
+❌ LOW ACCURACY - Consider re-import from scratch with CCN data
+   - Only 77.2% match rate
+   - Too many mismatches for safe merge
+   - Recommend: Get CMS data with CCN, delete old records, re-import fresh
+
+======================================================================

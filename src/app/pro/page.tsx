@@ -12,7 +12,7 @@ export default function ProDashboardPage() {
   ];
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-8 px-6 py-14 bg-gradient-to-b from-lavender/10 via-white to-sky-blue/10">
+    <main className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-8 px-6 py-14 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
       <header className="space-y-2">
         <p className="text-sm font-medium text-sunset-orange">SunsetWell Professional</p>
         <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Care coordinator workspace</h1>

@@ -13,6 +13,12 @@ import { ComparisonBar } from "@/components/comparison/comparison-bar";
 import { trackPhoneClick, trackViewResultsSession } from "@/lib/analytics/events";
 import { PartnerGrid } from "@/components/partners/partner-grid";
 import type { GuidancePollResponse } from "@/types/api";
+import {
+  getSunsetWellScoreColor,
+  getSunsetWellScoreBadge,
+  getStarRating,
+  getSunsetWellScoreTooltip,
+} from "@/lib/utils/score-helpers";
 
 type MobileTab = "list" | "map" | "filters";
 
@@ -37,6 +43,10 @@ interface Resource {
   insurance_accepted?: string[];
   available_beds?: number;
   overall_rating?: number;
+  health_inspection_rating?: number;
+  staffing_rating?: number;
+  quality_measure_rating?: number;
+  sunsetwell_score?: number; // 0-100 composite score
   distance?: number; // Distance in miles from user's location
   latitude?: number | null;
   longitude?: number | null;
@@ -103,7 +113,6 @@ function ResultsPageContent() {
         sessionId,
         facilityCount: resources.length,
         zipCode: sessionDetails?.zip_code,
-        conditions: sessionDetails?.needs,
       });
     }
   }, [loading, resources.length, sessionId, sessionDetails]);
@@ -243,11 +252,11 @@ function ResultsPageContent() {
 
   if (loading) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16">
+      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          <h2 className="text-2xl font-bold">Finding Your Resources...</h2>
-          <p className="mt-2 text-muted-foreground">
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-sunset-orange border-t-transparent"></div>
+          <h2 className="font-serif text-2xl font-bold text-gray-900">Finding Your Resources...</h2>
+          <p className="mt-2 text-gray-600">
             We&apos;re matching you with the best support options
           </p>
         </div>
@@ -257,16 +266,16 @@ function ResultsPageContent() {
 
   if (error) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16">
-        <Card className="w-full max-w-2xl border-destructive">
+      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
+        <Card className="w-full max-w-2xl border-red-300 shadow-lg">
           <CardHeader>
-            <CardTitle className="text-destructive">
+            <CardTitle className="text-red-600">
               Something Went Wrong
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">{error}</p>
-            <Button onClick={() => window.location.href = "/navigator"} className="mt-4">
+            <p className="text-gray-600">{error}</p>
+            <Button onClick={() => window.location.href = "/navigator"} className="mt-4 bg-sunset-orange hover:bg-sunset-orange/90">
               Start Over
             </Button>
           </CardContent>
@@ -298,9 +307,9 @@ function ResultsPageContent() {
     const isSelectedResource = isSelected(resource.id);
 
     return (
-      <div key={resource.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-        {/* Mobile-optimized layout */}
-        <div className="md:hidden">
+      <div key={resource.id} className="hover:bg-gray-50 transition-colors">
+        {/* Mobile-optimized layout - CARDS */}
+        <div className="md:hidden p-4">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex-1">
               <h3 className="font-bold text-lg text-gray-900 mb-2">{resource.title}</h3>
@@ -400,9 +409,10 @@ function ResultsPageContent() {
           </div>
         </div>
 
-        {/* Desktop layout - unchanged */}
-        <div className="hidden md:flex items-start justify-between gap-4">
-          <div className="flex items-start pt-1">
+        {/* Desktop layout - TABLE ROW */}
+        <div className="hidden md:grid md:grid-cols-[40px_80px_2fr_1fr_1fr_1fr_140px_180px] gap-4 items-center p-4 text-sm">
+          {/* Checkbox */}
+          <div className="flex items-center justify-center">
             <input
               type="checkbox"
               checked={isSelectedResource}
@@ -422,102 +432,110 @@ function ResultsPageContent() {
             />
           </div>
 
-          <div className="flex-1">
-            <div className="flex items-start gap-3">
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg">{resource.title}</h3>
+          {/* Distance */}
+          <div className="text-gray-700 font-medium text-center">
+            {!isHomeService && resource.distance !== undefined ? (
+              <>{resource.distance.toFixed(1)} mi</>
+            ) : isHomeService ? (
+              <span className="text-emerald-700 text-xs">🏠 Home</span>
+            ) : (
+              <span className="text-gray-400">—</span>
+            )}
+          </div>
 
-                {!isHomeService && resource.distance !== undefined && (
-                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
-                    <span className="text-base">📍</span>
-                    {resource.distance.toFixed(1)} miles away
-                  </div>
-                )}
-
-                {isHomeService && (
-                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
-                    <span className="text-base">🏠</span>
-                    {userZip ? `Serves ZIP ${userZip}` : "Serves your area"}
-                  </div>
-                )}
-
-                {resource.address && (
-                  <p className="mt-2 text-sm text-gray-600">
-                    {resource.address}, {resource.city}, {resource.state} {resource.zip}
-                  </p>
-                )}
-              </div>
-              {resource.overall_rating && (
-                <div className="text-right">
-                  <div className="font-semibold text-indigo-600">
-                    {"⭐".repeat(Math.round(resource.overall_rating))}
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {resource.overall_rating}/5
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              {resource.category.slice(0, 2).map((cat) => (
-                <Badge key={cat} variant="secondary" className="text-xs">
-                  {cat.replace(/_/g, " ")}
-                </Badge>
-              ))}
-              {resource.insurance_accepted && resource.insurance_accepted.length > 0 && (
-                <Badge variant="outline" className="text-xs">
-                  {resource.insurance_accepted[0]}
-                </Badge>
-              )}
-            </div>
-
-            {resource.available_beds !== undefined && resource.available_beds > 0 && (
-              <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
-                ✓ {resource.available_beds} bed{resource.available_beds !== 1 ? "s" : ""} available
+          {/* Facility Name + Address */}
+          <div>
+            <h3 className="font-semibold text-gray-900">{resource.title}</h3>
+            {resource.address && (
+              <p className="text-xs text-gray-600 mt-0.5">
+                {resource.address}, {resource.city}, {resource.state}
+              </p>
+            )}
+            {resource.insurance_accepted && resource.insurance_accepted.length > 0 && (
+              <div className="flex flex-wrap gap-1 mt-1">
+                {resource.insurance_accepted.slice(0, 2).map((insurance) => (
+                  <Badge
+                    key={insurance}
+                    className="bg-sky-blue/10 text-sky-blue border border-sky-blue/20 text-[10px] px-1.5 py-0"
+                  >
+                    {insurance}
+                  </Badge>
+                ))}
               </div>
             )}
+          </div>
 
-            <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:gap-3">
-              <Button
-                size="sm"
-                className="flex-1 sm:flex-none"
-                onClick={() => setRequestInfoModal({
-                  isOpen: true,
-                  facilityName: resource.title,
-                  facilityId: resource.id,
-                })}
-              >
-                📧 Request Info
-              </Button>
-              {resource.contact_phone && (
-                <Button size="sm" variant="outline" className="flex-1 sm:flex-none" asChild>
-                  <a
-                    href={`tel:${resource.contact_phone}`}
-                    onClick={() => trackPhoneClick({
-                      facilityId: resource.id,
-                      facilityName: resource.title,
-                      phoneNumber: resource.contact_phone!,
-                    })}
-                  >
-                    📞 Call Now
-                  </a>
-                </Button>
-              )}
-              {resource.address && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="flex-1 sm:flex-none"
-                  onClick={() => {
-                    const address = `${resource.address}, ${resource.city}, ${resource.state} ${resource.zip}`;
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, "_blank");
-                  }}
-                >
-                  📍 Directions
-                </Button>
-              )}
+          {/* Health Inspection Rating */}
+          <div className="text-center">
+            {resource.health_inspection_rating ? (
+              <div>
+                <div className="text-lg">{getStarRating(resource.health_inspection_rating)}</div>
+                <div className="text-xs text-gray-500">{resource.health_inspection_rating}/5</div>
+              </div>
+            ) : (
+              <span className="text-gray-400">—</span>
+            )}
+          </div>
+
+          {/* Staffing Rating */}
+          <div className="text-center">
+            {resource.staffing_rating ? (
+              <div>
+                <div className="text-lg">{getStarRating(resource.staffing_rating)}</div>
+                <div className="text-xs text-gray-500">{resource.staffing_rating}/5</div>
+              </div>
+            ) : (
+              <span className="text-gray-400">—</span>
+            )}
+          </div>
+
+          {/* Quality Measures Rating */}
+          <div className="text-center">
+            {resource.quality_measure_rating ? (
+              <div>
+                <div className="text-lg">{getStarRating(resource.quality_measure_rating)}</div>
+                <div className="text-xs text-gray-500">{resource.quality_measure_rating}/5</div>
+              </div>
+            ) : (
+              <span className="text-gray-400">—</span>
+            )}
+          </div>
+
+          {/* SunsetWell Score - PROMINENT */}
+          <div className="flex items-center justify-center">
+            <div
+              className={`px-4 py-2 rounded-lg font-bold text-lg ${getSunsetWellScoreColor(resource.sunsetwell_score)}`}
+              title={getSunsetWellScoreTooltip(resource.sunsetwell_score)}
+            >
+              {getSunsetWellScoreBadge(resource.sunsetwell_score)}
             </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-1">
+            <button
+              onClick={() => setRequestInfoModal({
+                isOpen: true,
+                facilityName: resource.title,
+                facilityId: resource.id,
+              })}
+              className="flex-1 bg-sky-blue text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sky-blue/90 transition-colors"
+            >
+              Get Info
+            </button>
+            {resource.contact_phone && (
+              <a
+                href={`tel:${resource.contact_phone}`}
+                onClick={() => trackPhoneClick({
+                  facilityId: resource.id,
+                  facilityName: resource.title,
+                  phoneNumber: resource.contact_phone!,
+                })}
+                className="flex-1 bg-sunset-orange text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sunset-orange/90 transition-colors text-center"
+              >
+                📞 Call
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -525,20 +543,20 @@ function ResultsPageContent() {
   };
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col bg-gradient-to-br from-lavender/5 via-white to-sky-blue/5">
       {/* Header */}
-      <div className="border-b bg-white px-4 md:px-6 py-4">
+      <div className="border-b bg-white/90 backdrop-blur-sm px-4 md:px-6 py-4 shadow-sm">
         <div className="mx-auto max-w-7xl">
-          <h1 className="font-serif text-xl md:text-2xl font-bold">
+          <h1 className="font-serif text-xl md:text-2xl font-bold text-gray-900">
             {resultsHeading}
           </h1>
           <p className="mt-1 text-sm text-gray-600">
             {totalCount.toLocaleString()} match{totalCount === 1 ? "" : "es"}
             {anyDistance && facilityCount > 0 && (
-              <span className="ml-2 text-indigo-600 font-medium">• Sorted by distance</span>
+              <span className="ml-2 text-sunset-orange font-medium">• Sorted by distance</span>
             )}
             {homeServiceCount > 0 && (
-              <span className="ml-2 text-indigo-600 font-medium">
+              <span className="ml-2 text-sunset-orange font-medium">
                 • {homeServiceCount.toLocaleString()} home service{homeServiceCount === 1 ? "" : "s"}
                 {userZip ? ` serving ZIP ${userZip}` : " serving your area"}
               </span>
@@ -549,16 +567,16 @@ function ResultsPageContent() {
 
       {/* Guidance Section */}
       {(guidanceLoading || guidance || guidanceError) && (
-        <div className="border-b border-indigo-100 bg-indigo-50/70">
+        <div className="border-b border-sunset-orange/20 bg-gradient-to-r from-sunset-orange/10 to-sunset-gold/10">
           <div className="mx-auto max-w-7xl px-4 py-4">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-indigo-800">
+                <p className="text-sm font-semibold text-sunset-orange">
                   Personalized recommendations
                 </p>
                 {guidanceLoading && !guidanceError && (
-                  <p className="mt-1 text-sm text-indigo-700">
-                    <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-indigo-400 border-t-transparent align-middle"></span>
+                  <p className="mt-1 text-sm text-gray-700">
+                    <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-sunset-orange border-t-transparent align-middle"></span>
                     We&apos;re preparing a care plan tailored to your answers…
                   </p>
                 )}
@@ -568,12 +586,12 @@ function ResultsPageContent() {
                   </p>
                 )}
                 {!guidanceLoading && !guidanceError && guidance && guidance.status === "pending" && (
-                  <p className="mt-1 text-sm text-indigo-700">
+                  <p className="mt-1 text-sm text-gray-700">
                     Nearly there—your personalized care plan is being generated.
                   </p>
                 )}
                 {!guidanceLoading && !guidanceError && guidance && guidance.status === "complete" && (
-                  <p className="mt-1 text-sm text-indigo-700">
+                  <p className="mt-1 text-sm text-gray-700">
                     Your personalized care plan is ready.
                   </p>
                 )}
@@ -584,7 +602,7 @@ function ResultsPageContent() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-indigo-700 hover:text-indigo-900"
+                    className="text-sunset-orange hover:text-sunset-orange/80"
                     onClick={() => setGuidanceExpanded((prev) => !prev)}
                   >
                     {guidanceExpanded ? "Hide" : "Show"} plan
@@ -599,9 +617,9 @@ function ResultsPageContent() {
             </div>
 
             {!guidanceLoading && !guidanceError && guidance && guidance.status === "complete" && guidance.guidance && guidanceExpanded && (
-              <div className="mt-4 rounded-lg border border-indigo-200 bg-white p-4 text-sm leading-relaxed text-slate-800 shadow-sm">
+              <div className="mt-4 rounded-xl border border-sunset-orange/20 bg-white p-4 text-sm leading-relaxed text-slate-800 shadow-sm">
                 <div className="flex items-center justify-between">
-                  <p className="font-semibold text-indigo-900">Care plan overview</p>
+                  <p className="font-semibold text-gray-900">Care plan overview</p>
                   {guidance.fallback && (
                     <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
                       Using fallback guidance
@@ -649,14 +667,14 @@ function ResultsPageContent() {
       {/* Main Content: 3-column layout on desktop, tab-based on mobile */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar: Filters (desktop only) */}
-        <aside className="hidden lg:block w-80 overflow-y-auto border-r bg-gray-50 p-6">
+        <aside className="hidden lg:block w-80 overflow-y-auto border-r bg-white/60 backdrop-blur-sm p-6">
           <div className="space-y-6">
             <div>
-              <h3 className="mb-3 font-semibold">Insurance Accepted</h3>
+              <h3 className="mb-3 font-semibold text-gray-900">Insurance Accepted</h3>
               <div className="space-y-2">
                 {["Medicare", "Medicaid", "Private Insurance", "VA Benefits"].map((insurance) => (
                   <label key={insurance} className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-sunset-orange focus:ring-sunset-orange/50" />
                     <span>{insurance}</span>
                   </label>
                 ))}
@@ -664,11 +682,11 @@ function ResultsPageContent() {
             </div>
 
             <div>
-              <h3 className="mb-3 font-semibold">Star Rating</h3>
+              <h3 className="mb-3 font-semibold text-gray-900">Star Rating</h3>
               <div className="space-y-2">
                 {[5, 4, 3, 2, 1].map((stars) => (
                   <label key={stars} className="flex items-center gap-2 text-sm">
-                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-sunset-orange focus:ring-sunset-orange/50" />
                     <span>{"⭐".repeat(stars)} & up</span>
                   </label>
                 ))}
@@ -676,10 +694,10 @@ function ResultsPageContent() {
             </div>
 
             <div>
-              <h3 className="mb-3 font-semibold">Availability</h3>
+              <h3 className="mb-3 font-semibold text-gray-900">Availability</h3>
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                  <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-sunset-orange focus:ring-sunset-orange/50" />
                   <span>Beds available now</span>
                 </label>
               </div>
@@ -704,6 +722,18 @@ function ResultsPageContent() {
 
         {/* Middle: Facility List (show on desktop or when list tab active on mobile) */}
         <div className={`flex-1 overflow-y-auto bg-white ${mobileTab !== "list" ? "hidden lg:block" : ""}`}>
+          {/* Table Header - Desktop Only */}
+          <div className="hidden md:grid md:grid-cols-[40px_80px_2fr_1fr_1fr_1fr_140px_180px] gap-4 items-center p-4 bg-gray-50 border-b border-gray-200 sticky top-0 z-10">
+            <div className="text-center text-xs font-semibold text-gray-600">☑</div>
+            <div className="text-center text-xs font-semibold text-gray-600">Distance</div>
+            <div className="text-xs font-semibold text-gray-600">Facility Name</div>
+            <div className="text-center text-xs font-semibold text-gray-600">Health<br/>Inspection</div>
+            <div className="text-center text-xs font-semibold text-gray-600">Staffing</div>
+            <div className="text-center text-xs font-semibold text-gray-600">Quality<br/>Measures</div>
+            <div className="text-center text-xs font-semibold text-gray-900">SunsetWell<br/>Score</div>
+            <div className="text-center text-xs font-semibold text-gray-600">Actions</div>
+          </div>
+
           <div className="divide-y">
             {totalCount === 0 && !loading && (
               <div className="p-8 text-center">
@@ -750,13 +780,13 @@ function ResultsPageContent() {
       </div>
 
       {/* Partner Marketplace */}
-      <section className="border-t border-slate-200 bg-slate-50/60 px-4 py-10">
+      <section className="border-t border-gray-200 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10 px-4 py-10">
         <div className="mx-auto flex max-w-6xl flex-col gap-4">
           <div>
-            <h2 className="font-serif text-2xl font-semibold text-slate-900">
+            <h2 className="font-serif text-2xl font-semibold text-gray-900">
               Additional support for your family
             </h2>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-gray-600">
               Connect with trusted partners for legal guidance, financial planning, home safety upgrades, and more.
             </p>
           </div>
