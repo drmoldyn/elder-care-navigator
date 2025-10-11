@@ -88,10 +88,11 @@ export default function FacilityPortalPage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16">
-      <header className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">Facility Partner Portal</h1>
-        <p className="text-muted-foreground">
+    <main className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 bg-gradient-to-b from-sunset-orange/10 via-white to-lavender/10">
+      <header className="space-y-3 text-center">
+        <p className="text-sm font-medium text-sunset-orange">SunsetWell Partner Portal</p>
+        <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Facility Partner Portal</h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           We&apos;re preparing a dedicated workspace where authorized admissions teams can update
           availability, manage leads, and review performance insights.
         </p>

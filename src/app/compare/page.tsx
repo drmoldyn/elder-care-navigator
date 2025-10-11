@@ -11,15 +11,15 @@ export default function ComparePage() {
 
   if (selectedFacilities.length === 0) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center px-4">
+      <div className="flex min-h-screen flex-col items-center justify-center px-4 bg-gradient-to-b from-lavender/10 via-white to-sky-blue/10">
         <div className="text-center">
-          <h1 className="mb-4 font-serif text-3xl font-bold">
+          <h1 className="mb-4 font-serif text-4xl font-bold text-gray-900">
             Compare Senior Care Facilities
           </h1>
-          <p className="mb-6 text-gray-600">
+          <p className="mb-6 text-lg text-gray-600">
             No facilities selected. Select 2-4 facilities from the results page to compare them side by side.
           </p>
-          <Button onClick={() => router.back()}>
+          <Button onClick={() => router.back()} className="bg-sunset-orange hover:bg-sunset-orange/90">
             Go Back to Results
           </Button>
         </div>
@@ -43,13 +43,13 @@ export default function ComparePage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-lavender/10 via-white to-sky-blue/10">
       {/* Header */}
-      <div className="border-b bg-white px-4 py-6">
+      <div className="border-b bg-white/80 backdrop-blur-sm px-4 py-6 shadow-sm">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-serif text-2xl font-bold md:text-3xl">
+              <h1 className="font-serif text-2xl font-bold md:text-4xl text-gray-900">
                 Compare Senior Care Facilities
               </h1>
               <p className="mt-1 text-sm text-gray-600">

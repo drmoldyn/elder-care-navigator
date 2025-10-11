@@ -173,7 +173,8 @@ For each facility type, we will:
 - Use Supabase row-level security to ensure only aggregated/non-PII data is exposed publicly.
 
 ## Automation & Refresh Cadence
-- Schedule monthly CMS imports via GitHub Actions or Supabase cron calling ETL scripts.
+- Schedule monthly CMS imports via GitHub Actions (see `.github/workflows/data-refresh.yml`) or Supabase cron.
+- Orchestrator script `scripts/run-data-refresh.ts` sequences download → process → import tasks with optional `DRY_RUN`.
 - State data refresh frequency varies; monitor source change logs and set reminders (quarterly/annually).
 - Add smoke tests post-import to validate row counts, key metrics, and missing identifier percentage.
 
