@@ -38,3 +38,11 @@ _Last updated: 2025-10-10_
 ---
 
 _Short URL for status sharing: `docs/roadmap-codex.md`_
+
+
+## Future Considerations
+
+- [ ] Normalization engine for facility metrics (aggregate 5-Star components, staffing ratios, deficiencies) with facility-type and region-aware scaling.
+- [ ] Public/partner API surface for agent-to-agent integrations (social workers, hospital EMRs, virtual assistants).
+- [ ] Sandboxed developer portal + API keys for third-party agent testing.
+- [ ] Intent-specific product bundles (DME, home safety) tied to matching logic.
