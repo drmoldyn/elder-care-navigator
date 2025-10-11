@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -88,8 +89,20 @@ export default function FacilityPortalPage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 bg-gradient-to-br from-sunset-orange/10 via-white to-lavender/10">
-      <header className="space-y-3 text-center">
+    <main className="min-h-screen relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-3.jpg"
+          alt="Senior care background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+      </div>
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 relative z-10">
+        <header className="space-y-3 text-center">
         <p className="text-sm font-medium text-sunset-orange">SunsetWell Partner Portal</p>
         <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Facility Partner Portal</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -235,6 +248,7 @@ export default function FacilityPortalPage() {
           )}
         </form>
       </section>
+      </div>
     </main>
   );
 }

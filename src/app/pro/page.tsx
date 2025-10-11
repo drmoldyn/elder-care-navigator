@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function ProDashboardPage() {
   const mockCaseload = [
     { name: "Anderson Family", status: "Tour scheduled", due: "Oct 12" },
@@ -12,8 +14,20 @@ export default function ProDashboardPage() {
   ];
 
   return (
-    <main className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-8 px-6 py-14 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
-      <header className="space-y-2">
+    <main className="min-h-screen relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-2.jpg"
+          alt="Senior care background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+      </div>
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-8 px-6 py-14 relative z-10">
+        <header className="space-y-2">
         <p className="text-sm font-medium text-sunset-orange">SunsetWell Professional</p>
         <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Care coordinator workspace</h1>
         <p className="text-lg text-gray-600">
@@ -65,6 +79,7 @@ export default function ProDashboardPage() {
           Upcoming features include placement templates, secure document sharing, and billing integrations for team-based access.
         </p>
       </section>
+      </div>
     </main>
   );
 }

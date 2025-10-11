@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { supabaseBrowser } from "@/lib/supabase/client";
 
 export const dynamic = 'force-dynamic';
@@ -176,8 +177,19 @@ export default function MetricsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
+      <div className="flex min-h-screen items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero/hero-1.jpg"
+            alt="Senior care background"
+            fill
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-lavender/40 via-sky-blue/30 to-sunset-orange/30" />
+          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+        </div>
+        <div className="text-center relative z-10">
           <div className="mb-4 text-4xl">📊</div>
           <p className="text-muted-foreground">Loading metrics...</p>
         </div>
@@ -190,8 +202,19 @@ export default function MetricsPage() {
   const distribution = getDistribution(selectedMetric);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10 p-8">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen relative overflow-hidden p-8">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-1.jpg"
+          alt="Senior care background"
+          fill
+          className="object-cover"
+          quality={90}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+      </div>
+      <div className="mx-auto max-w-7xl relative z-10">
         <div className="mb-8">
           <h1 className="mb-2 font-serif text-4xl font-bold text-gray-900">
             Facility Metrics Dashboard
