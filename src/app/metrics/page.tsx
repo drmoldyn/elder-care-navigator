@@ -202,7 +202,7 @@ export default function MetricsPage() {
   const distribution = getDistribution(selectedMetric);
 
   return (
-    <div className="min-h-screen relative overflow-hidden p-8">
+    <div className="min-h-screen relative overflow-hidden p-4 md:p-8">
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero/hero-1.jpg"
@@ -210,13 +210,14 @@ export default function MetricsPage() {
           fill
           className="object-cover"
           quality={90}
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
         <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
       </div>
       <div className="mx-auto max-w-7xl relative z-10">
-        <div className="mb-8">
-          <h1 className="mb-2 font-serif text-4xl font-bold text-gray-900">
+        <div className="mb-6 md:mb-8">
+          <h1 className="mb-2 font-serif text-2xl md:text-4xl font-bold text-gray-900">
             Facility Metrics Dashboard
           </h1>
           <p className="text-gray-600 mb-4">
@@ -224,8 +225,8 @@ export default function MetricsPage() {
           </p>
 
           {/* SunsetWell Score Info Banner */}
-          <div className="rounded-xl bg-gradient-to-r from-sunset-orange/10 to-sunset-gold/10 border border-sunset-orange/20 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <div className="rounded-xl bg-gradient-to-r from-sunset-orange/10 to-sunset-gold/10 border border-sunset-orange/20 p-4 md:p-6">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
               📊 Introducing the SunsetWell Score
             </h2>
             <p className="text-gray-700 mb-3">
@@ -253,8 +254,8 @@ export default function MetricsPage() {
         </div>
 
         {/* Filters */}
-        <div className="mb-8 flex gap-4">
-          <div>
+        <div className="mb-6 md:mb-8 flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Select Metric
             </label>
@@ -276,7 +277,7 @@ export default function MetricsPage() {
             </select>
           </div>
 
-          <div>
+          <div className="flex-1">
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Filter by State
             </label>
@@ -297,7 +298,7 @@ export default function MetricsPage() {
 
         {/* Statistics Cards */}
         {selectedStat && (
-          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-5">
+          <div className="mb-6 md:mb-8 grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-5">
             <StatCard label="Mean" value={selectedStat.mean.toFixed(2)} />
             <StatCard label="Median" value={selectedStat.median.toFixed(2)} />
             <StatCard label="Min" value={selectedStat.min.toFixed(2)} />
@@ -308,8 +309,8 @@ export default function MetricsPage() {
 
         {/* Distribution Chart */}
         {distribution.length > 0 && (
-          <div className="mb-8 rounded-xl bg-white p-6 shadow-md">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+          <div className="mb-6 md:mb-8 rounded-xl bg-white p-4 md:p-6 shadow-md">
+            <h2 className="mb-4 text-lg md:text-xl font-semibold text-gray-900">
               Distribution: {selectedMetricInfo?.label}
             </h2>
             <div className="flex h-64 items-end gap-1">
@@ -330,11 +331,11 @@ export default function MetricsPage() {
         )}
 
         {/* Facility Table */}
-        <div className="rounded-xl bg-white shadow-md">
-          <div className="border-b border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900">Facility Details</h2>
+        <div className="rounded-xl bg-white shadow-md overflow-hidden">
+          <div className="border-b border-gray-200 p-4 md:p-6">
+            <h2 className="text-lg md:text-xl font-semibold text-gray-900">Facility Details</h2>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-4 md:mx-0">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>

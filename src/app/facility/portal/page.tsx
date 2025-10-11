@@ -97,22 +97,23 @@ export default function FacilityPortalPage() {
           fill
           className="object-cover"
           quality={90}
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
         <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
       </div>
-      <div className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-6 px-6 py-16 relative z-10">
-        <header className="space-y-3 text-center">
-        <p className="text-sm font-medium text-sunset-orange">SunsetWell Partner Portal</p>
-        <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Facility Partner Portal</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-4xl flex-col gap-5 md:gap-6 px-4 md:px-6 py-10 md:py-16 relative z-10">
+        <header className="space-y-2 md:space-y-3 text-center">
+        <p className="text-xs md:text-sm font-medium text-sunset-orange">SunsetWell Partner Portal</p>
+        <h1 className="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900">Facility Partner Portal</h1>
+        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
           We&apos;re preparing a dedicated workspace where authorized admissions teams can update
           availability, manage leads, and review performance insights.
         </p>
       </header>
 
-      <section className="rounded-2xl border border-dashed border-sunset-orange/40 bg-white/70 p-6 shadow-sm">
-        <h2 className="text-xl font-semibold">What&apos;s coming soon</h2>
+      <section className="rounded-2xl border border-dashed border-sunset-orange/40 bg-white/70 p-4 md:p-6 shadow-sm">
+        <h2 className="text-lg md:text-xl font-semibold">What&apos;s coming soon</h2>
         <ul className="mt-4 space-y-2 text-sm text-slate-600">
           <li>• Claim your facility profile and invite teammates</li>
           <li>• Update open beds and waitlist status in real time</li>
@@ -121,8 +122,8 @@ export default function FacilityPortalPage() {
         </ul>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-inner">
-        <h3 className="text-lg font-semibold">Request early access</h3>
+      <section className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:p-6 shadow-inner">
+        <h3 className="text-base md:text-lg font-semibold">Request early access</h3>
         <p className="mt-2 text-sm text-slate-600">
           Share a few details and our partnerships team will reach out as soon as the portal pilot opens.
         </p>
@@ -190,8 +191,8 @@ export default function FacilityPortalPage() {
             />
           </div>
 
-          <div className="flex items-center gap-3">
-            <Button type="submit" disabled={isSubmitting} className="bg-sunset-orange hover:bg-sunset-orange/90">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto bg-sunset-orange hover:bg-sunset-orange/90">
               {isSubmitting ? "Submitting…" : "Submit claim"}
             </Button>
             {status === "success" && (
@@ -204,8 +205,8 @@ export default function FacilityPortalPage() {
         </form>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-slate-900">Lead delivery preferences</h3>
+      <section className="rounded-2xl border border-slate-200 bg-white/80 p-4 md:p-6 shadow-sm">
+        <h3 className="text-base md:text-lg font-semibold text-slate-900">Lead delivery preferences</h3>
         <p className="mt-1 text-sm text-slate-600">
           Customize how SunsetWell notifies your admissions team about new referrals. Preferences can be updated anytime after full portal access is granted.
         </p>
@@ -237,7 +238,7 @@ export default function FacilityPortalPage() {
             </label>
           </div>
 
-          <Button type="submit" variant="outline" disabled={prefSubmitting} className="w-fit">
+          <Button type="submit" variant="outline" disabled={prefSubmitting} className="w-full sm:w-fit">
             {prefSubmitting ? "Saving…" : "Save preferences"}
           </Button>
           {prefStatus === "success" && (

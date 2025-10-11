@@ -22,36 +22,39 @@ export default function ProDashboardPage() {
           fill
           className="object-cover"
           quality={90}
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
         <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
       </div>
-      <div className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-8 px-6 py-14 relative z-10">
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-6 md:gap-8 px-4 md:px-6 py-10 md:py-14 relative z-10">
         <header className="space-y-2">
         <p className="text-sm font-medium text-sunset-orange">SunsetWell Professional</p>
-        <h1 className="font-serif text-4xl font-bold tracking-tight text-gray-900">Care coordinator workspace</h1>
+        <h1 className="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900">Care coordinator workspace</h1>
         <p className="text-lg text-gray-600">
           Save client caseloads, track facility outreach, and export compliance-ready placement reports.
         </p>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-3">
         {mockInsights.map((insight) => (
-          <div key={insight.label} className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm">
-            <p className="text-sm text-slate-500">{insight.label}</p>
-            <p className="mt-2 text-2xl font-semibold text-slate-900">{insight.value}</p>
+          <div key={insight.label} className="rounded-2xl border border-slate-200 bg-white/80 p-4 md:p-5 shadow-sm">
+            <p className="text-xs md:text-sm text-slate-500">{insight.label}</p>
+            <p className="mt-2 text-xl md:text-2xl font-semibold text-slate-900">{insight.value}</p>
           </div>
         ))}
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white/85 p-6 shadow-sm">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Caseload overview</h2>
-          <button className="rounded-lg bg-sunset-orange px-4 py-2 text-sm font-semibold text-white shadow hover:bg-sunset-orange/90">
+      <section className="rounded-2xl border border-slate-200 bg-white/85 p-4 md:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+          <h2 className="text-lg md:text-xl font-semibold">Caseload overview</h2>
+          <button className="w-full sm:w-auto rounded-lg bg-sunset-orange px-4 py-2 text-sm font-semibold text-white shadow hover:bg-sunset-orange/90">
             Add client
           </button>
         </div>
-        <div className="mt-4 overflow-hidden rounded-lg border">
+        <div className="overflow-x-auto -mx-4 md:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden rounded-lg border">
           <table className="w-full border-collapse text-sm">
             <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
               <tr>
@@ -70,10 +73,12 @@ export default function ProDashboardPage() {
               ))}
             </tbody>
           </table>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="rounded-2xl border border-dashed border-lavender/60 bg-lavender/10 p-6 text-sm text-slate-700">
+      <section className="rounded-2xl border border-dashed border-lavender/60 bg-lavender/10 p-4 md:p-6 text-sm text-slate-700">
         <h3 className="text-lg font-semibold text-slate-900">Roadmap</h3>
         <p className="mt-2">
           Upcoming features include placement templates, secure document sharing, and billing integrations for team-based access.
