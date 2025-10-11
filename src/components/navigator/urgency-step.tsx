@@ -61,22 +61,22 @@ export function UrgencyStep({ value, onChange, onNext, onBack }: UrgencyStepProp
               <button
                 key={option.value}
                 onClick={() => toggleFactor(option.value)}
-                className={`flex items-start gap-4 rounded-lg border p-4 text-left transition-all hover:border-primary ${
+                className={`flex min-h-[48px] items-start gap-4 rounded-lg border p-4 text-left transition-all hover:border-sunset-orange ${
                   isSelected
-                    ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+                    ? "border-sunset-orange bg-sunset-orange/5 ring-2 ring-sunset-orange/20"
                     : "border-border"
                 }`}
               >
                 <div
-                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 ${
+                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded border-2 ${
                     isSelected
-                      ? "border-primary bg-primary"
+                      ? "border-sunset-orange bg-sunset-orange"
                       : "border-muted-foreground"
                   }`}
                 >
                   {isSelected && (
                     <svg
-                      className="h-3 w-3 text-primary-foreground"
+                      className="h-4 w-4 text-white"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -110,11 +110,15 @@ export function UrgencyStep({ value, onChange, onNext, onBack }: UrgencyStepProp
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="hidden items-center justify-between pt-4 md:flex">
           <Button variant="ghost" onClick={onBack}>
             Back
           </Button>
-          <Button onClick={onNext} disabled={value.length === 0}>
+          <Button
+            onClick={onNext}
+            disabled={value.length === 0}
+            className="bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
+          >
             Continue to Review
           </Button>
         </div>

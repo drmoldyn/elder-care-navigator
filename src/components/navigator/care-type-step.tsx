@@ -59,8 +59,8 @@ export function CareTypeStep({ value, onChange, onNext, onBack }: CareTypeStepPr
               <button
                 key={option.value}
                 onClick={() => onChange(option.value)}
-                className={`flex items-start gap-4 rounded-lg border p-4 text-left transition-all hover:border-primary/70 ${
-                  isActive ? "border-primary bg-primary/5 ring-2 ring-primary/20" : "border-border"
+                className={`flex min-h-[48px] items-start gap-4 rounded-lg border p-4 text-left transition-all hover:border-sunset-orange/70 ${
+                  isActive ? "border-sunset-orange bg-sunset-orange/5 ring-2 ring-sunset-orange/20" : "border-border"
                 }`}
               >
                 <span className="text-2xl" aria-hidden="true">{option.emoji}</span>
@@ -70,7 +70,7 @@ export function CareTypeStep({ value, onChange, onNext, onBack }: CareTypeStepPr
                 </div>
                 {isActive && (
                   <svg
-                    className="ml-auto h-5 w-5 text-primary"
+                    className="ml-auto h-5 w-5 text-sunset-orange"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -84,16 +84,20 @@ export function CareTypeStep({ value, onChange, onNext, onBack }: CareTypeStepPr
         </div>
 
         {selected && (
-          <div className="rounded-md border border-dashed border-primary/40 bg-primary/5 p-3 text-sm text-primary">
+          <div className="rounded-md border border-dashed border-sunset-orange/40 bg-sunset-orange/5 p-3 text-sm text-sunset-orange">
             You chose: <span className="font-medium">{selected.title}</span>. You can change this later in the review step.
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="hidden items-center justify-between pt-4 md:flex">
           <Button variant="ghost" onClick={onBack}>
             Back
           </Button>
-          <Button onClick={onNext} disabled={!value}>
+          <Button
+            onClick={onNext}
+            disabled={!value}
+            className="bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
+          >
             Continue
           </Button>
         </div>

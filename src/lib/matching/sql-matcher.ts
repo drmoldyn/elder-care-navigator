@@ -110,6 +110,10 @@ export function buildFiltersFromSession(
     filters.providerTypes = Array.from(providerTypes);
   }
 
+  if (session.insuranceTypes && session.insuranceTypes.length > 0) {
+    filters.insuranceTypes = session.insuranceTypes;
+  }
+
   return filters;
 }
 

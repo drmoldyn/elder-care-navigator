@@ -131,6 +131,24 @@ async function importResources(csvPath: string): Promise<ImportSummary> {
         services_offered: parseArray(row.services_offered),
         specialties: parseArray(row.specialties),
 
+        // Staffing metrics (nursing homes only)
+        staffing_rating: parseFloat(row.staffing_rating),
+        total_nurse_hours_per_resident_per_day: parseFloat(row.total_nurse_hours_per_resident_per_day),
+        rn_hours_per_resident_per_day: parseFloat(row.rn_hours_per_resident_per_day),
+        lpn_hours_per_resident_per_day: parseFloat(row.lpn_hours_per_resident_per_day),
+        cna_hours_per_resident_per_day: parseFloat(row.cna_hours_per_resident_per_day),
+        weekend_nurse_hours_per_resident_per_day: parseFloat(row.weekend_nurse_hours_per_resident_per_day),
+        weekend_rn_hours_per_resident_per_day: parseFloat(row.weekend_rn_hours_per_resident_per_day),
+        total_nurse_staff_turnover: parseFloat(row.total_nurse_staff_turnover),
+        rn_turnover: parseFloat(row.rn_turnover),
+        case_mix_total_nurse_hours: parseFloat(row.case_mix_total_nurse_hours),
+        case_mix_rn_hours: parseFloat(row.case_mix_rn_hours),
+        health_inspection_rating: parseFloat(row.health_inspection_rating),
+        quality_measure_rating: parseFloat(row.quality_measure_rating),
+        number_of_facility_reported_incidents: parseInt(row.number_of_facility_reported_incidents),
+        number_of_substantiated_complaints: parseInt(row.number_of_substantiated_complaints),
+        number_of_certified_beds: parseInt(row.number_of_certified_beds),
+
         // Audience
         audience: parseArray(row.audience) || ["caregiver", "patient"],
         living_situation: parseArray(row.living_situation),

@@ -104,6 +104,7 @@ export function LocationStep({
               placeholder="e.g., Portland"
               value={city || ""}
               onChange={(e) => onChange("city", e.target.value)}
+              className="h-12"
             />
           </div>
 
@@ -118,7 +119,7 @@ export function LocationStep({
               id="state"
               value={state || ""}
               onChange={(e) => onChange("state", e.target.value)}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunset-orange/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="">Select a state</option>
               {US_STATES.map((s) => (
@@ -144,6 +145,7 @@ export function LocationStep({
               onChange={(e) => onChange("zipCode", e.target.value)}
               pattern="[0-9]{5}"
               maxLength={5}
+              className="h-12"
             />
             <p className="mt-1 text-xs text-muted-foreground">
               For more precise local resource matching
@@ -183,7 +185,7 @@ export function LocationStep({
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="hidden items-center justify-between pt-4 md:flex">
           <Button variant="ghost" onClick={onBack}>
             Back
           </Button>
@@ -193,7 +195,11 @@ export function LocationStep({
                 Skip
               </Button>
             )}
-            <Button onClick={onNext} disabled={!isValid}>
+            <Button
+              onClick={onNext}
+              disabled={!isValid}
+              className="bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
+            >
               Continue
             </Button>
           </div>

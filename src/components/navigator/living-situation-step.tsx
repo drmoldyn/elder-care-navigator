@@ -61,9 +61,9 @@ export function LivingSituationStep({
             <button
               key={option.value}
               onClick={() => onChange(option.value)}
-              className={`flex items-start justify-between gap-4 rounded-lg border p-4 text-left transition-all hover:border-primary ${
+              className={`flex min-h-[48px] items-start justify-between gap-4 rounded-lg border p-4 text-left transition-all hover:border-sunset-orange ${
                 value === option.value
-                  ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+                  ? "border-sunset-orange bg-sunset-orange/5 ring-2 ring-sunset-orange/20"
                   : "border-border"
               }`}
             >
@@ -75,7 +75,7 @@ export function LivingSituationStep({
               </div>
               {value === option.value && (
                 <svg
-                  className="h-5 w-5 shrink-0 text-primary"
+                  className="h-5 w-5 shrink-0 text-sunset-orange"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -92,7 +92,7 @@ export function LivingSituationStep({
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="hidden items-center justify-between pt-4 md:flex">
           <Button variant="ghost" onClick={onBack}>
             Back
           </Button>
@@ -102,7 +102,11 @@ export function LivingSituationStep({
                 Skip
               </Button>
             )}
-            <Button onClick={onNext} disabled={!value}>
+            <Button
+              onClick={onNext}
+              disabled={!value}
+              className="bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
+            >
               Continue
             </Button>
           </div>

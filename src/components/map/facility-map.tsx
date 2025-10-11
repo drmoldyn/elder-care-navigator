@@ -340,13 +340,15 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
         <span>
           Showing {visibleCount.toLocaleString()} of {resources.length.toLocaleString()} facilities
         </span>
-        <button
-          type="button"
-          className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-700"
-          onClick={handleSearchThisArea}
-        >
-          Search this area
-        </button>
+        {onBoundsSearch && (
+          <button
+            type="button"
+            className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-700"
+            onClick={handleSearchThisArea}
+          >
+            Search this area
+          </button>
+        )}
       </div>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/70">

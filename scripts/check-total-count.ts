@@ -48,9 +48,11 @@ async function checkTotalCount() {
     if (typesError) {
       console.error('Error:', typesError);
     } else {
-      const typeCounts = allTypes?.reduce((acc: any, row: any) => {
-        const type = row.provider_type || 'null';
-        acc[type] = (acc[type] || 0) + 1;
+      type ProviderRow = { provider_type: string | null };
+
+      const typeCounts = (allTypes ?? []).reduce<Record<string, number>>((acc, row: ProviderRow) => {
+        const type = row.provider_type ?? 'null';
+        acc[type] = (acc[type] ?? 0) + 1;
         return acc;
       }, {});
       console.log('\nCounts by provider type:');

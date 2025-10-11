@@ -11,9 +11,26 @@ export interface MatchResponseResource {
   rank: MatchedResource["priority"];
 }
 
+export interface MatchResponseResourceSummary {
+  id: string;
+  title: string;
+  providerType?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  address?: string | null;
+  city?: string | null;
+  state?: string | null;
+  zip?: string | null;
+  overallRating?: number | null;
+  distanceMiles?: number | null;
+  serviceAreaMatch?: boolean;
+  serviceAreaZip?: string | null;
+}
+
 export interface MatchResponsePayload {
-  sessionId: string;
+  sessionId: string | null;
   resources: MatchResponseResource[];
+  resourceSummaries?: MatchResponseResourceSummary[];
   guidance: {
     status: "pending" | "complete" | "failed";
     jobId: string;

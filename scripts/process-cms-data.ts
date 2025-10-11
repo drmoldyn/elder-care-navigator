@@ -104,6 +104,22 @@ interface ProcessedRow {
   source_authority: string;
   provider_type: string;
   conditions: string;
+  staffing_rating: string;
+  total_nurse_hours_per_resident_per_day: string;
+  rn_hours_per_resident_per_day: string;
+  lpn_hours_per_resident_per_day: string;
+  cna_hours_per_resident_per_day: string;
+  weekend_nurse_hours_per_resident_per_day: string;
+  weekend_rn_hours_per_resident_per_day: string;
+  total_nurse_staff_turnover: string;
+  rn_turnover: string;
+  case_mix_total_nurse_hours: string;
+  case_mix_rn_hours: string;
+  health_inspection_rating: string;
+  quality_measure_rating: string;
+  number_of_facility_reported_incidents: string;
+  number_of_substantiated_complaints: string;
+  number_of_certified_beds: string;
 }
 
 function cleanString(value: string | undefined): string {
@@ -180,6 +196,22 @@ function processHomeHealthAgencies(): number {
       source_authority: "CMS",
       provider_type: "home_health",
       conditions: "chronic;mobility;medical_change",
+      staffing_rating: "",
+      total_nurse_hours_per_resident_per_day: "",
+      rn_hours_per_resident_per_day: "",
+      lpn_hours_per_resident_per_day: "",
+      cna_hours_per_resident_per_day: "",
+      weekend_nurse_hours_per_resident_per_day: "",
+      weekend_rn_hours_per_resident_per_day: "",
+      total_nurse_staff_turnover: "",
+      rn_turnover: "",
+      case_mix_total_nurse_hours: "",
+      case_mix_rn_hours: "",
+      health_inspection_rating: "",
+      quality_measure_rating: "",
+      number_of_facility_reported_incidents: "",
+      number_of_substantiated_complaints: "",
+      number_of_certified_beds: "",
     };
   });
 
@@ -243,6 +275,22 @@ function processNursingHomes(): number {
       source_authority: "CMS",
       provider_type: "nursing_home",
       conditions: "dementia;mobility;chronic;multiple",
+      staffing_rating: cleanString(row["Staffing Rating"]),
+      total_nurse_hours_per_resident_per_day: cleanString(row["Reported Total Nurse Staffing Hours per Resident per Day"]),
+      rn_hours_per_resident_per_day: cleanString(row["Reported RN Staffing Hours per Resident per Day"]),
+      lpn_hours_per_resident_per_day: cleanString(row["Reported LPN Staffing Hours per Resident per Day"]),
+      cna_hours_per_resident_per_day: cleanString(row["Reported Nurse Aide Staffing Hours per Resident per Day"]),
+      weekend_nurse_hours_per_resident_per_day: cleanString(row["Total number of nurse staff hours per resident per day on the weekend"]),
+      weekend_rn_hours_per_resident_per_day: cleanString(row["Registered Nurse hours per resident per day on the weekend"]),
+      total_nurse_staff_turnover: cleanString(row["Total nursing staff turnover"]),
+      rn_turnover: cleanString(row["Registered Nurse turnover"]),
+      case_mix_total_nurse_hours: cleanString(row["Case-Mix Total Nurse Staffing Hours per Resident per Day"]),
+      case_mix_rn_hours: cleanString(row["Case-Mix RN Staffing Hours per Resident per Day"]),
+      health_inspection_rating: cleanString(row["Health Inspection Rating"]),
+      quality_measure_rating: cleanString(row["QM Rating"]),
+      number_of_facility_reported_incidents: cleanString(row["Number of Facility Reported Incidents"]),
+      number_of_substantiated_complaints: cleanString(row["Number of Substantiated Complaints"]),
+      number_of_certified_beds: cleanString(row["Number of Certified Beds"]),
     };
   });
 
@@ -359,6 +407,22 @@ function processHospiceProviders(): number {
       source_authority: "CMS",
       provider_type: "hospice",
       conditions: "chronic;medical_change;multiple",
+      staffing_rating: "",
+      total_nurse_hours_per_resident_per_day: "",
+      rn_hours_per_resident_per_day: "",
+      lpn_hours_per_resident_per_day: "",
+      cna_hours_per_resident_per_day: "",
+      weekend_nurse_hours_per_resident_per_day: "",
+      weekend_rn_hours_per_resident_per_day: "",
+      total_nurse_staff_turnover: "",
+      rn_turnover: "",
+      case_mix_total_nurse_hours: "",
+      case_mix_rn_hours: "",
+      health_inspection_rating: "",
+      quality_measure_rating: "",
+      number_of_facility_reported_incidents: "",
+      number_of_substantiated_complaints: "",
+      number_of_certified_beds: "",
     };
   });
 

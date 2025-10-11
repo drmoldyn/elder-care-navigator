@@ -9,6 +9,18 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+type FacilityRow = {
+  provider_type: string | null;
+  latitude: number | null;
+  longitude: number | null;
+};
+
+type GeocodeStat = {
+  total: number;
+  geocoded: number;
+  remaining: number;
+};
+
 async function checkGeocodingByType() {
   const { data: all, error } = await supabase
     .from('resources')
@@ -19,17 +31,21 @@ async function checkGeocodingByType() {
     return;
   }
 
-  const stats = all?.reduce((acc: any, facility: any) => {
-    const type = facility.provider_type || 'unknown';
-    if (!acc[type]) {
-      acc[type] = { total: 0, geocoded: 0, remaining: 0 };
+  const stats = (all ?? []).reduce<Record<string, GeocodeStat>>((acc, facility: FacilityRow) => {
+    const key = facility.provider_type ?? 'unknown';
+    if (!acc[key]) {
+      acc[key] = { total: 0, geocoded: 0, remaining: 0 };
     }
-    acc[type].total++;
-    if (facility.latitude && facility.longitude) {
-      acc[type].geocoded++;
+
+    acc[key].total += 1;
+
+    const hasCoordinates = typeof facility.latitude === 'number' && typeof facility.longitude === 'number';
+    if (hasCoordinates) {
+      acc[key].geocoded += 1;
     } else {
-      acc[type].remaining++;
+      acc[key].remaining += 1;
     }
+
     return acc;
   }, {});
 
@@ -37,8 +53,8 @@ async function checkGeocodingByType() {
   console.log('Type'.padEnd(20) + 'Total'.padEnd(12) + 'Geocoded'.padEnd(12) + 'Remaining'.padEnd(12) + 'Progress');
   console.log('='.repeat(70));
 
-  for (const [type, data] of Object.entries(stats as any)) {
-    const progress = ((data.geocoded / data.total) * 100).toFixed(1);
+  for (const [type, data] of Object.entries(stats)) {
+    const progress = data.total > 0 ? ((data.geocoded / data.total) * 100).toFixed(1) : '0.0';
     console.log(
       type.padEnd(20) +
       data.total.toString().padEnd(12) +
@@ -49,17 +65,24 @@ async function checkGeocodingByType() {
   }
 
   // Overall totals
-  const totalAll = Object.values(stats as any).reduce((sum: number, data: any) => sum + data.total, 0);
-  const geocodedAll = Object.values(stats as any).reduce((sum: number, data: any) => sum + data.geocoded, 0);
-  const remainingAll = Object.values(stats as any).reduce((sum: number, data: any) => sum + data.remaining, 0);
-  const progressAll = ((geocodedAll / totalAll) * 100).toFixed(1);
+  const totals = Object.values(stats).reduce(
+    (acc, data) => {
+      acc.total += data.total;
+      acc.geocoded += data.geocoded;
+      acc.remaining += data.remaining;
+      return acc;
+    },
+    { total: 0, geocoded: 0, remaining: 0 }
+  );
+
+  const progressAll = totals.total > 0 ? ((totals.geocoded / totals.total) * 100).toFixed(1) : '0.0';
 
   console.log('='.repeat(70));
   console.log(
     'TOTAL'.padEnd(20) +
-    totalAll.toString().padEnd(12) +
-    geocodedAll.toString().padEnd(12) +
-    remainingAll.toString().padEnd(12) +
+    totals.total.toString().padEnd(12) +
+    totals.geocoded.toString().padEnd(12) +
+    totals.remaining.toString().padEnd(12) +
     `${progressAll}%`
   );
 }

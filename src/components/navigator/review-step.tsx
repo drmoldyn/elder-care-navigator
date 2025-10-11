@@ -176,7 +176,7 @@ export function ReviewStep({
         </div>
 
         {/* Optional Email */}
-        <div className="space-y-3 rounded-lg border border-dashed border-primary/40 bg-primary/5 p-4">
+        <div className="space-y-3 rounded-lg border border-dashed border-sunset-orange/40 bg-sunset-orange/5 p-4">
           <div>
             <label
               htmlFor="email"
@@ -197,6 +197,7 @@ export function ReviewStep({
                   onEmailSubscribedChange(false);
                 }
               }}
+              className="h-12"
             />
             <p className="mt-1 text-xs text-muted-foreground">
               Get your personalized care plan and resource list via email
@@ -204,7 +205,7 @@ export function ReviewStep({
           </div>
 
           {email && (
-            <label className="flex items-start gap-2 text-sm">
+            <label className="flex items-start gap-3 text-sm">
               <input
                 type="checkbox"
                 checked={emailSubscribed}
@@ -212,7 +213,7 @@ export function ReviewStep({
                   setEmailSubscribed(e.target.checked);
                   onEmailSubscribedChange(e.target.checked);
                 }}
-                className="mt-0.5"
+                className="mt-0.5 h-5 w-5 rounded border-gray-300 text-sunset-orange focus:ring-sunset-orange"
               />
               <span className="text-muted-foreground">
                 Send me updates about new resources and support options
@@ -225,7 +226,12 @@ export function ReviewStep({
           <Button variant="ghost" onClick={onBack}>
             Back
           </Button>
-          <Button onClick={handleSubmit} disabled={isSubmitting} size="lg">
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            size="lg"
+            className="bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
+          >
             {isSubmitting ? "Finding Resources..." : "Get My Resources"}
           </Button>
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { HomepageAd } from "@/components/ads/homepage-ad";
 
 export default function Home() {
   const router = useRouter();
@@ -26,8 +27,63 @@ export default function Home() {
     );
   };
 
+  // FAQ structured data for SEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I find nursing homes near me?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use SunsetWell's search tool to find nursing homes by ZIP code. You can filter by insurance type (Medicare, Medicaid, VA, private), view Medicare.gov star ratings, and see distances from your location. Our database includes 75,000+ verified facilities nationwide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of senior care facilities can I find on SunsetWell?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SunsetWell helps you find nursing homes, assisted living facilities, memory care facilities, skilled nursing facilities, and home health agencies. All facility data is verified through Medicare.gov and updated daily."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does SunsetWell show which facilities accept Medicare or Medicaid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can filter facilities by insurance type including Medicare, Medicaid, VA Benefits, private insurance, and private pay. Each facility listing shows which insurance types they accept."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I compare senior care facilities?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SunsetWell allows you to select multiple facilities and compare them side-by-side. You can view Medicare star ratings, available beds, accepted insurance, distance from your location, and contact information all in one place."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the senior care facility data on SunsetWell accurate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all facility data comes directly from Medicare.gov's official database and is updated daily. SunsetWell provides CMS-verified information on 75,000+ facilities nationwide, ensuring you have access to the most current and accurate data."
+        }
+      }
+    ]
+  };
+
   return (
-    <div className="min-h-[85vh] flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
+    <>
+      {/* FAQ Schema for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <div className="min-h-[85vh] flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
       {/* Background Hero Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -51,7 +107,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-10 text-white">
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight tracking-tight drop-shadow-lg">
-            Find the right care for your loved one
+            Find Senior Care Facilities Near You
           </h1>
           <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto font-normal drop-shadow-md">
             Search senior care options including home health, assisted living, and skilled nursing by location and insurance coverage
@@ -189,5 +245,9 @@ export default function Home() {
         </form>
       </div>
     </div>
+
+    {/* Homepage Ad - Below hero, natural content break */}
+    <HomepageAd />
+    </>
   );
 }

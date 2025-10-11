@@ -25,12 +25,19 @@ async function checkGeocoding() {
   // Count by facility type
   const { data: byType } = await supabase
     .from('resources')
-    .select('facility_type, latitude, longitude')
+    .select('provider_type, latitude, longitude')
     .not('latitude', 'is', null)
     .not('longitude', 'is', null);
 
-  const typeCounts = byType?.reduce((acc: any, curr: any) => {
-    acc[curr.facility_type] = (acc[curr.facility_type] || 0) + 1;
+  type GeocodedRow = {
+    provider_type: string | null;
+    latitude: number | null;
+    longitude: number | null;
+  };
+
+  const typeCounts = (byType ?? []).reduce<Record<string, number>>((acc, curr: GeocodedRow) => {
+    const key = curr.provider_type ?? 'unknown';
+    acc[key] = (acc[key] ?? 0) + 1;
     return acc;
   }, {});
 

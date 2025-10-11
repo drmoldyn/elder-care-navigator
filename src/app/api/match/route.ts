@@ -3,7 +3,7 @@ import { supabaseServer } from "@/lib/supabase/server";
 import { sessionContextSchema } from "@/lib/validation/session";
 import { matchResourcesSQL } from "@/lib/matching/sql-matcher";
 import { rateLimit } from "@/lib/middleware/rate-limit";
-import type { MatchResponsePayload } from "@/types/api";
+import type { MatchRequestPayload, MatchResponsePayload } from "@/types/api";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 1. Parse and validate request body
-    const body = await request.json();
+    const body = (await request.json()) as MatchRequestPayload;
+    const previewMode = Boolean(body.preview);
     const validation = sessionContextSchema.safeParse(body.session);
 
     if (!validation.success) {
@@ -57,44 +58,87 @@ export async function POST(request: NextRequest) {
     // 2. Run SQL-based matching (deterministic, database-driven)
     const matchedResources = await matchResourcesSQL(sessionContext);
 
-    // 3. Create user session record
-    const { data: session, error: sessionError } = await supabaseServer
-      .from("user_sessions")
-      .insert({
-        relationship: sessionContext.relationship,
-        conditions: sessionContext.conditions,
-        zip_code: sessionContext.zipCode,
-        city: sessionContext.city,
-        state: sessionContext.state,
-        care_type: sessionContext.careType,
-        living_situation: sessionContext.livingSituation || "long_distance",
-        urgency_factors: sessionContext.urgencyFactors,
-        email: sessionContext.email,
-        email_subscribed: sessionContext.emailSubscribed ?? false,
-        matched_resources: matchedResources.map((r) => r.id),
-      })
-      .select("id")
-      .single();
+    const resourceSummaries = matchedResources
+      .map((resource) => {
+        const id = resource.id ? String(resource.id) : undefined;
+        if (!id) {
+          return null;
+        }
 
-    if (sessionError) {
-      console.error("Failed to create session:", sessionError);
-      return NextResponse.json(
-        { error: "Failed to create session" },
-        { status: 500 }
-      );
+        return {
+          id,
+          title: resource.title ?? "Untitled Resource",
+          providerType: (resource.provider_type as string | undefined) ?? null,
+          latitude: typeof resource.latitude === "number" ? resource.latitude : null,
+          longitude:
+            typeof resource.longitude === "number" ? resource.longitude : null,
+          address: (resource.address as string | undefined) ?? null,
+          city: (resource.city as string | undefined) ?? null,
+          state: (resource.state as string | undefined) ?? null,
+          zip: (resource.zip as string | undefined) ?? null,
+          overallRating:
+            typeof resource.overall_rating === "number"
+              ? resource.overall_rating
+              : null,
+          distanceMiles:
+            typeof resource.distance === "number" ? resource.distance : null,
+          serviceAreaMatch: resource.service_area_match ?? false,
+          serviceAreaZip: resource.service_area_zip ?? null,
+        };
+      })
+      .filter((summary): summary is NonNullable<typeof summary> => summary !== null);
+
+    // 3. Create user session record
+    let sessionId: string | null = null;
+    let jobId = "preview";
+
+    if (!previewMode) {
+      const { data: session, error: sessionError } = await supabaseServer
+        .from("user_sessions")
+        .insert({
+          relationship: sessionContext.relationship,
+          conditions: sessionContext.conditions,
+          zip_code: sessionContext.zipCode,
+          city: sessionContext.city,
+          state: sessionContext.state,
+          care_type: sessionContext.careType,
+          living_situation: sessionContext.livingSituation || "long_distance",
+          urgency_factors: sessionContext.urgencyFactors,
+          email: sessionContext.email,
+          email_subscribed: sessionContext.emailSubscribed ?? false,
+          matched_resources: resourceSummaries.map((summary) => summary.id),
+        })
+        .select("id")
+        .single();
+
+      if (sessionError || !session) {
+        console.error("Failed to create session:", sessionError);
+        return NextResponse.json(
+          { error: "Failed to create session" },
+          { status: 500 }
+        );
+      }
+
+      sessionId = session.id;
+      jobId = session.id;
     }
 
     // 4. Prepare response (simplified - no scoring, just matched resources)
     const response: MatchResponsePayload = {
-      sessionId: session.id,
-      resources: matchedResources.map((r) => ({
-        resourceId: r.id,
-        score: 100, // All matches are relevant (no scoring)
-        rank: "recommended" as const, // All are recommended
+      sessionId,
+      resources: resourceSummaries.map((summary) => ({
+        resourceId: summary.id,
+        score: {
+          resourceId: summary.id,
+          score: 100,
+          reasons: [],
+        },
+        rank: "recommended" as const,
       })),
+      resourceSummaries,
       guidance: {
         status: "pending",
-        jobId: session.id, // For now, jobId = sessionId
+        jobId,
       },
     };
 

@@ -13,7 +13,7 @@ async function checkMigrations() {
 
   // Check 0003: Geolocation columns
   console.log('Migration 0003 (Geolocation):');
-  const { data: resources, error: geoError } = await supabase
+  const { error: geoError } = await supabase
     .from('resources')
     .select('latitude, longitude')
     .limit(1);
@@ -55,7 +55,7 @@ async function checkMigrations() {
 
   // Check 0006: Service areas table
   console.log('\nMigration 0006 (Service Areas):');
-  const { data: serviceAreas, error: serviceError } = await supabase
+  const { error: serviceError } = await supabase
     .from('home_health_service_areas')
     .select('id')
     .limit(1);

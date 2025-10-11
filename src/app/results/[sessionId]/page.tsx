@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,8 +10,9 @@ import { MobileFilterModal } from "@/components/results/mobile-filter-modal";
 import { RequestInfoModal } from "@/components/request-info-modal";
 import { ComparisonProvider, useComparison } from "@/contexts/comparison-context";
 import { ComparisonBar } from "@/components/comparison/comparison-bar";
+import { trackPhoneClick, trackViewResultsSession } from "@/lib/analytics/events";
+import { PartnerGrid } from "@/components/partners/partner-grid";
 import type { GuidancePollResponse } from "@/types/api";
-import { FacilityMap, type MapResource } from "@/components/map/facility-map";
 
 type MobileTab = "list" | "map" | "filters";
 
@@ -94,6 +95,18 @@ function ResultsPageContent() {
       window.localStorage.setItem("sunsetwell:lastSessionId", sessionId);
     }
   }, [sessionId]);
+
+  // Track results page view conversion
+  useEffect(() => {
+    if (!loading && resources.length > 0) {
+      trackViewResultsSession({
+        sessionId,
+        facilityCount: resources.length,
+        zipCode: sessionDetails?.zip_code,
+        conditions: sessionDetails?.needs,
+      });
+    }
+  }, [loading, resources.length, sessionId, sessionDetails]);
 
   useEffect(() => {
     if (mobileTab === "filters") {
@@ -286,7 +299,109 @@ function ResultsPageContent() {
 
     return (
       <div key={resource.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors">
-        <div className="flex items-start justify-between gap-4">
+        {/* Mobile-optimized layout */}
+        <div className="md:hidden">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="flex-1">
+              <h3 className="font-bold text-lg text-gray-900 mb-2">{resource.title}</h3>
+
+              {/* Distance and Rating - Prominent on Mobile */}
+              <div className="flex items-center gap-3 mb-2">
+                {!isHomeService && resource.distance !== undefined && (
+                  <div className="flex items-center gap-1 text-sm font-semibold text-gray-700">
+                    <span className="text-base">📍</span>
+                    <span>{resource.distance.toFixed(1)} mi</span>
+                  </div>
+                )}
+                {isHomeService && (
+                  <div className="flex items-center gap-1 text-sm font-semibold text-emerald-700">
+                    <span className="text-base">🏠</span>
+                    <span>{userZip ? `ZIP ${userZip}` : "Your area"}</span>
+                  </div>
+                )}
+                {resource.overall_rating && (
+                  <div className="flex items-center gap-1 text-sm font-semibold text-sunset-orange">
+                    <span>⭐</span>
+                    <span>{resource.overall_rating}/5</span>
+                  </div>
+                )}
+              </div>
+
+              {resource.address && (
+                <p className="text-sm text-gray-600">
+                  {resource.address}, {resource.city}, {resource.state}
+                </p>
+              )}
+            </div>
+
+            {/* Quick Compare Checkbox - Top Right, 6x6 (24px) */}
+            <input
+              type="checkbox"
+              checked={isSelectedResource}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  if (selectedFacilities.length >= maxSelection) {
+                    alert(`You can only compare up to ${maxSelection} facilities at once`);
+                    return;
+                  }
+                  addFacility(resource);
+                } else {
+                  removeFacility(resource.id);
+                }
+              }}
+              className="w-6 h-6 rounded border-gray-300 text-sunset-orange focus:ring-sunset-orange/50 cursor-pointer flex-shrink-0"
+              title="Add to comparison"
+            />
+          </div>
+
+          {/* Insurance Badges with Sky-Blue Styling */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {resource.insurance_accepted && resource.insurance_accepted.slice(0, 3).map((insurance) => (
+              <Badge
+                key={insurance}
+                className="bg-sky-blue/10 text-sky-blue border border-sky-blue/20 text-xs"
+              >
+                {insurance}
+              </Badge>
+            ))}
+            {resource.available_beds !== undefined && resource.available_beds > 0 && (
+              <Badge className="bg-green-50 text-green-700 border border-green-200 text-xs">
+                ✓ {resource.available_beds} bed{resource.available_beds !== 1 ? "s" : ""}
+              </Badge>
+            )}
+          </div>
+
+          {/* Mobile CTAs - Full Width, 48px height minimum */}
+          <div className="grid grid-cols-2 gap-2">
+            {resource.contact_phone && (
+              <a
+                href={`tel:${resource.contact_phone}`}
+                onClick={() => trackPhoneClick({
+                  facilityId: resource.id,
+                  facilityName: resource.title,
+                  phoneNumber: resource.contact_phone!,
+                })}
+                className="bg-sunset-orange text-white font-semibold py-3 rounded-xl text-center flex items-center justify-center gap-2 hover:bg-sunset-orange/90 transition-colors min-h-[48px]"
+              >
+                <span>📞</span>
+                <span>Call</span>
+              </a>
+            )}
+            <button
+              onClick={() => setRequestInfoModal({
+                isOpen: true,
+                facilityName: resource.title,
+                facilityId: resource.id,
+              })}
+              className={`bg-sky-blue text-white font-semibold py-3 rounded-xl hover:bg-sky-blue/90 transition-colors min-h-[48px] ${!resource.contact_phone ? 'col-span-2' : ''}`}
+            >
+              Get Info
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop layout - unchanged */}
+        <div className="hidden md:flex items-start justify-between gap-4">
           <div className="flex items-start pt-1">
             <input
               type="checkbox"
@@ -377,7 +492,14 @@ function ResultsPageContent() {
               </Button>
               {resource.contact_phone && (
                 <Button size="sm" variant="outline" className="flex-1 sm:flex-none" asChild>
-                  <a href={`tel:${resource.contact_phone}`}>
+                  <a
+                    href={`tel:${resource.contact_phone}`}
+                    onClick={() => trackPhoneClick({
+                      facilityId: resource.id,
+                      facilityName: resource.title,
+                      phoneNumber: resource.contact_phone!,
+                    })}
+                  >
                     📞 Call Now
                   </a>
                 </Button>
@@ -502,6 +624,21 @@ function ResultsPageContent() {
         filterCount={filterCount}
       />
 
+      {/* Sticky Filter Bar - Mobile Only */}
+      {mobileTab === "list" && (
+        <div className="md:hidden sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
+          <span className="font-semibold text-gray-900">
+            {totalCount} {totalCount === 1 ? "Facility" : "Facilities"}
+          </span>
+          <button
+            onClick={() => handleMobileTabChange("filters")}
+            className="bg-sky-blue text-white px-4 py-2 rounded-lg font-medium min-h-[40px] hover:bg-sky-blue/90 transition-colors"
+          >
+            Filters {filterCount > 0 && `(${filterCount})`}
+          </button>
+        </div>
+      )}
+
       {/* Mobile Filter Modal */}
       <MobileFilterModal
         isOpen={mobileTab === "filters"}
@@ -611,6 +748,21 @@ function ResultsPageContent() {
           </div>
         </div>
       </div>
+
+      {/* Partner Marketplace */}
+      <section className="border-t border-slate-200 bg-slate-50/60 px-4 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4">
+          <div>
+            <h2 className="font-serif text-2xl font-semibold text-slate-900">
+              Additional support for your family
+            </h2>
+            <p className="text-sm text-slate-600">
+              Connect with trusted partners for legal guidance, financial planning, home safety upgrades, and more.
+            </p>
+          </div>
+          <PartnerGrid />
+        </div>
+      </section>
 
       {/* Request Info Modal */}
       <RequestInfoModal

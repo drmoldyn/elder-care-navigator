@@ -38,16 +38,16 @@ export function RelationshipStep({
             <button
               key={option.value}
               onClick={() => onChange(option.value)}
-              className={`flex items-center justify-between rounded-lg border p-4 text-left transition-all hover:border-primary ${
+              className={`flex min-h-[48px] items-center justify-between rounded-lg border p-4 text-left transition-all hover:border-sunset-orange ${
                 value === option.value
-                  ? "border-primary bg-primary/5 ring-2 ring-primary/20"
+                  ? "border-sunset-orange bg-sunset-orange/5 ring-2 ring-sunset-orange/20"
                   : "border-border"
               }`}
             >
               <span className="font-medium">{option.label}</span>
               {value === option.value && (
                 <svg
-                  className="h-5 w-5 text-primary"
+                  className="h-5 w-5 text-sunset-orange"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -64,7 +64,7 @@ export function RelationshipStep({
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-4">
+        <div className="hidden items-center justify-between pt-4 md:flex">
           {onSkip && (
             <Button variant="ghost" onClick={onSkip}>
               Skip this step
@@ -73,7 +73,7 @@ export function RelationshipStep({
           <Button
             onClick={onNext}
             disabled={!value}
-            className="ml-auto"
+            className="ml-auto bg-gradient-to-r from-sunset-orange to-sunset-gold hover:from-sunset-gold hover:to-sunset-orange"
           >
             Continue
           </Button>

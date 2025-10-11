@@ -6,6 +6,7 @@ import {
   CARE_TYPES,
   LIVING_SITUATIONS,
   LOCATION_TYPES,
+  INSURANCE_TYPES,
   NavigatorStep,
   RESOURCE_CATEGORIES,
   RESOURCE_CONDITIONS,
@@ -36,6 +37,10 @@ export const locationTypeSchema = enumSchema(
 
 export const audienceTypeSchema = enumSchema(
   AUDIENCE_TYPES as unknown as typeof AUDIENCE_TYPES & readonly [string, ...string[]]
+);
+
+export const insuranceTypeSchema = enumSchema(
+  INSURANCE_TYPES as unknown as typeof INSURANCE_TYPES & readonly [string, ...string[]]
 );
 
 export const livingSituationSchema = enumSchema(
@@ -101,6 +106,10 @@ export const sessionContextSchema = z
         )
       )
       .min(1, "Select at least one urgency factor"),
+    insuranceTypes: z
+      .array(insuranceTypeSchema)
+      .min(1)
+      .optional(),
     careGoals: z.array(z.string().min(2).max(120)).optional(),
     budget: costTypeSchema.optional(),
     careType: careTypeSchema.optional(),
@@ -148,19 +157,41 @@ export const matchRequestSchema = z.object({
   preview: z.boolean().default(false),
 });
 
+const matchScoreSchema = z.object({
+  resourceId: z.string().uuid(),
+  score: z.number().min(0),
+  reasons: z.array(z.string().min(2)).default([]),
+});
+
+const matchResponseResourceSchema = z.object({
+  resourceId: z.string().uuid(),
+  score: matchScoreSchema,
+  rank: z.enum(["top", "recommended", "nice_to_have"] as const),
+});
+
+const resourceSummarySchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().min(1),
+  providerType: z.string().nullable().optional(),
+  latitude: z.number().nullable().optional(),
+  longitude: z.number().nullable().optional(),
+  address: z.string().nullable().optional(),
+  city: z.string().nullable().optional(),
+  state: z.string().nullable().optional(),
+  zip: z.string().nullable().optional(),
+  overallRating: z.number().nullable().optional(),
+  distanceMiles: z.number().nullable().optional(),
+  serviceAreaMatch: z.boolean().optional(),
+  serviceAreaZip: z.string().nullable().optional(),
+});
+
 export const matchResponseSchema = z.object({
-  sessionId: z.string().uuid(),
-  resources: z.array(
-    z.object({
-      resourceId: z.string().uuid(),
-      score: z.number().min(0),
-      rank: z.enum(["top", "recommended", "nice_to_have"] as const),
-      reasons: z.array(z.string().min(2)),
-    })
-  ),
+  sessionId: z.string().uuid().nullable(),
+  resources: z.array(matchResponseResourceSchema),
+  resourceSummaries: z.array(resourceSummarySchema).optional(),
   guidance: z.object({
     status: z.enum(["pending", "complete", "failed"] as const),
-    jobId: z.string().uuid(),
+    jobId: z.string(),
   }),
 });
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RelationshipStep } from "@/components/navigator/relationship-step";
 import { ConditionsStep } from "@/components/navigator/conditions-step";
 import { CareTypeStep } from "@/components/navigator/care-type-step";
@@ -15,19 +15,66 @@ import {
   getPreviousStep,
   NAVIGATOR_STEPS,
 } from "@/lib/navigator/state";
+import { NavigatorMapView } from "@/components/navigator/map-view";
 import type {
   NavigatorRelationshipOption,
   ResourceCondition,
   LivingSituation,
   NavigatorUrgencyFactor,
 } from "@/types/domain";
+import type { MatchResponsePayload } from "@/types/api";
 
 export default function NavigatorPage() {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [state, setState] = useState(createInitialNavigatorState());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isMapView = searchParams.get("view") === "map";
+
   const currentStepIndex = NAVIGATOR_STEPS.indexOf(state.step);
+
+  const setView = (view: "list" | "map") => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (view === "map") {
+      params.set("view", "map");
+    } else {
+      params.delete("view");
+    }
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
+  const viewToggle = (
+    <div className="flex justify-center pb-6">
+      <div className="inline-flex rounded-full border border-slate-200 bg-white/90 p-1 shadow">
+        <button
+          type="button"
+          onClick={() => setView("list")}
+          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            isMapView
+              ? "text-slate-500 hover:text-slate-700"
+              : "bg-sunset-orange text-white shadow"
+          }`}
+        >
+          📋 List view
+        </button>
+        <button
+          type="button"
+          onClick={() => setView("map")}
+          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+            isMapView
+              ? "bg-sky-blue text-white shadow"
+              : "text-slate-500 hover:text-slate-700"
+          }`}
+        >
+          🗺️ Map view
+        </button>
+      </div>
+    </div>
+  );
 
   const handleNext = () => {
     setState((prev) => ({
@@ -80,7 +127,12 @@ export default function NavigatorPage() {
         throw new Error("Failed to match resources");
       }
 
-      const data = await response.json();
+      const data: MatchResponsePayload = await response.json();
+
+      if (!data.sessionId) {
+        throw new Error("Search session was not created");
+      }
+
       router.push(`/results/${data.sessionId}`);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -89,27 +141,58 @@ export default function NavigatorPage() {
     }
   };
 
+  if (isMapView) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        {viewToggle}
+        <NavigatorMapView />
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-8 px-6 py-16">
+    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col items-center justify-center gap-8 px-6 py-16 pb-32 md:pb-16">
+      {viewToggle}
       <div className="w-full space-y-2 text-center">
         <h1 className="text-3xl font-bold tracking-tight">
-          Find Personalized Care Resources
+          Personalized Senior Care Search
         </h1>
         <p className="text-muted-foreground">
           Answer a few questions to get matched with trusted support
         </p>
       </div>
 
-      {/* Progress indicator */}
-      <div className="flex w-full max-w-2xl items-center gap-2">
+      {/* Desktop Progress Bar */}
+      <div className="hidden w-full max-w-2xl items-center gap-2 md:flex">
         {NAVIGATOR_STEPS.map((_, i) => (
           <div
             key={i}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              i <= currentStepIndex ? "bg-primary" : "bg-muted"
+              i <= currentStepIndex ? "bg-sunset-orange" : "bg-muted"
             }`}
           />
         ))}
+      </div>
+
+      {/* Mobile Step Indicator */}
+      <div className="block w-full md:hidden">
+        <div className="mb-3 flex items-center justify-center gap-2">
+          {NAVIGATOR_STEPS.map((step, index) => (
+            <div
+              key={step}
+              className={`h-2.5 w-2.5 rounded-full transition-all ${
+                index === currentStepIndex
+                  ? "bg-sunset-orange scale-125"
+                  : index < currentStepIndex
+                  ? "bg-sunset-orange"
+                  : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+        <div className="text-center text-sm text-muted-foreground">
+          Step {currentStepIndex + 1} of {NAVIGATOR_STEPS.length}
+        </div>
       </div>
 
       {/* Step 1: Relationship */}
@@ -223,6 +306,33 @@ export default function NavigatorPage() {
           }
           isSubmitting={isSubmitting}
         />
+      )}
+
+      {/* Sticky Mobile Navigation - Only shown on mobile */}
+      {state.step !== "review" && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-4 shadow-lg md:hidden">
+          <div className="mx-auto flex max-w-4xl gap-3">
+            {currentStepIndex > 0 && (
+              <button
+                onClick={handleBack}
+                className="flex-1 rounded-xl bg-gray-200 py-3.5 font-semibold text-gray-700 transition-colors hover:bg-gray-300"
+              >
+                ← Back
+              </button>
+            )}
+            <button
+              onClick={handleNext}
+              disabled={
+                (state.step === "relationship" && !state.session.relationship) ||
+                (state.step === "conditions" && state.session.conditions.length === 0) ||
+                (state.step === "care_type" && !state.session.careType)
+              }
+              className="flex-1 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-gold py-3.5 font-semibold text-white transition-all hover:from-sunset-gold hover:to-sunset-orange disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-500"
+            >
+              Continue →
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
