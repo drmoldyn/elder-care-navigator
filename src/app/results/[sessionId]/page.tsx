@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -252,8 +253,24 @@ function ResultsPageContent() {
 
   if (loading) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
-        <div className="text-center">
+      <div className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero/hero-4.jpg"
+            alt="Senior care background"
+            fill
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+          {/* Decorative transparent columns on left and right */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
+        </div>
+        <div className="text-center relative z-10">
           <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-sunset-orange border-t-transparent"></div>
           <h2 className="font-serif text-2xl font-bold text-gray-900">Finding Your Resources...</h2>
           <p className="mt-2 text-gray-600">
@@ -266,8 +283,24 @@ function ResultsPageContent() {
 
   if (error) {
     return (
-      <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-lavender/10 via-white to-sky-blue/10">
-        <Card className="w-full max-w-2xl border-red-300 shadow-lg">
+      <div className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero/hero-4.jpg"
+            alt="Senior care background"
+            fill
+            className="object-cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+          {/* Decorative transparent columns on left and right */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
+        </div>
+        <Card className="w-full max-w-2xl border-red-300 shadow-lg relative z-10">
           <CardHeader>
             <CardTitle className="text-red-600">
               Something Went Wrong

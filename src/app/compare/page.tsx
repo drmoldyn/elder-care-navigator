@@ -25,8 +25,12 @@ export default function ComparePage() {
             className="object-cover"
             quality={90}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-blue/30 via-lavender/20 to-sunset-orange/20" />
-          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+          {/* Decorative transparent columns on left and right */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
         </div>
         <div className="text-center relative z-10">
           <h1 className="mb-4 font-serif text-4xl font-bold text-gray-900">
@@ -69,8 +73,12 @@ export default function ComparePage() {
           className="object-cover"
           quality={90}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-blue/30 via-lavender/20 to-sunset-orange/20" />
-        <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+        {/* Decorative transparent columns on left and right */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
       </div>
       {/* Header */}
       <div className="border-b bg-white/80 backdrop-blur-sm px-4 py-6 shadow-sm relative z-10">

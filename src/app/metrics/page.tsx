@@ -186,8 +186,12 @@ export default function MetricsPage() {
             className="object-cover"
             quality={90}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-lavender/40 via-sky-blue/30 to-sunset-orange/30" />
-          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+          {/* Decorative transparent columns on left and right */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
         </div>
         <div className="text-center relative z-10">
           <div className="mb-4 text-4xl">📊</div>
@@ -212,8 +216,12 @@ export default function MetricsPage() {
           quality={90}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-lavender/30 via-sky-blue/20 to-sunset-orange/20" />
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+
+        {/* Decorative transparent columns on left and right */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
       </div>
       <div className="mx-auto max-w-7xl relative z-10">
         <div className="mb-6 md:mb-8">
