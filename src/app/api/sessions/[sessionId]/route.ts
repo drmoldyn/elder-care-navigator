@@ -52,11 +52,19 @@ export async function GET(
       }
     }
 
+    const normalizedSession = {
+      id: session.id,
+      session_token: session.session_token,
+      care_type: session.care_type,
+      latitude: session.latitude,
+      longitude: session.longitude,
+      search_radius_miles: session.search_radius_miles,
+      created_at: session.created_at,
+      ...userData,
+    };
+
     return NextResponse.json({
-      session: {
-        ...session,
-        user_data: userData,
-      },
+      session: normalizedSession,
       resources,
     });
   } catch (error) {

@@ -99,32 +99,39 @@ export async function POST(request: NextRequest) {
 
     if (!previewMode) {
       const sessionToken = randomUUID();
+
+      const userDataPayload = {
+        relationship: sessionContext.relationship ?? null,
+        conditions: sessionContext.conditions,
+        zip_code: sessionContext.zipCode ?? null,
+        city: sessionContext.city ?? null,
+        state: sessionContext.state ?? null,
+        living_situation: sessionContext.livingSituation || "long_distance",
+        urgency_factors: sessionContext.urgencyFactors,
+        email: sessionContext.email ?? null,
+        email_subscribed: sessionContext.emailSubscribed ?? false,
+        insurance_types: sessionContext.insuranceTypes ?? null,
+        matched_resources: resourceSummaries.map((summary) => summary.id),
+      };
+
       const { data: session, error: sessionError } = await supabaseServer
         .from("user_sessions")
         .insert({
           session_token: sessionToken,
-          user_data: {
-            relationship: sessionContext.relationship,
-            conditions: sessionContext.conditions,
-            zip_code: sessionContext.zipCode,
-            city: sessionContext.city,
-            state: sessionContext.state,
-            living_situation: sessionContext.livingSituation || "long_distance",
-            urgency_factors: sessionContext.urgencyFactors,
-            email: sessionContext.email,
-            email_subscribed: sessionContext.emailSubscribed ?? false,
-            matched_resources: resourceSummaries.map((summary) => summary.id),
-          },
-          care_type: sessionContext.careType,
-          latitude: sessionContext.latitude,
-          longitude: sessionContext.longitude,
-          search_radius_miles: sessionContext.searchRadiusMiles,
+          user_data: userDataPayload,
+          care_type: sessionContext.careType ?? "facility",
+          latitude: sessionContext.latitude ?? null,
+          longitude: sessionContext.longitude ?? null,
+          search_radius_miles: sessionContext.searchRadiusMiles ?? null,
         })
         .select("id")
         .single();
 
       if (sessionError || !session) {
-        console.error("Failed to create session (continuing without persistence):", sessionError);
+        console.error(
+          "Failed to create session (continuing without persistence):",
+          sessionError
+        );
       } else {
         sessionId = session.id;
         jobId = sessionToken;
