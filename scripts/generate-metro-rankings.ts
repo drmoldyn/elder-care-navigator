@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import metros from "../data/top-50-metros.json" assert { type: "json" };
 
 dotenv.config({ path: ".env.local" });
 
@@ -20,6 +21,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
 
 type Row = {
   id: string;
+  facility_id?: string | null;
   title: string;
   city: string | null;
   states: string[] | null;
@@ -53,12 +55,31 @@ function median(nums: number[]): number {
   return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
+function snfType(pt: string | null | undefined): 'SNF' | 'OTHER' {
+  return pt === 'nursing_home' || pt === 'skilled_nursing_facility' ? 'SNF' : 'OTHER';
+}
+
+function percentile(score: number, dist: number[]): number {
+  if (!dist.length) return 0;
+  const sorted = [...dist].sort((a, b) => a - b);
+  // Find index of last value <= score (binary search)
+  let lo = 0, hi = sorted.length - 1, pos = -1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    if (sorted[mid] <= score) { pos = mid; lo = mid + 1; } else { hi = mid - 1; }
+  }
+  if (pos < 0) return 0;
+  if (sorted.length === 1) return 100;
+  const p = Math.round((pos / (sorted.length - 1)) * 100);
+  return Math.max(0, Math.min(100, p));
+}
+
 async function main() {
   console.log("Fetching SNFs with v2 scores...");
   const { data, error } = await supabase
     .from("resources")
     // Select full row to tolerate column differences across environments
-    .select(`*, facility_scores!inner(score, version)`) 
+    .select(`id, facility_id, title, city, states, provider_type, health_inspection_rating, staffing_rating, quality_measure_rating, rn_staffing_hours_per_resident_per_day, total_nurse_staffing_hours_per_resident_per_day, total_nurse_hours_per_resident_per_day, facility_scores!inner(score, version)`) 
     .in("provider_type", ["nursing_home", "skilled_nursing_facility"]) // SNFs
     .eq("facility_scores.version", "v2")
     .not("city", "is", null);
@@ -70,36 +91,49 @@ async function main() {
 
   const facilities: Row[] = (data || []) as any;
 
-  // Group by city (derive state by majority vote)
-  const byCity = new Map<string, Row[]>();
-  for (const r of facilities) {
-    const city = (r.city || "").toString().trim();
-    if (!city) continue;
-    const key = city;
-    const list = byCity.get(key) || [];
-    list.push(r);
-    byCity.set(key, list);
+  // Precompute peer distributions by state for SNFs
+  const peerScores = new Map<string, number[]>(); // key `${state}|SNF` or `US|SNF`
+  const pushPeer = (key: string, score: number) => {
+    const arr = peerScores.get(key) || [];
+    arr.push(score);
+    peerScores.set(key, arr);
+  };
+
+  for (const f of facilities) {
+    if (snfType(f.provider_type) !== 'SNF') continue;
+    const sc = Array.isArray((f as any).facility_scores) && (f as any).facility_scores[0]
+      ? (f as any).facility_scores[0].score as number
+      : undefined;
+    if (typeof sc !== 'number') continue;
+    const st = Array.isArray((f as any).states) && (f as any).states[0] ? String((f as any).states[0]).trim() : '';
+    if (st) pushPeer(`${st}|SNF`, sc);
+    pushPeer('US|SNF', sc);
   }
 
-  // Rank cities by SNF count
-  const rankedCities = Array.from(byCity.entries())
-    .map(([city, rows]) => ({ city, rows, count: rows.length }))
-    .sort((a, b) => b.count - a.count);
+  // Use predefined Top 50 metros by population
+  type Metro = { name: string; city: string; state: string };
+  const metroList: Metro[] = metros as any;
 
-  const topN = rankedCities.slice(0, 50);
+  // Index facilities by uppercase city for quick match
+  const byCity = new Map<string, Row[]>();
+  for (const r of facilities) {
+    const city = (r.city || "").toString().trim().toUpperCase();
+    if (!city) continue;
+    const list = byCity.get(city) || [];
+    list.push(r);
+    byCity.set(city, list);
+  }
 
-  // Build featured cities JSON
-  const featured = topN.map(({ city, rows }) => {
-    // Derive state by majority from states[0]
-    const votes = new Map<string, number>();
-    rows.forEach(r => {
-      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
-      if (!st) return;
-      votes.set(st, (votes.get(st) || 0) + 1);
-    });
-    const state = Array.from(votes.entries()).sort((a,b)=>b[1]-a[1])[0]?.[0] || '';
-    return { city, state, slug: state ? slugifyCityState(city, state) : city.toLowerCase().replace(/\s+/g,'-') };
-  });
+  const topN = metroList.map(m => ({
+    city: m.city,
+    state: m.state,
+    rows: byCity.get(m.city.toUpperCase()) || [],
+    count: (byCity.get(m.city.toUpperCase()) || []).length,
+    metaName: m.name,
+  }));
+
+  // Build featured cities JSON directly from metro list
+  const featured = topN.map(m => ({ city: m.city, state: m.state, slug: slugifyCityState(m.city, m.state) }));
 
   const featuredPath = path.join(process.cwd(), "data", "featured-cities.json");
   fs.mkdirSync(path.dirname(featuredPath), { recursive: true });
@@ -113,7 +147,8 @@ async function main() {
   lines.push("This report ranks U.S. metro areas by the number of nursing homes (SNFs) with SunsetWell v2 scores and provides a short narrative for each metro’s quality landscape.");
   lines.push("");
 
-  for (const { city, rows, count } of topN) {
+  for (const m of topN) {
+    const { city, rows, count, metaName } = m;
     // Derive state by majority
     const votes = new Map<string, number>();
     rows.forEach(r => {
@@ -136,7 +171,7 @@ async function main() {
     });
     const top15 = sortedByScoreDesc.slice(0, 15);
 
-    lines.push(`## ${city}${state ? ", " + state : ""} — ${count} SNFs`);
+    lines.push(`## ${metaName} — ${count} SNFs`);
     lines.push("");
     lines.push(`- Average SunsetWell Score: ${avgScore.toFixed(1)} (median ${medScore.toFixed(1)})`);
     lines.push(`- High-performing share (≥ 75): ${pctHigh}%`);
@@ -152,11 +187,30 @@ async function main() {
     lines.push("");
 
     // Table header
-    lines.push(`| # | Facility | SunsetWell | Health | Staffing | Quality | RN hrs | Total nurse hrs |`);
-    lines.push(`|:-:|:---------|-----------:|-------:|---------:|--------:|------:|----------------:|`);
+    lines.push(`| # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |`);
+    lines.push(`|:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|`);
 
     const get = (o: any, k: string): number | null => (typeof o?.[k] === 'number' ? o[k] : null);
     const fmt = (n: number | null, d = 1) => (n == null ? '—' : n.toFixed(d));
+
+    // Attempt to fetch hierarchical peer-group percentiles if available (sunsetwell_scores)
+    const ids = top15
+      .map(r => (r as any).facility_id || (r as any).id)
+      .filter((v: any): v is string => typeof v === 'string' && v.length > 0);
+    let percentilesByFacility: Record<string, number> = {};
+    if (ids.length) {
+      const { data: ss } = await supabase
+        .from('sunsetwell_scores')
+        .select('facility_id, overall_percentile, calculation_date')
+        .in('facility_id', ids)
+        .order('calculation_date', { ascending: false })
+        .limit(ids.length);
+      (ss || []).forEach(row => {
+        const fid = (row as any).facility_id as string;
+        const p = (row as any).overall_percentile as number | null;
+        if (fid && typeof p === 'number') percentilesByFacility[fid] = Math.round(p);
+      });
+    }
 
     top15.forEach((r, i) => {
       const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
@@ -165,7 +219,11 @@ async function main() {
       const quality = get(r, 'quality_measure_rating');
       const rnHrs = get(r, 'rn_staffing_hours_per_resident_per_day');
       const totalHrs = get(r, 'total_nurse_staffing_hours_per_resident_per_day') ?? get(r, 'total_nurse_hours_per_resident_per_day');
-      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | ${fmt(rnHrs)} | ${fmt(totalHrs)} |`);
+      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
+      const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
+      const fid = (r as any).facility_id || (r as any).id;
+      const p = (fid && percentilesByFacility[fid]) ? percentilesByFacility[fid] : percentile(score, dist);
+      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${p} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | ${fmt(rnHrs)} | ${fmt(totalHrs)} |`);
     });
     lines.push("");
   }
@@ -174,6 +232,88 @@ async function main() {
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, lines.join("\n"));
   console.log(`✔ Wrote rankings narrative → ${outPath}`);
+
+  // Write per-metro JSON payloads for site rendering
+  const metrosDir = path.join(process.cwd(), "data", "metros");
+  fs.mkdirSync(metrosDir, { recursive: true });
+  for (const m of topN) {
+    const { city, rows, count, metaName } = m;
+    const votes = new Map<string, number>();
+    rows.forEach(r => {
+      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
+      if (!st) return;
+      votes.set(st, (votes.get(st) || 0) + 1);
+    });
+    const state = Array.from(votes.entries()).sort((a,b)=>b[1]-a[1])[0]?.[0] || '';
+
+    // Table rows
+    const sorted = [...rows].sort((a, b) => {
+      const sa = (Array.isArray((a as any).facility_scores) && (a as any).facility_scores[0]?.score) || 0;
+      const sb = (Array.isArray((b as any).facility_scores) && (b as any).facility_scores[0]?.score) || 0;
+      return sb - sa;
+    }).slice(0, 30);
+
+    const ids = sorted
+      .map(r => (r as any).facility_id || (r as any).id)
+      .filter((v: any): v is string => typeof v === 'string' && v.length > 0);
+    let percentilesByFacility: Record<string, number> = {};
+    if (ids.length) {
+      const { data: ss } = await supabase
+        .from('sunsetwell_scores')
+        .select('facility_id, overall_percentile, calculation_date')
+        .in('facility_id', ids)
+        .order('calculation_date', { ascending: false })
+        .limit(ids.length);
+      (ss || []).forEach(row => {
+        const fid = (row as any).facility_id as string;
+        const p = (row as any).overall_percentile as number | null;
+        if (fid && typeof p === 'number') percentilesByFacility[fid] = Math.round(p);
+      });
+    }
+
+    const tbl = sorted.map((r, i) => {
+      const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
+      const health = typeof (r as any).health_inspection_rating === 'number' ? (r as any).health_inspection_rating : null;
+      const staffing = typeof (r as any).staffing_rating === 'number' ? (r as any).staffing_rating : null;
+      const quality = typeof (r as any).quality_measure_rating === 'number' ? (r as any).quality_measure_rating : null;
+      const rnHrs = typeof (r as any).rn_staffing_hours_per_resident_per_day === 'number' ? (r as any).rn_staffing_hours_per_resident_per_day : null;
+      const totalHrs = typeof (r as any).total_nurse_staffing_hours_per_resident_per_day === 'number' ? (r as any).total_nurse_staffing_hours_per_resident_per_day : (typeof (r as any).total_nurse_hours_per_resident_per_day === 'number' ? (r as any).total_nurse_hours_per_resident_per_day : null);
+      const fid = (r as any).facility_id || (r as any).id;
+      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
+      const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
+      const p = (fid && percentilesByFacility[fid]) ? percentilesByFacility[fid] : percentile(score, dist);
+      return {
+        rank: i + 1,
+        facilityId: fid,
+        title: (r as any).title as string,
+        score: Math.round(score),
+        percentile: p,
+        health: health,
+        staffing: staffing,
+        quality: quality,
+        rnHours: rnHrs,
+        totalNurseHours: totalHrs,
+      };
+    });
+
+    const summary = {
+      metro: metaName,
+      city,
+      state,
+      count,
+      averageScore: avg(rows.map(r => ((Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]) ? (r as any).facility_scores[0].score : 0) as number)).toFixed(1),
+      highPerformerShare: (() => {
+        const scores = rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0));
+        return Math.round((scores.filter(s => s >= 75).length / (scores.length || 1)) * 100);
+      })(),
+      narrative: `Overall, ${city} shows ${rows.length ? (tbl.filter(t => t.score >= 75).length / tbl.length >= 0.4 ? 'a sizable cluster of high-performing facilities' : (tbl.filter(t => t.score >= 75).length / tbl.length >= 0.2 ? 'a meaningful group of above-average performers' : 'a smaller share of top performers')) : 'a smaller share of top performers'}. The average SunsetWell score suggests ${(rows.length && Number(((rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))).reduce((a,b)=>a+b,0)/(rows.length||1)).toFixed(1))) >= 75 ? 'generally excellent' : ((rows.length && Number(((rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))).reduce((a,b)=>a+b,0)/(rows.length||1)).toFixed(1))) >= 60 ? 'solid' : 'mixed'} quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.`,
+      table: tbl,
+    };
+
+    const slug = metaName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const metroPath = path.join(metrosDir, `${slug}.json`);
+    fs.writeFileSync(metroPath, JSON.stringify(summary, null, 2));
+  }
 }
 
 main().catch((e) => {
