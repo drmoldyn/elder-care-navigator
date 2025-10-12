@@ -62,7 +62,6 @@ export async function getLocationData(
 
   // Query facilities with scores in this location
   // Note: states is an array, so we use contains operator
-  console.log('[getLocationData] About to execute query...');
   const { data, error } = await supabase
     .from("resources")
     .select(
@@ -81,21 +80,15 @@ export async function getLocationData(
     `
     )
     .eq("facility_scores.version", "v2")
-    .ilike("city", city)
+    .ilike("city", `%${city}%`)
     .contains("states", [state]);
 
   if (error) {
-    console.error("[getLocationData] Error fetching location data for", city, state, ":", error);
-    console.error("[getLocationData] Error details:", JSON.stringify(error, null, 2));
-    console.error("[getLocationData] Error message:", error.message);
-    console.error("[getLocationData] Error code:", error.code);
+    console.error("[getLocationData] Error fetching location data for", city, state);
     return null;
   }
 
-  console.log("[getLocationData] Query succeeded for", city, state, "- found", data?.length ?? 0, "raw results");
-
   if (!data || data.length === 0) {
-    console.log("[getLocationData] No data found for", city, state);
     return null;
   }
 
@@ -188,6 +181,47 @@ export async function getAvailableLocations(): Promise<
   });
 
   return locations;
+}
+
+/**
+ * Get the top N city/state combinations by facility count (with v2 scores)
+ * Useful for populating the /locations index with “featured” cities.
+ */
+export async function getTopRankedLocations(limit: number = 51): Promise<
+  Array<{ city: string; state: string; count: number }>
+> {
+  const supabase = supabaseServer;
+
+  const { data, error } = await supabase
+    .from("resources")
+    .select("city, states, facility_scores!inner(score, version)")
+    .eq("facility_scores.version", "v2")
+    .not("city", "is", null)
+    .not("states", "is", null);
+
+  if (error) {
+    console.error("Error computing top-ranked locations:", error);
+    return [];
+  }
+
+  const counts = new Map<string, { city: string; state: string; count: number }>();
+  (data || []).forEach((row: { city?: string | null; states?: unknown }) => {
+    const city = typeof row.city === 'string' ? row.city.trim() : '';
+    const statesArr = Array.isArray(row.states) ? row.states as Array<string> : [];
+    const st = statesArr[0] ? String(statesArr[0]).trim() : '';
+    if (!city || !st) return;
+    const key = `${city}|${st}`;
+    const prev = counts.get(key);
+    if (prev) {
+      prev.count += 1;
+    } else {
+      counts.set(key, { city, state: st, count: 1 });
+    }
+  });
+
+  return Array.from(counts.values())
+    .sort((a, b) => b.count - a.count || a.city.localeCompare(b.city))
+    .slice(0, limit);
 }
 
 /**

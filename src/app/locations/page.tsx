@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata} from "next";
-import { getAvailableLocations, generateLocationSlug } from "@/lib/locations/queries";
+import { getTopRankedLocations, generateLocationSlug } from "@/lib/locations/queries";
 
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
@@ -9,9 +9,8 @@ export const metadata: Metadata = {
     "Find top-rated senior care facilities by city and state. Browse quality-ranked nursing homes, assisted living, and memory care options in your area.",
 };
 
-// Hardcoded list of available cities with SunsetWell scores
-// These cities have verified v2 SunsetWell scores in the database
-const AVAILABLE_CITIES = [
+// Fallback curated list (used only if DB returns 0)
+const FALLBACK_CITIES: Array<{ city: string; state: string; slug: string }> = [
   { city: "Austin", state: "TX", slug: "austin-tx" },
   { city: "Fort Worth", state: "TX", slug: "fort-worth-tx" },
   { city: "Arlington", state: "TX", slug: "arlington-tx" },
@@ -28,18 +27,22 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export default async function LocationsIndexPage() {
-  // Load available locations from DB (only cities with v2 scores)
-  const locations = await getAvailableLocations();
+  // Load top N cities with v2 scores; fall back to curated list if none
+  const ranked = await getTopRankedLocations(51);
+  let locations = ranked.map(r => ({ city: r.city, state: r.state, slug: generateLocationSlug(r.city, r.state) }));
+  if (locations.length === 0) {
+    // Fallback to curated list if DB query returns none
+    locations = FALLBACK_CITIES;
+  }
 
   // Group locations by state
   const locationsByState: Record<string, Array<{ city: string; state: string; slug: string }>> = {};
 
   locations.forEach((loc) => {
-    const slug = generateLocationSlug(loc.city, loc.state);
     if (!locationsByState[loc.state]) {
       locationsByState[loc.state] = [];
     }
-    locationsByState[loc.state].push({ ...loc, slug });
+    locationsByState[loc.state].push(loc);
   });
 
   // Sort states alphabetically
