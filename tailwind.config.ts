@@ -6,9 +6,9 @@ const config = {
   theme: {
     extend: {
       colors: {
-        // Sunset-inspired brand palette
-        'sunset-orange': '#FF9B6A',
-        'sunset-gold': '#FFD16A',
+        // Sunset-inspired brand palette (pastel tones)
+        'sunset-orange': '#FFCBA4', // Softer peachy pastel
+        'sunset-gold': '#FFECC4',   // Soft buttery pastel
         'sky-blue': '#6BA3C4',
         'lavender': '#B4A5C7',
         'lavender-light': '#D4CBE0',
