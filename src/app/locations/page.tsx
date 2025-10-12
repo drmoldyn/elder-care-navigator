@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata} from "next";
 import { getTopRankedLocations, generateLocationSlug } from "@/lib/locations/queries";
+// Prefer precomputed featured cities (Top 50 SNF metros). Fallback to DB if unavailable.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore - json module import
+import precomputed from "../../../data/featured-cities.json";
 
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
@@ -28,8 +32,15 @@ export const runtime = 'nodejs';
 
 export default async function LocationsIndexPage() {
   // Load top N cities with v2 scores; fall back to curated list if none
-  const ranked = await getTopRankedLocations(51);
-  let locations = ranked.map(r => ({ city: r.city, state: r.state, slug: generateLocationSlug(r.city, r.state) }));
+  // Use precomputed list if available
+  let locations: Array<{ city: string; state: string; slug: string }> = Array.isArray(precomputed) && precomputed.length
+    ? precomputed
+    : [];
+
+  if (locations.length === 0) {
+    const ranked = await getTopRankedLocations(51);
+    locations = ranked.map(r => ({ city: r.city, state: r.state, slug: generateLocationSlug(r.city, r.state) }));
+  }
   if (locations.length === 0) {
     // Fallback to curated list if DB query returns none
     locations = FALLBACK_CITIES;
