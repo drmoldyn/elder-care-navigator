@@ -1,0 +1,95 @@
+{
+  "metro": "Philadelphia–Camden–Wilmington",
+  "city": "Philadelphia",
+  "state": "",
+  "count": 7,
+  "averageScore": "54.0",
+  "highPerformerShare": 29,
+  "narrative": "Overall, Philadelphia shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "395515",
+      "title": "WILLOWCREST",
+      "score": 98,
+      "percentile": 98,
+      "health": 4,
+      "staffing": 5,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "395121",
+      "title": "SIMPSON HOUSE INC",
+      "score": 78,
+      "percentile": 78,
+      "health": 4,
+      "staffing": 3,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "395360",
+      "title": "GERMANTOWN HOME",
+      "score": 60,
+      "percentile": 60,
+      "health": 3,
+      "staffing": 4,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 4,
+      "facilityId": "395843",
+      "title": "RIVER'S EDGE REHABILITATION & HEALTHCARE CENTER",
+      "score": 55,
+      "percentile": 55,
+      "health": 3,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 5,
+      "facilityId": "395134",
+      "title": "INGLIS HOUSE",
+      "score": 45,
+      "percentile": 45,
+      "health": 2,
+      "staffing": 4,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 6,
+      "facilityId": "395461",
+      "title": "TUCKER HOUSE NURSING AND REHABILITATION CENTER",
+      "score": 31,
+      "percentile": 31,
+      "health": 2,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 7,
+      "facilityId": "395537",
+      "title": "ROOSEVELT REHABILITATION AND HEALTHCARE CENTER",
+      "score": 11,
+      "percentile": 11,
+      "health": 1,
+      "staffing": 2,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

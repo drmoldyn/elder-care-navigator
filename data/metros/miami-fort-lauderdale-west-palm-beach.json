@@ -1,0 +1,23 @@
+{
+  "metro": "Miami–Fort Lauderdale–West Palm Beach",
+  "city": "Miami",
+  "state": "",
+  "count": 1,
+  "averageScore": "32.0",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Miami shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "375388",
+      "title": "MIAMI NURSING CENTER, LLC",
+      "score": 32,
+      "percentile": 32,
+      "health": 2,
+      "staffing": 4,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "metro": "Portland–Vancouver–Hillsboro",
+  "city": "Portland",
+  "state": "",
+  "count": 7,
+  "averageScore": "56.8",
+  "highPerformerShare": 29,
+  "narrative": "Overall, Portland shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "385274",
+      "title": "MIRABELLA PORTLAND",
+      "score": 100,
+      "percentile": 100,
+      "health": 5,
+      "staffing": 5,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "385259",
+      "title": "HOLLADAY PARK PLAZA",
+      "score": 95,
+      "percentile": 95,
+      "health": 5,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "38E157",
+      "title": "EAST PORTLAND CARE CENTER",
+      "score": 73,
+      "percentile": 73,
+      "health": 3,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 4,
+      "facilityId": "385268",
+      "title": "GATEWAY CARE AND RETIREMENT",
+      "score": 61,
+      "percentile": 61,
+      "health": 3,
+      "staffing": 3,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 5,
+      "facilityId": "385228",
+      "title": "PORTLAND HEALTH & REHABILITATION CENTER",
+      "score": 40,
+      "percentile": 40,
+      "health": 2,
+      "staffing": 4,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 6,
+      "facilityId": "385284",
+      "title": "CEDAR CROSSINGS",
+      "score": 17,
+      "percentile": 17,
+      "health": 1,
+      "staffing": 3,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 7,
+      "facilityId": "38E188",
+      "title": "GRACELEN CARE CENTER",
+      "score": 12,
+      "percentile": 12,
+      "health": 1,
+      "staffing": 3,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

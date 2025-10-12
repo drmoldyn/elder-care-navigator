@@ -1,252 +1,252 @@
 [
   {
-    "city": "PORTLAND",
-    "state": "",
-    "slug": "portland"
+    "city": "New York",
+    "state": "NY",
+    "slug": "new-york-ny"
   },
   {
-    "city": "PHILADELPHIA",
-    "state": "",
-    "slug": "philadelphia"
+    "city": "Los Angeles",
+    "state": "CA",
+    "slug": "los-angeles-ca"
   },
   {
-    "city": "OKLAHOMA CITY",
-    "state": "",
-    "slug": "oklahoma-city"
+    "city": "Chicago",
+    "state": "IL",
+    "slug": "chicago-il"
   },
   {
-    "city": "TULSA",
-    "state": "",
-    "slug": "tulsa"
+    "city": "Dallas",
+    "state": "TX",
+    "slug": "dallas-tx"
   },
   {
-    "city": "ALLENTOWN",
-    "state": "",
-    "slug": "allentown"
+    "city": "Houston",
+    "state": "TX",
+    "slug": "houston-tx"
   },
   {
-    "city": "ERIE",
-    "state": "",
-    "slug": "erie"
+    "city": "Washington",
+    "state": "DC",
+    "slug": "washington-dc"
   },
   {
-    "city": "SCRANTON",
-    "state": "",
-    "slug": "scranton"
+    "city": "Miami",
+    "state": "FL",
+    "slug": "miami-fl"
   },
   {
-    "city": "MCALESTER",
-    "state": "",
-    "slug": "mcalester"
+    "city": "Philadelphia",
+    "state": "PA",
+    "slug": "philadelphia-pa"
   },
   {
-    "city": "NORMAN",
-    "state": "",
-    "slug": "norman"
+    "city": "Atlanta",
+    "state": "GA",
+    "slug": "atlanta-ga"
   },
   {
-    "city": "EUFAULA",
-    "state": "",
-    "slug": "eufaula"
+    "city": "Phoenix",
+    "state": "AZ",
+    "slug": "phoenix-az"
   },
   {
-    "city": "BROOMALL",
-    "state": "",
-    "slug": "broomall"
+    "city": "Boston",
+    "state": "MA",
+    "slug": "boston-ma"
   },
   {
-    "city": "WILKES BARRE",
-    "state": "",
-    "slug": "wilkes-barre"
+    "city": "San Francisco",
+    "state": "CA",
+    "slug": "san-francisco-ca"
   },
   {
-    "city": "ALEXANDRIA",
-    "state": "",
-    "slug": "alexandria"
+    "city": "Riverside",
+    "state": "CA",
+    "slug": "riverside-ca"
   },
   {
-    "city": "POTTSVILLE",
-    "state": "",
-    "slug": "pottsville"
+    "city": "Detroit",
+    "state": "MI",
+    "slug": "detroit-mi"
   },
   {
-    "city": "WELLSBORO",
-    "state": "",
-    "slug": "wellsboro"
+    "city": "Seattle",
+    "state": "WA",
+    "slug": "seattle-wa"
   },
   {
-    "city": "KINGSTON",
-    "state": "",
-    "slug": "kingston"
+    "city": "Minneapolis",
+    "state": "MN",
+    "slug": "minneapolis-mn"
   },
   {
-    "city": "HOLLIDAYSBURG",
-    "state": "",
-    "slug": "hollidaysburg"
+    "city": "San Diego",
+    "state": "CA",
+    "slug": "san-diego-ca"
   },
   {
-    "city": "BALTIMORE",
-    "state": "",
-    "slug": "baltimore"
+    "city": "Tampa",
+    "state": "FL",
+    "slug": "tampa-fl"
   },
   {
-    "city": "SAPULPA",
-    "state": "",
-    "slug": "sapulpa"
+    "city": "Denver",
+    "state": "CO",
+    "slug": "denver-co"
   },
   {
-    "city": "OKEMAH",
-    "state": "",
-    "slug": "okemah"
+    "city": "Baltimore",
+    "state": "MD",
+    "slug": "baltimore-md"
   },
   {
-    "city": "BROKEN ARROW",
-    "state": "",
-    "slug": "broken-arrow"
+    "city": "St. Louis",
+    "state": "MO",
+    "slug": "st.-louis-mo"
   },
   {
-    "city": "CHICKASHA",
-    "state": "",
-    "slug": "chickasha"
+    "city": "Charlotte",
+    "state": "NC",
+    "slug": "charlotte-nc"
   },
   {
-    "city": "OKEENE",
-    "state": "",
-    "slug": "okeene"
+    "city": "Orlando",
+    "state": "FL",
+    "slug": "orlando-fl"
   },
   {
-    "city": "BARNSDALL",
-    "state": "",
-    "slug": "barnsdall"
+    "city": "San Antonio",
+    "state": "TX",
+    "slug": "san-antonio-tx"
   },
   {
-    "city": "ANADARKO",
-    "state": "",
-    "slug": "anadarko"
+    "city": "Portland",
+    "state": "OR",
+    "slug": "portland-or"
   },
   {
-    "city": "OKMULGEE",
-    "state": "",
-    "slug": "okmulgee"
+    "city": "Sacramento",
+    "state": "CA",
+    "slug": "sacramento-ca"
   },
   {
-    "city": "HUGO",
-    "state": "",
-    "slug": "hugo"
+    "city": "Pittsburgh",
+    "state": "PA",
+    "slug": "pittsburgh-pa"
   },
   {
-    "city": "LAWTON",
-    "state": "",
-    "slug": "lawton"
+    "city": "Las Vegas",
+    "state": "NV",
+    "slug": "las-vegas-nv"
   },
   {
-    "city": "COLLINSVILLE",
-    "state": "",
-    "slug": "collinsville"
+    "city": "Austin",
+    "state": "TX",
+    "slug": "austin-tx"
   },
   {
-    "city": "ALTUS",
-    "state": "",
-    "slug": "altus"
+    "city": "Cincinnati",
+    "state": "OH",
+    "slug": "cincinnati-oh"
   },
   {
-    "city": "ALVA",
-    "state": "",
-    "slug": "alva"
+    "city": "Kansas City",
+    "state": "MO",
+    "slug": "kansas-city-mo"
   },
   {
-    "city": "SAYRE",
-    "state": "",
-    "slug": "sayre"
+    "city": "Columbus",
+    "state": "OH",
+    "slug": "columbus-oh"
   },
   {
-    "city": "MIDWEST CITY",
-    "state": "",
-    "slug": "midwest-city"
+    "city": "Cleveland",
+    "state": "OH",
+    "slug": "cleveland-oh"
   },
   {
-    "city": "COMMERCE",
-    "state": "",
-    "slug": "commerce"
+    "city": "Indianapolis",
+    "state": "IN",
+    "slug": "indianapolis-in"
   },
   {
-    "city": "VICI",
-    "state": "",
-    "slug": "vici"
+    "city": "San Jose",
+    "state": "CA",
+    "slug": "san-jose-ca"
   },
   {
-    "city": "BARTLESVILLE",
-    "state": "",
-    "slug": "bartlesville"
+    "city": "Nashville",
+    "state": "TN",
+    "slug": "nashville-tn"
   },
   {
-    "city": "HOLDENVILLE",
-    "state": "",
-    "slug": "holdenville"
+    "city": "Virginia Beach",
+    "state": "VA",
+    "slug": "virginia-beach-va"
   },
   {
-    "city": "DUNCAN",
-    "state": "",
-    "slug": "duncan"
+    "city": "Providence",
+    "state": "RI",
+    "slug": "providence-ri"
   },
   {
-    "city": "WELEETKA",
-    "state": "",
-    "slug": "weleetka"
+    "city": "Milwaukee",
+    "state": "WI",
+    "slug": "milwaukee-wi"
   },
   {
-    "city": "SEILING",
-    "state": "",
-    "slug": "seiling"
+    "city": "Jacksonville",
+    "state": "FL",
+    "slug": "jacksonville-fl"
   },
   {
-    "city": "MOUNT ANGEL",
-    "state": "",
-    "slug": "mount-angel"
+    "city": "Memphis",
+    "state": "TN",
+    "slug": "memphis-tn"
   },
   {
-    "city": "THE DALLES",
-    "state": "",
-    "slug": "the-dalles"
+    "city": "Oklahoma City",
+    "state": "OK",
+    "slug": "oklahoma-city-ok"
   },
   {
-    "city": "GRESHAM",
-    "state": "",
-    "slug": "gresham"
+    "city": "Louisville",
+    "state": "KY",
+    "slug": "louisville-ky"
   },
   {
-    "city": "ROSEBURG",
-    "state": "",
-    "slug": "roseburg"
+    "city": "Richmond",
+    "state": "VA",
+    "slug": "richmond-va"
   },
   {
-    "city": "MADRAS",
-    "state": "",
-    "slug": "madras"
+    "city": "New Orleans",
+    "state": "LA",
+    "slug": "new-orleans-la"
   },
   {
-    "city": "ASHLAND",
-    "state": "",
-    "slug": "ashland"
+    "city": "Hartford",
+    "state": "CT",
+    "slug": "hartford-ct"
   },
   {
-    "city": "PENDLETON",
-    "state": "",
-    "slug": "pendleton"
+    "city": "Raleigh",
+    "state": "NC",
+    "slug": "raleigh-nc"
   },
   {
-    "city": "MYRTLE POINT",
-    "state": "",
-    "slug": "myrtle-point"
+    "city": "Salt Lake City",
+    "state": "UT",
+    "slug": "salt-lake-city-ut"
   },
   {
-    "city": "HILLSBORO",
-    "state": "",
-    "slug": "hillsboro"
+    "city": "Birmingham",
+    "state": "AL",
+    "slug": "birmingham-al"
   },
   {
-    "city": "HERMISTON",
-    "state": "",
-    "slug": "hermiston"
+    "city": "Buffalo",
+    "state": "NY",
+    "slug": "buffalo-ny"
   }
 ]

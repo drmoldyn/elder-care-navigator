@@ -1,0 +1,23 @@
+{
+  "metro": "Pittsburgh",
+  "city": "Pittsburgh",
+  "state": "",
+  "count": 1,
+  "averageScore": "25.7",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Pittsburgh shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "395606",
+      "title": "JOHN J KANE REGIONAL CENTER-RO",
+      "score": 26,
+      "percentile": 26,
+      "health": 1,
+      "staffing": 4,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

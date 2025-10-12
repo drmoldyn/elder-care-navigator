@@ -1,0 +1,23 @@
+{
+  "metro": "New Orleans–Metairie",
+  "city": "New Orleans",
+  "state": "",
+  "count": 1,
+  "averageScore": "14.1",
+  "highPerformerShare": 0,
+  "narrative": "Overall, New Orleans shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "195437",
+      "title": "ST MARGARET'S DAUGHTERS HOME",
+      "score": 14,
+      "percentile": 14,
+      "health": 2,
+      "staffing": 1,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

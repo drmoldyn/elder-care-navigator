@@ -1,0 +1,23 @@
+{
+  "metro": "Dallas–Fort Worth–Arlington",
+  "city": "Dallas",
+  "state": "",
+  "count": 1,
+  "averageScore": "63.1",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Dallas shows a smaller share of top performers. The average SunsetWell score suggests solid quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "395587",
+      "title": "MEADOWS NURSING AND REHABILITATION CENTER",
+      "score": 63,
+      "percentile": 63,
+      "health": 3,
+      "staffing": 4,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

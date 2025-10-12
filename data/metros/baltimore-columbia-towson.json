@@ -1,0 +1,35 @@
+{
+  "metro": "Baltimore–Columbia–Towson",
+  "city": "Baltimore",
+  "state": "",
+  "count": 2,
+  "averageScore": "56.3",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Baltimore shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "215271",
+      "title": "FUTURE CARE SANDTOWN-WINCHESTER",
+      "score": 60,
+      "percentile": 60,
+      "health": 3,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "215261",
+      "title": "FRANKLIN WOODS CENTER",
+      "score": 53,
+      "percentile": 53,
+      "health": 3,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
+}

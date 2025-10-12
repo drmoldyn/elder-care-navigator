@@ -78,8 +78,8 @@ async function main() {
   console.log("Fetching SNFs with v2 scores...");
   const { data, error } = await supabase
     .from("resources")
-    // Select full row to tolerate column differences across environments
-    .select(`id, facility_id, title, city, states, provider_type, health_inspection_rating, staffing_rating, quality_measure_rating, rn_staffing_hours_per_resident_per_day, total_nurse_staffing_hours_per_resident_per_day, total_nurse_hours_per_resident_per_day, facility_scores!inner(score, version)`) 
+    // Select only confirmed columns to avoid errors
+    .select(`id, facility_id, title, city, states, provider_type, health_inspection_rating, staffing_rating, quality_measure_rating, facility_scores!inner(score, version)`)
     .in("provider_type", ["nursing_home", "skilled_nursing_facility"]) // SNFs
     .eq("facility_scores.version", "v2")
     .not("city", "is", null);
@@ -217,13 +217,11 @@ async function main() {
       const health = get(r, 'health_inspection_rating');
       const staffing = get(r, 'staffing_rating');
       const quality = get(r, 'quality_measure_rating');
-      const rnHrs = get(r, 'rn_staffing_hours_per_resident_per_day');
-      const totalHrs = get(r, 'total_nurse_staffing_hours_per_resident_per_day') ?? get(r, 'total_nurse_hours_per_resident_per_day');
       const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
       const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
       const fid = (r as any).facility_id || (r as any).id;
       const p = (fid && percentilesByFacility[fid]) ? percentilesByFacility[fid] : percentile(score, dist);
-      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${p} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | ${fmt(rnHrs)} | ${fmt(totalHrs)} |`);
+      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${p} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | — | — |`);
     });
     lines.push("");
   }
@@ -276,8 +274,6 @@ async function main() {
       const health = typeof (r as any).health_inspection_rating === 'number' ? (r as any).health_inspection_rating : null;
       const staffing = typeof (r as any).staffing_rating === 'number' ? (r as any).staffing_rating : null;
       const quality = typeof (r as any).quality_measure_rating === 'number' ? (r as any).quality_measure_rating : null;
-      const rnHrs = typeof (r as any).rn_staffing_hours_per_resident_per_day === 'number' ? (r as any).rn_staffing_hours_per_resident_per_day : null;
-      const totalHrs = typeof (r as any).total_nurse_staffing_hours_per_resident_per_day === 'number' ? (r as any).total_nurse_staffing_hours_per_resident_per_day : (typeof (r as any).total_nurse_hours_per_resident_per_day === 'number' ? (r as any).total_nurse_hours_per_resident_per_day : null);
       const fid = (r as any).facility_id || (r as any).id;
       const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
       const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
@@ -291,22 +287,25 @@ async function main() {
         health: health,
         staffing: staffing,
         quality: quality,
-        rnHours: rnHrs,
-        totalNurseHours: totalHrs,
+        rnHours: null,
+        totalNurseHours: null,
       };
     });
+
+    const scoresForAvg = rows.map(r => ((Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]) ? (r as any).facility_scores[0].score : 0) as number);
+    const avgSc = avg(scoresForAvg);
+    const qualityTier = avgSc >= 75 ? 'generally excellent' : avgSc >= 60 ? 'solid' : 'mixed';
+    const highPerformers = tbl.filter(t => t.score >= 75).length;
+    const performerTrend = rows.length ? (highPerformers / tbl.length >= 0.4 ? 'a sizable cluster of high-performing facilities' : (highPerformers / tbl.length >= 0.2 ? 'a meaningful group of above-average performers' : 'a smaller share of top performers')) : 'a smaller share of top performers';
 
     const summary = {
       metro: metaName,
       city,
       state,
       count,
-      averageScore: avg(rows.map(r => ((Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]) ? (r as any).facility_scores[0].score : 0) as number)).toFixed(1),
-      highPerformerShare: (() => {
-        const scores = rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0));
-        return Math.round((scores.filter(s => s >= 75).length / (scores.length || 1)) * 100);
-      })(),
-      narrative: `Overall, ${city} shows ${rows.length ? (tbl.filter(t => t.score >= 75).length / tbl.length >= 0.4 ? 'a sizable cluster of high-performing facilities' : (tbl.filter(t => t.score >= 75).length / tbl.length >= 0.2 ? 'a meaningful group of above-average performers' : 'a smaller share of top performers')) : 'a smaller share of top performers'}. The average SunsetWell score suggests ${(rows.length && Number(((rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))).reduce((a,b)=>a+b,0)/(rows.length||1)).toFixed(1))) >= 75 ? 'generally excellent' : ((rows.length && Number(((rows.map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))).reduce((a,b)=>a+b,0)/(rows.length||1)).toFixed(1))) >= 60 ? 'solid' : 'mixed'} quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.`,
+      averageScore: avgSc.toFixed(1),
+      highPerformerShare: Math.round((scoresForAvg.filter(s => s >= 75).length / (scoresForAvg.length || 1)) * 100),
+      narrative: `Overall, ${city} shows ${performerTrend}. The average SunsetWell score suggests ${qualityTier} quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.`,
       table: tbl,
     };
 
