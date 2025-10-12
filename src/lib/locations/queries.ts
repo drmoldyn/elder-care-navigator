@@ -51,10 +51,15 @@ export async function getLocationData(
   city: string,
   state: string
 ): Promise<LocationStats | null> {
+  console.log('[getLocationData] Starting query for', city, state);
+  console.log('[getLocationData] supabaseServer type:', typeof supabaseServer);
+  console.log('[getLocationData] supabaseServer keys:', Object.keys(supabaseServer).slice(0, 5));
+
   const supabase = supabaseServer;
 
   // Query facilities with scores in this location
   // Note: states is an array, so we use contains operator
+  console.log('[getLocationData] About to execute query...');
   const { data, error } = await supabase
     .from("resources")
     .select(
