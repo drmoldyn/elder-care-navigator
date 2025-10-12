@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Loader } from "@googlemaps/js-api-loader";
+import { useEffect, useRef, useState } from "react";
+import { importLibrary, setOptions } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
 import { geocodeZip, getCachedZipCoordinates, ZipCoordinates } from "@/lib/location/geocode";
@@ -37,6 +37,7 @@ export interface MapResource {
   zip?: string | null;
   overall_rating?: number | null;
   sunsetwell_score?: number | null;
+  sunsetwell_percentile?: number | null;
   distance?: number;
   service_area_match?: boolean;
   service_area_zip?: string | null;
@@ -103,7 +104,7 @@ function createInfoWindowContent(resource: MapResource, distanceText: string): H
     const scoreContainer = document.createElement("div");
     scoreContainer.style.marginTop = "12px";
     scoreContainer.style.marginBottom = "8px";
-    scoreContainer.style.padding = "8px";
+    scoreContainer.style.padding = "10px";
     scoreContainer.style.borderRadius = "6px";
     scoreContainer.style.fontWeight = "bold";
     scoreContainer.style.fontSize = "16px";
@@ -127,8 +128,19 @@ function createInfoWindowContent(resource: MapResource, distanceText: string): H
       scoreContainer.style.color = "white";
     }
 
-    scoreContainer.textContent = `SunsetWell Score: ${getSunsetWellScoreBadge(resource.sunsetwell_score)}`;
+    scoreContainer.textContent = `SunsetWell Score®: ${getSunsetWellScoreBadge(resource.sunsetwell_score)}`;
     container.appendChild(scoreContainer);
+
+    // Add percentile if available
+    if (typeof resource.sunsetwell_percentile === "number") {
+      const percentileText = document.createElement("p");
+      percentileText.style.margin = "4px 0 0 0";
+      percentileText.style.fontSize = "13px";
+      percentileText.style.color = "#4b5563";
+      percentileText.style.textAlign = "center";
+      percentileText.textContent = `${resource.sunsetwell_percentile}th percentile vs. state peers`;
+      container.appendChild(percentileText);
+    }
   }
 
   if (typeof resource.overall_rating === "number") {
@@ -188,14 +200,6 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  const loader = useMemo(() => {
-    return new Loader({
-      apiKey: apiKey ?? "",
-      version: "weekly",
-      libraries: ["marker", "geometry"],
-    });
-  }, [apiKey]);
-
   useEffect(() => {
     let isMounted = true;
     let boundsListener: google.maps.MapsEventListener | null = null;
@@ -239,11 +243,11 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
         }
       }
 
-      // Load the Google Maps API
-      // Type assertion needed because @googlemaps/js-api-loader types are incomplete
-      const { Map } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MapsLibrary> }).importLibrary("maps");
-      const { Marker } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MarkerLibrary> }).importLibrary("marker");
-      const { InfoWindow } = await (loader as unknown as { importLibrary: (name: string) => Promise<google.maps.MapsLibrary> }).importLibrary("maps");
+      // Configure and load the Google Maps libraries
+      setOptions({ apiKey, version: "weekly" });
+      const { Map, InfoWindow } = (await importLibrary("maps")) as google.maps.MapsLibrary;
+      const { Marker } = (await importLibrary("marker")) as google.maps.MarkerLibrary;
+      await importLibrary("geometry");
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
@@ -356,7 +360,7 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
       infoWindowRef.current = null;
       mapRef.current = null;
     };
-  }, [apiKey, loader, onVisibleChange, resources, userLocation, userZip]);
+  }, [apiKey, onVisibleChange, resources, userLocation, userZip]);
 
   const handleSearchThisArea = () => {
     const map = mapRef.current;
