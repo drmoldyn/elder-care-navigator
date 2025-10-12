@@ -214,34 +214,18 @@ async function main() {
     const get = (o: any, k: string): number | null => (typeof o?.[k] === 'number' ? o[k] : null);
     const fmt = (n: number | null, d = 1) => (n == null ? '—' : n.toFixed(d));
 
-    // Attempt to fetch hierarchical peer-group percentiles if available (sunsetwell_scores)
-    const ids = top15
-      .map(r => (r as any).facility_id || (r as any).id)
-      .filter((v: any): v is string => typeof v === 'string' && v.length > 0);
-    let percentilesByFacility: Record<string, number> = {};
-    if (ids.length) {
-      const { data: ss } = await supabase
-        .from('sunsetwell_scores')
-        .select('facility_id, overall_percentile, calculation_date')
-        .in('facility_id', ids)
-        .order('calculation_date', { ascending: false })
-        .limit(ids.length);
-      (ss || []).forEach(row => {
-        const fid = (row as any).facility_id as string;
-        const p = (row as any).overall_percentile as number | null;
-        if (fid && typeof p === 'number') percentilesByFacility[fid] = Math.round(p);
-      });
-    }
+    // Build metro-specific score distribution for percentile calculation
+    const top15Scores = top15.map(r =>
+      (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0
+    );
 
     top15.forEach((r, i) => {
       const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
       const health = get(r, 'health_inspection_rating');
       const staffing = get(r, 'staffing_rating');
       const quality = get(r, 'quality_measure_rating');
-      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
-      const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
-      const fid = (r as any).facility_id || (r as any).id;
-      const p = (fid && percentilesByFacility[fid]) ? percentilesByFacility[fid] : percentile(score, dist);
+      // Calculate percentile within this metro area, not statewide
+      const p = percentile(score, top15Scores);
       lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${p} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | — | — |`);
     });
     lines.push("");
@@ -265,23 +249,10 @@ async function main() {
       return sb - sa;
     }).slice(0, 30);
 
-    const ids = sorted
-      .map(r => (r as any).facility_id || (r as any).id)
-      .filter((v: any): v is string => typeof v === 'string' && v.length > 0);
-    let percentilesByFacility: Record<string, number> = {};
-    if (ids.length) {
-      const { data: ss } = await supabase
-        .from('sunsetwell_scores')
-        .select('facility_id, overall_percentile, calculation_date')
-        .in('facility_id', ids)
-        .order('calculation_date', { ascending: false })
-        .limit(ids.length);
-      (ss || []).forEach(row => {
-        const fid = (row as any).facility_id as string;
-        const p = (row as any).overall_percentile as number | null;
-        if (fid && typeof p === 'number') percentilesByFacility[fid] = Math.round(p);
-      });
-    }
+    // Build metro-specific score distribution for percentile calculation
+    const metroScores = sorted.map(r =>
+      (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0
+    );
 
     const tbl = sorted.map((r, i) => {
       const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
@@ -289,9 +260,8 @@ async function main() {
       const staffing = typeof (r as any).staffing_rating === 'number' ? (r as any).staffing_rating : null;
       const quality = typeof (r as any).quality_measure_rating === 'number' ? (r as any).quality_measure_rating : null;
       const fid = (r as any).facility_id || (r as any).id;
-      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
-      const dist = (st && peerScores.get(`${st}|SNF`)) ? peerScores.get(`${st}|SNF`)! : (peerScores.get('US|SNF') || []);
-      const p = (fid && percentilesByFacility[fid]) ? percentilesByFacility[fid] : percentile(score, dist);
+      // Calculate percentile within this metro area, not statewide
+      const p = percentile(score, metroScores);
       return {
         rank: i + 1,
         facilityId: fid,

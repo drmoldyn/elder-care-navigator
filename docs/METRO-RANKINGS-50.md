@@ -41,7 +41,7 @@ Overall, Dallas shows a smaller share of top performers. The average SunsetWell 
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | MEADOWS NURSING AND REHABILITATION CENTER | 63 | 63 | 3 | 4 | 3 | — | — |
+| 1 | MEADOWS NURSING AND REHABILITATION CENTER | 63 | 100 | 3 | 4 | 3 | — | — |
 
 ## Houston–The Woodlands–Sugar Land — 0 SNFs
 
@@ -62,8 +62,8 @@ Overall, Washington shows a smaller share of top performers. The average SunsetW
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | LEXINGTON HOUSE | 58 | 58 | 4 | 2 | 2 | — | — |
-| 2 | NAOMI HEIGHTS NURSING & REHABILITATION CENTER | 18 | 18 | 2 | 2 | 1 | — | — |
+| 1 | LEXINGTON HOUSE | 58 | 100 | 4 | 2 | 2 | — | — |
+| 2 | NAOMI HEIGHTS NURSING & REHABILITATION CENTER | 18 | 0 | 2 | 2 | 1 | — | — |
 
 ## Miami–Fort Lauderdale–West Palm Beach — 1 SNFs
 
@@ -74,7 +74,7 @@ Overall, Miami shows a smaller share of top performers. The average SunsetWell s
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | MIAMI NURSING CENTER, LLC | 32 | 32 | 2 | 4 | 2 | — | — |
+| 1 | MIAMI NURSING CENTER, LLC | 32 | 100 | 2 | 4 | 2 | — | — |
 
 ## Philadelphia–Camden–Wilmington — 7 SNFs
 
@@ -85,13 +85,13 @@ Overall, Philadelphia shows a meaningful group of above-average performers. The 
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | WILLOWCREST | 98 | 98 | 4 | 5 | 5 | — | — |
-| 2 | SIMPSON HOUSE INC | 78 | 78 | 4 | 3 | 5 | — | — |
-| 3 | GERMANTOWN HOME | 60 | 60 | 3 | 4 | 3 | — | — |
-| 4 | RIVER'S EDGE REHABILITATION & HEALTHCARE CENTER | 55 | 55 | 3 | 3 | 4 | — | — |
-| 5 | INGLIS HOUSE | 45 | 45 | 2 | 4 | 2 | — | — |
-| 6 | TUCKER HOUSE NURSING AND REHABILITATION CENTER | 31 | 31 | 2 | 3 | 4 | — | — |
-| 7 | ROOSEVELT REHABILITATION AND HEALTHCARE CENTER | 11 | 11 | 1 | 2 | 4 | — | — |
+| 1 | WILLOWCREST | 98 | 100 | 4 | 5 | 5 | — | — |
+| 2 | SIMPSON HOUSE INC | 78 | 83 | 4 | 3 | 5 | — | — |
+| 3 | GERMANTOWN HOME | 60 | 67 | 3 | 4 | 3 | — | — |
+| 4 | RIVER'S EDGE REHABILITATION & HEALTHCARE CENTER | 55 | 50 | 3 | 3 | 4 | — | — |
+| 5 | INGLIS HOUSE | 45 | 33 | 2 | 4 | 2 | — | — |
+| 6 | TUCKER HOUSE NURSING AND REHABILITATION CENTER | 31 | 17 | 2 | 3 | 4 | — | — |
+| 7 | ROOSEVELT REHABILITATION AND HEALTHCARE CENTER | 11 | 0 | 1 | 2 | 4 | — | — |
 
 ## Atlanta–Sandy Springs–Alpharetta — 0 SNFs
 
@@ -212,9 +212,9 @@ Overall, Baltimore shows a meaningful group of above-average performers. The ave
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | CHESTNUT GRN HLTH CTR BLAKEHUR | 97 | 97 | 5 | 5 | 5 | — | — |
-| 2 | FUTURE CARE SANDTOWN-WINCHESTER | 60 | 60 | 3 | 3 | 4 | — | — |
-| 3 | FRANKLIN WOODS CENTER | 53 | 53 | 3 | 3 | 4 | — | — |
+| 1 | CHESTNUT GRN HLTH CTR BLAKEHUR | 97 | 100 | 5 | 5 | 5 | — | — |
+| 2 | FUTURE CARE SANDTOWN-WINCHESTER | 60 | 50 | 3 | 3 | 4 | — | — |
+| 3 | FRANKLIN WOODS CENTER | 53 | 0 | 3 | 3 | 4 | — | — |
 
 ## St. Louis — 0 SNFs
 
@@ -266,13 +266,13 @@ Overall, Portland shows a meaningful group of above-average performers. The aver
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 | 1 | MIRABELLA PORTLAND | 100 | 100 | 5 | 5 | 4 | — | — |
-| 2 | HOLLADAY PARK PLAZA | 95 | 95 | 5 | 4 | 5 | — | — |
-| 3 | EAST PORTLAND CARE CENTER | 73 | 73 | 3 | 4 | 5 | — | — |
-| 4 | AVAMERE REHABILITATION OF HILLSBORO | 64 | 64 | 3 | 4 | 4 | — | — |
-| 5 | GATEWAY CARE AND RETIREMENT | 61 | 61 | 3 | 3 | 3 | — | — |
-| 6 | PORTLAND HEALTH & REHABILITATION CENTER | 40 | 40 | 2 | 4 | 3 | — | — |
-| 7 | CEDAR CROSSINGS | 17 | 17 | 1 | 3 | 3 | — | — |
-| 8 | GRACELEN CARE CENTER | 12 | 12 | 1 | 3 | 3 | — | — |
+| 2 | HOLLADAY PARK PLAZA | 95 | 86 | 5 | 4 | 5 | — | — |
+| 3 | EAST PORTLAND CARE CENTER | 73 | 71 | 3 | 4 | 5 | — | — |
+| 4 | AVAMERE REHABILITATION OF HILLSBORO | 64 | 57 | 3 | 4 | 4 | — | — |
+| 5 | GATEWAY CARE AND RETIREMENT | 61 | 43 | 3 | 3 | 3 | — | — |
+| 6 | PORTLAND HEALTH & REHABILITATION CENTER | 40 | 29 | 2 | 4 | 3 | — | — |
+| 7 | CEDAR CROSSINGS | 17 | 14 | 1 | 3 | 3 | — | — |
+| 8 | GRACELEN CARE CENTER | 12 | 0 | 1 | 3 | 3 | — | — |
 
 ## Sacramento–Roseville–Folsom — 0 SNFs
 
@@ -293,7 +293,7 @@ Overall, Pittsburgh shows a smaller share of top performers. The average SunsetW
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | JOHN J KANE REGIONAL CENTER-RO | 26 | 26 | 1 | 4 | 3 | — | — |
+| 1 | JOHN J KANE REGIONAL CENTER-RO | 26 | 100 | 1 | 4 | 3 | — | — |
 
 ## Las Vegas–Henderson–Paradise — 0 SNFs
 
@@ -354,7 +354,7 @@ Overall, Cleveland shows a smaller share of top performers. The average SunsetWe
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | CLEVELAND CARE AND REHAB CENTER | 34 | 33 | 2 | 3 | 5 | — | — |
+| 1 | CLEVELAND CARE AND REHAB CENTER | 34 | 100 | 2 | 3 | 5 | — | — |
 
 ## Indianapolis–Carmel–Anderson — 0 SNFs
 
@@ -445,11 +445,11 @@ Overall, Oklahoma City shows a smaller share of top performers. The average Suns
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | ST. ANN'S SKILLED NURSING AND THERAPY | 72 | 72 | 4 | 4 | 3 | — | — |
-| 2 | WILDEWOOD SKILLED NURSING AND THERAPY | 44 | 44 | 3 | 3 | 3 | — | — |
-| 3 | ACCEL AT CRYSTAL PARK | 21 | 21 | 2 | 2 | 4 | — | — |
-| 4 | WINDSOR HILLS NURSING CENTER | 17 | 17 | 1 | 4 | 5 | — | — |
-| 5 | HERITAGE MANOR | 7 | 7 | 1 | 2 | 5 | — | — |
+| 1 | ST. ANN'S SKILLED NURSING AND THERAPY | 72 | 100 | 4 | 4 | 3 | — | — |
+| 2 | WILDEWOOD SKILLED NURSING AND THERAPY | 44 | 75 | 3 | 3 | 3 | — | — |
+| 3 | ACCEL AT CRYSTAL PARK | 21 | 50 | 2 | 2 | 4 | — | — |
+| 4 | WINDSOR HILLS NURSING CENTER | 17 | 25 | 1 | 4 | 5 | — | — |
+| 5 | HERITAGE MANOR | 7 | 0 | 1 | 2 | 5 | — | — |
 
 ## Louisville/Jefferson County — 0 SNFs
 
@@ -480,7 +480,7 @@ Overall, New Orleans shows a smaller share of top performers. The average Sunset
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | ST MARGARET'S DAUGHTERS HOME | 14 | 14 | 2 | 1 | 2 | — | — |
+| 1 | ST MARGARET'S DAUGHTERS HOME | 14 | 100 | 2 | 1 | 2 | — | — |
 
 ## Hartford–East Hartford–Middletown — 1 SNFs
 
@@ -491,7 +491,7 @@ Overall, Hartford shows a smaller share of top performers. The average SunsetWel
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | OAK HILL CENTER FOR REHABILITATION AND NURSING | 6 | 6 | 1 | 1 | 4 | — | — |
+| 1 | OAK HILL CENTER FOR REHABILITATION AND NURSING | 6 | 100 | 1 | 1 | 4 | — | — |
 
 ## Raleigh–Cary — 0 SNFs
 
