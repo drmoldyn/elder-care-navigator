@@ -6,13 +6,16 @@ import { createClient } from '@supabase/supabase-js';
  * IMPORTANT: NEXT_PUBLIC_* vars are for client-side. Server Components need server-only vars.
  */
 export function createServerComponentClient() {
-  // Use server-only SUPABASE_URL instead of NEXT_PUBLIC_SUPABASE_URL (client-side)
-  const supabaseUrl = process.env.SUPABASE_URL;
+  // Use NEXT_PUBLIC_SUPABASE_URL - it works in both client AND server runtime
+  // (Same pattern as the working server.ts)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   console.log('[createServerComponentClient] Initializing...');
   console.log('[createServerComponentClient] URL present:', !!supabaseUrl);
+  console.log('[createServerComponentClient] URL value:', supabaseUrl?.slice(0, 30) + '...');
   console.log('[createServerComponentClient] Key present:', !!supabaseKey);
+  console.log('[createServerComponentClient] Key value:', supabaseKey?.slice(0, 20) + '...');
 
   if (!supabaseUrl) {
     console.error('[createServerComponentClient] Missing SUPABASE_URL');
