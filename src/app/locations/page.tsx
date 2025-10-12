@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata} from "next";
-import { getTopRankedLocations, generateLocationSlug } from "@/lib/locations/queries";
-// Prefer precomputed featured cities (Top 50 SNF metros). Fallback to DB if unavailable.
+import { generateLocationSlug } from "@/lib/locations/queries";
+// Use Top 50 metros by population
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - json module import
-import precomputed from "../../../data/featured-cities.json";
+import topMetros from "../../../data/top-50-metros.json";
 
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
@@ -31,20 +31,13 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export default async function LocationsIndexPage() {
-  // Load top N cities with v2 scores; fall back to curated list if none
-  // Use precomputed list if available
-  let locations: Array<{ city: string; state: string; slug: string }> = Array.isArray(precomputed) && precomputed.length
-    ? precomputed
-    : [];
-
-  if (locations.length === 0) {
-    const ranked = await getTopRankedLocations(51);
-    locations = ranked.map(r => ({ city: r.city, state: r.state, slug: generateLocationSlug(r.city, r.state) }));
-  }
-  if (locations.length === 0) {
-    // Fallback to curated list if DB query returns none
-    locations = FALLBACK_CITIES;
-  }
+  // Build locations from Top 50 metros list
+  const metroList = (topMetros as Array<{ name: string; city: string; state: string }>);
+  const locations: Array<{ city: string; state: string; slug: string }> = metroList.map((m) => ({
+    city: m.city,
+    state: m.state,
+    slug: generateLocationSlug(m.city, m.state),
+  }));
 
   // Group locations by state
   const locationsByState: Record<string, Array<{ city: string; state: string; slug: string }>> = {};
