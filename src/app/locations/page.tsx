@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata} from "next";
+import { getAvailableLocations, generateLocationSlug } from "@/lib/locations/queries";
 
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
@@ -23,15 +24,22 @@ const AVAILABLE_CITIES = [
   { city: "Georgetown", state: "TX", slug: "georgetown-tx" },
 ];
 
-export default function LocationsIndexPage() {
-  // Group locations by state
-  const locationsByState: Record<string, typeof AVAILABLE_CITIES> = {};
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
-  AVAILABLE_CITIES.forEach((loc) => {
+export default async function LocationsIndexPage() {
+  // Load available locations from DB (only cities with v2 scores)
+  const locations = await getAvailableLocations();
+
+  // Group locations by state
+  const locationsByState: Record<string, Array<{ city: string; state: string; slug: string }>> = {};
+
+  locations.forEach((loc) => {
+    const slug = generateLocationSlug(loc.city, loc.state);
     if (!locationsByState[loc.state]) {
       locationsByState[loc.state] = [];
     }
-    locationsByState[loc.state].push(loc);
+    locationsByState[loc.state].push({ ...loc, slug });
   });
 
   // Sort states alphabetically
@@ -83,11 +91,9 @@ export default function LocationsIndexPage() {
 
           <div className="grid gap-6 md:gap-8">
             {sortedStates.map((state) => {
-              const cities = locationsByState[state];
+              const cities = locationsByState[state] || [];
               // Sort cities alphabetically
-              const sortedCities = [...cities].sort((a, b) =>
-                a.city.localeCompare(b.city)
-              );
+              const sortedCities = [...cities].sort((a, b) => a.city.localeCompare(b.city));
 
               return (
                 <div key={state} className="space-y-3">
