@@ -13,6 +13,7 @@ interface LocationPageProps {
 
 // Force dynamic rendering - do not cache
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs'; // Ensure Node.js runtime for full env var access
 export const revalidate = 0;
 
 // Removed generateStaticParams() entirely - we want true SSR with database queries
