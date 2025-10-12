@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import {
   getLocationData,
   parseLocationSlug,
-  generateLocationSlug,
-  getAvailableLocations,
 } from "@/lib/locations/queries";
 import type { Metadata } from "next";
 
@@ -16,14 +14,8 @@ interface LocationPageProps {
 // Force dynamic rendering - do not cache
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-export const dynamicParams = true;
 
-export async function generateStaticParams() {
-  // Return empty array to skip pre-rendering at build time
-  // Pages will be generated on-demand when first requested
-  // This avoids needing Supabase access during build
-  return [];
-}
+// Removed generateStaticParams() entirely - we want true SSR with database queries
 
 export async function generateMetadata({
   params,
