@@ -77,11 +77,15 @@ export async function getLocationData(
     .contains("states", [state]);
 
   if (error) {
-    console.error("Error fetching location data:", error);
+    console.error("[getLocationData] Error fetching location data for", city, state, ":", error);
+    console.error("[getLocationData] Error details:", JSON.stringify(error, null, 2));
     return null;
   }
 
+  console.log("[getLocationData] Query succeeded for", city, state, "- found", data?.length ?? 0, "raw results");
+
   if (!data || data.length === 0) {
+    console.log("[getLocationData] No data found for", city, state);
     return null;
   }
 
@@ -110,7 +114,10 @@ export async function getLocationData(
     })
     .sort((a, b) => b.sunsetwell_score - a.sunsetwell_score); // Sort by score descending
 
+  console.log("[getLocationData] Processed", facilities.length, "facilities with scores for", city, state);
+
   if (facilities.length === 0) {
+    console.log("[getLocationData] No facilities with scores for", city, state);
     return null;
   }
 
