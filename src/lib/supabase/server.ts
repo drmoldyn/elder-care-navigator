@@ -7,25 +7,23 @@ function getSupabaseServer(): SupabaseClient {
     return _supabaseServer;
   }
 
-  // Use server-only SUPABASE_URL first, fallback to NEXT_PUBLIC_SUPABASE_URL
   const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // Detailed logging for debugging
-  console.log("[supabaseServer] Initializing Supabase client");
-  console.log("[supabaseServer] SUPABASE_URL present:", !!process.env.SUPABASE_URL);
-  console.log("[supabaseServer] NEXT_PUBLIC_SUPABASE_URL present:", !!process.env.NEXT_PUBLIC_SUPABASE_URL);
-  console.log("[supabaseServer] Using URL:", supabaseUrl?.slice(0, 30) + '...');
-  console.log("[supabaseServer] Key defined:", !!supabaseServiceKey);
-  console.log("[supabaseServer] Key starts with:", supabaseServiceKey?.slice(0, 20) + '...');
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    const errorMsg = `Missing Supabase environment variables. URL: ${!!supabaseUrl}, Key: ${!!supabaseServiceKey}`;
-    console.error("[supabaseServer]", errorMsg);
-    throw new Error(errorMsg);
+  if (!supabaseUrl) {
+    throw new Error("Missing SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL environment variable");
   }
 
-  _supabaseServer = createClient(supabaseUrl, supabaseServiceKey, {
+  const supabaseKey = supabaseServiceKey || supabaseAnonKey;
+
+  if (!supabaseKey) {
+    throw new Error(
+      "Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable"
+    );
+  }
+
+  _supabaseServer = createClient(supabaseUrl, supabaseKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
@@ -35,17 +33,11 @@ function getSupabaseServer(): SupabaseClient {
   return _supabaseServer;
 }
 
-/**
- * Server-side Supabase client with service role key
- * Use only in API routes or server components
- * Has elevated permissions - handle with care
- */
 export const supabaseServer = new Proxy({} as SupabaseClient, {
   get(_target, prop) {
     const client = getSupabaseServer();
     const value = Reflect.get(client, prop, client);
-    // Bind methods to the client to preserve `this` context
-    if (typeof value === 'function') {
+    if (typeof value === "function") {
       return value.bind(client);
     }
     return value;

@@ -27,8 +27,8 @@ interface MetroData {
   }>;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const slug = params.slug;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   const file = path.join(process.cwd(), "data", "metros", `${slug}.json`);
   if (fs.existsSync(file)) {
     const raw = JSON.parse(fs.readFileSync(file, "utf8")) as MetroData;
@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return { title: "Metro Rankings" };
 }
 
-export default async function MetroPage({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export default async function MetroPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const file = path.join(process.cwd(), "data", "metros", `${slug}.json`);
   if (!fs.existsSync(file)) {
     return (
@@ -58,38 +58,47 @@ export default async function MetroPage({ params }: { params: { slug: string } }
       <p className="mt-2 text-slate-700">Average SunsetWell Score: <strong>{data.averageScore}</strong> • High-performing share (≥ 75): <strong>{data.highPerformerShare}%</strong></p>
       <p className="mt-4 text-slate-700 leading-relaxed">{data.narrative}</p>
 
-      <div className="mt-8 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="bg-slate-50 text-left">
-              <th className="px-3 py-2">#</th>
-              <th className="px-3 py-2">Facility</th>
-              <th className="px-3 py-2 text-right">SunsetWell</th>
-              <th className="px-3 py-2 text-right">Percentile</th>
-              <th className="px-3 py-2 text-right">Health</th>
-              <th className="px-3 py-2 text-right">Staffing</th>
-              <th className="px-3 py-2 text-right">Quality</th>
-              <th className="px-3 py-2 text-right">RN hrs</th>
-              <th className="px-3 py-2 text-right">Total nurse hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.table.map((row) => (
-              <tr key={row.facilityId} className="border-t">
-                <td className="px-3 py-2">{row.rank}</td>
-                <td className="px-3 py-2">{row.title}</td>
-                <td className="px-3 py-2 text-right">{row.score}</td>
-                <td className="px-3 py-2 text-right">{row.percentile}th</td>
-                <td className="px-3 py-2 text-right">{row.health ?? '—'}</td>
-                <td className="px-3 py-2 text-right">{row.staffing ?? '—'}</td>
-                <td className="px-3 py-2 text-right">{row.quality ?? '—'}</td>
-                <td className="px-3 py-2 text-right">{row.rnHours ?? '—'}</td>
-                <td className="px-3 py-2 text-right">{row.totalNurseHours ?? '—'}</td>
+      {data.table.length === 0 ? (
+        <div className="mt-8 p-6 bg-amber-50 border border-amber-200 rounded-lg">
+          <p className="text-amber-900">
+            <strong>No facility data available for this metro yet.</strong> We are working to add more facilities.
+            Please check back soon or explore other metros.
+          </p>
+        </div>
+      ) : (
+        <div className="mt-8 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-slate-50 text-left">
+                <th className="px-3 py-2">#</th>
+                <th className="px-3 py-2">Facility</th>
+                <th className="px-3 py-2 text-right">SunsetWell</th>
+                <th className="px-3 py-2 text-right">Percentile</th>
+                <th className="px-3 py-2 text-right">Health</th>
+                <th className="px-3 py-2 text-right">Staffing</th>
+                <th className="px-3 py-2 text-right">Quality</th>
+                <th className="px-3 py-2 text-right">RN hrs</th>
+                <th className="px-3 py-2 text-right">Total nurse hrs</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.table.map((row) => (
+                <tr key={row.facilityId} className="border-t">
+                  <td className="px-3 py-2">{row.rank}</td>
+                  <td className="px-3 py-2">{row.title}</td>
+                  <td className="px-3 py-2 text-right">{row.score}</td>
+                  <td className="px-3 py-2 text-right">{row.percentile}th</td>
+                  <td className="px-3 py-2 text-right">{row.health ?? '—'}</td>
+                  <td className="px-3 py-2 text-right">{row.staffing ?? '—'}</td>
+                  <td className="px-3 py-2 text-right">{row.quality ?? '—'}</td>
+                  <td className="px-3 py-2 text-right">{row.rnHours ?? '—'}</td>
+                  <td className="px-3 py-2 text-right">{row.totalNurseHours ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
   );
 }
