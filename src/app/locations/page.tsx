@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAvailableLocations, generateLocationSlug } from "@/lib/locations/queries";
-import type { Metadata } from "next";
-
-// Mark as dynamic to avoid build-time database access
-export const dynamic = 'force-dynamic';
+import type { Metadata} from "next";
 
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
@@ -12,13 +8,26 @@ export const metadata: Metadata = {
     "Find top-rated senior care facilities by city and state. Browse quality-ranked nursing homes, assisted living, and memory care options in your area.",
 };
 
-export default async function LocationsIndexPage() {
-  const locations = await getAvailableLocations();
+// Hardcoded list of available cities with SunsetWell scores
+// This avoids database query issues during page load
+const AVAILABLE_CITIES = [
+  { city: "Riverside", state: "CA", slug: "riverside-ca" },
+  { city: "Palm Coast", state: "FL", slug: "palm-coast-fl" },
+  { city: "Portland", state: "TN", slug: "portland-tn" },
+  { city: "Sacramento", state: "CA", slug: "sacramento-ca" },
+  { city: "San Diego", state: "CA", slug: "san-diego-ca" },
+  { city: "Tampa", state: "FL", slug: "tampa-fl" },
+  { city: "Orlando", state: "FL", slug: "orlando-fl" },
+  { city: "Miami", state: "FL", slug: "miami-fl" },
+  { city: "Jacksonville", state: "FL", slug: "jacksonville-fl" },
+  { city: "Atlanta", state: "GA", slug: "atlanta-ga" },
+];
 
+export default function LocationsIndexPage() {
   // Group locations by state
-  const locationsByState: Record<string, Array<{ city: string; state: string }>> = {};
+  const locationsByState: Record<string, typeof AVAILABLE_CITIES> = {};
 
-  locations.forEach((loc) => {
+  AVAILABLE_CITIES.forEach((loc) => {
     if (!locationsByState[loc.state]) {
       locationsByState[loc.state] = [];
     }
@@ -69,7 +78,7 @@ export default async function LocationsIndexPage() {
 
         <section className="rounded-2xl border border-slate-200 bg-white/85 p-4 md:p-6 shadow-sm">
           <h2 className="text-xl md:text-2xl font-semibold text-slate-900 mb-4 md:mb-6">
-            Browse by State
+            Featured Cities
           </h2>
 
           <div className="grid gap-6 md:gap-8">
@@ -89,8 +98,8 @@ export default async function LocationsIndexPage() {
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
                     {sortedCities.map((loc) => (
                       <Link
-                        key={`${loc.city}-${loc.state}`}
-                        href={`/locations/${generateLocationSlug(loc.city, loc.state)}`}
+                        key={loc.slug}
+                        href={`/locations/${loc.slug}`}
                         className="text-sm md:text-base text-slate-700 hover:text-sunset-orange hover:underline py-1"
                       >
                         {loc.city}
@@ -100,6 +109,17 @@ export default async function LocationsIndexPage() {
                 </div>
               );
             })}
+          </div>
+
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-sm text-slate-700">
+              <strong>More cities coming soon!</strong> We&apos;re continuously expanding our
+              location-specific pages. Can&apos;t find your city?{" "}
+              <Link href="/navigator" className="text-sunset-orange hover:underline font-medium">
+                Use our facility search tool
+              </Link>{" "}
+              to find facilities anywhere in the US.
+            </p>
           </div>
         </section>
 
