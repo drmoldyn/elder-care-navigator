@@ -52,8 +52,11 @@ export async function getLocationData(
   state: string
 ): Promise<LocationStats | null> {
   console.log('[getLocationData] Starting query for', city, state);
-  console.log('[getLocationData] supabaseServer type:', typeof supabaseServer);
-  console.log('[getLocationData] supabaseServer keys:', Object.keys(supabaseServer).slice(0, 5));
+  console.log('[getLocationData] Environment check:');
+  console.log('[getLocationData] - SUPABASE_URL present:', !!process.env.SUPABASE_URL);
+  console.log('[getLocationData] - NEXT_PUBLIC_SUPABASE_URL present:', !!process.env.NEXT_PUBLIC_SUPABASE_URL);
+  console.log('[getLocationData] - SUPABASE_SERVICE_ROLE_KEY present:', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
+  console.log('[getLocationData] - Runtime:', process.env.NEXT_RUNTIME || 'nodejs');
 
   const supabase = supabaseServer;
 
@@ -84,6 +87,8 @@ export async function getLocationData(
   if (error) {
     console.error("[getLocationData] Error fetching location data for", city, state, ":", error);
     console.error("[getLocationData] Error details:", JSON.stringify(error, null, 2));
+    console.error("[getLocationData] Error message:", error.message);
+    console.error("[getLocationData] Error code:", error.code);
     return null;
   }
 
