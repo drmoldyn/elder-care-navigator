@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: NextRequest) {
   try {
     // 0. Rate limiting (20 requests per 15 minutes per IP)
-    const { allowed, resetAt } = rateLimit(request, {
+    const { allowed, resetAt } = await rateLimit(request, {
       max: 20,
       windowMs: 15 * 60 * 1000,
     });
