@@ -13,13 +13,14 @@ interface LocationPageProps {
   params: Promise<{ "city-state": string }>;
 }
 
-export async function generateStaticParams() {
-  const locations = await getAvailableLocations();
+// Allow dynamic rendering for location pages not pre-generated at build time
+export const dynamicParams = true;
 
-  // Generate params for top metro areas (limit to prevent excessive builds)
-  return locations.slice(0, 50).map((loc) => ({
-    "city-state": generateLocationSlug(loc.city, loc.state),
-  }));
+export async function generateStaticParams() {
+  // Return empty array to skip pre-rendering at build time
+  // Pages will be generated on-demand when first requested
+  // This avoids needing Supabase access during build
+  return [];
 }
 
 export async function generateMetadata({

@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getAvailableLocations, generateLocationSlug } from "@/lib/locations/queries";
 import type { Metadata } from "next";
 
+// Mark as dynamic to avoid build-time database access
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Senior Care by Location | SunsetWell",
   description:
