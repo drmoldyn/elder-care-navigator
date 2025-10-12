@@ -1,4 +1,4 @@
-import { createServerComponentClient } from "@/lib/supabase/server-component";
+import { supabaseServer } from "@/lib/supabase/server";
 
 export interface LocationFacility {
   id: string;
@@ -51,7 +51,7 @@ export async function getLocationData(
   city: string,
   state: string
 ): Promise<LocationStats | null> {
-  const supabase = createServerComponentClient();
+  const supabase = supabaseServer;
 
   // Query facilities with scores in this location
   // Note: states is an array, so we use contains operator
@@ -147,7 +147,7 @@ export async function getLocationData(
 export async function getAvailableLocations(): Promise<
   Array<{ city: string; state: string }>
 > {
-  const supabase = createServerComponentClient();
+  const supabase = supabaseServer;
 
   const { data, error } = await supabase
     .from("resources")
