@@ -13,7 +13,9 @@ interface LocationPageProps {
   params: Promise<{ "city-state": string }>;
 }
 
-// Allow dynamic rendering for location pages not pre-generated at build time
+// Force dynamic rendering - do not cache
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
