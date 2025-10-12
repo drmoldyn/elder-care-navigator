@@ -167,7 +167,7 @@ async function fetchFacilityResources(
       facility_scores!left(score, version, calculated_at)
     `)
     .eq("facility_scores.version", "v2")
-    .order("facility_scores.calculated_at", { ascending: false, referencedTable: "facility_scores" })
+    .order("calculated_at", { ascending: false, referencedTable: "facility_scores" })
     .limit(1, { referencedTable: "facility_scores" });
 
   if (filters.zipCodes && filters.zipCodes.length > 0) {

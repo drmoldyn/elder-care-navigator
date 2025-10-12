@@ -10,10 +10,16 @@ function getSupabaseServer(): SupabaseClient {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
+  // Detailed logging for debugging
+  console.log("[supabaseServer] Initializing Supabase client");
+  console.log("[supabaseServer] URL defined:", !!supabaseUrl);
+  console.log("[supabaseServer] Key defined:", !!supabaseServiceKey);
+  console.log("[supabaseServer] All env vars:", Object.keys(process.env).filter(k => k.includes('SUPABASE')));
+
   if (!supabaseUrl || !supabaseServiceKey) {
-    throw new Error(
-      "Missing Supabase environment variables. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."
-    );
+    const errorMsg = `Missing Supabase environment variables. URL: ${!!supabaseUrl}, Key: ${!!supabaseServiceKey}`;
+    console.error("[supabaseServer]", errorMsg);
+    throw new Error(errorMsg);
   }
 
   _supabaseServer = createClient(supabaseUrl, supabaseServiceKey, {
