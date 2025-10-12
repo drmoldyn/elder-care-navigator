@@ -64,13 +64,15 @@ export async function getLocationData(
       provider_type,
       city,
       states,
+      address,
       health_inspection_rating,
       staffing_rating,
       quality_measure_rating,
       total_nurse_hours_per_resident_per_day,
-      facility_scores!inner(score)
+      facility_scores!inner(score, version)
     `
     )
+    .eq("facility_scores.version", "v2")
     .ilike("city", city)
     .contains("states", [state]);
 
@@ -97,7 +99,7 @@ export async function getLocationData(
         provider_type: facility.provider_type ?? "Unknown",
         city: facility.city,
         states: facility.states,
-        address: null,
+        address: facility.address,
         phone: null,
         sunsetwell_score: scores[0].score,
         health_inspection_rating: facility.health_inspection_rating,
@@ -142,7 +144,8 @@ export async function getAvailableLocations(): Promise<
 
   const { data, error } = await supabase
     .from("resources")
-    .select("city, states, facility_scores!inner(score)")
+    .select("city, states, facility_scores!inner(score, version)")
+    .eq("facility_scores.version", "v2")
     .not("city", "is", null)
     .not("states", "is", null);
 
