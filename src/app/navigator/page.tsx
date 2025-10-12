@@ -24,6 +24,7 @@ import type {
   NavigatorUrgencyFactor,
 } from "@/types/domain";
 import type { MatchResponsePayload } from "@/types/api";
+import { geocodeZip } from "@/lib/location/geocode";
 
 // Disable static generation for this page since it uses searchParams
 export const dynamic = 'force-dynamic';
@@ -34,10 +35,68 @@ function NavigatorContent() {
   const searchParams = useSearchParams();
   const [state, setState] = useState(createInitialNavigatorState());
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const isMapView = searchParams.get("view") === "map";
 
   const currentStepIndex = NAVIGATOR_STEPS.indexOf(state.step);
+
+  const handleLocationChange = async (
+    field: "city" | "state" | "zipCode" | "searchRadiusMiles",
+    value: string | number
+  ) => {
+    let zipForGeocode: string | null = null;
+
+    setState((prev) => {
+      const nextSession = { ...prev.session };
+
+      if (field === "searchRadiusMiles") {
+        nextSession.searchRadiusMiles =
+          typeof value === "number" ? value : Number(value) || prev.session.searchRadiusMiles;
+      } else if (field === "zipCode" && typeof value === "string") {
+        zipForGeocode = value.trim();
+        nextSession.zipCode = zipForGeocode;
+        delete nextSession.latitude;
+        delete nextSession.longitude;
+      } else if (field === "state" && typeof value === "string") {
+        nextSession.state = value;
+      } else if (field === "city" && typeof value === "string") {
+        nextSession.city = value;
+      }
+
+      return {
+        ...prev,
+        session: nextSession,
+      };
+    });
+
+    if (field === "zipCode") {
+      const zip = typeof zipForGeocode === "string" ? zipForGeocode : typeof value === "string" ? value.trim() : "";
+
+      if (zip.length === 5 && /^[0-9]{5}$/.test(zip) && googleApiKey) {
+        const coords = await geocodeZip(zip, googleApiKey);
+        setState((prev) => ({
+          ...prev,
+          session: {
+            ...prev.session,
+            zipCode: zip,
+            latitude: coords?.lat ?? undefined,
+            longitude: coords?.lng ?? undefined,
+          },
+        }));
+      } else {
+        setState((prev) => ({
+          ...prev,
+          session: {
+            ...prev.session,
+            zipCode: zip,
+            latitude: undefined,
+            longitude: undefined,
+          },
+        }));
+      }
+    }
+  };
 
   const setView = (view: "list" | "map") => {
     const params = new URLSearchParams(searchParams.toString());
@@ -287,12 +346,7 @@ function NavigatorContent() {
           state={state.session.state}
           zipCode={state.session.zipCode}
           searchRadiusMiles={state.session.searchRadiusMiles}
-          onChange={(field, value) =>
-            setState((prev) => ({
-              ...prev,
-              session: { ...prev.session, [field]: value },
-            }))
-          }
+          onChange={handleLocationChange}
           onNext={handleNext}
           onBack={handleBack}
           onSkip={handleSkip}

@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { MapResource } from "@/components/map/facility-map";
+import { geocodeZip, ZipCoordinates } from "@/lib/location/geocode";
+import { haversineDistanceMiles } from "@/lib/location/distance";
 
 const FacilityMap = dynamic(
   () => import("@/components/map/facility-map").then((mod) => mod.FacilityMap),
@@ -58,6 +60,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const initialSearchState = useMemo<SearchState>(() => {
     const insuranceParam = searchParams.get("insurance") ?? "";
@@ -82,6 +85,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
   const [visibleCount, setVisibleCount] = useState<number | null>(null);
   const [lastFetchedAt, setLastFetchedAt] = useState<Date | null>(null);
   const [lastSessionId, setLastSessionId] = useState<string | null>(null);
+  const [userLocation, setUserLocation] = useState<ZipCoordinates | null>(null);
 
   // Sync local state if query string changes externally (e.g., browser navigation)
   useEffect(() => {
@@ -130,7 +134,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
   );
 
   const buildSessionPayload = useCallback(
-    (state: SearchState): SessionContext | null => {
+    (state: SearchState, coords?: ZipCoordinates | null): SessionContext | null => {
       const hasLocation = Boolean(state.zip.trim() || state.state.trim());
       if (!hasLocation) {
         return null;
@@ -146,14 +150,44 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         insuranceTypes: state.insurance.length > 0 ? state.insurance : undefined,
       };
 
+      if (coords) {
+        payload.latitude = coords.lat;
+        payload.longitude = coords.lng;
+      }
+
       return payload;
     },
     []
   );
 
+  const resolveUserLocation = useCallback(
+    async (state: SearchState): Promise<ZipCoordinates | null> => {
+      const zip = state.zip.trim();
+      if (!zip) {
+        setUserLocation(null);
+        return null;
+      }
+
+      if (!googleApiKey) {
+        return null;
+      }
+
+      const coords = await geocodeZip(zip, googleApiKey);
+      if (coords) {
+        setUserLocation(coords);
+        return coords;
+      }
+
+      setUserLocation(null);
+      return null;
+    },
+    [googleApiKey]
+  );
+
   const fetchMatches = useCallback(
     async (state: SearchState) => {
-      const sessionPayload = buildSessionPayload(state);
+      const coords = await resolveUserLocation(state);
+      const sessionPayload = buildSessionPayload(state, coords);
       if (!sessionPayload) {
         setError("Enter a ZIP code or state to search on the map.");
         setResourceSummaries([]);
@@ -179,7 +213,46 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         }
 
         const data: MatchResponsePayload = await response.json();
-        setResourceSummaries(data.resourceSummaries ?? []);
+
+        const processedSummaries = (data.resourceSummaries ?? []).map((summary) => {
+          let distance =
+            typeof summary.distanceMiles === "number"
+              ? summary.distanceMiles
+              : null;
+
+          if (
+            distance === null &&
+            coords &&
+            typeof summary.latitude === "number" &&
+            typeof summary.longitude === "number"
+          ) {
+            distance = haversineDistanceMiles(
+              coords.lat,
+              coords.lng,
+              summary.latitude,
+              summary.longitude
+            );
+          }
+
+          return {
+            ...summary,
+            distanceMiles: distance,
+          };
+        });
+
+        const filteredSummaries = coords
+          ? processedSummaries.filter((summary) => {
+              if (
+                typeof summary.distanceMiles === "number" &&
+                state.radius
+              ) {
+                return summary.distanceMiles <= state.radius + 0.001;
+              }
+              return true;
+            })
+          : processedSummaries;
+
+        setResourceSummaries(filteredSummaries);
         setLastFetchedAt(new Date());
         setLastSessionId(data.sessionId ?? null);
       } catch (err) {
@@ -191,7 +264,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         setIsLoading(false);
       }
     },
-    [buildSessionPayload]
+    [buildSessionPayload, resolveUserLocation]
   );
 
   // Trigger search on initial load / when query params change
@@ -426,6 +499,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
             <FacilityMap
               resources={mapResources}
               userZip={searchState.zip || undefined}
+              userLocation={userLocation}
               onVisibleChange={(count) => setVisibleCount(count)}
             />
           ) : (

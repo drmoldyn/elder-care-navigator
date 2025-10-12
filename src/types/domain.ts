@@ -144,6 +144,8 @@ export interface SessionContext {
   insuranceTypes?: InsuranceType[];
   email?: string;
   emailSubscribed?: boolean;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface UserSession {

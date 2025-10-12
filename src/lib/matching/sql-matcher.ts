@@ -1,5 +1,6 @@
 import type { SessionContext } from "@/types/domain";
 import { supabaseServer } from "@/lib/supabase/server";
+import { haversineDistanceMiles } from "@/lib/location/distance";
 
 export interface ResourceRecord {
   id?: string;
@@ -318,7 +319,42 @@ export async function matchResourcesSQL(
   };
 
   if (shouldIncludeFacilities) {
-    const facilityResources = await fetchFacilityResources(session);
+    let facilityResources = await fetchFacilityResources(session);
+
+    const userLat = typeof session.latitude === "number" ? session.latitude : null;
+    const userLng = typeof session.longitude === "number" ? session.longitude : null;
+    const radiusMiles = session.searchRadiusMiles ?? 50;
+
+    if (facilityResources.length > 0 && userLat !== null && userLng !== null) {
+      facilityResources = facilityResources
+        .map((resource) => {
+          if (typeof resource.latitude === "number" && typeof resource.longitude === "number") {
+            const distance = haversineDistanceMiles(
+              userLat,
+              userLng,
+              resource.latitude,
+              resource.longitude
+            );
+            return { ...resource, distance } as ResourceRecord;
+          }
+          return resource;
+        })
+        .filter((resource) => {
+          if (typeof resource.distance === "number") {
+            return resource.distance <= radiusMiles;
+          }
+          return true;
+        })
+        .sort((a, b) => {
+          if (typeof a.distance === "number" && typeof b.distance === "number") {
+            return a.distance - b.distance;
+          }
+          if (typeof a.distance === "number") return -1;
+          if (typeof b.distance === "number") return 1;
+          return 0;
+        });
+    }
+
     facilityResources.forEach(addResource);
   }
 

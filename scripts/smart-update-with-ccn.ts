@@ -91,10 +91,18 @@ async function smartUpdate() {
   console.log(`   Found ${existingRecords?.length || 0} existing records\n`);
 
   // Create lookup map by CCN
-  const existingByCCN = new Map<string, any>();
-  (existingRecords || []).forEach((record) => {
+  type ExistingResourceRecord = {
+    id?: string;
+    facility_id?: string | null;
+    title?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+
+  const existingByCCN = new Map<string, ExistingResourceRecord>();
+  (existingRecords ?? []).forEach((record) => {
     if (record.facility_id) {
-      existingByCCN.set(record.facility_id, record);
+      existingByCCN.set(record.facility_id, record as ExistingResourceRecord);
     }
   });
 

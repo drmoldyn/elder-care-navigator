@@ -110,6 +110,9 @@ export async function POST(request: NextRequest) {
           urgency_factors: sessionContext.urgencyFactors,
           email: sessionContext.email,
           email_subscribed: sessionContext.emailSubscribed ?? false,
+          latitude: sessionContext.latitude,
+          longitude: sessionContext.longitude,
+          search_radius_miles: sessionContext.searchRadiusMiles,
           matched_resources: resourceSummaries.map((summary) => summary.id),
         })
         .select("id")

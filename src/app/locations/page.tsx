@@ -9,18 +9,18 @@ export const metadata: Metadata = {
 };
 
 // Hardcoded list of available cities with SunsetWell scores
-// This avoids database query issues during page load
+// These cities have verified v2 SunsetWell scores in the database
 const AVAILABLE_CITIES = [
-  { city: "Riverside", state: "CA", slug: "riverside-ca" },
-  { city: "Palm Coast", state: "FL", slug: "palm-coast-fl" },
-  { city: "Portland", state: "TN", slug: "portland-tn" },
-  { city: "Sacramento", state: "CA", slug: "sacramento-ca" },
-  { city: "San Diego", state: "CA", slug: "san-diego-ca" },
-  { city: "Tampa", state: "FL", slug: "tampa-fl" },
-  { city: "Orlando", state: "FL", slug: "orlando-fl" },
+  { city: "Austin", state: "TX", slug: "austin-tx" },
+  { city: "Fort Worth", state: "TX", slug: "fort-worth-tx" },
+  { city: "Arlington", state: "TX", slug: "arlington-tx" },
   { city: "Miami", state: "FL", slug: "miami-fl" },
-  { city: "Jacksonville", state: "FL", slug: "jacksonville-fl" },
-  { city: "Atlanta", state: "GA", slug: "atlanta-ga" },
+  { city: "Knoxville", state: "TN", slug: "knoxville-tn" },
+  { city: "Memphis", state: "TN", slug: "memphis-tn" },
+  { city: "Nashville", state: "TN", slug: "nashville-tn" },
+  { city: "Chattanooga", state: "TN", slug: "chattanooga-tn" },
+  { city: "Round Rock", state: "TX", slug: "round-rock-tx" },
+  { city: "Georgetown", state: "TX", slug: "georgetown-tx" },
 ];
 
 export default function LocationsIndexPage() {

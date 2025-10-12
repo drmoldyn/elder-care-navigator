@@ -20,6 +20,8 @@ import {
   getStarRating,
   getSunsetWellScoreTooltip,
 } from "@/lib/utils/score-helpers";
+import { geocodeZip } from "@/lib/location/geocode";
+import { haversineDistanceMiles } from "@/lib/location/distance";
 
 type MobileTab = "list" | "map" | "filters";
 
@@ -96,6 +98,7 @@ function ResultsPageContent() {
   const pathname = usePathname();
   const viewParam = searchParams.get("view");
   const activeView: "list" | "map" = viewParam === "map" ? "map" : "list";
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const handleGuidanceRetry = () => {
     setGuidanceRequestVersion((prev) => prev + 1);
@@ -105,7 +108,7 @@ function ResultsPageContent() {
     if (typeof window !== "undefined" && sessionId) {
       window.localStorage.setItem("sunsetwell:lastSessionId", sessionId);
     }
-  }, [sessionId]);
+  }, [sessionId, googleApiKey]);
 
   // Track results page view conversion
   useEffect(() => {
@@ -165,9 +168,66 @@ function ResultsPageContent() {
           return;
         }
 
-        setSessionDetails(sessionData.session ?? null);
+        const sessionRecord = sessionData.session ?? null;
+        setSessionDetails(sessionRecord);
 
-        const sortedResources = [...resourceData].sort((a: Resource, b: Resource) => {
+        let userCoords: { lat: number; lng: number } | null = null;
+        if (
+          sessionRecord &&
+          typeof sessionRecord.latitude === "number" &&
+          typeof sessionRecord.longitude === "number"
+        ) {
+          userCoords = {
+            lat: sessionRecord.latitude,
+            lng: sessionRecord.longitude,
+          };
+        } else if (sessionRecord?.zip_code && googleApiKey) {
+          const coords = await geocodeZip(sessionRecord.zip_code, googleApiKey);
+          if (coords) {
+            userCoords = coords;
+          }
+        }
+
+        const augmentedResources = resourceData.map((resource) => {
+          let distance =
+            typeof resource.distance === "number" ? resource.distance : undefined;
+          if (
+            !distance &&
+            userCoords &&
+            typeof resource.latitude === "number" &&
+            typeof resource.longitude === "number"
+          ) {
+            distance = haversineDistanceMiles(
+              userCoords.lat,
+              userCoords.lng,
+              resource.latitude,
+              resource.longitude
+            );
+          }
+
+          return {
+            ...resource,
+            distance,
+          };
+        });
+
+        const radiusMiles =
+          typeof sessionRecord?.search_radius_miles === "number"
+            ? sessionRecord.search_radius_miles
+            : typeof sessionRecord?.searchRadiusMiles === "number"
+            ? sessionRecord.searchRadiusMiles
+            : undefined;
+
+        const filteredResources = userCoords && typeof radiusMiles === "number"
+          ? augmentedResources.filter((resource) => {
+              if (typeof resource.distance === "number") {
+                return resource.distance <= radiusMiles + 0.001;
+              }
+              return true;
+            })
+          : augmentedResources;
+
+        const sortedResources = [...filteredResources].sort((a, b) => {
           if (a.distance !== undefined && b.distance !== undefined) {
             return a.distance - b.distance;
           }
@@ -195,7 +255,7 @@ function ResultsPageContent() {
     return () => {
       isActive = false;
     };
-  }, [sessionId]);
+  }, [sessionId, googleApiKey]);
 
   useEffect(() => {
     let isCancelled = false;

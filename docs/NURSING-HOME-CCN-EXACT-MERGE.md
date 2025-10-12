@@ -62,6 +62,7 @@ Outputs (all under `data/cms/processed/`):
 | `nursing-homes-exact-matches.csv` | Rows with a **unique exact match** on name + address. Safe for in-place updates. Contains Supabase `resource_id`, preserved lat/lng, `location_quality`, `city_match`, and all CMS fields. |
 | `nursing-homes-marked-to-delete.csv` | CMS rows that lack a confident match (missing address data, duplicate matches, etc.). These will be imported as **new** resources after deleting/retiring the legacy entries. |
 | `nursing-homes-db-without-cms.csv` | Existing Supabase rows that did not find a CMS counterpart. Review before deleting or archiving them. |
+| `nursing-homes-db-ambiguous.csv` | Supabase `resource_id` list for legacy duplicates that blocked exact matching. Feed this CSV into the deletion helper. |
 
 Console summary also lists mismatch reasons (`missing_fields`, `ambiguous_db_duplicates`, etc.) to prioritize clean-up work.
 
@@ -127,15 +128,20 @@ Spot-check a handful of rows directly in Supabase to confirm lat/lng remained in
 
 ### 4.1 Retire legacy rows without a CMS match
 
-- Review `data/cms/processed/nursing-homes-db-without-cms.csv`.  
-- Decide whether each facility should be deleted, marked inactive, or kept (e.g., if CMS dropped it but we still need it in app).  
-- Document decisions in the file before handing off to ops for deletion.
+- Review `data/cms/processed/nursing-homes-db-without-cms.csv` plus the per-resource list in `data/cms/processed/nursing-homes-db-ambiguous.csv`.  
+- Use the helper script to delete those legacy Supabase records (dry run first, then execute once you are confident):
+
+  ```bash
+  pnpm tsx scripts/delete-nursing-homes-by-ids.ts --dry-run
+  pnpm tsx scripts/delete-nursing-homes-by-ids.ts --execute
+  ```
+
+- Keep the CSVs in version control for audit.
 
 ### 4.2 Import unmatched CMS rows as new facilities
 
 1. Prepare these rows for insert: `data/cms/processed/nursing-homes-marked-to-delete.csv`.  
-2. Remove or archive the corresponding legacy Supabase records once you are confident they refer to the same facilities.  
-3. Import the CSV as new entries (now with CCN + metrics). Suggested script:
+2. After the deletions above, import the CSV as new entries (now with CCN + metrics). Suggested script:
 
 ```bash
 pnpm tsx scripts/import-resources-simple.ts data/cms/processed/nursing-homes-marked-to-delete.csv --provider-type=nursing_home
@@ -188,6 +194,7 @@ Provide the following artifacts when delegating execution:
    - `pnpm tsx scripts/process-cms-data.ts`
    - `pnpm tsx scripts/generate-nursing-home-merge-plan.ts`
    - `pnpm tsx scripts/run-nursing-home-exact-merge.ts`
+   - `pnpm tsx scripts/delete-nursing-homes-by-ids.ts --execute`
    - `pnpm tsx scripts/import-resources-simple.ts data/cms/processed/nursing-homes-marked-to-delete.csv --provider-type=nursing_home`
    - `pnpm tsx scripts/geocode-facilities.ts --provider-type=nursing_home --missing-only`
 4. Output CSVs for review before import.

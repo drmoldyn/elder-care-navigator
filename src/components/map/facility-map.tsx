@@ -4,11 +4,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
+import { geocodeZip, getCachedZipCoordinates, ZipCoordinates } from "@/lib/location/geocode";
+import { haversineDistanceMiles } from "@/lib/location/distance";
 
 const DEFAULT_CENTER = { lat: 39.8283, lng: -98.5795 };
 const DEFAULT_ZOOM = 11;
 const HOME_SERVICE_ZOOM = 10;
-const GEOCODE_CACHE_KEY = "sunsetwell:zip-geocode-cache";
 
 const FACILITY_COLORS: Record<string, string> = {
   nursing_home: "#ef4444",
@@ -51,50 +52,9 @@ interface LatLngBoundsLiteral {
 export interface FacilityMapProps {
   resources: MapResource[];
   userZip?: string;
+  userLocation?: ZipCoordinates | null;
   onBoundsSearch?: (bounds: LatLngBoundsLiteral) => void;
   onVisibleChange?: (visible: number) => void;
-}
-
-interface GeocodeCache {
-  [zip: string]: { lat: number; lng: number };
-}
-
-function readGeocodeCache(): GeocodeCache {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = window.localStorage.getItem(GEOCODE_CACHE_KEY);
-    return raw ? (JSON.parse(raw) as GeocodeCache) : {};
-  } catch (error) {
-    console.warn("Failed to parse geocode cache", error);
-    return {};
-  }
-}
-
-function writeGeocodeCache(zip: string, coords: { lat: number; lng: number }) {
-  if (typeof window === "undefined") return;
-  try {
-    const cache = readGeocodeCache();
-    cache[zip] = coords;
-    window.localStorage.setItem(GEOCODE_CACHE_KEY, JSON.stringify(cache));
-  } catch (error) {
-    console.warn("Failed to update geocode cache", error);
-  }
-}
-
-async function geocodeZipWithGoogle(zip: string, apiKey?: string): Promise<{ lat: number; lng: number } | null> {
-  if (!apiKey) return null;
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(zip)}&component=country:US&key=${apiKey}`;
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (data.status === "OK" && Array.isArray(data.results) && data.results.length > 0) {
-      const location = data.results[0].geometry.location;
-      return { lat: location.lat, lng: location.lng };
-    }
-  } catch (error) {
-    console.warn("Failed to geocode ZIP", zip, error);
-  }
-  return null;
 }
 
 function createMarkerIcon(color: string, isHomeService: boolean): google.maps.Symbol {
@@ -217,7 +177,7 @@ function debounce<T extends (...args: never[]) => void>(fn: T, delay: number) {
   return wrapped;
 }
 
-export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChange }: FacilityMapProps) {
+export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, onVisibleChange }: FacilityMapProps) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
@@ -252,18 +212,23 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
 
       let mapCenter = DEFAULT_CENTER;
       if (clusteredFacilities.length > 0) {
-        const centerLat = clusteredFacilities.reduce((sum, r) => sum + (r.latitude ?? 0), 0) / clusteredFacilities.length;
-        const centerLng = clusteredFacilities.reduce((sum, r) => sum + (r.longitude ?? 0), 0) / clusteredFacilities.length;
+        const centerLat =
+          clusteredFacilities.reduce((sum, r) => sum + (r.latitude ?? 0), 0) /
+          clusteredFacilities.length;
+        const centerLng =
+          clusteredFacilities.reduce((sum, r) => sum + (r.longitude ?? 0), 0) /
+          clusteredFacilities.length;
         mapCenter = { lat: centerLat, lng: centerLng };
+      } else if (userLocation) {
+        mapCenter = userLocation;
       } else if (userZip) {
-        const cache = readGeocodeCache();
-        if (cache[userZip]) {
-          mapCenter = cache[userZip];
+        const cached = getCachedZipCoordinates(userZip);
+        if (cached) {
+          mapCenter = cached;
         } else {
-          const coords = await geocodeZipWithGoogle(userZip, apiKey);
+          const coords = await geocodeZip(userZip, apiKey);
           if (coords) {
             mapCenter = coords;
-            writeGeocodeCache(userZip, coords);
           }
         }
       }
@@ -318,6 +283,18 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
           let distanceText = "";
           if (resource.distance !== undefined) {
             distanceText = `${resource.distance.toFixed(1)} miles away`;
+          } else if (
+            userLocation &&
+            typeof resource.latitude === "number" &&
+            typeof resource.longitude === "number"
+          ) {
+            const distance = haversineDistanceMiles(
+              userLocation.lat,
+              userLocation.lng,
+              resource.latitude,
+              resource.longitude
+            );
+            distanceText = `${distance.toFixed(1)} miles away`;
           } else if (center && google.maps.geometry?.spherical) {
             const markerPosition = marker.getPosition();
             if (markerPosition) {
@@ -373,7 +350,7 @@ export function FacilityMap({ resources, userZip, onBoundsSearch, onVisibleChang
       infoWindowRef.current = null;
       mapRef.current = null;
     };
-  }, [apiKey, loader, onVisibleChange, resources, userZip]);
+  }, [apiKey, loader, onVisibleChange, resources, userLocation, userZip]);
 
   const handleSearchThisArea = () => {
     const map = mapRef.current;
