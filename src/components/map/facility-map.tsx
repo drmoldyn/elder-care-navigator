@@ -206,6 +206,12 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
 
       setLoading(true);
 
+      if (!apiKey) {
+        // No API key configured; don't attempt to load the Maps JS API
+        setLoading(false);
+        return;
+      }
+
       const clusteredFacilities = resources.filter(
         (resource) => typeof resource.latitude === "number" && typeof resource.longitude === "number"
       );

@@ -859,15 +859,24 @@ function ResultsPageContent() {
         {/* Right: Map (desktop always, mobile only when map tab active) */}
         <div className={`w-full lg:w-[500px] bg-gray-100 ${mobileTab !== "map" ? "hidden lg:block" : "block"}`}>
           <div className="sticky top-0 h-screen">
-            <iframe
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/search?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}&q=nursing+homes+near+me&zoom=11`}
-            />
+            {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps/embed/v1/search?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=nursing+homes+near+me&zoom=11`}
+              />
+            ) : (
+              <div className="h-full w-full flex items-center justify-center bg-white">
+                <div className="text-center px-4">
+                  <p className="text-sm text-slate-600">Map unavailable</p>
+                  <p className="mt-1 text-xs text-slate-500">Google Maps API key is not configured for this environment.</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

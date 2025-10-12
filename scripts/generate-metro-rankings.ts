@@ -124,13 +124,42 @@ async function main() {
     byCity.set(city, list);
   }
 
-  const topN = metroList.map(m => ({
-    city: m.city,
-    state: m.state,
-    rows: byCity.get(m.city.toUpperCase()) || [],
-    count: (byCity.get(m.city.toUpperCase()) || []).length,
-    metaName: m.name,
-  }));
+  // Extract all city names from metro name (e.g., "New York–Newark–Jersey City" → ["New York", "Newark", "Jersey City"])
+  function extractCitiesFromMetro(metroName: string): string[] {
+    return metroName
+      .split(/[–—-]/) // Split on dashes/hyphens
+      .map(s => s.trim())
+      .filter(s => s.length > 0 && !/^(The|County)$/i.test(s)); // Remove "The", "County"
+  }
+
+  const topN = metroList.map(m => {
+    const cities = extractCitiesFromMetro(m.name);
+    const allRows: Row[] = [];
+    const seen = new Set<string>();
+
+    // Match facilities from any city in the metro area, filtering by state
+    for (const cityName of cities) {
+      const cityRows = byCity.get(cityName.toUpperCase()) || [];
+      for (const row of cityRows) {
+        const facilityId = (row as any).facility_id || (row as any).id;
+        const facilityState = Array.isArray((row as any).states) && (row as any).states[0] ? String((row as any).states[0]).trim() : '';
+
+        // Match if facility is in the metro's state (or adjacent states for multi-state metros)
+        if (facilityId && !seen.has(facilityId) && (facilityState === m.state || m.name.includes(facilityState))) {
+          allRows.push(row);
+          seen.add(facilityId);
+        }
+      }
+    }
+
+    return {
+      city: m.city,
+      state: m.state,
+      rows: allRows,
+      count: allRows.length,
+      metaName: m.name,
+    };
+  });
 
   // Build featured cities JSON directly from metro list
   const featured = topN.map(m => ({ city: m.city, state: m.state, slug: slugifyCityState(m.city, m.state) }));
@@ -148,15 +177,7 @@ async function main() {
   lines.push("");
 
   for (const m of topN) {
-    const { city, rows, count, metaName } = m;
-    // Derive state by majority
-    const votes = new Map<string, number>();
-    rows.forEach(r => {
-      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
-      if (!st) return;
-      votes.set(st, (votes.get(st) || 0) + 1);
-    });
-    const state = Array.from(votes.entries()).sort((a,b)=>b[1]-a[1])[0]?.[0] || '';
+    const { city, rows, count, metaName, state } = m;
     const scores = rows
       .map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))
       .filter(n => typeof n === "number");
@@ -235,14 +256,7 @@ async function main() {
   const metrosDir = path.join(process.cwd(), "data", "metros");
   fs.mkdirSync(metrosDir, { recursive: true });
   for (const m of topN) {
-    const { city, rows, count, metaName } = m;
-    const votes = new Map<string, number>();
-    rows.forEach(r => {
-      const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
-      if (!st) return;
-      votes.set(st, (votes.get(st) || 0) + 1);
-    });
-    const state = Array.from(votes.entries()).sort((a,b)=>b[1]-a[1])[0]?.[0] || '';
+    const { city, rows, count, metaName, state } = m;
 
     // Table rows
     const sorted = [...rows].sort((a, b) => {

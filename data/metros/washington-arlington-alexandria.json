@@ -1,10 +1,35 @@
 {
   "metro": "Washington–Arlington–Alexandria",
   "city": "Washington",
-  "state": "",
-  "count": 0,
-  "averageScore": "0.0",
+  "state": "DC",
+  "count": 2,
+  "averageScore": "38.4",
   "highPerformerShare": 0,
   "narrative": "Overall, Washington shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": []
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "195424",
+      "title": "LEXINGTON HOUSE",
+      "score": 58,
+      "percentile": 58,
+      "health": 4,
+      "staffing": 2,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "195420",
+      "title": "NAOMI HEIGHTS NURSING & REHABILITATION CENTER",
+      "score": 18,
+      "percentile": 18,
+      "health": 2,
+      "staffing": 2,
+      "quality": 1,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
 }

@@ -53,15 +53,17 @@ Overall, Houston shows a smaller share of top performers. The average SunsetWell
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 
-## Washington–Arlington–Alexandria — 0 SNFs
+## Washington–Arlington–Alexandria — 2 SNFs
 
-- Average SunsetWell Score: 0.0 (median 0.0)
-- High-performing share (≥ 75): NaN%
+- Average SunsetWell Score: 38.4 (median 38.4)
+- High-performing share (≥ 75): 0%
 
-Overall, Washington shows a smaller share of top performers. The average SunsetWell score of 0.0 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
+Overall, Washington shows a smaller share of top performers. The average SunsetWell score of 38.4 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
+| 1 | LEXINGTON HOUSE | 58 | 58 | 4 | 2 | 2 | — | — |
+| 2 | NAOMI HEIGHTS NURSING & REHABILITATION CENTER | 18 | 18 | 2 | 2 | 1 | — | — |
 
 ## Miami–Fort Lauderdale–West Palm Beach — 1 SNFs
 
@@ -201,17 +203,18 @@ Overall, Denver shows a smaller share of top performers. The average SunsetWell 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 
-## Baltimore–Columbia–Towson — 2 SNFs
+## Baltimore–Columbia–Towson — 3 SNFs
 
-- Average SunsetWell Score: 56.3 (median 56.3)
-- High-performing share (≥ 75): 0%
+- Average SunsetWell Score: 69.7 (median 59.7)
+- High-performing share (≥ 75): 33%
 
-Overall, Baltimore shows a smaller share of top performers. The average SunsetWell score of 56.3 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
+Overall, Baltimore shows a meaningful group of above-average performers. The average SunsetWell score of 69.7 suggests solid quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
-| 1 | FUTURE CARE SANDTOWN-WINCHESTER | 60 | 60 | 3 | 3 | 4 | — | — |
-| 2 | FRANKLIN WOODS CENTER | 53 | 53 | 3 | 3 | 4 | — | — |
+| 1 | CHESTNUT GRN HLTH CTR BLAKEHUR | 97 | 97 | 5 | 5 | 5 | — | — |
+| 2 | FUTURE CARE SANDTOWN-WINCHESTER | 60 | 60 | 3 | 3 | 4 | — | — |
+| 3 | FRANKLIN WOODS CENTER | 53 | 53 | 3 | 3 | 4 | — | — |
 
 ## St. Louis — 0 SNFs
 
@@ -253,22 +256,23 @@ Overall, San Antonio shows a smaller share of top performers. The average Sunset
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 
-## Portland–Vancouver–Hillsboro — 7 SNFs
+## Portland–Vancouver–Hillsboro — 8 SNFs
 
-- Average SunsetWell Score: 56.8 (median 61.2)
-- High-performing share (≥ 75): 29%
+- Average SunsetWell Score: 57.6 (median 62.4)
+- High-performing share (≥ 75): 25%
 
-Overall, Portland shows a meaningful group of above-average performers. The average SunsetWell score of 56.8 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
+Overall, Portland shows a meaningful group of above-average performers. The average SunsetWell score of 57.6 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 | 1 | MIRABELLA PORTLAND | 100 | 100 | 5 | 5 | 4 | — | — |
 | 2 | HOLLADAY PARK PLAZA | 95 | 95 | 5 | 4 | 5 | — | — |
 | 3 | EAST PORTLAND CARE CENTER | 73 | 73 | 3 | 4 | 5 | — | — |
-| 4 | GATEWAY CARE AND RETIREMENT | 61 | 61 | 3 | 3 | 3 | — | — |
-| 5 | PORTLAND HEALTH & REHABILITATION CENTER | 40 | 40 | 2 | 4 | 3 | — | — |
-| 6 | CEDAR CROSSINGS | 17 | 17 | 1 | 3 | 3 | — | — |
-| 7 | GRACELEN CARE CENTER | 12 | 12 | 1 | 3 | 3 | — | — |
+| 4 | AVAMERE REHABILITATION OF HILLSBORO | 64 | 64 | 3 | 4 | 4 | — | — |
+| 5 | GATEWAY CARE AND RETIREMENT | 61 | 61 | 3 | 3 | 3 | — | — |
+| 6 | PORTLAND HEALTH & REHABILITATION CENTER | 40 | 40 | 2 | 4 | 3 | — | — |
+| 7 | CEDAR CROSSINGS | 17 | 17 | 1 | 3 | 3 | — | — |
+| 8 | GRACELEN CARE CENTER | 12 | 12 | 1 | 3 | 3 | — | — |
 
 ## Sacramento–Roseville–Folsom — 0 SNFs
 
@@ -478,15 +482,16 @@ Overall, New Orleans shows a smaller share of top performers. The average Sunset
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
 | 1 | ST MARGARET'S DAUGHTERS HOME | 14 | 14 | 2 | 1 | 2 | — | — |
 
-## Hartford–East Hartford–Middletown — 0 SNFs
+## Hartford–East Hartford–Middletown — 1 SNFs
 
-- Average SunsetWell Score: 0.0 (median 0.0)
-- High-performing share (≥ 75): NaN%
+- Average SunsetWell Score: 5.8 (median 5.8)
+- High-performing share (≥ 75): 0%
 
-Overall, Hartford shows a smaller share of top performers. The average SunsetWell score of 0.0 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
+Overall, Hartford shows a smaller share of top performers. The average SunsetWell score of 5.8 suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.
 
 | # | Facility | SunsetWell | Percentile | Health | Staffing | Quality | RN hrs | Total nurse hrs |
 |:-:|:---------|-----------:|----------:|-------:|---------:|--------:|------:|----------------:|
+| 1 | OAK HILL CENTER FOR REHABILITATION AND NURSING | 6 | 6 | 1 | 1 | 4 | — | — |
 
 ## Raleigh–Cary — 0 SNFs
 
