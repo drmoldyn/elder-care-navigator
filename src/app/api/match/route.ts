@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase/server";
 import { sessionContextSchema } from "@/lib/validation/session";
@@ -97,37 +98,37 @@ export async function POST(request: NextRequest) {
     let jobId = "preview";
 
     if (!previewMode) {
+      const sessionToken = randomUUID();
       const { data: session, error: sessionError } = await supabaseServer
         .from("user_sessions")
         .insert({
-          relationship: sessionContext.relationship,
-          conditions: sessionContext.conditions,
-          zip_code: sessionContext.zipCode,
-          city: sessionContext.city,
-          state: sessionContext.state,
+          session_token: sessionToken,
+          user_data: {
+            relationship: sessionContext.relationship,
+            conditions: sessionContext.conditions,
+            zip_code: sessionContext.zipCode,
+            city: sessionContext.city,
+            state: sessionContext.state,
+            living_situation: sessionContext.livingSituation || "long_distance",
+            urgency_factors: sessionContext.urgencyFactors,
+            email: sessionContext.email,
+            email_subscribed: sessionContext.emailSubscribed ?? false,
+            matched_resources: resourceSummaries.map((summary) => summary.id),
+          },
           care_type: sessionContext.careType,
-          living_situation: sessionContext.livingSituation || "long_distance",
-          urgency_factors: sessionContext.urgencyFactors,
-          email: sessionContext.email,
-          email_subscribed: sessionContext.emailSubscribed ?? false,
           latitude: sessionContext.latitude,
           longitude: sessionContext.longitude,
           search_radius_miles: sessionContext.searchRadiusMiles,
-          matched_resources: resourceSummaries.map((summary) => summary.id),
         })
         .select("id")
         .single();
 
       if (sessionError || !session) {
-        console.error("Failed to create session:", sessionError);
-        return NextResponse.json(
-          { error: "Failed to create session" },
-          { status: 500 }
-        );
+        console.error("Failed to create session (continuing without persistence):", sessionError);
+      } else {
+        sessionId = session.id;
+        jobId = sessionToken;
       }
-
-      sessionId = session.id;
-      jobId = session.id;
     }
 
     // 4. Prepare response (simplified - no scoring, just matched resources)
