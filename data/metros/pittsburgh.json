@@ -2,8 +2,8 @@
   "metro": "Pittsburgh",
   "city": "Pittsburgh",
   "state": "PA",
-  "count": 1,
-  "averageScore": "25.7",
+  "count": 2,
+  "averageScore": "22.4",
   "highPerformerShare": 0,
   "narrative": "Overall, Pittsburgh shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
   "table": [
@@ -11,11 +11,23 @@
       "rank": 1,
       "facilityId": "395606",
       "title": "JOHN J KANE REGIONAL CENTER-RO",
-      "score": 26,
-      "percentile": 100,
+      "score": 24,
+      "percentile": 16,
       "health": 1,
       "staffing": 4,
       "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "395743",
+      "title": "CARNEGIE PARK POST ACUTE",
+      "score": 20,
+      "percentile": 13,
+      "health": 1,
+      "staffing": 3,
+      "quality": 2,
       "rnHours": null,
       "totalNurseHours": null
     }

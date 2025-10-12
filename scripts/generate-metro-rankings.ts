@@ -30,7 +30,7 @@ type Row = {
   health_inspection_rating: number | null;
   staffing_rating: number | null;
   total_nurse_hours_per_resident_per_day: number | null;
-  facility_scores: Array<{ score: number; version: string }>;
+  sunsetwell_scores: Array<{ overall_score: number; overall_percentile: number; calculation_date: string }>;
 };
 
 type CityKey = string; // `${city}|${state}`
@@ -75,13 +75,11 @@ function percentile(score: number, dist: number[]): number {
 }
 
 async function main() {
-  console.log("Fetching SNFs with v2 scores...");
+  console.log("Fetching SNFs with SunsetWell scores...");
   const { data, error } = await supabase
     .from("resources")
-    // Select only confirmed columns to avoid errors
-    .select(`id, facility_id, title, city, states, provider_type, health_inspection_rating, staffing_rating, quality_measure_rating, facility_scores!inner(score, version)`)
+    .select(`id, facility_id, title, city, states, provider_type, health_inspection_rating, staffing_rating, quality_measure_rating, sunsetwell_scores!inner(overall_score, overall_percentile, calculation_date)`)
     .in("provider_type", ["nursing_home", "skilled_nursing_facility"]) // SNFs
-    .eq("facility_scores.version", "v2")
     .not("city", "is", null);
 
   if (error) {
@@ -89,7 +87,15 @@ async function main() {
     process.exit(1);
   }
 
-  const facilities: Row[] = (data || []) as any;
+  // Filter to only facilities with sunsetwell_scores and take most recent score if multiple
+  const facilities: Row[] = ((data || []) as any[]).filter(f => {
+    const scores = (f as any).sunsetwell_scores;
+    if (!Array.isArray(scores) || scores.length === 0) return false;
+    // Sort by date descending and keep only the most recent
+    scores.sort((a: any, b: any) => new Date(b.calculation_date).getTime() - new Date(a.calculation_date).getTime());
+    (f as any).sunsetwell_scores = [scores[0]];
+    return true;
+  });
 
   // Precompute peer distributions by state for SNFs
   const peerScores = new Map<string, number[]>(); // key `${state}|SNF` or `US|SNF`
@@ -101,8 +107,8 @@ async function main() {
 
   for (const f of facilities) {
     if (snfType(f.provider_type) !== 'SNF') continue;
-    const sc = Array.isArray((f as any).facility_scores) && (f as any).facility_scores[0]
-      ? (f as any).facility_scores[0].score as number
+    const sc = Array.isArray((f as any).sunsetwell_scores) && (f as any).sunsetwell_scores[0]
+      ? (f as any).sunsetwell_scores[0].overall_score as number
       : undefined;
     if (typeof sc !== 'number') continue;
     const st = Array.isArray((f as any).states) && (f as any).states[0] ? String((f as any).states[0]).trim() : '';
@@ -179,15 +185,15 @@ async function main() {
   for (const m of topN) {
     const { city, rows, count, metaName, state } = m;
     const scores = rows
-      .map(r => (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0] ? (r as any).facility_scores[0].score as number : 0))
+      .map(r => (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0] ? (r as any).sunsetwell_scores[0].overall_score as number : 0))
       .filter(n => typeof n === "number");
     const avgScore = avg(scores);
     const medScore = median(scores);
     const pctHigh = Math.round((scores.filter(s => s >= 75).length / scores.length) * 100);
 
     const sortedByScoreDesc = [...rows].sort((a, b) => {
-      const sa = (Array.isArray((a as any).facility_scores) && (a as any).facility_scores[0]?.score) || 0;
-      const sb = (Array.isArray((b as any).facility_scores) && (b as any).facility_scores[0]?.score) || 0;
+      const sa = (Array.isArray((a as any).sunsetwell_scores) && (a as any).sunsetwell_scores[0]?.overall_score) || 0;
+      const sb = (Array.isArray((b as any).sunsetwell_scores) && (b as any).sunsetwell_scores[0]?.overall_score) || 0;
       return sb - sa;
     });
     const top15 = sortedByScoreDesc.slice(0, 15);
@@ -214,19 +220,13 @@ async function main() {
     const get = (o: any, k: string): number | null => (typeof o?.[k] === 'number' ? o[k] : null);
     const fmt = (n: number | null, d = 1) => (n == null ? '—' : n.toFixed(d));
 
-    // Build metro-specific score distribution for percentile calculation
-    const top15Scores = top15.map(r =>
-      (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0
-    );
-
     top15.forEach((r, i) => {
-      const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
+      const score = (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0]?.overall_score) || 0;
+      const percentile = (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0]?.overall_percentile) || 0;
       const health = get(r, 'health_inspection_rating');
       const staffing = get(r, 'staffing_rating');
       const quality = get(r, 'quality_measure_rating');
-      // Calculate percentile within this metro area, not statewide
-      const p = percentile(score, top15Scores);
-      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${p} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | — | — |`);
+      lines.push(`| ${i + 1} | ${(r as any).title} | ${score.toFixed(0)} | ${Math.round(percentile)} | ${fmt(health, 0)} | ${fmt(staffing, 0)} | ${fmt(quality, 0)} | — | — |`);
     });
     lines.push("");
   }
@@ -244,30 +244,24 @@ async function main() {
 
     // Table rows
     const sorted = [...rows].sort((a, b) => {
-      const sa = (Array.isArray((a as any).facility_scores) && (a as any).facility_scores[0]?.score) || 0;
-      const sb = (Array.isArray((b as any).facility_scores) && (b as any).facility_scores[0]?.score) || 0;
+      const sa = (Array.isArray((a as any).sunsetwell_scores) && (a as any).sunsetwell_scores[0]?.overall_score) || 0;
+      const sb = (Array.isArray((b as any).sunsetwell_scores) && (b as any).sunsetwell_scores[0]?.overall_score) || 0;
       return sb - sa;
     }).slice(0, 30);
 
-    // Build metro-specific score distribution for percentile calculation
-    const metroScores = sorted.map(r =>
-      (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0
-    );
-
     const tbl = sorted.map((r, i) => {
-      const score = (Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]?.score) || 0;
+      const score = (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0]?.overall_score) || 0;
+      const percentile = (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0]?.overall_percentile) || 0;
       const health = typeof (r as any).health_inspection_rating === 'number' ? (r as any).health_inspection_rating : null;
       const staffing = typeof (r as any).staffing_rating === 'number' ? (r as any).staffing_rating : null;
       const quality = typeof (r as any).quality_measure_rating === 'number' ? (r as any).quality_measure_rating : null;
       const fid = (r as any).facility_id || (r as any).id;
-      // Calculate percentile within this metro area, not statewide
-      const p = percentile(score, metroScores);
       return {
         rank: i + 1,
         facilityId: fid,
         title: (r as any).title as string,
         score: Math.round(score),
-        percentile: p,
+        percentile: Math.round(percentile),
         health: health,
         staffing: staffing,
         quality: quality,
@@ -276,7 +270,7 @@ async function main() {
       };
     });
 
-    const scoresForAvg = rows.map(r => ((Array.isArray((r as any).facility_scores) && (r as any).facility_scores[0]) ? (r as any).facility_scores[0].score : 0) as number);
+    const scoresForAvg = rows.map(r => ((Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0]) ? (r as any).sunsetwell_scores[0].overall_score : 0) as number);
     const avgSc = avg(scoresForAvg);
     const qualityTier = avgSc >= 75 ? 'generally excellent' : avgSc >= 60 ? 'solid' : 'mixed';
     const highPerformers = tbl.filter(t => t.score >= 75).length;

@@ -278,7 +278,18 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold text-gray-900">Rank</th>
                   <th className="px-4 py-3 text-left font-semibold text-gray-900">Facility</th>
-                  <th className="px-4 py-3 text-center font-semibold text-gray-900">Score</th>
+                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
+                    <div>Score</div>
+                    <div className="text-xs font-normal text-gray-500 mt-1">
+                      (0-100 weighted)
+                    </div>
+                  </th>
+                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
+                    <div>Percentile</div>
+                    <div className="text-xs font-normal text-gray-500 mt-1">
+                      (vs. state peers)
+                    </div>
+                  </th>
                   <th className="px-4 py-3 text-center font-semibold text-gray-900">Health</th>
                   <th className="px-4 py-3 text-center font-semibold text-gray-900">Staffing</th>
                   <th className="px-4 py-3 text-center font-semibold text-gray-900">Quality</th>
@@ -299,6 +310,7 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                         {facility.score}
                       </span>
                     </td>
+                    <td className="px-4 py-3 text-center text-gray-700 font-medium">{facility.percentile}</td>
                     <td className="px-4 py-3 text-center">{facility.health ? '⭐'.repeat(facility.health) : '—'}</td>
                     <td className="px-4 py-3 text-center">{facility.staffing ? '⭐'.repeat(facility.staffing) : '—'}</td>
                     <td className="px-4 py-3 text-center">{facility.quality ? '⭐'.repeat(facility.quality) : '—'}</td>
