@@ -89,7 +89,10 @@ export default async function FacilityPage({ params }: FacilityPageProps) {
     notFound();
   }
 
-  const websiteUrl = ensureAbsoluteUrl(facility.website);
+  // Generate website URL or Google Maps fallback
+  const websiteUrl = facility.website && facility.website.trim()
+    ? ensureAbsoluteUrl(facility.website)
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${facility.address || ''} ${facility.city || ''} ${facility.state || ''}`)}`;
   const phoneDisplay = formatPhoneNumber(facility.phone);
   const addressLine = [facility.address, facility.city, facility.state, facility.zipCode]
     .filter(Boolean)
@@ -246,16 +249,14 @@ export default async function FacilityPage({ params }: FacilityPageProps) {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3 text-sm">
-            {websiteUrl && (
-              <a
-                href={websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-sunset-orange px-4 py-2 font-semibold text-white transition hover:bg-sunset-orange/90"
-              >
-                Visit Facility Website →
-              </a>
-            )}
+            <a
+              href={websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-sunset-orange px-4 py-2 font-semibold text-white transition hover:bg-sunset-orange/90"
+            >
+              {facility.website && facility.website.trim() ? 'Visit Facility Website →' : 'View on Google Maps →'}
+            </a>
             {phoneDisplay && (
               <a
                 href={`tel:${facility.phone}`}
@@ -326,18 +327,16 @@ export default async function FacilityPage({ params }: FacilityPageProps) {
               <div>
                 <dt className="font-medium text-slate-700">Website</dt>
                 <dd className="mt-1">
-                  {websiteUrl ? (
-                    <a
-                      href={websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sunset-orange hover:underline"
-                    >
-                      {websiteUrl.replace(/^https?:\/\//, "")}
-                    </a>
-                  ) : (
-                    <span className="text-slate-600">Not listed</span>
-                  )}
+                  <a
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sunset-orange hover:underline"
+                  >
+                    {facility.website && facility.website.trim()
+                      ? websiteUrl.replace(/^https?:\/\//, "")
+                      : "View on Google Maps"}
+                  </a>
                 </dd>
               </div>
               <div>
