@@ -74,7 +74,7 @@ function NavigatorContent() {
       const zip = typeof zipForGeocode === "string" ? zipForGeocode : typeof value === "string" ? value.trim() : "";
 
       if (zip.length === 5 && /^[0-9]{5}$/.test(zip) && googleApiKey) {
-        const coords = await geocodeZip(zip, googleApiKey);
+        const coords = await geocodeZip(zip);
         setState((prev) => ({
           ...prev,
           session: {

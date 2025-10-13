@@ -172,7 +172,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         return null;
       }
 
-      const coords = await geocodeZip(zip, googleApiKey);
+      const coords = await geocodeZip(zip);
       if (coords) {
         setUserLocation(coords);
         return coords;

@@ -1,6 +1,7 @@
 import type { SessionContext } from "@/types/domain";
 import { supabaseServer } from "@/lib/supabase/server";
 import { calculateDistance, getBoundingBox, type Coordinates } from "@/lib/utils/distance";
+import { getOrFetchZipCoordinates } from "@/lib/location/geocode-server";
 import {
   FACILITY_CATEGORIES,
   FACILITY_PROVIDER_TYPES,
@@ -17,40 +18,16 @@ interface MatchFilters {
   minQualityRating?: number;
 }
 
-async function geocodeZipCode(zipCode: string): Promise<Coordinates | null> {
-  const apiKey = process.env.GOOGLE_GEOCODING_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-  if (!apiKey) {
-    console.warn("Google Geocoding API key not configured. Falling back to ZIP prefix matching.");
-    return null;
-  }
-
-  try {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zipCode},USA&key=${apiKey}`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.status === "OK" && data.results.length > 0) {
-      const location = data.results[0].geometry.location;
-      return {
-        latitude: location.lat,
-        longitude: location.lng,
-      };
-    }
-  } catch (error) {
-    console.error("Geocoding error:", error);
-  }
-
-  return null;
-}
-
 async function buildFacilityFiltersFromSession(session: SessionContext): Promise<MatchFilters> {
   const filters: MatchFilters = {};
 
   if (session.zipCode) {
-    const location = await geocodeZipCode(session.zipCode);
-    if (location) {
-      filters.location = location;
+    const coordinates = await getOrFetchZipCoordinates(session.zipCode);
+    if (coordinates) {
+      filters.location = {
+        latitude: coordinates.lat,
+        longitude: coordinates.lng,
+      };
     }
   }
 

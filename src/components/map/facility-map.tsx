@@ -236,7 +236,7 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
         if (cached) {
           mapCenter = cached;
         } else {
-          const coords = await geocodeZip(userZip, apiKey);
+          const coords = await geocodeZip(userZip);
           if (coords) {
             mapCenter = coords;
           }

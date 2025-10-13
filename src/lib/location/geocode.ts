@@ -78,10 +78,7 @@ export function cacheZipCoordinates(zip: string, coords: ZipCoordinates) {
   persistLocalStorageCache(normalized, coords);
 }
 
-export async function geocodeZip(
-  zip: string,
-  apiKey?: string
-): Promise<ZipCoordinates | null> {
+export async function geocodeZip(zip: string): Promise<ZipCoordinates | null> {
   const normalized = normalizeZip(zip);
   if (!normalized) {
     return null;
@@ -92,29 +89,28 @@ export async function geocodeZip(
     return cached;
   }
 
-  if (!apiKey) {
+  if (typeof window === "undefined") {
+    console.warn("geocodeZip called on server without cache; returning null");
     return null;
   }
-
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(normalized)}&component=country:US&key=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.status === "OK" && Array.isArray(data.results) && data.results.length > 0) {
-      const location = data.results[0]?.geometry?.location;
-      if (typeof location?.lat === "number" && typeof location?.lng === "number") {
-        const coords = { lat: location.lat, lng: location.lng };
-        cacheZipCoordinates(normalized, coords);
-        return coords;
-      }
+    const response = await fetch(`/api/geocode?zip=${encodeURIComponent(normalized)}`);
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      console.warn("Failed to geocode ZIP via API", normalized, error);
+      return null;
     }
 
-    console.warn("No geocode results for ZIP", normalized, data.status);
-    return null;
+    const data = await response.json();
+    if (typeof data.latitude === "number" && typeof data.longitude === "number") {
+      const coords = { lat: data.latitude, lng: data.longitude };
+      cacheZipCoordinates(normalized, coords);
+      return coords;
+    }
   } catch (error) {
-    console.error("Failed to geocode ZIP", normalized, error);
-    return null;
+    console.error("Failed to geocode ZIP via API", normalized, error);
   }
+
+  return null;
 }

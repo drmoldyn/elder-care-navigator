@@ -182,7 +182,7 @@ function ResultsPageContent() {
             lng: sessionRecord.longitude,
           };
         } else if (sessionRecord?.zip_code && googleApiKey) {
-          const coords = await geocodeZip(sessionRecord.zip_code, googleApiKey);
+          const coords = await geocodeZip(sessionRecord.zip_code);
           if (coords) {
             userCoords = coords;
           }
