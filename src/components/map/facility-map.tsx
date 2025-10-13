@@ -281,7 +281,7 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
       }
 
       // Configure and load the Google Maps libraries
-      setOptions({ key: apiKey, version: "weekly" });
+      setOptions({ key: apiKey, v: "weekly" });
       const { Map, InfoWindow } = (await importLibrary("maps")) as google.maps.MapsLibrary;
       const { Marker } = (await importLibrary("marker")) as google.maps.MarkerLibrary;
       await importLibrary("geometry");
