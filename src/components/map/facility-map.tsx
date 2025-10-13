@@ -284,11 +284,13 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
       const loader = new Loader({
         apiKey,
         version: "weekly",
-        libraries: ["maps", "marker", "geometry"],
       });
-      await loader.load();
+      await loader.loadCallback((e: unknown) => {
+        if (e) console.error("Maps JS API load error:", e);
+      });
       const { Map, InfoWindow } = (await google.maps.importLibrary("maps")) as google.maps.MapsLibrary;
       const { Marker } = (await google.maps.importLibrary("marker")) as google.maps.MarkerLibrary;
+      await google.maps.importLibrary("geometry");
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
