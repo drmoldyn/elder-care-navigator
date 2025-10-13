@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | SunsetWell"
   },
   description:
-    "Search 75,000+ nursing homes, assisted living facilities, and home health agencies nationwide. Find Medicare & Medicaid accepted senior care with verified CMS data.",
+    "Search 73,000+ nursing homes, assisted living facilities, and home health agencies nationwide. Find Medicare & Medicaid accepted senior care with verified CMS data.",
   keywords: [
     "senior care",
     "nursing homes near me",
@@ -118,6 +118,22 @@ export default function RootLayout({
     ]
   };
 
+  // WebSite schema with sitelinks search box for Google
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SunsetWell",
+    "url": "https://sunsetwell.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://sunsetwell.com/navigator?zip={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   const adsensePublisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "";
 
   return (
@@ -127,6 +143,11 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {/* WebSite Schema with Sitelinks Search Box */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body
