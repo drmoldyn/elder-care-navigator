@@ -284,10 +284,11 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
       const loader = new Loader({
         apiKey,
         version: "weekly",
+        libraries: ["maps", "marker", "geometry"],
       });
-      const { Map, InfoWindow } = (await loader.importLibrary("maps")) as google.maps.MapsLibrary;
-      const { Marker } = (await loader.importLibrary("marker")) as google.maps.MarkerLibrary;
-      await loader.importLibrary("geometry");
+      await loader.load();
+      const { Map, InfoWindow } = (await google.maps.importLibrary("maps")) as google.maps.MapsLibrary;
+      const { Marker } = (await google.maps.importLibrary("marker")) as google.maps.MarkerLibrary;
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
