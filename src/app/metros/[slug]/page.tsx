@@ -389,7 +389,12 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                   {facilities.map((facility) => {
                     const facilityColors = getTierColorClasses(facility.score);
                     const summary = facilitiesByFacilityId.get(String(facility.facilityId));
-                    const websiteUrl = summary?.website ? ensureAbsoluteUrl(summary.website) : null;
+                    // Generate website URL or Google Maps fallback
+                    const websiteUrl = summary?.website
+                      ? ensureAbsoluteUrl(summary.website)
+                      : summary
+                      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${summary.address || ''} ${summary.city || ''} ${summary.state || ''}`)}`
+                      : null;
                     const phoneDisplay = summary?.phone ? formatPhoneNumber(summary.phone) ?? summary.phone : null;
                     const addressLine = summary
                       ? [summary.address, summary.city, summary.state, summary.zipCode]
@@ -550,7 +555,12 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
               <tbody className="divide-y divide-gray-200">
                 {data.table.map((facility) => {
                   const summary = facilitiesByFacilityId.get(String(facility.facilityId));
-                  const websiteUrl = summary?.website ? ensureAbsoluteUrl(summary.website) : null;
+                  // Generate website URL or Google Maps fallback
+                  const websiteUrl = summary?.website
+                    ? ensureAbsoluteUrl(summary.website)
+                    : summary
+                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${summary.address || ''} ${summary.city || ''} ${summary.state || ''}`)}`
+                    : null;
                   const profileHref = summary ? `/facility/${summary.id}` : null;
 
                   return (
