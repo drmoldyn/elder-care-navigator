@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { importLibrary, setOptions } from "@googlemaps/js-api-loader";
+import { Loader } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
 import { geocodeZip, getCachedZipCoordinates, ZipCoordinates } from "@/lib/location/geocode";
@@ -128,19 +128,56 @@ function createInfoWindowContent(resource: MapResource, distanceText: string): H
       scoreContainer.style.color = "white";
     }
 
-    scoreContainer.textContent = `SunsetWell Score®: ${getSunsetWellScoreBadge(resource.sunsetwell_score)}`;
+    scoreContainer.textContent = `SunsetWell Score: ${resource.sunsetwell_score.toFixed(0)}`;
     container.appendChild(scoreContainer);
 
-    // Add percentile if available
+    // Add quality label
+    const qualityLabel = document.createElement("p");
+    qualityLabel.style.margin = "4px 0 0 0";
+    qualityLabel.style.fontSize = "13px";
+    qualityLabel.style.color = "#374151";
+    qualityLabel.style.textAlign = "center";
+    qualityLabel.style.fontWeight = "600";
+    qualityLabel.textContent =
+      resource.sunsetwell_score >= 90 ? "Excellent quality" :
+      resource.sunsetwell_score >= 75 ? "Very Good quality" :
+      resource.sunsetwell_score >= 60 ? "Good quality" :
+      resource.sunsetwell_score >= 40 ? "Fair quality" : "Needs improvement";
+    container.appendChild(qualityLabel);
+
+    // Add percentile with enhanced context if available
     if (typeof resource.sunsetwell_percentile === "number") {
       const percentileText = document.createElement("p");
       percentileText.style.margin = "4px 0 0 0";
-      percentileText.style.fontSize = "13px";
-      percentileText.style.color = "#4b5563";
+      percentileText.style.fontSize = "12px";
+      percentileText.style.color = "#6b7280";
       percentileText.style.textAlign = "center";
-      percentileText.textContent = `${resource.sunsetwell_percentile}th percentile vs. state peers`;
+
+      if (resource.state) {
+        percentileText.textContent =
+          resource.sunsetwell_percentile >= 90 ? `Top 10% in ${resource.state}` :
+          resource.sunsetwell_percentile >= 75 ? `Top 25% in ${resource.state}` :
+          resource.sunsetwell_percentile >= 50 ? `Above average in ${resource.state}` :
+          `${resource.sunsetwell_percentile}th percentile in ${resource.state}`;
+      } else {
+        percentileText.textContent = `${resource.sunsetwell_percentile}th percentile vs. state peers`;
+      }
       container.appendChild(percentileText);
     }
+
+    // Add link to scoring explanation
+    const scoringLink = document.createElement("a");
+    scoringLink.href = "/about/scoring";
+    scoringLink.target = "_blank";
+    scoringLink.rel = "noreferrer";
+    scoringLink.textContent = "What does this score mean?";
+    scoringLink.style.display = "block";
+    scoringLink.style.marginTop = "6px";
+    scoringLink.style.fontSize = "11px";
+    scoringLink.style.color = "#4f46e5"; // indigo-600
+    scoringLink.style.textAlign = "center";
+    scoringLink.style.textDecoration = "underline";
+    container.appendChild(scoringLink);
   }
 
   if (typeof resource.overall_rating === "number") {
@@ -244,10 +281,13 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
       }
 
       // Configure and load the Google Maps libraries
-      setOptions({ apiKey, version: "weekly" });
-      const { Map, InfoWindow } = (await importLibrary("maps")) as google.maps.MapsLibrary;
-      const { Marker } = (await importLibrary("marker")) as google.maps.MarkerLibrary;
-      await importLibrary("geometry");
+      const loader = new Loader({
+        apiKey,
+        version: "weekly",
+      });
+      const { Map, InfoWindow } = (await loader.importLibrary("maps")) as google.maps.MapsLibrary;
+      const { Marker } = (await loader.importLibrary("marker")) as google.maps.MarkerLibrary;
+      await loader.importLibrary("geometry");
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
