@@ -400,6 +400,17 @@ function ResultsPageContent() {
   const renderResourceCard = (resource: Resource, isHomeService: boolean) => {
     const isSelectedResource = isSelected(resource.id);
 
+    // Generate website URL or Google Maps fallback
+    const getWebsiteUrl = () => {
+      if (resource.url && resource.url.trim() && resource.url !== '#') {
+        return resource.url;
+      }
+      // Fallback to Google Maps search
+      const query = encodeURIComponent(`${resource.title} ${resource.address || ''} ${resource.city || ''} ${resource.state || ''}`);
+      return `https://www.google.com/maps/search/?api=1&query=${query}`;
+    };
+    const websiteUrl = getWebsiteUrl();
+
     return (
       <div key={resource.id} className="hover:bg-gray-50 transition-colors">
         {/* Mobile-optimized layout - CARDS */}
@@ -549,6 +560,15 @@ function ResultsPageContent() {
             >
               Get Info
             </button>
+            <a
+              href={websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="col-span-2 bg-indigo-600 text-white font-semibold py-3 rounded-xl text-center flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors min-h-[48px]"
+            >
+              <span>🔗</span>
+              <span>Visit Website</span>
+            </a>
           </div>
         </div>
 
@@ -696,30 +716,40 @@ function ResultsPageContent() {
           </div>
 
           {/* Actions */}
-          <div className="flex gap-1">
-            <button
-              onClick={() => setRequestInfoModal({
-                isOpen: true,
-                facilityName: resource.title,
-                facilityId: resource.id,
-              })}
-              className="flex-1 bg-sky-blue text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sky-blue/90 transition-colors"
-            >
-              Get Info
-            </button>
-            {resource.contact_phone && (
-              <a
-                href={`tel:${resource.contact_phone}`}
-                onClick={() => trackPhoneClick({
-                  facilityId: resource.id,
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-1">
+              <button
+                onClick={() => setRequestInfoModal({
+                  isOpen: true,
                   facilityName: resource.title,
-                  phoneNumber: resource.contact_phone!,
+                  facilityId: resource.id,
                 })}
-                className="flex-1 bg-sunset-orange text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sunset-orange/90 transition-colors text-center"
+                className="flex-1 bg-sky-blue text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sky-blue/90 transition-colors"
               >
-                📞 Call
-              </a>
-            )}
+                Get Info
+              </button>
+              {resource.contact_phone && (
+                <a
+                  href={`tel:${resource.contact_phone}`}
+                  onClick={() => trackPhoneClick({
+                    facilityId: resource.id,
+                    facilityName: resource.title,
+                    phoneNumber: resource.contact_phone!,
+                  })}
+                  className="flex-1 bg-sunset-orange text-white text-xs font-semibold py-2 px-2 rounded hover:bg-sunset-orange/90 transition-colors text-center"
+                >
+                  📞 Call
+                </a>
+              )}
+            </div>
+            <a
+              href={websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-indigo-600 text-white text-xs font-semibold py-2 px-2 rounded hover:bg-indigo-700 transition-colors text-center"
+            >
+              🔗 Website
+            </a>
           </div>
         </div>
       </div>
