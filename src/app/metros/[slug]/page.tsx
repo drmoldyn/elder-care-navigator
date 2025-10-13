@@ -8,7 +8,20 @@ import { ensureAbsoluteUrl, formatPhoneNumber } from "@/lib/utils/url";
 import Image from "next/image";
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const dynamicParams = false; // Only allow pre-generated slugs
+
+// Pre-generate all 50 metro pages at build time for optimal SEO
+export async function generateStaticParams() {
+  const metrosDir = path.join(process.cwd(), 'data', 'metros');
+  const files = fs.readdirSync(metrosDir);
+
+  return files
+    .filter(file => file.endsWith('.json'))
+    .map(file => ({
+      slug: file.replace('.json', '')
+    }));
+}
 
 interface Facility {
   rank: number;

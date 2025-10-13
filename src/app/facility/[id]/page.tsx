@@ -89,9 +89,9 @@ export default async function FacilityPage({ params }: FacilityPageProps) {
     notFound();
   }
 
-  // Generate website URL or Google Maps fallback
-  const websiteUrl = facility.website && facility.website.trim()
-    ? ensureAbsoluteUrl(facility.website)
+  // Generate website URL or Google Maps fallback - always returns a string
+  const websiteUrl: string = facility.website && facility.website.trim()
+    ? (ensureAbsoluteUrl(facility.website) || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${facility.address || ''} ${facility.city || ''} ${facility.state || ''}`)}`)
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${facility.address || ''} ${facility.city || ''} ${facility.state || ''}`)}`;
   const phoneDisplay = formatPhoneNumber(facility.phone);
   const addressLine = [facility.address, facility.city, facility.state, facility.zipCode]
