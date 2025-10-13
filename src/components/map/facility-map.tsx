@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Loader } from "@googlemaps/js-api-loader";
+import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
 import { geocodeZip, getCachedZipCoordinates, ZipCoordinates } from "@/lib/location/geocode";
@@ -280,16 +280,11 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
         }
       }
 
-      // Configure and load the Google Maps libraries using Loader v2 API
-      // In v2, we create a Loader instance to configure, then use static importLibrary
-      new Loader({
-        apiKey,
-        version: "weekly",
-      });
-
-      const { Map, InfoWindow } = (await Loader.importLibrary("maps")) as google.maps.MapsLibrary;
-      const { Marker } = (await Loader.importLibrary("marker")) as google.maps.MarkerLibrary;
-      await Loader.importLibrary("geometry");
+      // Configure and load the Google Maps libraries
+      setOptions({ key: apiKey, version: "weekly" });
+      const { Map, InfoWindow } = (await importLibrary("maps")) as google.maps.MapsLibrary;
+      const { Marker } = (await importLibrary("marker")) as google.maps.MarkerLibrary;
+      await importLibrary("geometry");
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
