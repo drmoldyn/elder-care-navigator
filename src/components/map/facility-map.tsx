@@ -280,17 +280,16 @@ export function FacilityMap({ resources, userZip, userLocation, onBoundsSearch, 
         }
       }
 
-      // Configure and load the Google Maps libraries
-      const loader = new Loader({
+      // Configure and load the Google Maps libraries using Loader v2 API
+      // In v2, we create a Loader instance to configure, then use static importLibrary
+      new Loader({
         apiKey,
         version: "weekly",
       });
-      await loader.loadCallback((e: unknown) => {
-        if (e) console.error("Maps JS API load error:", e);
-      });
-      const { Map, InfoWindow } = (await google.maps.importLibrary("maps")) as google.maps.MapsLibrary;
-      const { Marker } = (await google.maps.importLibrary("marker")) as google.maps.MarkerLibrary;
-      await google.maps.importLibrary("geometry");
+
+      const { Map, InfoWindow } = (await Loader.importLibrary("maps")) as google.maps.MapsLibrary;
+      const { Marker } = (await Loader.importLibrary("marker")) as google.maps.MarkerLibrary;
+      await Loader.importLibrary("geometry");
       if (!isMounted || !mapContainerRef.current) return;
 
       const map = new Map(mapContainerRef.current, {
