@@ -32,6 +32,45 @@ interface MetroData {
   highPerformerShare: number;
   narrative: string;
   table: Facility[];
+  enhancedNarrative?: {
+    marketOverview: {
+      qualityLandscape: string;
+      supplyDemand: string;
+      regionalTrends: string;
+      medicaidAccess: string;
+    };
+    costAnalysis: {
+      averageDailyRate: number | null;
+      priceRangeByTier: Record<string, string>;
+      monthlyEstimate: string;
+      stateComparison: string;
+      fundingOptions: string[];
+    };
+    decisionFramework: {
+      qualityPriority: { recommendation: string; facilities: string[]; reasoning: string };
+      medicaidNeeded: { recommendation: string; facilities: string[]; reasoning: string; waitlistInfo: string };
+      urgentPlacement: { recommendation: string; facilities: string[]; alternatives: string };
+      budgetConstrained: { recommendation: string; facilities: string[]; costSavingTips: string[] };
+    };
+    faqs: Array<{
+      question: string;
+      answer: string;
+      category: string;
+    }>;
+    localResources: {
+      stateOmbudsman: { name: string; phone: string; website: string };
+      areaAgencyOnAging: { name: string; phone: string; website: string };
+      stateHealthDept: { name: string; website: string };
+      elderLawReferral: { name: string; website: string };
+    };
+    keyStats: {
+      topTierCount: number;
+      medicaidFacilityCount: number;
+      averageWaitlistWeeks: number | null;
+      hasUrgentOptions: boolean;
+      qualityGap: number;
+    };
+  };
 }
 
 function getTierLabel(score: number): string {
@@ -83,9 +122,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const file = path.join(process.cwd(), "data", "metros", `${slug}.json`);
   if (fs.existsSync(file)) {
     const raw = JSON.parse(fs.readFileSync(file, "utf8")) as MetroData;
+    const avgScore = parseFloat(raw.averageScore);
+    const topFacility = raw.table[0]?.title || '';
+    const costInfo = raw.enhancedNarrative?.costAnalysis?.monthlyEstimate || '';
+
     return {
-      title: `${raw.metro} SNF Rankings | SunsetWell`,
-      description: `Skilled nursing facility rankings for ${raw.metro} with SunsetWell scores, peer-group percentiles, and key CMS quality metrics.`,
+      title: `Best Nursing Homes in ${raw.city}, ${raw.state} (2025) - Rankings & Costs | SunsetWell`,
+      description: `Compare ${raw.count} nursing homes in ${raw.metro}. Average quality score: ${avgScore.toFixed(1)}. ${raw.highPerformerShare}% high-performing facilities${topFacility ? `. Top-rated: ${topFacility}` : ''}${costInfo ? `. Costs: ${costInfo}` : ''}. Expert rankings based on CMS data.`,
+      keywords: [
+        `nursing homes ${raw.city}`,
+        `best nursing homes ${raw.city} ${raw.state}`,
+        `${raw.city} skilled nursing facilities`,
+        `nursing home costs ${raw.city}`,
+        `${raw.state} nursing homes`,
+        'Medicare nursing homes',
+        'Medicaid nursing homes',
+      ],
+      openGraph: {
+        title: `Best Nursing Homes in ${raw.city}, ${raw.state} (2025)`,
+        description: `Expert rankings of ${raw.count} nursing homes with quality scores, costs, and reviews. ${raw.highPerformerShare}% high-performing facilities.`,
+        type: 'website',
+      },
     };
   }
   return { title: "Metro Rankings" };
@@ -132,8 +189,58 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
   const avgScore = parseFloat(data.averageScore);
   const qualityLevel = getQualityAssessment(avgScore);
 
+  // Generate structured data
+  const faqSchema = data.enhancedNarrative?.faqs ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: data.enhancedNarrative.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  } : null;
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://sunsetwell.com/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Metro Rankings',
+        item: 'https://sunsetwell.com/metros',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: data.metro,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen relative overflow-hidden">
+      {/* Structured Data */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero Background */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -193,17 +300,43 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
         {/* Market Overview */}
         <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Market Overview</h2>
-            <p className="text-gray-700 leading-relaxed">
-              {data.city}&apos;s skilled nursing landscape shows <strong>{qualityLevel} quality</strong> with {data.count} facilities
-              averaging a SunsetWell score of {avgScore.toFixed(1)}. {data.highPerformerShare}% of facilities score 75 or higher,
-              indicating {data.highPerformerShare >= 40 ? 'strong' : data.highPerformerShare >= 20 ? 'moderate' : 'limited'} availability of high-performing options.
-            </p>
-            {data.table.length > 1 && (
-              <p className="mt-3 text-gray-700 leading-relaxed">
-                The {Math.abs(data.table[0].score - data.table[data.table.length - 1].score)}-point gap between highest and lowest-rated facilities
-                highlights quality variation in this market. Families should review current state inspection reports, tour multiple facilities,
-                and verify Medicaid/Medicare acceptance before making decisions.
-              </p>
+            {data.enhancedNarrative?.marketOverview ? (
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                {data.enhancedNarrative.marketOverview.qualityLandscape.split('\n\n').map((para, idx) => (
+                  <p key={idx}>{para}</p>
+                ))}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <h3 className="font-semibold text-gray-900 mb-3">Supply & Demand Dynamics</h3>
+                  <p>{data.enhancedNarrative.marketOverview.supplyDemand}</p>
+                </div>
+                <div className="mt-4">
+                  <h3 className="font-semibold text-gray-900 mb-3">Regional Context</h3>
+                  {data.enhancedNarrative.marketOverview.regionalTrends.split('\n\n').map((para, idx) => (
+                    <p key={idx} className="mb-2">{para}</p>
+                  ))}
+                </div>
+                <div className="mt-4">
+                  <h3 className="font-semibold text-gray-900 mb-3">Medicaid Access</h3>
+                  {data.enhancedNarrative.marketOverview.medicaidAccess.split('\n\n').map((para, idx) => (
+                    <p key={idx} className="mb-2">{para}</p>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="text-gray-700 leading-relaxed">
+                  {data.city}&apos;s skilled nursing landscape shows <strong>{qualityLevel} quality</strong> with {data.count} facilities
+                  averaging a SunsetWell score of {avgScore.toFixed(1)}. {data.highPerformerShare}% of facilities score 75 or higher,
+                  indicating {data.highPerformerShare >= 40 ? 'strong' : data.highPerformerShare >= 20 ? 'moderate' : 'limited'} availability of high-performing options.
+                </p>
+                {data.table.length > 1 && (
+                  <p className="mt-3 text-gray-700 leading-relaxed">
+                    The {Math.abs(data.table[0].score - data.table[data.table.length - 1].score)}-point gap between highest and lowest-rated facilities
+                    highlights quality variation in this market. Families should review current state inspection reports, tour multiple facilities,
+                    and verify Medicaid/Medicare acceptance before making decisions.
+                  </p>
+                )}
+              </>
             )}
           </section>
 
@@ -467,27 +600,138 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             </table>
           </section>
 
-        {/* Resources */}
-        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Additional Resources</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">State Oversight</h3>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• State Health Department: Check current inspection reports</li>
-                  <li>• Medicare Nursing Home Compare: medicare.gov/care-compare</li>
-                  <li>• State Ombudsman: Resident advocacy and complaints</li>
-                </ul>
+        {/* Cost Analysis */}
+        {data.enhancedNarrative?.costAnalysis && (
+          <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Cost Analysis</h2>
+            <div className="space-y-4">
+              {data.enhancedNarrative.costAnalysis.averageDailyRate && (
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-gray-900">${data.enhancedNarrative.costAnalysis.averageDailyRate}</span>
+                  <span className="text-gray-600">/day average</span>
+                  <span className="ml-4 text-sm text-gray-500">({data.enhancedNarrative.costAnalysis.stateComparison})</span>
+                </div>
+              )}
+              <p className="text-gray-700">
+                Monthly estimate: <strong>{data.enhancedNarrative.costAnalysis.monthlyEstimate}</strong>
+              </p>
+
+              <div className="mt-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Price Range by Quality Tier</h3>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {Object.entries(data.enhancedNarrative.costAnalysis.priceRangeByTier).map(([tier, range]) => (
+                    range !== 'N/A' && (
+                      <div key={tier} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <span className="text-sm font-medium text-gray-700 capitalize">{tier.replace(/([A-Z])/g, ' $1').trim()}:</span>
+                        <span className="text-sm font-semibold text-gray-900">{range}</span>
+                      </div>
+                    )
+                  ))}
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-2">Financial Planning</h3>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Elder Law Attorney Referral: Plan Medicaid eligibility</li>
-                  <li>• Veterans Benefits: VA Aid & Attendance</li>
-                  <li>• Long-Term Care Insurance: Review policy coverage</li>
+
+              <div className="mt-6">
+                <h3 className="font-semibold text-gray-900 mb-3">Funding Options</h3>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  {data.enhancedNarrative.costAnalysis.fundingOptions.map((option, idx) => (
+                    <li key={idx} className="flex gap-2">
+                      <span className="text-sunset-orange">→</span>
+                      <span>{option}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
+          </section>
+        )}
+
+        {/* FAQ Section */}
+        {data.enhancedNarrative?.faqs && data.enhancedNarrative.faqs.length > 0 && (
+          <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {data.enhancedNarrative.faqs.map((faq, idx) => (
+                <div key={idx} className="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Resources */}
+        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Additional Resources</h2>
+            {data.enhancedNarrative?.localResources ? (
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-3">State Oversight & Advocacy</h3>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <div className="font-medium text-gray-900">{data.enhancedNarrative.localResources.stateOmbudsman.name}</div>
+                      <div className="text-gray-600">{data.enhancedNarrative.localResources.stateOmbudsman.phone}</div>
+                      <a href={data.enhancedNarrative.localResources.stateOmbudsman.website} target="_blank" rel="noopener noreferrer" className="text-sunset-orange hover:underline">
+                        Visit website →
+                      </a>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">{data.enhancedNarrative.localResources.stateHealthDept.name}</div>
+                      <a href={data.enhancedNarrative.localResources.stateHealthDept.website} target="_blank" rel="noopener noreferrer" className="text-sunset-orange hover:underline">
+                        Inspection reports →
+                      </a>
+                    </div>
+                    <div className="pt-2">
+                      <div className="font-medium text-gray-700">Medicare Nursing Home Compare</div>
+                      <a href="https://www.medicare.gov/care-compare" target="_blank" rel="noopener noreferrer" className="text-sunset-orange hover:underline">
+                        medicare.gov/care-compare →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-3">Financial Planning & Support</h3>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <div className="font-medium text-gray-900">{data.enhancedNarrative.localResources.areaAgencyOnAging.name}</div>
+                      <div className="text-gray-600">{data.enhancedNarrative.localResources.areaAgencyOnAging.phone}</div>
+                      <a href={data.enhancedNarrative.localResources.areaAgencyOnAging.website} target="_blank" rel="noopener noreferrer" className="text-sunset-orange hover:underline">
+                        Visit website →
+                      </a>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">{data.enhancedNarrative.localResources.elderLawReferral.name}</div>
+                      <a href={data.enhancedNarrative.localResources.elderLawReferral.website} target="_blank" rel="noopener noreferrer" className="text-sunset-orange hover:underline">
+                        Find elder law attorney →
+                      </a>
+                    </div>
+                    <div className="pt-2">
+                      <div className="font-medium text-gray-700">Veterans Aid & Attendance</div>
+                      <div className="text-gray-600">Up to $2,431/month for eligible veterans</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">State Oversight</h3>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• State Health Department: Check current inspection reports</li>
+                    <li>• Medicare Nursing Home Compare: medicare.gov/care-compare</li>
+                    <li>• State Ombudsman: Resident advocacy and complaints</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Financial Planning</h3>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li>• Elder Law Attorney Referral: Plan Medicaid eligibility</li>
+                    <li>• Veterans Benefits: VA Aid & Attendance</li>
+                    <li>• Long-Term Care Insurance: Review policy coverage</li>
+                  </ul>
+                </div>
+              </div>
+            )}
           </section>
 
         {/* Disclaimer */}

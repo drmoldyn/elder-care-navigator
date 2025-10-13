@@ -19,5 +19,135 @@
       "rnHours": null,
       "totalNurseHours": null
     }
-  ]
+  ],
+  "enhancedNarrative": {
+    "marketOverview": {
+      "qualityLandscape": "Dallas's skilled nursing landscape shows variable quality requiring careful evaluation. With 1 facilities averaging a SunsetWell score of 54.8, families have limited but focused options to consider. 0% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by MEADOWS NURSING AND REHABILITATION CENTER (score: 55), which ranks in the 61th percentile among peer facilities. \n\nQuality is relatively consistent across the market, though families should still verify current inspection reports and tour facilities personally.",
+      "supplyDemand": "Dallas has a relatively small skilled nursing market with just 1 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
+      "regionalTrends": "Texas' less stringent regulatory environment creates variable quality across markets, making careful facility evaluation essential.\n\nDallas's market reflects mixed regional dynamics with both strong performers and facilities facing challenges. Families may want to consider expanding their search radius to access higher-quality facilities in neighboring markets.",
+      "medicaidAccess": "Approximately 1 of 1 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nTX Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
+    },
+    "costAnalysis": {
+      "averageDailyRate": 293,
+      "priceRangeByTier": {
+        "exceptional": "N/A",
+        "excellent": "N/A",
+        "aboveAverage": "N/A",
+        "mixed": "$234-293/day",
+        "lower": "N/A"
+      },
+      "monthlyEstimate": "$7,032-19,338/month",
+      "stateComparison": "Comparable to state average",
+      "fundingOptions": [
+        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
+        "TX Medicaid: Covers long-term care for eligible residents with assets below $2,000",
+        "Long-Term Care Insurance: Most facilities accept major LTC policies",
+        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
+        "Private Pay: Personal savings, home equity, or family support",
+        "Life Insurance Conversion: Some policies allow accelerated death benefits"
+      ]
+    },
+    "decisionFramework": {
+      "qualityPriority": {
+        "recommendation": "Consider expanding search to nearby metros for premium options",
+        "facilities": [],
+        "reasoning": "Dallas's current market lacks facilities scoring 75+. Nearby metros may offer better quality options worth the additional travel distance."
+      },
+      "medicaidNeeded": {
+        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
+        "facilities": [
+          "MEADOWS NURSING AND REHABILITATION CENTER"
+        ],
+        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
+        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
+      },
+      "urgentPlacement": {
+        "recommendation": "Consider temporary respite care while waitlisted",
+        "facilities": [],
+        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
+      },
+      "budgetConstrained": {
+        "recommendation": "Focus on these value options with reasonable quality",
+        "facilities": [
+          "MEADOWS NURSING AND REHABILITATION CENTER"
+        ],
+        "costSavingTips": [
+          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
+          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
+          "Apply for Medicaid early: 45-60 day process; plan ahead",
+          "Check VA benefits: Veterans may qualify for Aid & Attendance",
+          "Consult elder law attorney: Medicaid planning can preserve assets"
+        ]
+      }
+    },
+    "faqs": [
+      {
+        "question": "How long are waitlists at top Dallas facilities?",
+        "answer": "Dallas's facilities generally have shorter waitlists due to market conditions. Most facilities can accommodate placements within 1-3 weeks, though quality evaluation remains essential.",
+        "category": "waitlist"
+      },
+      {
+        "question": "Which Dallas nursing homes accept Medicaid?",
+        "answer": "Approximately 1 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. TX Medicaid requires assets below $2,000 with 45-60 day application process.",
+        "category": "medicaid"
+      },
+      {
+        "question": "What makes MEADOWS NURSING AND REHABILITATION CENTER worth the cost?",
+        "answer": "MEADOWS NURSING AND REHABILITATION CENTER scores 55, representing the best available option in Dallas. While not premium-tier, it offers reliable quality with 3-star health rating and 4-star staffing.",
+        "category": "quality"
+      },
+      {
+        "question": "What should I look for during facility tours?",
+        "answer": "Key observations: (1) Staff interactions - are they attentive and kind? (2) Resident appearance - clean, groomed, engaged? (3) Facility odors - fresh or concerning smells? (4) Cleanliness throughout common areas and rooms. (5) Activity level - residents participating in programs? Red flags: Facilities with recent violations, immediate availability when others have waitlists, evasive answers about staffing, strong odors, or unkempt residents. Visit at varying times including evenings and weekends.",
+        "category": "quality"
+      },
+      {
+        "question": "What if I need urgent placement in Dallas today?",
+        "answer": "Dallas has limited immediate high-quality options. Strategies: (1) Expand search radius to nearby cities, (2) Request temporary respite care at better facilities while waitlisted, (3) Contact TX Area Agency on Aging for emergency placement assistance, (4) Don't rush into low-scoring facilities - quality matters even in emergencies.",
+        "category": "placement"
+      },
+      {
+        "question": "How much does nursing home care cost in Dallas?",
+        "answer": "Dallas nursing home costs average $266/day ($7,980/month) but vary significantly by quality tier. Premium facilities (90+ score): $532/day. Excellent options (75-89): $399/day. Mid-tier (60-74): $266/day. Budget options: $200/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
+        "category": "cost"
+      },
+      {
+        "question": "How do I pay for long-term nursing home care?",
+        "answer": "Payment options: (1) Medicare covers up to 100 days post-hospital (skilled nursing only), (2) TX Medicaid covers long-term care if assets below $2,000 (45-60 day application), (3) Long-Term Care Insurance accepted by most facilities, (4) Veterans Aid & Attendance provides up to $2,431/month, (5) Private pay from savings/home equity. Cost-saving strategy: Use Medicare first (100 days), then transition to Medicaid if eligible. Consult elder law attorney 6-12 months before placement for Medicaid planning and asset preservation strategies.",
+        "category": "cost"
+      },
+      {
+        "question": "How often should I visit after placement?",
+        "answer": "Recommended schedule: First 2 weeks - daily visits to ensure proper transition and catch issues early. Weeks 3-4 - every other day as comfort increases. Ongoing - 3-4x weekly at varying times (include evenings/weekends to see different staff shifts). Monitor: skin condition, cleanliness, hydration, meal consumption, mood changes, medication administration. Warning signs requiring immediate action: unexplained injuries, dramatic personality changes, weight loss, dehydration, soiled clothing, medication errors. Escalation: Charge nurse → Director of Nursing → Administrator → State TX Department of Health → Consider transfer.",
+        "category": "other"
+      }
+    ],
+    "localResources": {
+      "stateOmbudsman": {
+        "name": "Texas Long-Term Care Ombudsman",
+        "phone": "1-800-252-2412",
+        "website": "https://www.dads.state.tx.us/services/ombudsman"
+      },
+      "areaAgencyOnAging": {
+        "name": "Texas Health and Human Services",
+        "phone": "1-877-438-5658",
+        "website": "https://www.hhs.texas.gov/services/aging"
+      },
+      "stateHealthDept": {
+        "name": "Texas Department of State Health Services",
+        "website": "https://www.dshs.texas.gov"
+      },
+      "elderLawReferral": {
+        "name": "State Bar of Texas Elder Law Section",
+        "website": "https://www.texasbar.com"
+      }
+    },
+    "keyStats": {
+      "topTierCount": 0,
+      "medicaidFacilityCount": 1,
+      "averageWaitlistWeeks": 2,
+      "hasUrgentOptions": false,
+      "qualityGap": 0
+    }
+  }
 }

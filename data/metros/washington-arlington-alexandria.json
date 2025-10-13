@@ -43,5 +43,139 @@
       "rnHours": null,
       "totalNurseHours": null
     }
-  ]
+  ],
+  "enhancedNarrative": {
+    "marketOverview": {
+      "qualityLandscape": "Washington's skilled nursing landscape shows variable quality requiring careful evaluation. With 3 facilities averaging a SunsetWell score of 50.5, families have limited but focused options to consider. 0% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by GRANDVIEW HEALTHCARE CENTER (score: 61), which ranks in the 71th percentile among peer facilities. LEXINGTON HOUSE (59) and NAOMI HEIGHTS NURSING & REHABILITATION CENTER (31) provide additional quality options for families seeking excellence.\n\nHowever, 1 facility scores below 40, indicating significant quality concerns. The 30-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
+      "supplyDemand": "Washington has a relatively small skilled nursing market with just 3 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
+      "regionalTrends": "DC offers a range of skilled nursing options with quality varying by location and ownership structure.\n\nWashington's market reflects mixed regional dynamics with both strong performers and facilities facing challenges. Families may want to consider expanding their search radius to access higher-quality facilities in neighboring markets.",
+      "medicaidAccess": "Approximately 3 of 3 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nDC Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
+    },
+    "costAnalysis": {
+      "averageDailyRate": 334,
+      "priceRangeByTier": {
+        "exceptional": "N/A",
+        "excellent": "N/A",
+        "aboveAverage": "$334-434/day",
+        "mixed": "$267-334/day",
+        "lower": "$234-301/day"
+      },
+      "monthlyEstimate": "$8,016-22,044/month",
+      "stateComparison": "Comparable to state average",
+      "fundingOptions": [
+        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
+        "DC Medicaid: Covers long-term care for eligible residents with assets below $2,000",
+        "Long-Term Care Insurance: Most facilities accept major LTC policies",
+        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
+        "Private Pay: Personal savings, home equity, or family support",
+        "Life Insurance Conversion: Some policies allow accelerated death benefits"
+      ]
+    },
+    "decisionFramework": {
+      "qualityPriority": {
+        "recommendation": "Consider expanding search to nearby metros for premium options",
+        "facilities": [],
+        "reasoning": "Washington's current market lacks facilities scoring 75+. Nearby metros may offer better quality options worth the additional travel distance."
+      },
+      "medicaidNeeded": {
+        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
+        "facilities": [
+          "GRANDVIEW HEALTHCARE CENTER",
+          "LEXINGTON HOUSE"
+        ],
+        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
+        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
+      },
+      "urgentPlacement": {
+        "recommendation": "Contact these facilities first for fastest placement",
+        "facilities": [
+          "GRANDVIEW HEALTHCARE CENTER"
+        ],
+        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
+      },
+      "budgetConstrained": {
+        "recommendation": "Focus on these value options with reasonable quality",
+        "facilities": [
+          "GRANDVIEW HEALTHCARE CENTER",
+          "LEXINGTON HOUSE"
+        ],
+        "costSavingTips": [
+          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
+          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
+          "Apply for Medicaid early: 45-60 day process; plan ahead",
+          "Check VA benefits: Veterans may qualify for Aid & Attendance",
+          "Consult elder law attorney: Medicaid planning can preserve assets"
+        ]
+      }
+    },
+    "faqs": [
+      {
+        "question": "How long are waitlists at top Washington facilities?",
+        "answer": "Washington's facilities generally have shorter waitlists due to market conditions. Most facilities can accommodate placements within 1-3 weeks, though quality evaluation remains essential.",
+        "category": "waitlist"
+      },
+      {
+        "question": "Which Washington nursing homes accept Medicaid?",
+        "answer": "Approximately 2 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. DC Medicaid requires assets below $2,000 with 45-60 day application process.",
+        "category": "medicaid"
+      },
+      {
+        "question": "What makes GRANDVIEW HEALTHCARE CENTER worth the cost?",
+        "answer": "GRANDVIEW HEALTHCARE CENTER scores 61, representing the best available option in Washington. While not premium-tier, it offers reliable quality with 4-star health rating and 2-star staffing.",
+        "category": "quality"
+      },
+      {
+        "question": "What should I look for during facility tours?",
+        "answer": "Key observations: (1) Staff interactions - are they attentive and kind? (2) Resident appearance - clean, groomed, engaged? (3) Facility odors - fresh or concerning smells? (4) Cleanliness throughout common areas and rooms. (5) Activity level - residents participating in programs? Red flags: Facilities with 1-2 star health inspections (1 in Washington), immediate availability when others have waitlists, evasive answers about staffing, strong odors, or unkempt residents. Visit at varying times including evenings and weekends.",
+        "category": "quality"
+      },
+      {
+        "question": "What if I need urgent placement in Washington today?",
+        "answer": "Best immediate options: Contact GRANDVIEW HEALTHCARE CENTER first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact DC Senior Services hotline for urgent placement assistance.",
+        "category": "placement"
+      },
+      {
+        "question": "How much does nursing home care cost in Washington?",
+        "answer": "Washington nursing home costs average $304/day ($9,120/month) but vary significantly by quality tier. Premium facilities (90+ score): $608/day. Excellent options (75-89): $456/day. Mid-tier (60-74): $304/day. Budget options: $228/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
+        "category": "cost"
+      },
+      {
+        "question": "How do I pay for long-term nursing home care?",
+        "answer": "Payment options: (1) Medicare covers up to 100 days post-hospital (skilled nursing only), (2) DC Medicaid covers long-term care if assets below $2,000 (45-60 day application), (3) Long-Term Care Insurance accepted by most facilities, (4) Veterans Aid & Attendance provides up to $2,431/month, (5) Private pay from savings/home equity. Cost-saving strategy: Use Medicare first (100 days), then transition to Medicaid if eligible. Consult elder law attorney 6-12 months before placement for Medicaid planning and asset preservation strategies.",
+        "category": "cost"
+      },
+      {
+        "question": "How often should I visit after placement?",
+        "answer": "Recommended schedule: First 2 weeks - daily visits to ensure proper transition and catch issues early. Weeks 3-4 - every other day as comfort increases. Ongoing - 3-4x weekly at varying times (include evenings/weekends to see different staff shifts). Monitor: skin condition, cleanliness, hydration, meal consumption, mood changes, medication administration. Warning signs requiring immediate action: unexplained injuries, dramatic personality changes, weight loss, dehydration, soiled clothing, medication errors. Escalation: Charge nurse → Director of Nursing → Administrator → State DC Department of Health → Consider transfer.",
+        "category": "other"
+      }
+    ],
+    "localResources": {
+      "stateOmbudsman": {
+        "name": "DC Long-Term Care Ombudsman",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "areaAgencyOnAging": {
+        "name": "DC Area Agency on Aging",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "stateHealthDept": {
+        "name": "DC Department of Health",
+        "website": "#"
+      },
+      "elderLawReferral": {
+        "name": "DC State Bar Elder Law Section",
+        "website": "#"
+      }
+    },
+    "keyStats": {
+      "topTierCount": 0,
+      "medicaidFacilityCount": 2,
+      "averageWaitlistWeeks": 2,
+      "hasUrgentOptions": true,
+      "qualityGap": 30
+    }
+  }
 }

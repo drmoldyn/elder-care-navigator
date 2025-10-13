@@ -151,5 +151,145 @@
       "rnHours": null,
       "totalNurseHours": null
     }
-  ]
+  ],
+  "enhancedNarrative": {
+    "marketOverview": {
+      "qualityLandscape": "Philadelphia's skilled nursing landscape shows quality concerns across multiple facilities. With 12 facilities averaging a SunsetWell score of 45.5, families have moderate options to consider. 8% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by LAFAYETTE-REDEEMER, THE (score: 89), which ranks in the 100th percentile among peer facilities. WILLOWCREST (74) and SIMPSON HOUSE INC (66) provide additional quality options for families seeking excellence.\n\nHowever, 5 facilities score below 40, indicating significant quality concerns. The 77-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
+      "supplyDemand": "With 12 skilled nursing facilities, Philadelphia offers moderate choice for families. Top-tier facilities (scores 75+) typically have 1-3 month waitlists, while mid-tier options may have immediate availability. Early planning is advisable for quality-focused placements.",
+      "regionalTrends": "Pennsylvania's mix of urban and rural facilities shows significant quality variation, with Philadelphia and Pittsburgh metros generally outperforming smaller markets.\n\nPhiladelphia's market reflects regional challenges common in competitive healthcare markets. While top-tier options exist, families may need to balance quality preferences with availability and location convenience.",
+      "medicaidAccess": "Approximately 10 of 12 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nPA Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
+    },
+    "costAnalysis": {
+      "averageDailyRate": 349,
+      "priceRangeByTier": {
+        "exceptional": "N/A",
+        "excellent": "$489-593/day",
+        "aboveAverage": "$349-454/day",
+        "mixed": "$279-349/day",
+        "lower": "$244-314/day"
+      },
+      "monthlyEstimate": "$8,376-23,034/month",
+      "stateComparison": "Comparable to state average",
+      "fundingOptions": [
+        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
+        "PA Medicaid: Covers long-term care for eligible residents with assets below $2,000",
+        "Long-Term Care Insurance: Most facilities accept major LTC policies",
+        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
+        "Private Pay: Personal savings, home equity, or family support",
+        "Life Insurance Conversion: Some policies allow accelerated death benefits"
+      ]
+    },
+    "decisionFramework": {
+      "qualityPriority": {
+        "recommendation": "Choose from Philadelphia's top-rated facilities",
+        "facilities": [
+          "LAFAYETTE-REDEEMER, THE"
+        ],
+        "reasoning": "These facilities score 75+ and demonstrate consistent excellence in health inspections, staffing, and quality measures. Worth the waitlist and premium pricing for peace of mind."
+      },
+      "medicaidNeeded": {
+        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
+        "facilities": [
+          "WILLOWCREST",
+          "SIMPSON HOUSE INC",
+          "GERMANTOWN HOME"
+        ],
+        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
+        "waitlistInfo": "Medicaid waitlists typically 1-3 months; apply early"
+      },
+      "urgentPlacement": {
+        "recommendation": "Contact these facilities first for fastest placement",
+        "facilities": [
+          "LAFAYETTE-REDEEMER, THE",
+          "WILLOWCREST",
+          "SIMPSON HOUSE INC"
+        ],
+        "alternatives": "Mid-tier facilities typically have 1-2 week availability. Push back on hospital discharge pressure to ensure adequate facility evaluation."
+      },
+      "budgetConstrained": {
+        "recommendation": "Focus on these value options with reasonable quality",
+        "facilities": [
+          "LAFAYETTE-REDEEMER, THE",
+          "WILLOWCREST",
+          "SIMPSON HOUSE INC"
+        ],
+        "costSavingTips": [
+          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
+          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
+          "Apply for Medicaid early: 45-60 day process; plan ahead",
+          "Check VA benefits: Veterans may qualify for Aid & Attendance",
+          "Consult elder law attorney: Medicaid planning can preserve assets"
+        ]
+      }
+    },
+    "faqs": [
+      {
+        "question": "How long are waitlists at top Philadelphia facilities?",
+        "answer": "Top facilities like LAFAYETTE-REDEEMER, THE usually have 2-3 month waitlists. Mid-tier options (scores 60-74) typically have 2-4 week availability. Apply early to multiple facilities.",
+        "category": "waitlist"
+      },
+      {
+        "question": "Which Philadelphia nursing homes accept Medicaid?",
+        "answer": "Approximately 9 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. PA Medicaid requires assets below $2,000 with 45-60 day application process.",
+        "category": "medicaid"
+      },
+      {
+        "question": "What makes LAFAYETTE-REDEEMER, THE worth the cost?",
+        "answer": "LAFAYETTE-REDEEMER, THE's 89 score reflects perfect 5-star health inspections, exceptional staffing levels, and solid quality performance. Premium pricing buys clinical excellence, experienced staff, better amenities, and peace of mind. However, only pay premium prices if financially sustainable without creating hardship.",
+        "category": "quality"
+      },
+      {
+        "question": "What should I look for during facility tours?",
+        "answer": "Key observations: (1) Staff interactions - are they attentive and kind? (2) Resident appearance - clean, groomed, engaged? (3) Facility odors - fresh or concerning smells? (4) Cleanliness throughout common areas and rooms. (5) Activity level - residents participating in programs? Red flags: Facilities with 1-2 star health inspections (5 in Philadelphia), immediate availability when others have waitlists, evasive answers about staffing, strong odors, or unkempt residents. Visit at varying times including evenings and weekends.",
+        "category": "quality"
+      },
+      {
+        "question": "What if I need urgent placement in Philadelphia today?",
+        "answer": "Best immediate options: Contact LAFAYETTE-REDEEMER, THE and WILLOWCREST first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact PA Senior Services hotline for urgent placement assistance.",
+        "category": "placement"
+      },
+      {
+        "question": "How much does nursing home care cost in Philadelphia?",
+        "answer": "Philadelphia nursing home costs average $333/day ($9,990/month) but vary significantly by quality tier. Premium facilities (90+ score): $666/day. Excellent options (75-89): $500/day. Mid-tier (60-74): $333/day. Budget options: $250/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
+        "category": "cost"
+      },
+      {
+        "question": "How do I pay for long-term nursing home care?",
+        "answer": "Payment options: (1) Medicare covers up to 100 days post-hospital (skilled nursing only), (2) PA Medicaid covers long-term care if assets below $2,000 (45-60 day application), (3) Long-Term Care Insurance accepted by most facilities, (4) Veterans Aid & Attendance provides up to $2,431/month, (5) Private pay from savings/home equity. Cost-saving strategy: Use Medicare first (100 days), then transition to Medicaid if eligible. Consult elder law attorney 6-12 months before placement for Medicaid planning and asset preservation strategies.",
+        "category": "cost"
+      },
+      {
+        "question": "How often should I visit after placement?",
+        "answer": "Recommended schedule: First 2 weeks - daily visits to ensure proper transition and catch issues early. Weeks 3-4 - every other day as comfort increases. Ongoing - 3-4x weekly at varying times (include evenings/weekends to see different staff shifts). Monitor: skin condition, cleanliness, hydration, meal consumption, mood changes, medication administration. Warning signs requiring immediate action: unexplained injuries, dramatic personality changes, weight loss, dehydration, soiled clothing, medication errors. Escalation: Charge nurse → Director of Nursing → Administrator → State PA Department of Health → Consider transfer.",
+        "category": "other"
+      }
+    ],
+    "localResources": {
+      "stateOmbudsman": {
+        "name": "PA Long-Term Care Ombudsman",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "areaAgencyOnAging": {
+        "name": "PA Area Agency on Aging",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "stateHealthDept": {
+        "name": "PA Department of Health",
+        "website": "#"
+      },
+      "elderLawReferral": {
+        "name": "PA State Bar Elder Law Section",
+        "website": "#"
+      }
+    },
+    "keyStats": {
+      "topTierCount": 1,
+      "medicaidFacilityCount": 9,
+      "averageWaitlistWeeks": 2,
+      "hasUrgentOptions": true,
+      "qualityGap": 77
+    }
+  }
 }
