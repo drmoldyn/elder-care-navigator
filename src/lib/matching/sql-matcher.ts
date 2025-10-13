@@ -225,7 +225,15 @@ async function fetchFacilityResources(
   }
 
   // Process sunsetwell_scores join to extract overall_score and overall_percentile
-  const processed = (data ?? []).map((resource: any) => {
+  type ResourceWithScores = ResourceRecord & {
+    sunsetwell_scores?: Array<{
+      overall_score?: number | null;
+      overall_percentile?: number | null;
+      calculation_date?: string;
+    }>;
+  };
+
+  const processed = (data ?? []).map((resource: ResourceWithScores) => {
     const scores = resource.sunsetwell_scores;
     const score = Array.isArray(scores) && scores.length > 0
       ? scores[0].overall_score

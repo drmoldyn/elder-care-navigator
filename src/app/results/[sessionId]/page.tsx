@@ -433,7 +433,7 @@ function ResultsPageContent() {
               {/* SunsetWell Score Badge - Mobile */}
               {resource.sunsetwell_score !== undefined && (
                 <div className="mb-2">
-                  <div className={`inline-flex items-baseline gap-1.5 px-3 py-1.5 rounded-lg font-bold text-sm ${
+                  <div className={`inline-block px-3 py-2 rounded-lg ${
                     resource.sunsetwell_score >= 90
                       ? "bg-green-700 text-white"
                       : resource.sunsetwell_score >= 75
@@ -444,11 +444,38 @@ function ResultsPageContent() {
                       ? "bg-orange-500 text-white"
                       : "bg-red-500 text-white"
                   }`}>
-                    <span>SunsetWell: {resource.sunsetwell_score.toFixed(0)}</span>
-                    {resource.sunsetwell_percentile !== undefined && (
-                      <span className="text-xs opacity-90">({resource.sunsetwell_percentile}%)</span>
+                    <div className="text-sm font-bold">
+                      SunsetWell Score: {resource.sunsetwell_score.toFixed(0)}
+                    </div>
+                    <div className="text-xs opacity-90 mt-0.5">
+                      {resource.sunsetwell_score >= 90
+                        ? "Excellent quality"
+                        : resource.sunsetwell_score >= 75
+                        ? "Very Good quality"
+                        : resource.sunsetwell_score >= 60
+                        ? "Good quality"
+                        : resource.sunsetwell_score >= 40
+                        ? "Fair quality"
+                        : "Needs improvement"}
+                    </div>
+                    {resource.sunsetwell_percentile !== undefined && sessionDetails?.state && (
+                      <div className="text-xs opacity-90 mt-1">
+                        {resource.sunsetwell_percentile >= 90
+                          ? `Top 10% in ${sessionDetails.state}`
+                          : resource.sunsetwell_percentile >= 75
+                          ? `Top 25% in ${sessionDetails.state}`
+                          : resource.sunsetwell_percentile >= 50
+                          ? `Above avg in ${sessionDetails.state}`
+                          : `${resource.sunsetwell_percentile}th %ile in ${sessionDetails.state}`}
+                      </div>
                     )}
                   </div>
+                  <a
+                    href="/about/scoring"
+                    className="inline-block mt-1 text-xs text-indigo-600 hover:text-indigo-800 underline"
+                  >
+                    What does this score mean?
+                  </a>
                 </div>
               )}
 
@@ -618,24 +645,51 @@ function ResultsPageContent() {
           </div>
 
           {/* SunsetWell Score - PROMINENT */}
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-0.5">
             {resource.sunsetwell_score !== undefined ? (
-              <div className={`inline-flex items-baseline gap-1.5 px-3 py-1.5 rounded-lg font-bold text-base ${
-                resource.sunsetwell_score >= 90
-                  ? "bg-green-700 text-white"
-                  : resource.sunsetwell_score >= 75
-                  ? "bg-green-500 text-white"
-                  : resource.sunsetwell_score >= 60
-                  ? "bg-yellow-400 text-gray-900"
-                  : resource.sunsetwell_score >= 40
-                  ? "bg-orange-500 text-white"
-                  : "bg-red-500 text-white"
-              }`}>
-                <span>{resource.sunsetwell_score.toFixed(0)}</span>
-                {resource.sunsetwell_percentile !== undefined && (
-                  <span className="text-xs opacity-90">({resource.sunsetwell_percentile}%)</span>
+              <>
+                <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg font-bold text-base ${
+                  resource.sunsetwell_score >= 90
+                    ? "bg-green-700 text-white"
+                    : resource.sunsetwell_score >= 75
+                    ? "bg-green-500 text-white"
+                    : resource.sunsetwell_score >= 60
+                    ? "bg-yellow-400 text-gray-900"
+                    : resource.sunsetwell_score >= 40
+                    ? "bg-orange-500 text-white"
+                    : "bg-red-500 text-white"
+                }`}>
+                  <span>{resource.sunsetwell_score.toFixed(0)}</span>
+                </div>
+                <div className="text-[10px] font-medium text-gray-700 text-center leading-tight">
+                  {resource.sunsetwell_score >= 90
+                    ? "Excellent"
+                    : resource.sunsetwell_score >= 75
+                    ? "Very Good"
+                    : resource.sunsetwell_score >= 60
+                    ? "Good"
+                    : resource.sunsetwell_score >= 40
+                    ? "Fair"
+                    : "Needs work"}
+                </div>
+                {resource.sunsetwell_percentile !== undefined && sessionDetails?.state && (
+                  <div className="text-[9px] text-gray-600 text-center leading-tight">
+                    {resource.sunsetwell_percentile >= 90
+                      ? `Top 10% (${sessionDetails.state})`
+                      : resource.sunsetwell_percentile >= 75
+                      ? `Top 25% (${sessionDetails.state})`
+                      : resource.sunsetwell_percentile >= 50
+                      ? `Above avg (${sessionDetails.state})`
+                      : `${resource.sunsetwell_percentile}th %ile`}
+                  </div>
                 )}
-              </div>
+                <a
+                  href="/about/scoring"
+                  className="text-[9px] text-indigo-600 hover:text-indigo-800 underline mt-0.5"
+                >
+                  What&apos;s this?
+                </a>
+              </>
             ) : (
               <span className="text-gray-400">—</span>
             )}
