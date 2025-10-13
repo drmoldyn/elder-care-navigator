@@ -3,6 +3,10 @@ import path from "path";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { getFacilitiesByFacilityIds } from "@/lib/facilities/queries";
+import { ensureAbsoluteUrl, formatPhoneNumber } from "@/lib/utils/url";
+import Image from "next/image";
+
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -38,12 +42,32 @@ function getTierLabel(score: number): string {
   return "Lower-Performing";
 }
 
-function getTierColor(score: number): string {
-  if (score >= 90) return "emerald";
-  if (score >= 75) return "blue";
-  if (score >= 60) return "sky";
-  if (score >= 40) return "slate";
-  return "gray";
+function getTierColorClasses(score: number) {
+  if (score >= 90) return {
+    border: "border-emerald-200 hover:border-emerald-400",
+    badge: "bg-emerald-100 text-emerald-700",
+    score: "text-emerald-700"
+  };
+  if (score >= 75) return {
+    border: "border-blue-200 hover:border-blue-400",
+    badge: "bg-blue-100 text-blue-700",
+    score: "text-blue-700"
+  };
+  if (score >= 60) return {
+    border: "border-sky-200 hover:border-sky-400",
+    badge: "bg-sky-100 text-sky-700",
+    score: "text-sky-700"
+  };
+  if (score >= 40) return {
+    border: "border-slate-200 hover:border-slate-400",
+    badge: "bg-slate-100 text-slate-700",
+    score: "text-slate-700"
+  };
+  return {
+    border: "border-gray-200 hover:border-gray-400",
+    badge: "bg-gray-100 text-gray-700",
+    score: "text-gray-700"
+  };
 }
 
 function getQualityAssessment(avgScore: number): string {
@@ -80,6 +104,22 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
   }
   const data = JSON.parse(fs.readFileSync(file, "utf8")) as MetroData;
 
+  const facilityIds = Array.from(
+    new Set(
+      data.table
+        .map((facility) => (facility.facilityId ? String(facility.facilityId) : null))
+        .filter((value): value is string => Boolean(value))
+    )
+  );
+
+  const facilitySummaries = await getFacilitiesByFacilityIds(facilityIds);
+  const facilitiesByFacilityId = new Map<string, typeof facilitySummaries[number]>();
+  facilitySummaries.forEach((facility) => {
+    if (facility.facilityId) {
+      facilitiesByFacilityId.set(facility.facilityId, facility);
+    }
+  });
+
   // Group facilities by tier
   const tierGroups = {
     exceptional: data.table.filter(f => f.score >= 90),
@@ -93,36 +133,53 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
   const qualityLevel = getQualityAssessment(avgScore);
 
   return (
-    <main className="mx-auto max-w-5xl p-6">
-      {/* Breadcrumbs */}
-      <nav className="text-sm text-gray-600 mb-6">
-        <Link href="/" className="hover:text-sunset-orange">Home</Link>
-        {' / '}
-        <Link href="/metros" className="hover:text-sunset-orange">Metro Rankings</Link>
-        {' / '}
-        <span className="text-gray-900 font-semibold">{data.metro}</span>
-      </nav>
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Hero Background */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero/hero-2.jpg"
+          alt={`Senior care in ${data.metro}`}
+          fill
+          className="object-cover"
+          quality={90}
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-sky-blue/40 via-sky-blue/25 to-transparent" />
+      </div>
 
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="font-serif text-4xl font-bold text-gray-900 mb-3">
-          Best Nursing Homes in {data.metro}
-        </h1>
-        <div className="flex flex-wrap gap-4 text-sm">
-          <div className="bg-white px-4 py-2 rounded-lg shadow-sm border">
-            <span className="text-gray-600">Facilities:</span>
-            <span className="ml-2 font-semibold text-gray-900">{data.count}</span>
-          </div>
-          <div className="bg-white px-4 py-2 rounded-lg shadow-sm border">
-            <span className="text-gray-600">Avg Score:</span>
-            <span className="ml-2 font-semibold text-gray-900">{avgScore.toFixed(1)}</span>
-          </div>
-          <div className="bg-white px-4 py-2 rounded-lg shadow-sm border">
-            <span className="text-gray-600">High-Performing:</span>
-            <span className="ml-2 font-semibold text-gray-900">{data.highPerformerShare}%</span>
+      <div className="mx-auto max-w-5xl p-6 relative z-10">
+        {/* Breadcrumbs */}
+        <nav className="text-sm text-white/90 mb-6">
+          <Link href="/" className="hover:text-sunset-orange">Home</Link>
+          {' / '}
+          <Link href="/metros" className="hover:text-sunset-orange">Metro Rankings</Link>
+          {' / '}
+          <span className="text-white font-semibold">{data.metro}</span>
+        </nav>
+
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="font-serif text-4xl font-bold text-white mb-3 drop-shadow-lg">
+            Best Nursing Homes in {data.metro}
+          </h1>
+          <div className="flex flex-wrap gap-4 text-sm">
+            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-lg shadow-md border border-white/20">
+              <span className="text-gray-600">Facilities:</span>
+              <span className="ml-2 font-semibold text-gray-900">{data.count}</span>
+            </div>
+            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-lg shadow-md border border-white/20">
+              <span className="text-gray-600">Avg Score:</span>
+              <span className="ml-2 font-semibold text-gray-900">{avgScore.toFixed(1)}</span>
+            </div>
+            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-lg shadow-md border border-white/20">
+              <span className="text-gray-600">High-Performing:</span>
+              <span className="ml-2 font-semibold text-gray-900">{data.highPerformerShare}%</span>
+            </div>
           </div>
         </div>
-      </div>
 
       {data.table.length === 0 ? (
         <div className="p-6 bg-amber-50 border border-amber-200 rounded-lg">
@@ -133,8 +190,8 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
         </div>
       ) : (
         <>
-          {/* Market Overview */}
-          <section className="mb-8 bg-white rounded-xl shadow-sm p-6 border">
+        {/* Market Overview */}
+        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Market Overview</h2>
             <p className="text-gray-700 leading-relaxed">
               {data.city}&apos;s skilled nursing landscape shows <strong>{qualityLevel} quality</strong> with {data.count} facilities
@@ -150,8 +207,8 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             )}
           </section>
 
-          {/* Score Distribution */}
-          <section className="mb-8 bg-white rounded-xl shadow-sm p-6 border">
+        {/* Score Distribution */}
+        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Score Distribution</h2>
             <div className="space-y-3">
               {[
@@ -180,15 +237,14 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             </div>
           </section>
 
-          {/* Tiered Facility Listings */}
-          {Object.entries(tierGroups).map(([key, facilities]) => {
-            if (facilities.length === 0) return null;
-            const score = facilities[0].score;
-            const tierLabel = getTierLabel(score);
-            const tierColor = getTierColor(score);
+        {/* Tiered Facility Listings */}
+        {Object.entries(tierGroups).map(([key, facilities]) => {
+          if (facilities.length === 0) return null;
+          const score = facilities[0].score;
+          const tierLabel = getTierLabel(score);
 
-            return (
-              <section key={key} className="mb-8 bg-white rounded-xl shadow-sm p-6 border">
+          return (
+            <section key={key} className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   {score >= 90 && '🏆 '}
                   {score >= 75 && score < 90 && '⭐ '}
@@ -197,48 +253,111 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                   {tierLabel} ({score >= 90 ? '90-100' : score >= 75 ? '75-89' : score >= 60 ? '60-74' : score >= 40 ? '40-59' : '0-39'})
                 </h2>
                 <div className="space-y-6">
-                  {facilities.map((facility) => (
-                    <div key={facility.facilityId} className={`border-2 border-${tierColor}-200 rounded-lg p-5 hover:border-${tierColor}-400 hover:shadow-md transition-all`}>
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className={`flex items-center justify-center w-10 h-10 rounded-full bg-${tierColor}-100 text-${tierColor}-700 font-bold`}>
-                              #{facility.rank}
-                            </span>
-                            <h3 className="text-xl font-bold text-gray-900">{facility.title}</h3>
+                  {facilities.map((facility) => {
+                    const facilityColors = getTierColorClasses(facility.score);
+                    const summary = facilitiesByFacilityId.get(String(facility.facilityId));
+                    const websiteUrl = summary?.website ? ensureAbsoluteUrl(summary.website) : null;
+                    const phoneDisplay = summary?.phone ? formatPhoneNumber(summary.phone) ?? summary.phone : null;
+                    const addressLine = summary
+                      ? [summary.address, summary.city, summary.state, summary.zipCode]
+                          .filter(Boolean)
+                          .join(", ")
+                      : null;
+                    const profileHref = summary ? `/facility/${summary.id}` : null;
+
+                    return (
+                      <div key={facility.facilityId} className={`border-2 ${facilityColors.border} rounded-lg p-5 hover:shadow-md transition-all`}>
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className={`flex items-center justify-center w-10 h-10 rounded-full ${facilityColors.badge} font-bold`}>
+                                #{facility.rank}
+                              </span>
+                              <div>
+                                <h3 className="text-xl font-bold text-gray-900">
+                                  {profileHref ? (
+                                    <Link href={profileHref} className="hover:text-sunset-orange">
+                                      {facility.title}
+                                    </Link>
+                                  ) : (
+                                    facility.title
+                                  )}
+                                </h3>
+                                {addressLine && (
+                                  <p className="text-sm text-slate-600 mt-1">{addressLine}</p>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                              <div>
+                                <span className="font-medium">Health:</span> {facility.health ? '⭐'.repeat(facility.health) : '—'}
+                              </div>
+                              <div>
+                                <span className="font-medium">Staffing:</span> {facility.staffing ? '⭐'.repeat(facility.staffing) : '—'}
+                              </div>
+                              <div>
+                                <span className="font-medium">Quality:</span> {facility.quality ? '⭐'.repeat(facility.quality) : '—'}
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                            <div>
-                              <span className="font-medium">Health:</span> {facility.health ? '⭐'.repeat(facility.health) : '—'}
+                          <div className="text-right">
+                            <div className={`inline-flex items-baseline gap-2 px-4 py-2 rounded-lg font-bold text-2xl ${
+                              facility.score >= 90
+                                ? "bg-green-700 text-white"
+                                : facility.score >= 75
+                                ? "bg-green-500 text-white"
+                                : facility.score >= 60
+                                ? "bg-yellow-400 text-gray-900"
+                                : facility.score >= 40
+                                ? "bg-orange-500 text-white"
+                                : "bg-red-500 text-white"
+                            }`}>
+                              <span>{facility.score}</span>
+                              <span className="text-base opacity-90">({facility.percentile}%)</span>
                             </div>
-                            <div>
-                              <span className="font-medium">Staffing:</span> {facility.staffing ? '⭐'.repeat(facility.staffing) : '—'}
-                            </div>
-                            <div>
-                              <span className="font-medium">Quality:</span> {facility.quality ? '⭐'.repeat(facility.quality) : '—'}
+                            <div className="text-xs text-gray-500 mt-2">
+                              {facility.score >= 90 ? "Exceptional" : facility.score >= 75 ? "Excellent" : facility.score >= 60 ? "Good" : facility.score >= 40 ? "Average" : "Below Average"}
                             </div>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <div className={`text-4xl font-bold text-${tierColor}-700`}>{facility.score}</div>
-                          <div className="text-xs text-gray-500 mt-1">SunsetWell Score</div>
+                        {facility.score < 40 && (
+                          <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-900">
+                            <strong>⚠️ Note:</strong> Lower scores indicate quality concerns. Families should carefully review current state inspection reports,
+                            conduct thorough personal tours, and verify current staffing levels before making decisions.
+                          </div>
+                        )}
+                        <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
+                          {phoneDisplay && (
+                            <span className="flex items-center gap-1">
+                              📞 {phoneDisplay}
+                            </span>
+                          )}
+                          {websiteUrl && (
+                            <a
+                              href={websiteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sunset-orange hover:underline"
+                            >
+                              Visit website →
+                            </a>
+                          )}
+                          {profileHref && (
+                            <Link href={profileHref} className="text-slate-600 hover:text-sunset-orange">
+                              View SunsetWell profile →
+                            </Link>
+                          )}
                         </div>
                       </div>
-                      {facility.score < 40 && (
-                        <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-900">
-                          <strong>⚠️ Note:</strong> Lower scores indicate quality concerns. Families should carefully review current state inspection reports,
-                          conduct thorough personal tours, and verify current staffing levels before making decisions.
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             );
           })}
 
-          {/* Decision Guide */}
-          <section className="mb-8 bg-gradient-to-br from-lavender/20 to-sky-blue/20 rounded-xl p-6">
+        {/* Decision Guide */}
+        <section className="mb-8 bg-white/90 backdrop-blur-md rounded-xl p-6 border border-lavender/40 shadow-md">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">How to Choose the Right Facility</h2>
             <div className="space-y-4 text-gray-700">
               {tierGroups.exceptional.length + tierGroups.excellent.length > 0 && (
@@ -270,8 +389,8 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             </div>
           </section>
 
-          {/* Comparison Table */}
-          <section className="mb-8 bg-white rounded-xl shadow-sm p-6 border overflow-x-auto">
+        {/* Comparison Table */}
+        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20 overflow-x-auto">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Detailed Comparison</h2>
             <table className="w-full text-sm">
               <thead className="bg-gray-50">
@@ -279,7 +398,7 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                   <th className="px-4 py-3 text-left font-semibold text-gray-900">Rank</th>
                   <th className="px-4 py-3 text-left font-semibold text-gray-900">Facility</th>
                   <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                    <div>Score</div>
+                    <div>SunsetWell Score<sup className="text-[10px]">®</sup></div>
                     <div className="text-xs font-normal text-gray-500 mt-1">
                       (0-100 weighted)
                     </div>
@@ -296,10 +415,37 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {data.table.map((facility) => (
+                {data.table.map((facility) => {
+                  const summary = facilitiesByFacilityId.get(String(facility.facilityId));
+                  const websiteUrl = summary?.website ? ensureAbsoluteUrl(summary.website) : null;
+                  const profileHref = summary ? `/facility/${summary.id}` : null;
+
+                  return (
                   <tr key={facility.facilityId} className="hover:bg-gray-50">
                     <td className="px-4 py-3 text-center font-semibold">{facility.rank}</td>
-                    <td className="px-4 py-3">{facility.title}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex flex-col gap-1">
+                        {profileHref ? (
+                          <Link href={profileHref} className="font-semibold text-slate-900 hover:text-sunset-orange">
+                            {facility.title}
+                          </Link>
+                        ) : (
+                          <span className="font-semibold text-slate-900">{facility.title}</span>
+                        )}
+                        <div className="flex flex-wrap gap-3 text-xs text-slate-600">
+                          {websiteUrl && (
+                            <a
+                              href={websiteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sunset-orange hover:underline"
+                            >
+                              Visit website
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </td>
                     <td className="px-4 py-3 text-center">
                       <span className={`font-bold ${
                         facility.score >= 90 ? 'text-emerald-700' :
@@ -315,13 +461,14 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                     <td className="px-4 py-3 text-center">{facility.staffing ? '⭐'.repeat(facility.staffing) : '—'}</td>
                     <td className="px-4 py-3 text-center">{facility.quality ? '⭐'.repeat(facility.quality) : '—'}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </section>
 
-          {/* Resources */}
-          <section className="mb-8 bg-white rounded-xl shadow-sm p-6 border">
+        {/* Resources */}
+        <section className="mb-8 bg-white/95 backdrop-blur-md rounded-xl shadow-md p-6 border border-white/20">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Additional Resources</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -343,8 +490,8 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             </div>
           </section>
 
-          {/* Disclaimer */}
-          <div className="p-4 bg-gray-100 rounded-lg text-xs text-gray-600">
+        {/* Disclaimer */}
+        <div className="p-4 bg-white/95 backdrop-blur-md rounded-lg text-xs text-gray-700 shadow-md border border-white/20">
             <p className="mb-2">
               <strong>Disclaimer:</strong> This guide is educational only. SunsetWell scores are based on CMS data and peer-group analysis.
               Always tour facilities personally, speak with staff, review current state inspection reports, and consult healthcare
@@ -353,10 +500,10 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             <p>
               Last updated: January 2025 | Data source: CMS Nursing Home Compare, State Health Departments, SunsetWell Analysis
             </p>
-          </div>
-        </>
-      )}
+        </div>
+      </>
+    )}
+      </div>
     </main>
   );
 }
-

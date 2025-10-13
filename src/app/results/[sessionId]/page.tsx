@@ -50,6 +50,7 @@ interface Resource {
   staffing_rating?: number;
   quality_measure_rating?: number;
   sunsetwell_score?: number; // 0-100 composite score
+  sunsetwell_percentile?: number; // Peer-adjusted percentile ranking
   distance?: number; // Distance in miles from user's location
   latitude?: number | null;
   longitude?: number | null;
@@ -429,6 +430,28 @@ function ResultsPageContent() {
                 )}
               </div>
 
+              {/* SunsetWell Score Badge - Mobile */}
+              {resource.sunsetwell_score !== undefined && (
+                <div className="mb-2">
+                  <div className={`inline-flex items-baseline gap-1.5 px-3 py-1.5 rounded-lg font-bold text-sm ${
+                    resource.sunsetwell_score >= 90
+                      ? "bg-green-700 text-white"
+                      : resource.sunsetwell_score >= 75
+                      ? "bg-green-500 text-white"
+                      : resource.sunsetwell_score >= 60
+                      ? "bg-yellow-400 text-gray-900"
+                      : resource.sunsetwell_score >= 40
+                      ? "bg-orange-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}>
+                    <span>SunsetWell: {resource.sunsetwell_score.toFixed(0)}</span>
+                    {resource.sunsetwell_percentile !== undefined && (
+                      <span className="text-xs opacity-90">({resource.sunsetwell_percentile}%)</span>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {resource.address && (
                 <p className="text-sm text-gray-600">
                   {resource.address}, {resource.city}, {resource.state}
@@ -596,12 +619,26 @@ function ResultsPageContent() {
 
           {/* SunsetWell Score - PROMINENT */}
           <div className="flex items-center justify-center">
-            <div
-              className={`px-4 py-2 rounded-lg font-bold text-lg ${getSunsetWellScoreColor(resource.sunsetwell_score)}`}
-              title={getSunsetWellScoreTooltip(resource.sunsetwell_score)}
-            >
-              {getSunsetWellScoreBadge(resource.sunsetwell_score)}
-            </div>
+            {resource.sunsetwell_score !== undefined ? (
+              <div className={`inline-flex items-baseline gap-1.5 px-3 py-1.5 rounded-lg font-bold text-base ${
+                resource.sunsetwell_score >= 90
+                  ? "bg-green-700 text-white"
+                  : resource.sunsetwell_score >= 75
+                  ? "bg-green-500 text-white"
+                  : resource.sunsetwell_score >= 60
+                  ? "bg-yellow-400 text-gray-900"
+                  : resource.sunsetwell_score >= 40
+                  ? "bg-orange-500 text-white"
+                  : "bg-red-500 text-white"
+              }`}>
+                <span>{resource.sunsetwell_score.toFixed(0)}</span>
+                {resource.sunsetwell_percentile !== undefined && (
+                  <span className="text-xs opacity-90">({resource.sunsetwell_percentile}%)</span>
+                )}
+              </div>
+            ) : (
+              <span className="text-gray-400">—</span>
+            )}
           </div>
 
           {/* Actions */}

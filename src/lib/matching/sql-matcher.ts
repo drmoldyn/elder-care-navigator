@@ -17,7 +17,7 @@ export interface ResourceRecord {
   available_beds?: number | null;
   overall_rating?: number | null;
   sunsetwell_score?: number | null;
-  facility_scores?: Array<{ score: number }> | null;
+  sunsetwell_percentile?: number | null;
   service_area_match?: boolean;
   service_area_zip?: string;
   distance?: number;
@@ -164,11 +164,10 @@ async function fetchFacilityResources(
     .from("resources")
     .select(`
       *,
-      facility_scores!left(score, version, calculated_at)
+      sunsetwell_scores!left(overall_score, overall_percentile, calculation_date)
     `)
-    .eq("facility_scores.version", "v2")
-    .order("calculated_at", { ascending: false, referencedTable: "facility_scores" })
-    .limit(1, { referencedTable: "facility_scores" });
+    .order("calculation_date", { ascending: false, referencedTable: "sunsetwell_scores" })
+    .limit(1, { referencedTable: "sunsetwell_scores" });
 
   if (filters.zipCodes && filters.zipCodes.length > 0) {
     const primaryZip = filters.zipCodes[0];
@@ -225,15 +224,21 @@ async function fetchFacilityResources(
     throw new Error(`Failed to match resources: ${error.message}`);
   }
 
-  // Process facility_scores join to extract sunsetwell_score
-  const processed = (data ?? []).map((resource: ResourceRecord) => {
-    const score = Array.isArray(resource.facility_scores) && resource.facility_scores.length > 0
-      ? resource.facility_scores[0].score
+  // Process sunsetwell_scores join to extract overall_score and overall_percentile
+  const processed = (data ?? []).map((resource: any) => {
+    const scores = resource.sunsetwell_scores;
+    const score = Array.isArray(scores) && scores.length > 0
+      ? scores[0].overall_score
+      : null;
+    const percentile = Array.isArray(scores) && scores.length > 0
+      ? scores[0].overall_percentile
       : null;
 
     return {
       ...resource,
       sunsetwell_score: typeof score === "number" ? score : null,
+      sunsetwell_percentile: typeof percentile === "number" ? percentile : null,
+      sunsetwell_scores: undefined, // Remove the joined array from the result
     };
   });
 

@@ -43,13 +43,25 @@ export function getStarRating(rating: number | undefined): string {
 }
 
 /**
+ * Returns label for SunsetWell Score
+ */
+export function getSunsetWellScoreLabel(score: number | undefined): string {
+  if (!score) return '—';
+  if (score >= 90) return 'Exceptional';
+  if (score >= 75) return 'Excellent';
+  if (score >= 60) return 'Good';
+  if (score >= 40) return 'Average';
+  return 'Below Average';
+}
+
+/**
  * Returns tooltip text explaining SunsetWell Score
  */
 export function getSunsetWellScoreTooltip(score: number | undefined): string {
   if (!score) return 'Score not yet available';
-  if (score >= 90) return 'Exceptional quality - significantly above peer average';
-  if (score >= 75) return 'High quality - above peer average';
-  if (score >= 60) return 'Good quality - near peer average';
-  if (score >= 40) return 'Below average quality - below peer average';
-  return 'Poor quality - significantly below peer average';
+  if (score >= 90) return 'Exceptional';
+  if (score >= 75) return 'Excellent';
+  if (score >= 60) return 'Good';
+  if (score >= 40) return 'Average';
+  return 'Below Average';
 }

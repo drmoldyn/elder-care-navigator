@@ -8,7 +8,10 @@ export interface LocationFacility {
   states: string[] | null;
   address: string | null;
   phone: string | null;
+  website: string | null;
+  zip_code: string | null;
   sunsetwell_score: number;
+  sunsetwell_percentile: number | null;
   // Specific metrics for description
   health_inspection_rating?: number | null;
   staffing_rating?: number | null;
@@ -72,14 +75,17 @@ export async function getLocationData(
       city,
       states,
       street_address,
+      zip_code,
+      phone,
+      website,
       health_inspection_rating,
       staffing_rating,
       quality_measure_rating,
       total_nurse_hours_per_resident_per_day,
-      facility_scores!inner(score, version)
+      sunsetwell_scores!inner(overall_score, overall_percentile, calculation_date)
     `
     )
-    .eq("facility_scores.version", "v2")
+    .order("calculation_date", { ascending: false, referencedTable: "sunsetwell_scores" })
     .ilike("city", `%${city}%`)
     .contains("states", [state]);
 
@@ -95,11 +101,11 @@ export async function getLocationData(
   // Process facilities with scores
   const facilities: LocationFacility[] = data
     .filter((facility) => {
-      const scores = facility.facility_scores as unknown as Array<{ score: number }>;
+      const scores = facility.sunsetwell_scores as unknown as Array<{ overall_score: number; overall_percentile: number | null }>;
       return Array.isArray(scores) && scores.length > 0;
     })
     .map((facility) => {
-      const scores = facility.facility_scores as unknown as Array<{ score: number }>;
+      const scores = facility.sunsetwell_scores as unknown as Array<{ overall_score: number; overall_percentile: number | null }>;
       return {
         id: facility.id,
         title: facility.title,
@@ -107,8 +113,11 @@ export async function getLocationData(
         city: facility.city,
         states: facility.states,
         address: facility.street_address,
-        phone: null,
-        sunsetwell_score: scores[0].score,
+        phone: facility.phone ?? null,
+        website: facility.website ?? null,
+        zip_code: facility.zip_code ?? null,
+        sunsetwell_score: scores[0].overall_score,
+        sunsetwell_percentile: scores[0].overall_percentile ?? null,
         health_inspection_rating: facility.health_inspection_rating,
         staffing_rating: facility.staffing_rating,
         quality_measure_rating: facility.quality_measure_rating,
@@ -154,8 +163,7 @@ export async function getAvailableLocations(): Promise<
 
   const { data, error } = await supabase
     .from("resources")
-    .select("city, states, facility_scores!inner(score, version)")
-    .eq("facility_scores.version", "v2")
+    .select("city, states, sunsetwell_scores!inner(overall_score, calculation_date)")
     .not("city", "is", null)
     .not("states", "is", null);
 
@@ -194,8 +202,7 @@ export async function getTopRankedLocations(limit: number = 51): Promise<
 
   const { data, error } = await supabase
     .from("resources")
-    .select("city, states, facility_scores!inner(score, version)")
-    .eq("facility_scores.version", "v2")
+    .select("city, states, sunsetwell_scores!inner(overall_score, calculation_date)")
     .not("city", "is", null)
     .not("states", "is", null);
 
