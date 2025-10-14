@@ -11,7 +11,10 @@
     "revalidate": "tsx scripts/revalidate.ts",
     "seed:zips": "tsx scripts/seed-zip-geocode.ts",
     "migration:new": "tsx scripts/new-migration.ts",
-    "migration:check": "tsx scripts/check-migration-prefixes.ts"
+    "migration:check": "tsx scripts/check-migration-prefixes.ts",
+    "migration:run": "tsx scripts/migrate.ts",
+    "migration:convert": "tsx scripts/convert-migrations-to-timestamped.ts",
+    "migration:convert:apply": "tsx scripts/convert-migrations-to-timestamped.ts --apply"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^2.0.1",

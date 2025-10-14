@@ -16,6 +16,12 @@ Utilities for data generation, migrations, and ops.
   - `pnpm tsx scripts/check-migration-prefixes.ts` (warn)
   - `pnpm tsx scripts/check-migration-prefixes.ts --strict` (fail on dupes)
 
+- Run a migration file:
+  - Batch: `pnpm migration:run --file supabase/migrations/<file>.sql`
+  - Split statements: `pnpm migration:run --file supabase/migrations/<file>.sql --split`
+  - Dry-run (no execution): `pnpm migration:run --file supabase/migrations/<file>.sql --dry-run`
+  - Uses `scripts/lib/exec-sql.ts` which prefers `{ query }` param; falls back for compatibility.
+
 ## Sitemaps & Revalidation
 - Generate sitemap is handled by Next.js at `src/app/sitemap.ts` (single sitemap policy).
 - Build revalidation payloads for changed facilities/locations:
@@ -32,4 +38,3 @@ Utilities for data generation, migrations, and ops.
     - Uses multi-state allowances and city alias expansions.
     - Guarantees up to 20 items via state-level top-ups.
     - Marks top-up entries with `topUp: true` for UI disclosure.
-

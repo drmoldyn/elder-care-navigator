@@ -20,4 +20,5 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: Check duplicate migration prefixes (non-strict)
         run: pnpm tsx scripts/check-migration-prefixes.ts
-
+      - name: Check timestamped naming for new migrations
+        run: pnpm tsx scripts/check-migration-names.ts

@@ -62,6 +62,8 @@ jobs:
       # Prefer explicit input; fall back to secret
       REVALIDATE_BASE_URL: ${{ inputs.base_url || secrets.REVALIDATE_BASE_URL }}
       REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -106,6 +108,13 @@ jobs:
           echo "Payload:" && cat revalidate.json
           echo "::endgroup::"
 
+      - name: Optional fallback — Generate payload from Supabase (latest scores)
+        if: ${{ !inputs.payload && !inputs.facility_ids && !inputs.location_slugs && !inputs.paths && env.SUPABASE_SERVICE_ROLE_KEY != '' && env.NEXT_PUBLIC_SUPABASE_URL != '' }}
+        run: |
+          echo "Generating payload from Supabase (latest sunsetwell_scores)" >&2
+          pnpm tsx scripts/generate-revalidate-list.ts
+          test -f revalidate.json && echo "Generated revalidate.json:" && cat revalidate.json || (echo "Failed to generate revalidate.json" >&2; exit 1)
+
       - name: Revalidate
         shell: bash
         run: |
@@ -115,4 +124,3 @@ jobs:
             exit 1
           fi
           pnpm revalidate revalidate.json
-

@@ -1,0 +1,76 @@
+name: Apply Supabase Migrations
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "Optional: specific migration file to apply"
+        required: false
+        type: string
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate secrets
+        shell: bash
+        run: |
+          if [[ -z "${NEXT_PUBLIC_SUPABASE_URL}" || -z "${SUPABASE_SERVICE_ROLE_KEY}" ]]; then
+            echo "Supabase secrets not configured; skipping apply." >&2
+            exit 78 # neutral
+          fi
+
+      - name: Apply specific migration (manual input)
+        if: ${{ inputs.file != '' }}
+        run: pnpm tsx scripts/migrate.ts --file "${{ inputs.file }}" --split
+
+      - name: Determine changed migrations (push)
+        id: changed
+        if: ${{ inputs.file == '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE=${{ github.event.before }}
+          SHA=${{ github.sha }}
+          echo "before=$BEFORE" >> $GITHUB_OUTPUT
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          CHANGED=$(git diff --name-only "$BEFORE" "$SHA" | grep '^supabase/migrations/.*\.sql$' || true)
+          echo "changed<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo EOF >> $GITHUB_OUTPUT
+
+      - name: Apply changed migrations (in order)
+        if: ${{ inputs.file == '' && steps.changed.outputs.changed != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Applying changed migration files:" >&2
+          printf "%s\n" "${{ steps.changed.outputs.changed }}" | sort | while read -r file; do
+            echo "→ $file" >&2
+            pnpm tsx scripts/migrate.ts --file "$file" --split
+          done
+
+      - name: No changed migrations
+        if: ${{ inputs.file == '' && steps.changed.outputs.changed == '' }}
+        run: echo "No migration changes detected."
+

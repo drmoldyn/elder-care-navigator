@@ -22,9 +22,20 @@ export async function execSql(
     }
     if (!error) return { ok: true };
 
-    // REST fallback
+    // REST fallback: try exec_sql endpoint
     if (opts.supabaseUrl && opts.serviceKey) {
-      const resp = await fetch(`${opts.supabaseUrl}/rest/v1/rpc/exec`, {
+      let resp = await fetch(`${opts.supabaseUrl}/rest/v1/rpc/exec_sql`, {
+        method: 'POST',
+        headers: {
+          apikey: opts.serviceKey,
+          Authorization: `Bearer ${opts.serviceKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: statement }),
+      });
+      if (resp.ok) return { ok: true };
+      // Compatibility fallback to exec (older deployments)
+      resp = await fetch(`${opts.supabaseUrl}/rest/v1/rpc/exec`, {
         method: 'POST',
         headers: {
           apikey: opts.serviceKey,
@@ -41,4 +52,3 @@ export async function execSql(
     return { ok: false, error: err };
   }
 }
-

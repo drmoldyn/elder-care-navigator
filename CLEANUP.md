@@ -80,7 +80,7 @@ This report catalogs places to clean up, dedupe, archive, enhance, or fix for lo
   - New: `scripts/lib/exec-sql.ts`
   - Updated to use helper: `scripts/apply-migration.ts`, `scripts/run-service-area-migration.ts`, `scripts/add-geocoding-columns-supabase.ts`
   - Script documentation: Added `scripts/README.md` covering common tasks.
-  - Remaining: Consider consolidating separate migration helpers into a single CLI with flags.
+  - Unified CLI: `scripts/migrate.ts` (with `pnpm migration:run`) for batch/split/manual modes.
 - ESLint warnings:
   - `src/app/navigator/page.tsx:37` unused `googleApiKey` (follow-up removal recommended).
   - `src/components/navigator/map-view.tsx` unused var removed.
@@ -103,7 +103,7 @@ This report catalogs places to clean up, dedupe, archive, enhance, or fix for lo
 ## Suggested Next Steps (Quick Wins)
 - Rotate Supabase keys; remove `.env.local` from repo (and purge from history if needed).
 - Run `pnpm migration:check --strict` locally and plan to remove/rename legacy duplicates over time.
-- Confirm DB `exec_sql` function signature uses `query text`; once confirmed, we can remove the `{ sql }` fallback in the helper.
+  - Define/confirm DB `exec_sql(query text)` in Supabase; once present, remove the `{ sql }` and REST fallbacks in the helper.
 - Results map replacement completed; monitor for UX improvements.
 - Decide on multi-sitemap strategy; update robots and docs accordingly.
 - Add README to `docs/ARCHIVE` and move duplicates into `deprecated/` with pointers to current docs.

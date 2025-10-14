@@ -75,6 +75,7 @@ export const metadata: Metadata = {
   verification: {
     // Add your verification tokens when available
     // google: 'your-google-verification-code',
+    // google: 'paste-your-adsense-verification-code-here', // Uncomment and add when you receive it from AdSense
   },
 };
 
