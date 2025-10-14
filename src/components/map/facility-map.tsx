@@ -79,7 +79,16 @@ function createInfoWindowContent(resource: MapResource, distanceText: string): H
   const title = document.createElement("h3");
   title.style.margin = "0 0 6px 0";
   title.style.fontWeight = "600";
-  title.textContent = resource.title;
+  // Link to Google Maps search for the facility (website may not be available in map data)
+  const query = encodeURIComponent(`${resource.title} ${resource.address || ''} ${resource.city || ''} ${resource.state || ''}`);
+  const titleAnchor = document.createElement("a");
+  titleAnchor.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  titleAnchor.target = "_blank";
+  titleAnchor.rel = "noopener noreferrer";
+  titleAnchor.style.color = "#1f2937"; // gray-900
+  titleAnchor.style.textDecoration = "underline";
+  titleAnchor.textContent = resource.title;
+  title.appendChild(titleAnchor);
   container.appendChild(title);
 
   if (resource.address || resource.city || resource.state || resource.zip) {

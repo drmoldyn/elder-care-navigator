@@ -1,0 +1,118 @@
+name: Revalidate Cached Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Base URL of the deployed site (e.g. https://sunsetwell.com)"
+        required: false
+        type: string
+      payload:
+        description: "Raw JSON payload for /api/revalidate"
+        required: false
+        type: string
+      facility_ids:
+        description: "Comma-separated facility IDs"
+        required: false
+        type: string
+      location_slugs:
+        description: "Comma-separated location slugs (e.g. los-angeles-ca)"
+        required: false
+        type: string
+      paths:
+        description: "Comma-separated absolute paths (e.g. /facility/abc,/locations/los-angeles-ca)"
+        required: false
+        type: string
+      revalidate_locations_index:
+        description: "Also revalidate /locations"
+        required: false
+        default: false
+        type: boolean
+
+  workflow_call:
+    inputs:
+      base_url:
+        required: false
+        type: string
+      payload:
+        required: false
+        type: string
+      facility_ids:
+        required: false
+        type: string
+      location_slugs:
+        required: false
+        type: string
+      paths:
+        required: false
+        type: string
+      revalidate_locations_index:
+        required: false
+        type: boolean
+    secrets:
+      REVALIDATE_SECRET:
+        required: true
+      REVALIDATE_BASE_URL:
+        required: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      # Prefer explicit input; fall back to secret
+      REVALIDATE_BASE_URL: ${{ inputs.base_url || secrets.REVALIDATE_BASE_URL }}
+      REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build revalidate payload
+        id: build_payload
+        shell: bash
+        env:
+          INPUT_PAYLOAD: ${{ inputs.payload }}
+          INPUT_FACILITY_IDS: ${{ inputs.facility_ids }}
+          INPUT_LOCATION_SLUGS: ${{ inputs.location_slugs }}
+          INPUT_PATHS: ${{ inputs.paths }}
+          INPUT_REVALIDATE_LOCATIONS_INDEX: ${{ inputs.revalidate_locations_index }}
+        run: |
+          set -euo pipefail
+          echo "::group::Compose payload"
+          if [[ -n "${INPUT_PAYLOAD:-}" ]]; then
+            echo "$INPUT_PAYLOAD" > revalidate.json
+          else
+            FACILITY_IDS_JSON=$(jq -R -s -c 'split(",") | map(. | tostring | gsub("\\s+"; "") ) | map(select(length>0))' <<< "${INPUT_FACILITY_IDS:-}")
+            LOCATION_SLUGS_JSON=$(jq -R -s -c 'split(",") | map(. | tostring | gsub("\\s+"; "") ) | map(select(length>0))' <<< "${INPUT_LOCATION_SLUGS:-}")
+            PATHS_JSON=$(jq -R -s -c 'split(",") | map(. | tostring | gsub("\\s+"; "") ) | map(select(length>0))' <<< "${INPUT_PATHS:-}")
+            REINDEX=${INPUT_REVALIDATE_LOCATIONS_INDEX:-false}
+            jq -n --argjson facilityIds "${FACILITY_IDS_JSON:-[]}" \
+                  --argjson locationSlugs "${LOCATION_SLUGS_JSON:-[]}" \
+                  --argjson paths "${PATHS_JSON:-[]}" \
+                  --argjson revalidateLocationsIndex "$REINDEX" \
+                  '{facilityIds: $facilityIds, locationSlugs: $locationSlugs, paths: $paths, revalidateLocationsIndex: $revalidateLocationsIndex}' > revalidate.json
+          fi
+          echo "Payload:" && cat revalidate.json
+          echo "::endgroup::"
+
+      - name: Revalidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${REVALIDATE_BASE_URL:-}" ]]; then
+            echo "REVALIDATE_BASE_URL not set. Provide inputs.base_url or repo secret REVALIDATE_BASE_URL" >&2
+            exit 1
+          fi
+          pnpm revalidate revalidate.json
+

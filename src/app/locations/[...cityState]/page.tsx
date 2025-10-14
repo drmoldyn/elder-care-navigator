@@ -151,7 +151,18 @@ export default async function LocationPage({ params }: LocationPageProps) {
                       <div className="flex items-start gap-3">
                         <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-sunset-orange/10 text-sunset-orange font-semibold text-sm">{index + 1}</span>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-base md:text-lg font-semibold text-slate-900 truncate">{facility.title}</h3>
+                          <h3 className="text-base md:text-lg font-semibold text-slate-900 truncate">
+                            {(() => {
+                              const websiteUrl = facility.website && facility.website.trim() ? (ensureAbsoluteUrl(facility.website) || null) : null;
+                              const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility.title} ${facility.address || ''} ${facility.city || ''} ${state || ''}`)}`;
+                              const href = websiteUrl ?? mapsUrl;
+                              return (
+                                <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-sunset-orange">
+                                  {facility.title}
+                                </a>
+                              );
+                            })()}
+                          </h3>
                           <p className="text-xs md:text-sm text-slate-500 capitalize">{facility.provider_type.replace("_", " ")}</p>
                           {facility.address && (<p className="text-xs md:text-sm text-slate-600 mt-1">{facility.address}</p>)}
                         </div>

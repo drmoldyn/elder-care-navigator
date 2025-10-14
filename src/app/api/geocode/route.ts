@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getOrFetchZipCoordinates } from "@/lib/location/geocode-server";
+import { rateLimit } from "@/lib/middleware/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  // Lightweight rate limit to prevent abuse and external API costs
+  const { allowed, resetAt } = rateLimit(request, { max: 30, windowMs: 15 * 60 * 1000 });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded" },
+      { status: 429, headers: { "X-RateLimit-Reset": new Date(resetAt).toISOString() } }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const zipParam = searchParams.get("zip")?.trim();
 
@@ -22,8 +32,8 @@ export async function GET(request: NextRequest) {
 
     if (!coords) {
       return NextResponse.json(
-        { error: "Unable to geocode ZIP", zip },
-        { status: 502 }
+        { error: "ZIP not found in cache", zip },
+        { status: 404 }
       );
     }
 

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "import:resources": "tsx scripts/import-resources.ts",
-    "revalidate": "tsx scripts/revalidate.ts"
+    "revalidate": "tsx scripts/revalidate.ts",
+    "seed:zips": "tsx scripts/seed-zip-geocode.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^2.0.1",

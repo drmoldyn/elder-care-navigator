@@ -217,6 +217,25 @@ function main() {
     }
   }
 
+  // 5) Generate revalidation list and call revalidate
+  try {
+    logHeader("Generate revalidation list");
+    runTask({
+      title: "Build revalidation payload (latest scores)",
+      command: "pnpm",
+      args: ["tsx", "scripts/generate-revalidate-list.ts"],
+    });
+
+    logHeader("Revalidate cached pages");
+    runTask({
+      title: "POST /api/revalidate with payload",
+      command: "pnpm",
+      args: ["revalidate", "revalidate.json"],
+    });
+  } catch (err) {
+    console.warn("⚠️  Revalidation step failed (continuing):", (err as Error)?.message);
+  }
+
   logHeader("Data refresh completed successfully");
 }
 

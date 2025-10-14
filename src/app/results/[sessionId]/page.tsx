@@ -412,7 +412,11 @@ function ResultsPageContent() {
         <div className="md:hidden p-4">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex-1">
-              <h3 className="font-bold text-lg text-gray-900 mb-2">{resource.title}</h3>
+              <h3 className="font-bold text-lg text-gray-900 mb-2">
+                <a href={websiteUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-700">
+                  {resource.title}
+                </a>
+              </h3>
 
               {/* Distance and Rating - Prominent on Mobile */}
               <div className="flex items-center gap-3 mb-2">
@@ -603,7 +607,11 @@ function ResultsPageContent() {
 
           {/* Facility Name + Address */}
           <div>
-            <h3 className="font-semibold text-gray-900">{resource.title}</h3>
+            <h3 className="font-semibold text-gray-900">
+              <a href={websiteUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-700">
+                {resource.title}
+              </a>
+            </h3>
             {resource.address && (
               <p className="text-xs text-gray-600 mt-0.5">
                 {resource.address}, {resource.city}, {resource.state}

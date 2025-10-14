@@ -495,7 +495,16 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                               </span>
                               <div>
                                 <h3 className="text-xl font-bold text-gray-900">
-                                  {profileHref ? (
+                                  {websiteUrl ? (
+                                    <a
+                                      href={websiteUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="hover:text-sunset-orange"
+                                    >
+                                      {facility.title}
+                                    </a>
+                                  ) : profileHref ? (
                                     <Link href={profileHref} className="hover:text-sunset-orange">
                                       {facility.title}
                                     </Link>

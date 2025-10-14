@@ -168,10 +168,6 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         return null;
       }
 
-      if (!googleApiKey) {
-        return null;
-      }
-
       const coords = await geocodeZip(zip);
       if (coords) {
         setUserLocation(coords);
@@ -181,7 +177,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
       setUserLocation(null);
       return null;
     },
-    [googleApiKey]
+    []
   );
 
   const fetchMatches = useCallback(

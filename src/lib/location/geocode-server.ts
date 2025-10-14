@@ -7,6 +7,12 @@ export interface ZipCoordinates {
 
 const SUCCESS_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 const ERROR_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
+const CACHE_ONLY =
+  process.env.GEOCODE_CACHE_ONLY === "true" ||
+  process.env.DISABLE_EXTERNAL_GEOCODE === "true";
+
+// Ephemeral in-memory cache to avoid repeated DB reads within a single runtime
+const memoryCache = new Map<string, ZipCoordinates>();
 
 function normalizeZip(zip: string): string {
   return zip.trim().slice(0, 5);
@@ -15,6 +21,9 @@ function normalizeZip(zip: string): string {
 export async function getCachedZipCoordinatesServer(zip: string): Promise<ZipCoordinates | null> {
   const normalized = normalizeZip(zip);
   if (!normalized) return null;
+
+  const memo = memoryCache.get(normalized);
+  if (memo) return memo;
 
   const { data, error } = await supabaseServer
     .from("zip_geocode_cache")
@@ -40,8 +49,11 @@ export async function getCachedZipCoordinatesServer(zip: string): Promise<ZipCoo
   }
 
   if (typeof data.latitude === "number" && typeof data.longitude === "number") {
-    if (age < SUCCESS_TTL_MS) {
-      return { lat: data.latitude, lng: data.longitude };
+    // If running in cache-only mode, consider cached coords permanent
+    if (CACHE_ONLY || age < SUCCESS_TTL_MS) {
+      const coords = { lat: data.latitude, lng: data.longitude };
+      memoryCache.set(normalized, coords);
+      return coords;
     }
   }
 
@@ -67,6 +79,7 @@ async function upsertZipCache(
     payload.longitude = coords.lng;
     payload.error_status = null;
     payload.error_message = null;
+    memoryCache.set(normalized, coords);
   } else {
     payload.latitude = null;
     payload.longitude = null;
@@ -90,6 +103,11 @@ export async function fetchZipCoordinatesServer(zip: string): Promise<ZipCoordin
   const cached = await getCachedZipCoordinatesServer(normalized);
   if (cached) {
     return cached;
+  }
+
+  if (CACHE_ONLY) {
+    // Do not attempt external geocoding in cache-only mode
+    return null;
   }
 
   const apiKey =
