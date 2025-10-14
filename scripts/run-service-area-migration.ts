@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { createClient } from '@supabase/supabase-js';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
+import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
@@ -19,12 +20,26 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 async function runMigration() {
   console.log('🗄️  Running service area migration...\n');
 
-  const sqlPath = 'supabase/migrations/0006_create_service_areas.sql';
+  function resolveMigrationPath(arg?: string): string {
+    if (arg && typeof arg === 'string') {
+      if (arg && !arg.startsWith('supabase/migrations/')) return path.join('supabase/migrations', arg);
+      return arg;
+    }
+    const dir = path.join(process.cwd(), 'supabase', 'migrations');
+    const files = readdirSync(dir).filter(f => f.endsWith('create_service_areas.sql')).sort();
+    if (files.length === 0) {
+      throw new Error('Migration file not found. Pass a path, e.g. supabase/migrations/202510140947_create_service_areas.sql');
+    }
+    return path.join(dir, files[files.length - 1]);
+  }
+
+  const argPath = process.argv[2];
+  const sqlPath = resolveMigrationPath(argPath);
   const sql = readFileSync(sqlPath, 'utf-8');
 
   try {
     // Execute the SQL migration
-    const { error } = await supabase.rpc('exec_sql', { sql_query: sql });
+    const { error } = await supabase.rpc('exec_sql', { query: sql });
 
     if (error) {
       // If exec_sql doesn't exist, try direct execution via the REST API
@@ -38,9 +53,7 @@ async function runMigration() {
 
       for (const statement of statements) {
         if (statement) {
-          const { error: stmtError } = await supabase.rpc('exec', {
-            sql: statement
-          });
+          const { error: stmtError } = await supabase.rpc('exec', { query: statement });
 
           if (stmtError) {
             console.error(`❌ Error executing statement:`, stmtError.message);
@@ -60,7 +73,7 @@ async function runMigration() {
     console.error('\n❌ Migration failed:', err.message);
     console.error('\n📋 Manual migration required:');
     console.error('1. Go to Supabase Dashboard → SQL Editor');
-    console.error('2. Copy contents of: supabase/migrations/0006_create_service_areas.sql');
+    console.error(`2. Copy contents of: ${sqlPath}`);
     console.error('3. Paste and run in SQL Editor');
     console.error('4. Then run: pnpm tsx scripts/import-service-areas.ts\n');
     process.exit(1);

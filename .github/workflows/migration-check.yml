@@ -1,0 +1,23 @@
+name: Migration Prefix Check
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install deps
+        run: pnpm i --frozen-lockfile
+      - name: Check duplicate migration prefixes (non-strict)
+        run: pnpm tsx scripts/check-migration-prefixes.ts
+

@@ -9,7 +9,9 @@
     "lint": "eslint",
     "import:resources": "tsx scripts/import-resources.ts",
     "revalidate": "tsx scripts/revalidate.ts",
-    "seed:zips": "tsx scripts/seed-zip-geocode.ts"
+    "seed:zips": "tsx scripts/seed-zip-geocode.ts",
+    "migration:new": "tsx scripts/new-migration.ts",
+    "migration:check": "tsx scripts/check-migration-prefixes.ts"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^2.0.1",
