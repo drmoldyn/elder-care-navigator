@@ -89,7 +89,13 @@ export default function ComparePage() {
                 Compare Senior Care Facilities
               </h1>
               <p className="mt-1 text-sm text-gray-600">
-                Side-by-side comparison of {selectedFacilities.length} facilities
+                Side-by-side comparison of {selectedFacilities.length} facilities •{" "}
+                <a
+                  href="/about/scoring"
+                  className="text-indigo-600 hover:text-indigo-800 underline"
+                >
+                  About SunsetWell Scores
+                </a>
               </p>
             </div>
             <div className="flex gap-2">
@@ -162,8 +168,8 @@ export default function ComparePage() {
                 ))}
               </ComparisonRow>
 
-              {/* Rating */}
-              <ComparisonRow label="Overall Rating">
+              {/* CMS Overall Rating */}
+              <ComparisonRow label="CMS Overall Rating">
                 {selectedFacilities.map((facility) => (
                   <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
                     {facility.overall_rating ? (
@@ -187,6 +193,62 @@ export default function ComparePage() {
                     )}
                   </td>
                 ))}
+              </ComparisonRow>
+
+              {/* SunsetWell Score */}
+              <ComparisonRow label="SunsetWell Score">
+                {selectedFacilities.map((facility) => {
+                  const bestScore = selectedFacilities.some((f) => f.sunsetwell_score !== undefined)
+                    ? getBestValue("sunsetwell_score", "high")
+                    : null;
+
+                  return (
+                    <td key={facility.id} className="border-l border-t px-4 py-3 text-center">
+                      {facility.sunsetwell_score !== undefined ? (
+                        <div className="flex flex-col items-center gap-1">
+                          <div className={`inline-block px-3 py-1.5 rounded-lg font-bold text-sm ${
+                            facility.sunsetwell_score >= 90
+                              ? "bg-green-700 text-white"
+                              : facility.sunsetwell_score >= 75
+                              ? "bg-green-500 text-white"
+                              : facility.sunsetwell_score >= 60
+                              ? "bg-yellow-400 text-gray-900"
+                              : facility.sunsetwell_score >= 40
+                              ? "bg-orange-500 text-white"
+                              : "bg-red-500 text-white"
+                          }`}>
+                            {facility.sunsetwell_score.toFixed(0)}
+                            {facility.sunsetwell_score === bestScore && " 🏆"}
+                          </div>
+                          <span className="text-xs text-gray-700 mt-1">
+                            {facility.sunsetwell_score >= 90
+                              ? "Excellent"
+                              : facility.sunsetwell_score >= 75
+                              ? "Very Good"
+                              : facility.sunsetwell_score >= 60
+                              ? "Good"
+                              : facility.sunsetwell_score >= 40
+                              ? "Fair"
+                              : "Needs improvement"}
+                          </span>
+                          {facility.sunsetwell_percentile !== undefined && facility.state && (
+                            <span className="text-[10px] text-gray-600 mt-0.5">
+                              {facility.sunsetwell_percentile >= 90
+                                ? `Top 10% in ${facility.state}`
+                                : facility.sunsetwell_percentile >= 75
+                                ? `Top 25% in ${facility.state}`
+                                : facility.sunsetwell_percentile >= 50
+                                ? `Above avg in ${facility.state}`
+                                : `${facility.sunsetwell_percentile}th %ile`}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">No score</span>
+                      )}
+                    </td>
+                  );
+                })}
               </ComparisonRow>
 
               {/* Beds Available */}
@@ -372,10 +434,10 @@ export default function ComparePage() {
                 </div>
               </div>
 
-              {/* Overall Rating */}
+              {/* CMS Overall Rating */}
               <div className="py-2 border-b border-gray-100">
                 <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                  Overall Rating
+                  CMS Overall Rating
                 </div>
                 <div className="text-base mt-1">
                   {facility.overall_rating ? (
@@ -396,6 +458,56 @@ export default function ComparePage() {
                     </div>
                   ) : (
                     <span className="text-gray-400">Not rated</span>
+                  )}
+                </div>
+              </div>
+
+              {/* SunsetWell Score */}
+              <div className="py-2 border-b border-gray-100">
+                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  SunsetWell Score
+                </div>
+                <div className="text-base mt-2">
+                  {facility.sunsetwell_score !== undefined ? (
+                    <div>
+                      <div className={`inline-block px-3 py-1.5 rounded-lg font-bold text-sm ${
+                        facility.sunsetwell_score >= 90
+                          ? "bg-green-700 text-white"
+                          : facility.sunsetwell_score >= 75
+                          ? "bg-green-500 text-white"
+                          : facility.sunsetwell_score >= 60
+                          ? "bg-yellow-400 text-gray-900"
+                          : facility.sunsetwell_score >= 40
+                          ? "bg-orange-500 text-white"
+                          : "bg-red-500 text-white"
+                      }`}>
+                        {facility.sunsetwell_score.toFixed(0)}
+                      </div>
+                      <div className="text-xs text-gray-700 mt-1">
+                        {facility.sunsetwell_score >= 90
+                          ? "Excellent quality"
+                          : facility.sunsetwell_score >= 75
+                          ? "Very Good quality"
+                          : facility.sunsetwell_score >= 60
+                          ? "Good quality"
+                          : facility.sunsetwell_score >= 40
+                          ? "Fair quality"
+                          : "Needs improvement"}
+                      </div>
+                      {facility.sunsetwell_percentile !== undefined && facility.state && (
+                        <div className="text-xs text-gray-600 mt-0.5">
+                          {facility.sunsetwell_percentile >= 90
+                            ? `Top 10% in ${facility.state}`
+                            : facility.sunsetwell_percentile >= 75
+                            ? `Top 25% in ${facility.state}`
+                            : facility.sunsetwell_percentile >= 50
+                            ? `Above average in ${facility.state}`
+                            : `${facility.sunsetwell_percentile}th percentile in ${facility.state}`}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <span className="text-gray-400">No score available</span>
                   )}
                 </div>
               </div>

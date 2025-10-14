@@ -23,6 +23,8 @@ interface Resource {
   insurance_accepted?: string[];
   available_beds?: number;
   overall_rating?: number;
+  sunsetwell_score?: number;
+  sunsetwell_percentile?: number;
   distance?: number;
 }
 

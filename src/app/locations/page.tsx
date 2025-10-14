@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata} from "next";
-import { generateLocationSlug } from "@/lib/locations/queries";
-// Use Top 50 metros by population
+import { generateLocationSlug, getTopRankedLocations } from "@/lib/locations/queries";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - json module import
 import topMetros from "../../../data/top-50-metros.json";
@@ -14,33 +13,33 @@ export const metadata: Metadata = {
 };
 
 // Fallback curated list (used only if DB returns 0)
-const FALLBACK_CITIES: Array<{ city: string; state: string; slug: string }> = [
-  { city: "Austin", state: "TX", slug: "austin-tx" },
-  { city: "Fort Worth", state: "TX", slug: "fort-worth-tx" },
-  { city: "Arlington", state: "TX", slug: "arlington-tx" },
-  { city: "Miami", state: "FL", slug: "miami-fl" },
-  { city: "Knoxville", state: "TN", slug: "knoxville-tn" },
-  { city: "Memphis", state: "TN", slug: "memphis-tn" },
-  { city: "Nashville", state: "TN", slug: "nashville-tn" },
-  { city: "Chattanooga", state: "TN", slug: "chattanooga-tn" },
-  { city: "Round Rock", state: "TX", slug: "round-rock-tx" },
-  { city: "Georgetown", state: "TX", slug: "georgetown-tx" },
-];
+const FALLBACK_CITIES: Array<{ city: string; state: string; slug: string; count?: number }> = (
+  topMetros as Array<{ name: string; city: string; state: string }>
+).map((metro) => ({
+  city: metro.city,
+  state: metro.state,
+  slug: generateLocationSlug(metro.city, metro.state),
+}))
+  .slice(0, 50);
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export default async function LocationsIndexPage() {
-  // Build locations from Top 50 metros list
-  const metroList = (topMetros as Array<{ name: string; city: string; state: string }>);
-  const locations: Array<{ city: string; state: string; slug: string }> = metroList.map((m) => ({
-    city: m.city,
-    state: m.state,
-    slug: generateLocationSlug(m.city, m.state),
-  }));
+  const supabaseLocations = await getTopRankedLocations(120);
+
+  const locations: Array<{ city: string; state: string; slug: string; count?: number }> =
+    supabaseLocations.length > 0
+      ? supabaseLocations.map((loc) => ({
+          city: loc.city,
+          state: loc.state,
+          slug: generateLocationSlug(loc.city, loc.state),
+          count: loc.count,
+        }))
+      : FALLBACK_CITIES;
 
   // Group locations by state
-  const locationsByState: Record<string, Array<{ city: string; state: string; slug: string }>> = {};
+  const locationsByState: Record<string, Array<{ city: string; state: string; slug: string; count?: number }>> = {};
 
   locations.forEach((loc) => {
     if (!locationsByState[loc.state]) {
@@ -64,7 +63,7 @@ export default async function LocationsIndexPage() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-sunset-orange/20 via-sky-blue/30 to-lavender/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
 
         {/* Decorative transparent columns on left and right */}
         <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-lavender/40 via-lavender/25 to-transparent" />
@@ -73,25 +72,25 @@ export default async function LocationsIndexPage() {
 
       <div className="mx-auto flex min-h-[70vh] w-full max-w-6xl flex-col gap-6 md:gap-8 px-4 md:px-6 py-10 md:py-14 relative z-10">
         <header className="space-y-3 md:space-y-4">
-          <nav className="text-xs md:text-sm text-gray-600">
+          <nav className="text-xs md:text-sm text-white/90">
             <Link href="/" className="hover:text-sunset-orange">
               Home
             </Link>
             {" / "}
-            <span className="text-gray-900 font-medium">Locations</span>
+            <span className="text-white font-medium">Locations</span>
           </nav>
 
-          <h1 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-serif text-3xl md:text-5xl font-bold tracking-tight text-white drop-shadow-lg">
             Senior Care by Location
           </h1>
 
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl">
+          <p className="text-base md:text-lg text-white/90 max-w-3xl drop-shadow">
             Discover top-rated senior living facilities in cities across the United States. All
             facilities are ranked by SunsetWell quality scores based on objective CMS data.
           </p>
         </header>
 
-        <section className="rounded-2xl border border-slate-200 bg-white/85 p-4 md:p-6 shadow-sm">
+        <section className="rounded-2xl border border-white/20 bg-white/95 backdrop-blur-md p-4 md:p-6 shadow-md">
           <h2 className="text-xl md:text-2xl font-semibold text-slate-900 mb-4 md:mb-6">
             Featured Cities
           </h2>
@@ -99,8 +98,14 @@ export default async function LocationsIndexPage() {
           <div className="grid gap-6 md:gap-8">
             {sortedStates.map((state) => {
               const cities = locationsByState[state] || [];
-              // Sort cities alphabetically
-              const sortedCities = [...cities].sort((a, b) => a.city.localeCompare(b.city));
+              const sortedCities = [...cities]
+                .sort((a, b) => {
+                  if (a.count && b.count && a.count !== b.count) {
+                    return b.count - a.count;
+                  }
+                  return a.city.localeCompare(b.city);
+                })
+                .slice(0, 12);
 
               return (
                 <div key={state} className="space-y-3">
@@ -113,9 +118,12 @@ export default async function LocationsIndexPage() {
                       <Link
                         key={loc.slug}
                         href={`/locations/${loc.slug}`}
-                        className="text-sm md:text-base text-slate-700 hover:text-sunset-orange hover:underline py-1"
+                        className="flex flex-col text-sm md:text-base text-slate-700 hover:text-sunset-orange hover:underline py-1"
                       >
-                        {loc.city}
+                        <span>{loc.city}</span>
+                        {loc.count && (
+                          <span className="text-xs text-slate-500">{loc.count} facilities</span>
+                        )}
                       </Link>
                     ))}
                   </div>
@@ -136,7 +144,7 @@ export default async function LocationsIndexPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-dashed border-lavender/60 bg-lavender/10 p-4 md:p-6">
+        <section className="rounded-2xl border border-lavender/40 bg-white/90 backdrop-blur-md p-4 md:p-6 shadow-md">
           <h3 className="text-base md:text-lg font-semibold text-slate-900">
             Why Location Matters
           </h3>

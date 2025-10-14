@@ -32,10 +32,9 @@ Status: Active. This plan captures prioritized, implementation‑ready improveme
   - New route `/facility/[id]`: address, payer acceptance, CMS ratings, SunsetWell score breakdown, contact actions, partner offers.
   - Link targets already referenced in map info windows.
 
-- Session → Score Consistency
-  - Ensure `sunsetwell_score` present in Results payload.
-  - Option A: Join `facility_scores` (v2) in reads; Option B: denormalize latest score into `resources` during refresh.
-  - Touchpoint: `src/app/api/sessions/[sessionId]/route.ts:45`.
+- SunsetWell Score surfacing
+  - `sunsetwell_score` and `sunsetwell_percentile` now populated for every SNF (v2.3). Ensure RSC queries (`src/lib/facilities/queries.ts`) continue to expose these fields.
+  - Update UI states/tooltips to reflect the predictive harm model (color bands already aligned; add copy via `getSunsetWellScoreTooltip`).
 
 - Multi‑Location Search (Optional)
   - Support a secondary ZIP (e.g., family member). Use `matchResourcesMultipleLocations` (`src/lib/matching/sql-matcher.ts:140`).
@@ -101,7 +100,12 @@ Status: Active. This plan captures prioritized, implementation‑ready improveme
 ## Data Quality
 
 - Score Availability
-  - Standardize access to `sunsetwell_score` in queries (see “Session → Score Consistency”).
+  - ✅ SNF coverage: 14,752 / 14,752 scored in v2.3 predictive harm release.
+  - Next: extend pipeline to Assisted Living & Home Health once modality-specific features and targets are defined.
+
+- Harm Model Maintenance
+  - Monitor CMS feeds for penalty/IJ completeness; reintroduce dropped predictors (`penalty_total_amount`, `deficiency_ij_count`) once missingness < 10%.
+  - Backfill explanation UI (top drivers, worst harm metrics) in Results & Facility Detail pages.
 
 - Insurance Flags
   - Normalize display across views; wire filters to SQL via `insuranceTypes` in matcher.

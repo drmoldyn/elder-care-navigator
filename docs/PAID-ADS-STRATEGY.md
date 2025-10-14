@@ -14,7 +14,7 @@ Comprehensive Google Ads strategy building on our AdSense foundation. Focus on c
 ✅ Mobile-first design (48px touch targets, click-to-call)
 ✅ SEO structured data (FAQPage, HealthcareOrganization)
 ✅ Map view with insurance filtering
-✅ 75,000+ facilities with Medicare.gov verification
+✅ 73,000+ facilities with Medicare.gov verification
 
 ### **Codex's Recommendations (Evaluated):**
 All recommendations are **approved** and align with our goals:
@@ -550,7 +550,7 @@ Does NOT fire on: Custom Event conversion where conversion_name equals lead_form
 #### **Display Retargeting:**
 
 **Creative Variations:**
-1. **Urgency:** "Still looking for senior care? 75,000+ facilities waiting" + CTA: "View Your Matches"
+1. **Urgency:** "Still looking for senior care? 73,000+ facilities waiting" + CTA: "View Your Matches"
 2. **Social Proof:** "Join 10,000+ families who found care on SunsetWell" + CTA: "Search Facilities"
 3. **Value Prop:** "Medicare.gov verified data. Compare facilities for free." + CTA: "Start Comparing"
 
@@ -566,7 +566,7 @@ Does NOT fire on: Custom Event conversion where conversion_name equals lead_form
 #### **Performance Max (PMax):**
 
 **Asset Groups:**
-- Headlines: "Find Senior Care Facilities Near You", "Medicare.gov Verified Data", "Compare 75,000+ Facilities"
+- Headlines: "Find Senior Care Facilities Near You", "Medicare.gov Verified Data", "Compare 73,000+ Facilities"
 - Descriptions: Pull from landing page copy
 - Images: Sunset hero images (already optimized)
 - Audience signals: Comparison Users, Results Viewers
@@ -601,7 +601,7 @@ Does NOT fire on: Custom Event conversion where conversion_name equals lead_form
 ```
 Headline 1: Urgent Nursing Home Placement
 Headline 2: Hospital Discharge in 48 Hours?
-Headline 3: 75,000+ Facilities | Immediate Availability
+Headline 3: 73,000+ Facilities | Immediate Availability
 Description: Medicare.gov verified facilities with available beds. Search by insurance, location, and care needs. Free comparison tool.
 CTA: Find Available Beds Now
 ```

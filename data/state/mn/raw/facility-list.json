@@ -1,0 +1,9190 @@
+[
+  {
+    "id": "1",
+    "name": "Ecumen Worthington The Meadows"
+  },
+  {
+    "id": "2",
+    "name": "Parkview Court"
+  },
+  {
+    "id": "3",
+    "name": "New Perspective Roseville"
+  },
+  {
+    "id": "4",
+    "name": "Maranatha"
+  },
+  {
+    "id": "5",
+    "name": "Beacon Hill"
+  },
+  {
+    "id": "6",
+    "name": "Chapel View Apartments"
+  },
+  {
+    "id": "7",
+    "name": "Sleepy Eye Assisted Living LLC"
+  },
+  {
+    "id": "8",
+    "name": "New Perspective - Mahtomedi"
+  },
+  {
+    "id": "9",
+    "name": "Annandale Care Center"
+  },
+  {
+    "id": "10",
+    "name": "Brookstone Manor"
+  },
+  {
+    "id": "11",
+    "name": "Rizon Homes"
+  },
+  {
+    "id": "12",
+    "name": "Northfield Parkview Inc"
+  },
+  {
+    "id": "13",
+    "name": "Rakhma Grace Home"
+  },
+  {
+    "id": "14",
+    "name": "Elder Homestead"
+  },
+  {
+    "id": "15",
+    "name": "Mainstreet Lodge"
+  },
+  {
+    "id": "16",
+    "name": "Landings Of Minnetonka"
+  },
+  {
+    "id": "17",
+    "name": "Johanna Shores"
+  },
+  {
+    "id": "18",
+    "name": "Ecumen Lakeview Commons"
+  },
+  {
+    "id": "19",
+    "name": "Rakhma Joy Home"
+  },
+  {
+    "id": "20",
+    "name": "Glenn Buffalo Mc"
+  },
+  {
+    "id": "21",
+    "name": "Vergas Assisted Living"
+  },
+  {
+    "id": "22",
+    "name": "Woodlake Residences"
+  },
+  {
+    "id": "23",
+    "name": "Benedict Court"
+  },
+  {
+    "id": "24",
+    "name": "Arbor Terrace"
+  },
+  {
+    "id": "25",
+    "name": "Adith Miller Manor"
+  },
+  {
+    "id": "26",
+    "name": "Central Minnesota Senior Care"
+  },
+  {
+    "id": "27",
+    "name": "New Perspective Highland Park"
+  },
+  {
+    "id": "28",
+    "name": "Harmony House Of Pierz"
+  },
+  {
+    "id": "29",
+    "name": "Pine View Assisted Living"
+  },
+  {
+    "id": "30",
+    "name": "Brainerd Carefree Living LLC"
+  },
+  {
+    "id": "31",
+    "name": "Burnsville Carefree Living"
+  },
+  {
+    "id": "32",
+    "name": "Lakewood Manor"
+  },
+  {
+    "id": "33",
+    "name": "Madonna Towers Of Rochester"
+  },
+  {
+    "id": "34",
+    "name": "The Towers"
+  },
+  {
+    "id": "35",
+    "name": "Lake Minnetonka Shores"
+  },
+  {
+    "id": "36",
+    "name": "Silvercrest Properties LLC"
+  },
+  {
+    "id": "37",
+    "name": "Greenwood Connections"
+  },
+  {
+    "id": "38",
+    "name": "Bigfork Valley Villa"
+  },
+  {
+    "id": "39",
+    "name": "Villages Of St Clare"
+  },
+  {
+    "id": "40",
+    "name": "St Elizabeth Hospital"
+  },
+  {
+    "id": "41",
+    "name": "Assisted Living At North Ridge"
+  },
+  {
+    "id": "42",
+    "name": "Meadow Woods Assisted Living"
+  },
+  {
+    "id": "44",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "45",
+    "name": "The Heritage At Lyngblomsten"
+  },
+  {
+    "id": "46",
+    "name": "Good Shepherd Assisted Living"
+  },
+  {
+    "id": "47",
+    "name": "Long Lake Loon Lodge"
+  },
+  {
+    "id": "48",
+    "name": "Benedict Homes"
+  },
+  {
+    "id": "49",
+    "name": "Chestnut Grove"
+  },
+  {
+    "id": "50",
+    "name": "Benedictine Living Community |"
+  },
+  {
+    "id": "51",
+    "name": "Glenoaks Senior Living Campus"
+  },
+  {
+    "id": "52",
+    "name": "The Prairie Lodge At Earle Bro"
+  },
+  {
+    "id": "53",
+    "name": "The Centennial House Of Apple"
+  },
+  {
+    "id": "54",
+    "name": "Central Minnesota Senior Care"
+  },
+  {
+    "id": "55",
+    "name": "Moose Lake Village Assisted Li"
+  },
+  {
+    "id": "56",
+    "name": "Central Minnesota Senior Care"
+  },
+  {
+    "id": "57",
+    "name": "Heritage Court Assisted Living"
+  },
+  {
+    "id": "58",
+    "name": "Skylight Gardens Apartments Ll"
+  },
+  {
+    "id": "60",
+    "name": "Brookdale Edina"
+  },
+  {
+    "id": "61",
+    "name": "St Cloud Carefree Living LLC"
+  },
+  {
+    "id": "62",
+    "name": "Sacred Heart Assisted Lvg Apts"
+  },
+  {
+    "id": "63",
+    "name": "Cottagewood Senior Communities"
+  },
+  {
+    "id": "64",
+    "name": "Cottagewood Senior Communities"
+  },
+  {
+    "id": "65",
+    "name": "Glenn Buffalo"
+  },
+  {
+    "id": "66",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "67",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "68",
+    "name": "Trinty Terrace"
+  },
+  {
+    "id": "69",
+    "name": "Harmony House Of Brainerd"
+  },
+  {
+    "id": "70",
+    "name": "Auburn Courts"
+  },
+  {
+    "id": "71",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "72",
+    "name": "Silvercrest Properties LLC"
+  },
+  {
+    "id": "73",
+    "name": "Barrett Assisted Living Commun"
+  },
+  {
+    "id": "74",
+    "name": "Walker Methodist Care Suites"
+  },
+  {
+    "id": "75",
+    "name": "Walker Methodist Place"
+  },
+  {
+    "id": "76",
+    "name": "Pearl Garden"
+  },
+  {
+    "id": "77",
+    "name": "Oak Meadows Senior Living"
+  },
+  {
+    "id": "78",
+    "name": "Good Samaritan Society Luverne"
+  },
+  {
+    "id": "79",
+    "name": "Boulder Estates"
+  },
+  {
+    "id": "80",
+    "name": "Epiphany Care Homes LLC"
+  },
+  {
+    "id": "81",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "82",
+    "name": "Hillcrest Adams"
+  },
+  {
+    "id": "83",
+    "name": "Oaks"
+  },
+  {
+    "id": "84",
+    "name": "The Elms"
+  },
+  {
+    "id": "85",
+    "name": "The Pines"
+  },
+  {
+    "id": "86",
+    "name": "The Farmstead"
+  },
+  {
+    "id": "87",
+    "name": "Callista Court"
+  },
+  {
+    "id": "88",
+    "name": "Woodbury Estates"
+  },
+  {
+    "id": "89",
+    "name": "Vista Prairie At Ridgeway On G"
+  },
+  {
+    "id": "90",
+    "name": "The Country Villa"
+  },
+  {
+    "id": "91",
+    "name": "Lakeside Generations Assisted"
+  },
+  {
+    "id": "92",
+    "name": "Central Minnesota Senior Care"
+  },
+  {
+    "id": "93",
+    "name": "Harmony House Of Motley"
+  },
+  {
+    "id": "94",
+    "name": "Bridges Of Zumbrota"
+  },
+  {
+    "id": "95",
+    "name": "Ridgeview Senior Living"
+  },
+  {
+    "id": "96",
+    "name": "Good Samaritan Society Pipesto"
+  },
+  {
+    "id": "97",
+    "name": "Central Minnesota Senior Care"
+  },
+  {
+    "id": "98",
+    "name": "Shorewood Commons"
+  },
+  {
+    "id": "99",
+    "name": "Good Samaritan Society Windom"
+  },
+  {
+    "id": "100",
+    "name": "Emerald Crest Of Minnetonka"
+  },
+  {
+    "id": "101",
+    "name": "Maplewood Assisted Living"
+  },
+  {
+    "id": "102",
+    "name": "Prairie Senior Cottages Of Wil"
+  },
+  {
+    "id": "103",
+    "name": "St Benedict's Court"
+  },
+  {
+    "id": "104",
+    "name": "Eagle Street Assisted Living"
+  },
+  {
+    "id": "105",
+    "name": "New Journey Residence"
+  },
+  {
+    "id": "106",
+    "name": "Pines Iii Assisted Living"
+  },
+  {
+    "id": "107",
+    "name": "Silvercrest Properties LLC"
+  },
+  {
+    "id": "108",
+    "name": "Parmly On The Lake"
+  },
+  {
+    "id": "109",
+    "name": "Field Crest Assisted Living"
+  },
+  {
+    "id": "110",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "111",
+    "name": "Cardenas Friendship Homes"
+  },
+  {
+    "id": "112",
+    "name": "Cardenas Friendship Homes"
+  },
+  {
+    "id": "113",
+    "name": "Cardenas Friendship Homes"
+  },
+  {
+    "id": "114",
+    "name": "Barross Cottage LLC"
+  },
+  {
+    "id": "115",
+    "name": "Newton Manor"
+  },
+  {
+    "id": "116",
+    "name": "Eventide The Linden"
+  },
+  {
+    "id": "117",
+    "name": "Home Front First"
+  },
+  {
+    "id": "118",
+    "name": "Cardenas Friendship Homes"
+  },
+  {
+    "id": "120",
+    "name": "Abilit Holdings Meadow Lakes L"
+  },
+  {
+    "id": "121",
+    "name": "Emerald Crest Of Burnsville"
+  },
+  {
+    "id": "123",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "124",
+    "name": "Vitality Living Of Sebeka LLC"
+  },
+  {
+    "id": "125",
+    "name": "Serenity Living Solutions Of B"
+  },
+  {
+    "id": "126",
+    "name": "St Andrew's Village"
+  },
+  {
+    "id": "127",
+    "name": "Flagstone"
+  },
+  {
+    "id": "128",
+    "name": "Mainstreet Village"
+  },
+  {
+    "id": "129",
+    "name": "Lincoln Park Assisted Living"
+  },
+  {
+    "id": "130",
+    "name": "Osseo Gardens Assisted Living"
+  },
+  {
+    "id": "131",
+    "name": "Scmc Courage Cottage"
+  },
+  {
+    "id": "132",
+    "name": "Lincoln Lane Villa"
+  },
+  {
+    "id": "133",
+    "name": "Boutwells Landing"
+  },
+  {
+    "id": "134",
+    "name": "Rose Arbor Wildflower Lodge"
+  },
+  {
+    "id": "135",
+    "name": "Emerald Crest Of Shakopee"
+  },
+  {
+    "id": "136",
+    "name": "Golden Manor Of Barnesville"
+  },
+  {
+    "id": "137",
+    "name": "Sunrise Of Roseville"
+  },
+  {
+    "id": "138",
+    "name": "Dr Thomas H Johnson Hws"
+  },
+  {
+    "id": "139",
+    "name": "Harmony Place"
+  },
+  {
+    "id": "141",
+    "name": "Pioneercare Memory Cottages"
+  },
+  {
+    "id": "142",
+    "name": "Tff Care LLC"
+  },
+  {
+    "id": "143",
+    "name": "Walker Methodist River Heights"
+  },
+  {
+    "id": "144",
+    "name": "Riverfront Manor"
+  },
+  {
+    "id": "145",
+    "name": "Heathers Manor"
+  },
+  {
+    "id": "146",
+    "name": "Vista Prairie At Windmill Pond"
+  },
+  {
+    "id": "147",
+    "name": "Waterford Manor"
+  },
+  {
+    "id": "148",
+    "name": "Silver Maple Residence Inc"
+  },
+  {
+    "id": "149",
+    "name": "Roitenberg Family Assisted Liv"
+  },
+  {
+    "id": "150",
+    "name": "Clgv Assisted Living"
+  },
+  {
+    "id": "151",
+    "name": "The Rivers"
+  },
+  {
+    "id": "152",
+    "name": "The Pines Assisted Living"
+  },
+  {
+    "id": "153",
+    "name": "Sunrise Of Edina"
+  },
+  {
+    "id": "154",
+    "name": "Brookside Senior Living"
+  },
+  {
+    "id": "155",
+    "name": "River Oaks Columbia Heights"
+  },
+  {
+    "id": "156",
+    "name": "Community Assisted Living Inc"
+  },
+  {
+    "id": "157",
+    "name": "The Caring Sisters Home Care"
+  },
+  {
+    "id": "158",
+    "name": "Nature's Point Assisted Living"
+  },
+  {
+    "id": "159",
+    "name": "Cerenity Residence Marian Of S"
+  },
+  {
+    "id": "160",
+    "name": "Silvercrest Properties LLC"
+  },
+  {
+    "id": "161",
+    "name": "Timber Hills"
+  },
+  {
+    "id": "162",
+    "name": "New Journey Residence"
+  },
+  {
+    "id": "163",
+    "name": "New Perspective Prior Lake"
+  },
+  {
+    "id": "164",
+    "name": "Bayside Manor Assisted Living"
+  },
+  {
+    "id": "165",
+    "name": "The Terraces Assisted Living"
+  },
+  {
+    "id": "166",
+    "name": "Glenwood Estates"
+  },
+  {
+    "id": "167",
+    "name": "New Perspective Cloquet & Barn"
+  },
+  {
+    "id": "169",
+    "name": "Rivervillage East"
+  },
+  {
+    "id": "170",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "171",
+    "name": "Orchard Hill Senior Living"
+  },
+  {
+    "id": "174",
+    "name": "Regent At Burnsville"
+  },
+  {
+    "id": "175",
+    "name": "Good Shepherd Cottages"
+  },
+  {
+    "id": "176",
+    "name": "Iris Park Commons"
+  },
+  {
+    "id": "177",
+    "name": "Vista Prairie At Ridgeway On 2"
+  },
+  {
+    "id": "179",
+    "name": "Hawthorne House Inc"
+  },
+  {
+    "id": "181",
+    "name": "New Perspective Eagan"
+  },
+  {
+    "id": "182",
+    "name": "Sanford Health Sylvan Place"
+  },
+  {
+    "id": "183",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "184",
+    "name": "The Caring Sisters Home Care"
+  },
+  {
+    "id": "185",
+    "name": "Appleton Area Health"
+  },
+  {
+    "id": "186",
+    "name": "Valley View Assisted Living Of"
+  },
+  {
+    "id": "187",
+    "name": "Golden Nest LLC"
+  },
+  {
+    "id": "188",
+    "name": "Hawthorne House Inc"
+  },
+  {
+    "id": "189",
+    "name": "The Maples"
+  },
+  {
+    "id": "190",
+    "name": "Autumn Lane Inc"
+  },
+  {
+    "id": "191",
+    "name": "Bethany Assisted Living In Lit"
+  },
+  {
+    "id": "192",
+    "name": "Dr Thomas H Johnson Hws"
+  },
+  {
+    "id": "193",
+    "name": "Ecumen Hutchinson The Pines"
+  },
+  {
+    "id": "194",
+    "name": "Autumn Grace Ii"
+  },
+  {
+    "id": "195",
+    "name": "Sunrise Of Golden Valley"
+  },
+  {
+    "id": "196",
+    "name": "Elderwood Of Hinckley"
+  },
+  {
+    "id": "197",
+    "name": "Diamondcrest Senior Living"
+  },
+  {
+    "id": "198",
+    "name": "Sunrise Of Minnetonka"
+  },
+  {
+    "id": "200",
+    "name": "Eaglecrest"
+  },
+  {
+    "id": "201",
+    "name": "Abilit Holdings Prairie Meadow"
+  },
+  {
+    "id": "202",
+    "name": "Presbyterian Homes Of Blooming"
+  },
+  {
+    "id": "203",
+    "name": "Summerwood Of Chanhassen"
+  },
+  {
+    "id": "204",
+    "name": "Ksms Our House LLC"
+  },
+  {
+    "id": "205",
+    "name": "Hawthorne House Inc"
+  },
+  {
+    "id": "206",
+    "name": "Sterling Park Senior Living"
+  },
+  {
+    "id": "207",
+    "name": "Golden Manor Corporation"
+  },
+  {
+    "id": "208",
+    "name": "Waverly Gardens"
+  },
+  {
+    "id": "209",
+    "name": "The Cedars"
+  },
+  {
+    "id": "210",
+    "name": "Golden Valley Residence"
+  },
+  {
+    "id": "211",
+    "name": "New Perspective Cloquet & Barn"
+  },
+  {
+    "id": "212",
+    "name": "Hawthorne House Inc"
+  },
+  {
+    "id": "213",
+    "name": "Benedictine Living Community A"
+  },
+  {
+    "id": "214",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "216",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "218",
+    "name": "Evergreen Knoll"
+  },
+  {
+    "id": "219",
+    "name": "Good Samaritan Society Heritag"
+  },
+  {
+    "id": "220",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "221",
+    "name": "Creekside Cottage Assisted Liv"
+  },
+  {
+    "id": "222",
+    "name": "The Willows"
+  },
+  {
+    "id": "223",
+    "name": "West Bloomington Residence"
+  },
+  {
+    "id": "224",
+    "name": "Empower Center Care"
+  },
+  {
+    "id": "225",
+    "name": "New Perspective Mankato"
+  },
+  {
+    "id": "226",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "227",
+    "name": "Amazing Love Assisted Living"
+  },
+  {
+    "id": "228",
+    "name": "The Caring Sisters Home Care"
+  },
+  {
+    "id": "229",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "230",
+    "name": "Shepherd Of Grace LLC"
+  },
+  {
+    "id": "231",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "232",
+    "name": "Rizon Homes"
+  },
+  {
+    "id": "233",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "234",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "235",
+    "name": "Mckenna Crossing"
+  },
+  {
+    "id": "236",
+    "name": "Valley Terrace Of Owatonna"
+  },
+  {
+    "id": "237",
+    "name": "Stonecrest"
+  },
+  {
+    "id": "238",
+    "name": "Happy Home LLC"
+  },
+  {
+    "id": "239",
+    "name": "Restart Inc"
+  },
+  {
+    "id": "240",
+    "name": "Restart Inc"
+  },
+  {
+    "id": "241",
+    "name": "Restart Inc"
+  },
+  {
+    "id": "242",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "243",
+    "name": "2 Caring Hands"
+  },
+  {
+    "id": "244",
+    "name": "The Maples At St John"
+  },
+  {
+    "id": "245",
+    "name": "Heritage Haven Inc"
+  },
+  {
+    "id": "246",
+    "name": "Totalcare Assisted Livining Se"
+  },
+  {
+    "id": "247",
+    "name": "The Cypress Manor"
+  },
+  {
+    "id": "248",
+    "name": "Unity Place"
+  },
+  {
+    "id": "249",
+    "name": "The Evergreens Of Moorhead"
+  },
+  {
+    "id": "250",
+    "name": "Oak Grove Care Center Inc"
+  },
+  {
+    "id": "252",
+    "name": "Serving Hart Inc"
+  },
+  {
+    "id": "253",
+    "name": "Golden Bay Homes"
+  },
+  {
+    "id": "254",
+    "name": "Compassionate Cottage LLC"
+  },
+  {
+    "id": "255",
+    "name": "Good Shepherd Homes Inc"
+  },
+  {
+    "id": "256",
+    "name": "Norris Square"
+  },
+  {
+    "id": "257",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "258",
+    "name": "Select Sr Lvg Coon Rapids LLC"
+  },
+  {
+    "id": "259",
+    "name": "Heart To Home Inc"
+  },
+  {
+    "id": "260",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "261",
+    "name": "Maplewood Care Residence"
+  },
+  {
+    "id": "262",
+    "name": "Colorado House"
+  },
+  {
+    "id": "263",
+    "name": "The Alton"
+  },
+  {
+    "id": "264",
+    "name": "Gondola Group Inc"
+  },
+  {
+    "id": "265",
+    "name": "Tradition Senior Living"
+  },
+  {
+    "id": "266",
+    "name": "Ely Carefree Living Inc"
+  },
+  {
+    "id": "267",
+    "name": "Prelude Homes & Services LLC"
+  },
+  {
+    "id": "268",
+    "name": "Bridgewell Assisted Living"
+  },
+  {
+    "id": "269",
+    "name": "Centennial Villa"
+  },
+  {
+    "id": "270",
+    "name": "New Perspective Cloquet & Barn"
+  },
+  {
+    "id": "271",
+    "name": "Stanton House With Services"
+  },
+  {
+    "id": "272",
+    "name": "Ecumen Detroit Lakes The Cotta"
+  },
+  {
+    "id": "273",
+    "name": "Rosemount Court"
+  },
+  {
+    "id": "274",
+    "name": "Vista Prairie At Windmill Pmc"
+  },
+  {
+    "id": "275",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "276",
+    "name": "Dr Thomas H Johnson Hws"
+  },
+  {
+    "id": "277",
+    "name": "Vista Prairie At Copperleaf Ll"
+  },
+  {
+    "id": "278",
+    "name": "Heart To Home Incorporated"
+  },
+  {
+    "id": "279",
+    "name": "The Friendship Home Community"
+  },
+  {
+    "id": "280",
+    "name": "Heartwood"
+  },
+  {
+    "id": "281",
+    "name": "Tolad Incorporated"
+  },
+  {
+    "id": "282",
+    "name": "First Choice Nursing Services"
+  },
+  {
+    "id": "283",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "284",
+    "name": "Traditions Holdings LLC"
+  },
+  {
+    "id": "285",
+    "name": "Skyview Plaza"
+  },
+  {
+    "id": "286",
+    "name": "Bentson Family Asst Lvg Res"
+  },
+  {
+    "id": "287",
+    "name": "Buhl Carefree Living LLC"
+  },
+  {
+    "id": "288",
+    "name": "Hillcrest Nashwauk"
+  },
+  {
+    "id": "290",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "291",
+    "name": "Caring Hearts Senior Community"
+  },
+  {
+    "id": "292",
+    "name": "Heritage Cottage On 6th"
+  },
+  {
+    "id": "294",
+    "name": "Barnes Care Inc"
+  },
+  {
+    "id": "295",
+    "name": "Edgewood Sartell LLC"
+  },
+  {
+    "id": "296",
+    "name": "Cannon Falls Assisted Living"
+  },
+  {
+    "id": "297",
+    "name": "Villages Of Lonsdale"
+  },
+  {
+    "id": "298",
+    "name": "Trillium At Woodsedge"
+  },
+  {
+    "id": "299",
+    "name": "Cedar Crest Of Silver Lake"
+  },
+  {
+    "id": "300",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "301",
+    "name": "Sunset Homes Assisted Living"
+  },
+  {
+    "id": "302",
+    "name": "Cook Carefree Living Inc"
+  },
+  {
+    "id": "303",
+    "name": "Windsong At Woodsedge"
+  },
+  {
+    "id": "304",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "305",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "307",
+    "name": "Our Caring Hands Llp"
+  },
+  {
+    "id": "308",
+    "name": "Destiny Home Care Services"
+  },
+  {
+    "id": "309",
+    "name": "Destiny Home Care Services"
+  },
+  {
+    "id": "310",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "311",
+    "name": "Rosewood Senior Living LLC"
+  },
+  {
+    "id": "312",
+    "name": "Mcgregor Carefree Living LLC"
+  },
+  {
+    "id": "313",
+    "name": "Cherrywood Richmond"
+  },
+  {
+    "id": "314",
+    "name": "Golden Pond Maple Grove"
+  },
+  {
+    "id": "315",
+    "name": "Inver Grove Heights Wp Ii LLC"
+  },
+  {
+    "id": "317",
+    "name": "Options Residential Inc"
+  },
+  {
+    "id": "318",
+    "name": "Ecumen Seasons At Maplewood"
+  },
+  {
+    "id": "319",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "320",
+    "name": "Golden Nest LLC"
+  },
+  {
+    "id": "321",
+    "name": "Riverside Assisted Living"
+  },
+  {
+    "id": "322",
+    "name": "Silver Bay Carefree Living"
+  },
+  {
+    "id": "323",
+    "name": "Jaris M Pokey Paro Assisted Li"
+  },
+  {
+    "id": "324",
+    "name": "Saint Therese At St Odilia"
+  },
+  {
+    "id": "325",
+    "name": "Lifecare Medical Center"
+  },
+  {
+    "id": "327",
+    "name": "Hills Crossing Senior Living"
+  },
+  {
+    "id": "328",
+    "name": "Arthur's Senior Care"
+  },
+  {
+    "id": "329",
+    "name": "Solbakken Inc"
+  },
+  {
+    "id": "330",
+    "name": "Legacy Care Home"
+  },
+  {
+    "id": "331",
+    "name": "Fridley Assisted Living LLC"
+  },
+  {
+    "id": "332",
+    "name": "Grace Homes"
+  },
+  {
+    "id": "333",
+    "name": "Destiny Home Care Services"
+  },
+  {
+    "id": "334",
+    "name": "Moose Lake Village Assisted Li"
+  },
+  {
+    "id": "335",
+    "name": "The Gardens At Winsted Al"
+  },
+  {
+    "id": "336",
+    "name": "Cherrywood Big Lake"
+  },
+  {
+    "id": "337",
+    "name": "Loren On Park"
+  },
+  {
+    "id": "338",
+    "name": "New Challenges Inc Afton"
+  },
+  {
+    "id": "339",
+    "name": "Just Like Home Senior Care"
+  },
+  {
+    "id": "340",
+    "name": "Meadow Creek Hospitality LLC"
+  },
+  {
+    "id": "341",
+    "name": "Prelude Home & Services LLC"
+  },
+  {
+    "id": "342",
+    "name": "Birchview Gardens Assisted Liv"
+  },
+  {
+    "id": "343",
+    "name": "Vernon Terrace Of Edina"
+  },
+  {
+    "id": "344",
+    "name": "Oak Park Senior Living"
+  },
+  {
+    "id": "345",
+    "name": "Benet Hall"
+  },
+  {
+    "id": "346",
+    "name": "The Glenn Minnetonka"
+  },
+  {
+    "id": "347",
+    "name": "Encore At Mahtomedi"
+  },
+  {
+    "id": "348",
+    "name": "Becky's Place Inc"
+  },
+  {
+    "id": "349",
+    "name": "Legacy Care Home"
+  },
+  {
+    "id": "350",
+    "name": "Beyond Senior Living"
+  },
+  {
+    "id": "351",
+    "name": "Carondelet Village"
+  },
+  {
+    "id": "352",
+    "name": "Heritage Place"
+  },
+  {
+    "id": "353",
+    "name": "Foxdale"
+  },
+  {
+    "id": "354",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "355",
+    "name": "Community Assisted Living Inc"
+  },
+  {
+    "id": "357",
+    "name": "Nouis Home Care Incorporated"
+  },
+  {
+    "id": "358",
+    "name": "Options Residential Inc"
+  },
+  {
+    "id": "359",
+    "name": "Oak Terrace Senior Housing Of"
+  },
+  {
+    "id": "361",
+    "name": "Diamond Willow Assisted Living"
+  },
+  {
+    "id": "362",
+    "name": "The James Inc"
+  },
+  {
+    "id": "363",
+    "name": "Riverfront On Main"
+  },
+  {
+    "id": "364",
+    "name": "Summit Hill Senior Living"
+  },
+  {
+    "id": "365",
+    "name": "Trails Of Orono Assisted Livin"
+  },
+  {
+    "id": "366",
+    "name": "Covered Bridge LLC"
+  },
+  {
+    "id": "367",
+    "name": "Founders Ridge"
+  },
+  {
+    "id": "368",
+    "name": "Trinity Suites"
+  },
+  {
+    "id": "369",
+    "name": "Bethany On The Lake LLC"
+  },
+  {
+    "id": "370",
+    "name": "Auburn Meadows LLC"
+  },
+  {
+    "id": "371",
+    "name": "Towerlight On Wooddale Avenue"
+  },
+  {
+    "id": "372",
+    "name": "Cedar Cove Assisted Living LLC"
+  },
+  {
+    "id": "373",
+    "name": "Shoreview Senior Living LLC"
+  },
+  {
+    "id": "374",
+    "name": "First Choice Nursing Services"
+  },
+  {
+    "id": "375",
+    "name": "The Landmark Of Fridley"
+  },
+  {
+    "id": "376",
+    "name": "Sugar Loaf Senior Living"
+  },
+  {
+    "id": "377",
+    "name": "Walker Methodist Westwood Ii"
+  },
+  {
+    "id": "378",
+    "name": "Valley Ridge"
+  },
+  {
+    "id": "379",
+    "name": "River Grand Senior Living"
+  },
+  {
+    "id": "380",
+    "name": "Progressive Care LLC"
+  },
+  {
+    "id": "381",
+    "name": "Amira Choice Roseville"
+  },
+  {
+    "id": "382",
+    "name": "Cherrywood St Cloud"
+  },
+  {
+    "id": "383",
+    "name": "Lilac Homes Assisted Living"
+  },
+  {
+    "id": "384",
+    "name": "The Shores Of Lake Phalen"
+  },
+  {
+    "id": "385",
+    "name": "Lilydale Senior Living"
+  },
+  {
+    "id": "386",
+    "name": "Morning Star Healthcare Servic"
+  },
+  {
+    "id": "387",
+    "name": "The Fountains At Hosanna"
+  },
+  {
+    "id": "388",
+    "name": "Valentines Of Lake City, Inc"
+  },
+  {
+    "id": "389",
+    "name": "Babbitt Carefree Living"
+  },
+  {
+    "id": "390",
+    "name": "The Legacy Of St Michael"
+  },
+  {
+    "id": "391",
+    "name": "Fairway Pines Senior Living"
+  },
+  {
+    "id": "392",
+    "name": "The Legacy Of Delano"
+  },
+  {
+    "id": "394",
+    "name": "Rose Haven Assisted Living Inc"
+  },
+  {
+    "id": "395",
+    "name": "The Lodge Of Mountain Lake"
+  },
+  {
+    "id": "396",
+    "name": "Serenity Assisted Living"
+  },
+  {
+    "id": "397",
+    "name": "Traditions Of La Crescent"
+  },
+  {
+    "id": "398",
+    "name": "Lb Woodland Lodge"
+  },
+  {
+    "id": "400",
+    "name": "The Caring Sisters Home Care"
+  },
+  {
+    "id": "401",
+    "name": "Arbors At Ridges Assisted Livi"
+  },
+  {
+    "id": "402",
+    "name": "Mendota Heights Wp LLC"
+  },
+  {
+    "id": "404",
+    "name": "Eden Homes Inc"
+  },
+  {
+    "id": "405",
+    "name": "Arbor Oaks Senior Living"
+  },
+  {
+    "id": "406",
+    "name": "Heritage Pointe Senior Living"
+  },
+  {
+    "id": "408",
+    "name": "Keystone Bluffs Assisted Livin"
+  },
+  {
+    "id": "409",
+    "name": "Kingsley Shores Senior Living"
+  },
+  {
+    "id": "410",
+    "name": "Good Samaritan Society Interna"
+  },
+  {
+    "id": "411",
+    "name": "Morning Glory Homes Inc"
+  },
+  {
+    "id": "412",
+    "name": "Barnes Care"
+  },
+  {
+    "id": "413",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "414",
+    "name": "The Waters Of Plymouth"
+  },
+  {
+    "id": "415",
+    "name": "All Saints Senior Living"
+  },
+  {
+    "id": "416",
+    "name": "Trouvaille Memory Care Suites"
+  },
+  {
+    "id": "417",
+    "name": "Ultimate Care Group Inc"
+  },
+  {
+    "id": "418",
+    "name": "The Waters Of Edina"
+  },
+  {
+    "id": "419",
+    "name": "Fair Meadow Assisted Living"
+  },
+  {
+    "id": "420",
+    "name": "Prairie Senior Cottages Of Alb"
+  },
+  {
+    "id": "421",
+    "name": "The Legacy Of St Anthony"
+  },
+  {
+    "id": "422",
+    "name": "Cherrywood Andover"
+  },
+  {
+    "id": "423",
+    "name": "Medford Senior Care LLC"
+  },
+  {
+    "id": "424",
+    "name": "Edgewood Blaine LLC"
+  },
+  {
+    "id": "426",
+    "name": "North Star Assisted Living"
+  },
+  {
+    "id": "427",
+    "name": "The Homestead At Anoka"
+  },
+  {
+    "id": "428",
+    "name": "The Lodge Of Winthrop LLC"
+  },
+  {
+    "id": "429",
+    "name": "Folkestone"
+  },
+  {
+    "id": "430",
+    "name": "Woodstone Senior Living"
+  },
+  {
+    "id": "431",
+    "name": "Woodstone Senior Living"
+  },
+  {
+    "id": "432",
+    "name": "The Lodge Of Howard Lake"
+  },
+  {
+    "id": "433",
+    "name": "Barross Cottage Ii LLC"
+  },
+  {
+    "id": "434",
+    "name": "Dellwood Gardens"
+  },
+  {
+    "id": "435",
+    "name": "Copperfield Hill The Lodge"
+  },
+  {
+    "id": "436",
+    "name": "Gianna Homes Gladys' Place LLC"
+  },
+  {
+    "id": "437",
+    "name": "Ultimate Care Group Inc"
+  },
+  {
+    "id": "438",
+    "name": "Oak Hill Assisted Living"
+  },
+  {
+    "id": "439",
+    "name": "Water's Edge"
+  },
+  {
+    "id": "440",
+    "name": "River Of Life Residential LLC"
+  },
+  {
+    "id": "441",
+    "name": "Runnstone Senior Living"
+  },
+  {
+    "id": "442",
+    "name": "Elysian Sr Homes Of Chanhassen"
+  },
+  {
+    "id": "443",
+    "name": "Arbor Garden Place"
+  },
+  {
+    "id": "444",
+    "name": "Mala Strana Assisted Living"
+  },
+  {
+    "id": "445",
+    "name": "Woodbury Villa"
+  },
+  {
+    "id": "446",
+    "name": "Valley Assisted Living"
+  },
+  {
+    "id": "447",
+    "name": "New Perspective Faribault"
+  },
+  {
+    "id": "448",
+    "name": "The Emeralds At Grand Rapids A"
+  },
+  {
+    "id": "449",
+    "name": "Duluth Heights Lodge Senior Li"
+  },
+  {
+    "id": "450",
+    "name": "Amy Johnson Residence"
+  },
+  {
+    "id": "451",
+    "name": "Prairie View"
+  },
+  {
+    "id": "452",
+    "name": "Cedar Court"
+  },
+  {
+    "id": "453",
+    "name": "Birchwood Arbors"
+  },
+  {
+    "id": "454",
+    "name": "Sherburn Eda Operating Tempera"
+  },
+  {
+    "id": "455",
+    "name": "Brooke Manor Inc"
+  },
+  {
+    "id": "456",
+    "name": "Summerwood Of Plymouth"
+  },
+  {
+    "id": "457",
+    "name": "Johnson Memorial Assisted Livi"
+  },
+  {
+    "id": "458",
+    "name": "Decker's Family Care Inc"
+  },
+  {
+    "id": "459",
+    "name": "Ingleside"
+  },
+  {
+    "id": "460",
+    "name": "Regina Assisted Living"
+  },
+  {
+    "id": "461",
+    "name": "The Waters On 50th"
+  },
+  {
+    "id": "462",
+    "name": "Amira Choice Champlin"
+  },
+  {
+    "id": "463",
+    "name": "Truman Manor Apartments"
+  },
+  {
+    "id": "464",
+    "name": "Plainview Estates Inc"
+  },
+  {
+    "id": "465",
+    "name": "Good Samaritan Society Pine Ri"
+  },
+  {
+    "id": "466",
+    "name": "Villa St Vincent"
+  },
+  {
+    "id": "468",
+    "name": "Northern Pines Assisted Living"
+  },
+  {
+    "id": "469",
+    "name": "Edgewood Baxter LLC"
+  },
+  {
+    "id": "470",
+    "name": "Poplar Meadows Of Mcintosh"
+  },
+  {
+    "id": "471",
+    "name": "South View Living Center"
+  },
+  {
+    "id": "472",
+    "name": "Brookside Assisted Living"
+  },
+  {
+    "id": "473",
+    "name": "Cornerstone Assisted Living"
+  },
+  {
+    "id": "474",
+    "name": "Autumn Grace I"
+  },
+  {
+    "id": "475",
+    "name": "St Scholastica Convent"
+  },
+  {
+    "id": "476",
+    "name": "Hawthorne House Inc"
+  },
+  {
+    "id": "477",
+    "name": "Good Samaritan Society Woodlan"
+  },
+  {
+    "id": "478",
+    "name": "Knutson Place Apartments"
+  },
+  {
+    "id": "479",
+    "name": "Westview Estates"
+  },
+  {
+    "id": "480",
+    "name": "Mccarthy Manor Assisted Living"
+  },
+  {
+    "id": "481",
+    "name": "Mill Street Residence"
+  },
+  {
+    "id": "482",
+    "name": "Good Samaritan Society Jackson"
+  },
+  {
+    "id": "483",
+    "name": "Shepherds Inn Assisted Living"
+  },
+  {
+    "id": "484",
+    "name": "Chandler Place"
+  },
+  {
+    "id": "485",
+    "name": "Richfield Senior Suites LLC"
+  },
+  {
+    "id": "486",
+    "name": "Agate Bay Assisted Living LLC"
+  },
+  {
+    "id": "487",
+    "name": "Circle Drive Manor Assisted Li"
+  },
+  {
+    "id": "488",
+    "name": "Nelson Gables"
+  },
+  {
+    "id": "489",
+    "name": "Westwood Place Inc"
+  },
+  {
+    "id": "490",
+    "name": "Charter House"
+  },
+  {
+    "id": "491",
+    "name": "Valleyview Of Northfield"
+  },
+  {
+    "id": "492",
+    "name": "Goldpine Home"
+  },
+  {
+    "id": "493",
+    "name": "Ostrander Assisted Living"
+  },
+  {
+    "id": "494",
+    "name": "Fairway View Assisted Living"
+  },
+  {
+    "id": "495",
+    "name": "Meadows On Fairview Al"
+  },
+  {
+    "id": "496",
+    "name": "Long Lake Assisted Living LLC"
+  },
+  {
+    "id": "497",
+    "name": "Legacy Commons Senior Living L"
+  },
+  {
+    "id": "498",
+    "name": "Minnesota Greenleaf"
+  },
+  {
+    "id": "499",
+    "name": "Maplewood Court Assisted Livin"
+  },
+  {
+    "id": "500",
+    "name": "Golden Horizons"
+  },
+  {
+    "id": "501",
+    "name": "Falls Landing Assisted Living"
+  },
+  {
+    "id": "502",
+    "name": "Willow Creek Senior Community"
+  },
+  {
+    "id": "503",
+    "name": "The Encore At Hugo"
+  },
+  {
+    "id": "504",
+    "name": "Cornerstone Residence Of Fosst"
+  },
+  {
+    "id": "505",
+    "name": "Arbor Park Living Center LLC"
+  },
+  {
+    "id": "506",
+    "name": "Bridgeway Estates"
+  },
+  {
+    "id": "507",
+    "name": "Speltz Estates Assisted Living"
+  },
+  {
+    "id": "508",
+    "name": "Cura Of Melrose"
+  },
+  {
+    "id": "509",
+    "name": "Barnes Care Inc"
+  },
+  {
+    "id": "510",
+    "name": "Moose Lake Village Assisted Li"
+  },
+  {
+    "id": "511",
+    "name": "Vista Prairie At Garnette Gard"
+  },
+  {
+    "id": "512",
+    "name": "Tree Of Life Assisted Living"
+  },
+  {
+    "id": "513",
+    "name": "People Incorporated Dsl"
+  },
+  {
+    "id": "514",
+    "name": "Prairie Pines Community"
+  },
+  {
+    "id": "515",
+    "name": "Golden Horizons"
+  },
+  {
+    "id": "516",
+    "name": "Vista Prairie At Goldfinch Est"
+  },
+  {
+    "id": "517",
+    "name": "Sugar Brook Villa"
+  },
+  {
+    "id": "518",
+    "name": "Lakeshore Assisted Living"
+  },
+  {
+    "id": "519",
+    "name": "Sunrise Village Of Milaca"
+  },
+  {
+    "id": "520",
+    "name": "Vitality Living Of Park Rapids"
+  },
+  {
+    "id": "521",
+    "name": "Lakeside Manor"
+  },
+  {
+    "id": "522",
+    "name": "Edgewood Brainerd Senior Livin"
+  },
+  {
+    "id": "523",
+    "name": "Peace Home"
+  },
+  {
+    "id": "524",
+    "name": "New Perspective Waconia"
+  },
+  {
+    "id": "525",
+    "name": "Good Samaritan Society Waconia"
+  },
+  {
+    "id": "526",
+    "name": "Thorne Crest Retirement Center"
+  },
+  {
+    "id": "527",
+    "name": "Asst Lvg In Heritage Hall"
+  },
+  {
+    "id": "528",
+    "name": "Good Samaritan Society Bethany"
+  },
+  {
+    "id": "529",
+    "name": "Loving Residence"
+  },
+  {
+    "id": "530",
+    "name": "Wesley Residence Of Duluth"
+  },
+  {
+    "id": "531",
+    "name": "Frazee Assisted Living"
+  },
+  {
+    "id": "532",
+    "name": "Pathstone Crossing"
+  },
+  {
+    "id": "534",
+    "name": "Cerenity Residence Of White Be"
+  },
+  {
+    "id": "535",
+    "name": "Pierz Meadow Ponds Inc"
+  },
+  {
+    "id": "536",
+    "name": "Alizah Family Services Llp"
+  },
+  {
+    "id": "537",
+    "name": "Clgv Assisted Living Memory"
+  },
+  {
+    "id": "538",
+    "name": "St Ann's Home"
+  },
+  {
+    "id": "539",
+    "name": "Lake Ridge"
+  },
+  {
+    "id": "540",
+    "name": "Mccornell Court"
+  },
+  {
+    "id": "541",
+    "name": "Cedars Of Austin"
+  },
+  {
+    "id": "542",
+    "name": "Moorhead Manor"
+  },
+  {
+    "id": "543",
+    "name": "Chicos Board & Lodge LLC"
+  },
+  {
+    "id": "544",
+    "name": "The Lodges Company"
+  },
+  {
+    "id": "545",
+    "name": "Central Todd County Care Cente"
+  },
+  {
+    "id": "546",
+    "name": "Country Manor Apartments"
+  },
+  {
+    "id": "547",
+    "name": "Colony Court"
+  },
+  {
+    "id": "548",
+    "name": "Sunrise Village"
+  },
+  {
+    "id": "549",
+    "name": "Comfort Care Cottages"
+  },
+  {
+    "id": "550",
+    "name": "Hawley Senior Living"
+  },
+  {
+    "id": "551",
+    "name": "Minneota Assisted Living And H"
+  },
+  {
+    "id": "552",
+    "name": "Viking Manor Nursing Home/ Nor"
+  },
+  {
+    "id": "553",
+    "name": "Mother Of Mercy Senior Living"
+  },
+  {
+    "id": "554",
+    "name": "Cerenity Residence On Humboldt"
+  },
+  {
+    "id": "555",
+    "name": "Parker Oaks Senior Living"
+  },
+  {
+    "id": "556",
+    "name": "The Green Prairie Assisted Liv"
+  },
+  {
+    "id": "557",
+    "name": "Luther Haven"
+  },
+  {
+    "id": "558",
+    "name": "Parkwood Apartments"
+  },
+  {
+    "id": "559",
+    "name": "Evergreen Place"
+  },
+  {
+    "id": "560",
+    "name": "The Meadows Of Mabel"
+  },
+  {
+    "id": "561",
+    "name": "Edgebrook Care Center Inc"
+  },
+  {
+    "id": "562",
+    "name": "Deephaven Woods Senior Living"
+  },
+  {
+    "id": "563",
+    "name": "The Gardens At St Gertrudes"
+  },
+  {
+    "id": "564",
+    "name": "The Meadows"
+  },
+  {
+    "id": "565",
+    "name": "French Meadow Place"
+  },
+  {
+    "id": "566",
+    "name": "Spring Grove Assisted Living"
+  },
+  {
+    "id": "567",
+    "name": "Southern Oaks Place"
+  },
+  {
+    "id": "568",
+    "name": "Ridgeview Assisted Living LLC"
+  },
+  {
+    "id": "569",
+    "name": "Autumn Hills Assisted Living"
+  },
+  {
+    "id": "570",
+    "name": "The James Inc"
+  },
+  {
+    "id": "571",
+    "name": "Asian American Elderly Al"
+  },
+  {
+    "id": "572",
+    "name": "Southview Senior Living"
+  },
+  {
+    "id": "573",
+    "name": "Potter Ridge"
+  },
+  {
+    "id": "574",
+    "name": "Millstream Commons"
+  },
+  {
+    "id": "575",
+    "name": "Ecumen Duluth The Shores"
+  },
+  {
+    "id": "576",
+    "name": "Getty Street Assisted Living"
+  },
+  {
+    "id": "577",
+    "name": "Chosen Valley Assisted Living"
+  },
+  {
+    "id": "578",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "579",
+    "name": "Lifecare Medical Center"
+  },
+  {
+    "id": "580",
+    "name": "Vermilion Senior Living"
+  },
+  {
+    "id": "581",
+    "name": "Evensong Manor"
+  },
+  {
+    "id": "582",
+    "name": "Windy Acres Long Term Care Inc"
+  },
+  {
+    "id": "583",
+    "name": "Good Samaritan Society Albert"
+  },
+  {
+    "id": "584",
+    "name": "Traditions Of Owatonna"
+  },
+  {
+    "id": "585",
+    "name": "Garden Terrace Assisted Living"
+  },
+  {
+    "id": "586",
+    "name": "Serenity Living Center Inc"
+  },
+  {
+    "id": "587",
+    "name": "Milaca Elim Meadows Assisted L"
+  },
+  {
+    "id": "588",
+    "name": "The Friendship Home Community"
+  },
+  {
+    "id": "589",
+    "name": "Pheasants Ridge LLC"
+  },
+  {
+    "id": "590",
+    "name": "Twin Town Villa"
+  },
+  {
+    "id": "591",
+    "name": "Riverside Assisted Living"
+  },
+  {
+    "id": "592",
+    "name": "Evansville Senior Living"
+  },
+  {
+    "id": "593",
+    "name": "Park Gardens Of Fergus Falls"
+  },
+  {
+    "id": "594",
+    "name": "Saint Therese Of Oxbow Lake"
+  },
+  {
+    "id": "596",
+    "name": "Lake Song Assisted Living"
+  },
+  {
+    "id": "597",
+    "name": "Ageless Care Incorporated"
+  },
+  {
+    "id": "598",
+    "name": "Assumption Court"
+  },
+  {
+    "id": "599",
+    "name": "Pleasant View Estates LLC"
+  },
+  {
+    "id": "600",
+    "name": "Brookdale Winona"
+  },
+  {
+    "id": "601",
+    "name": "White Bear Lake Coh Care LLC"
+  },
+  {
+    "id": "602",
+    "name": "American Eagle Owatonna"
+  },
+  {
+    "id": "603",
+    "name": "Brookdale Mankato"
+  },
+  {
+    "id": "604",
+    "name": "Spring Valley Estates"
+  },
+  {
+    "id": "605",
+    "name": "Lakeview Assisted Living"
+  },
+  {
+    "id": "606",
+    "name": "Legacy Care Home"
+  },
+  {
+    "id": "607",
+    "name": "Cornerstone Residence Of Kelli"
+  },
+  {
+    "id": "608",
+    "name": "Sophie's Manor Assisted Living"
+  },
+  {
+    "id": "609",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "610",
+    "name": "Good Samaritan Society St Jame"
+  },
+  {
+    "id": "611",
+    "name": "Prairie Cottages Of Owatonna"
+  },
+  {
+    "id": "612",
+    "name": "Valentines"
+  },
+  {
+    "id": "613",
+    "name": "Countryside Catered Senior Liv"
+  },
+  {
+    "id": "614",
+    "name": "Aicota Health Care Center"
+  },
+  {
+    "id": "615",
+    "name": "Gleseners Assisted Living"
+  },
+  {
+    "id": "616",
+    "name": "Park View Assisted Living"
+  },
+  {
+    "id": "617",
+    "name": "River's Edge At Kittson Memori"
+  },
+  {
+    "id": "618",
+    "name": "Arthur's Senior Care"
+  },
+  {
+    "id": "619",
+    "name": "Elmhurst Commons Apartments"
+  },
+  {
+    "id": "620",
+    "name": "The Kenwood"
+  },
+  {
+    "id": "621",
+    "name": "Garden Court Chateau"
+  },
+  {
+    "id": "622",
+    "name": "Elim Shores"
+  },
+  {
+    "id": "623",
+    "name": "Whispering Oak Place"
+  },
+  {
+    "id": "624",
+    "name": "Brookdale Willmar"
+  },
+  {
+    "id": "625",
+    "name": "Summit Ridge Place"
+  },
+  {
+    "id": "626",
+    "name": "The Beacon At Lake Crystal"
+  },
+  {
+    "id": "627",
+    "name": "The Beacon At Mapleton"
+  },
+  {
+    "id": "628",
+    "name": "Prairie Senior Cottages Of New"
+  },
+  {
+    "id": "629",
+    "name": "The Encore At North Branch"
+  },
+  {
+    "id": "630",
+    "name": "The Encore At Champlin"
+  },
+  {
+    "id": "631",
+    "name": "Good Samaritan Society Battle"
+  },
+  {
+    "id": "632",
+    "name": "Apple Valley Villa"
+  },
+  {
+    "id": "633",
+    "name": "Brookdale Faribault"
+  },
+  {
+    "id": "634",
+    "name": "Milestone Senior Living Fariba"
+  },
+  {
+    "id": "635",
+    "name": "The Encore At Maplewood"
+  },
+  {
+    "id": "636",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "637",
+    "name": "Traditions Of Waterville"
+  },
+  {
+    "id": "638",
+    "name": "Plainview Estates"
+  },
+  {
+    "id": "639",
+    "name": "Golden Horizons"
+  },
+  {
+    "id": "641",
+    "name": "Northern Oaks Place"
+  },
+  {
+    "id": "642",
+    "name": "Bremmer Suites"
+  },
+  {
+    "id": "643",
+    "name": "Brookdale Inver Grove Heights"
+  },
+  {
+    "id": "644",
+    "name": "Walker Methodist Plazacityview"
+  },
+  {
+    "id": "645",
+    "name": "Walker Methodist Westwood I"
+  },
+  {
+    "id": "646",
+    "name": "Ksms Our House LLC"
+  },
+  {
+    "id": "647",
+    "name": "Edgewood Egf Senior Living"
+  },
+  {
+    "id": "648",
+    "name": "Friendship Court"
+  },
+  {
+    "id": "649",
+    "name": "Brookdale West St Paul Al"
+  },
+  {
+    "id": "651",
+    "name": "Deer Crest Senior Living"
+  },
+  {
+    "id": "652",
+    "name": "Ecumen North Branch"
+  },
+  {
+    "id": "653",
+    "name": "Maple Care Homes"
+  },
+  {
+    "id": "654",
+    "name": "River Pointe Of Moorhead"
+  },
+  {
+    "id": "655",
+    "name": "Inver Glen Senior Living"
+  },
+  {
+    "id": "656",
+    "name": "Colleens Caring Hands Inc"
+  },
+  {
+    "id": "657",
+    "name": "New Perspective Columbia Heigh"
+  },
+  {
+    "id": "658",
+    "name": "Blaine Wp LLC"
+  },
+  {
+    "id": "659",
+    "name": "Hastings Senior Health And Liv"
+  },
+  {
+    "id": "660",
+    "name": "Prelude Homes & Services LLC"
+  },
+  {
+    "id": "661",
+    "name": "Sunset Homes Assisted Living"
+  },
+  {
+    "id": "662",
+    "name": "Kingsway Retirement Living"
+  },
+  {
+    "id": "663",
+    "name": "Old Main Village"
+  },
+  {
+    "id": "664",
+    "name": "Nervanas Caring Hands Inc"
+  },
+  {
+    "id": "665",
+    "name": "Maple Woods Assisted Living"
+  },
+  {
+    "id": "666",
+    "name": "Tamarack Court Of Bemidji"
+  },
+  {
+    "id": "667",
+    "name": "Sunlight Senior Living"
+  },
+  {
+    "id": "668",
+    "name": "Heather Haus"
+  },
+  {
+    "id": "669",
+    "name": "Farmside Senior Living"
+  },
+  {
+    "id": "670",
+    "name": "Laurels Edge Assisted Living"
+  },
+  {
+    "id": "671",
+    "name": "Nine Mile Creek Senior Living"
+  },
+  {
+    "id": "672",
+    "name": "Aspen Grove Assisted Living"
+  },
+  {
+    "id": "673",
+    "name": "Horizon Place Inc"
+  },
+  {
+    "id": "674",
+    "name": "Brookdale Eagan"
+  },
+  {
+    "id": "675",
+    "name": "Brookdale West St Paul Mc"
+  },
+  {
+    "id": "676",
+    "name": "Benedictine Senior Living - Os"
+  },
+  {
+    "id": "677",
+    "name": "Epiphany Assisted Living LLC"
+  },
+  {
+    "id": "678",
+    "name": "Boden Sr Lvg - Coon Rapids"
+  },
+  {
+    "id": "679",
+    "name": "Brookdale Plymouth"
+  },
+  {
+    "id": "680",
+    "name": "Brookdale Eden Prairie"
+  },
+  {
+    "id": "681",
+    "name": "Brookdale North Oaks"
+  },
+  {
+    "id": "682",
+    "name": "Carlton Place"
+  },
+  {
+    "id": "683",
+    "name": "Inver Grove Heights Wp LLC"
+  },
+  {
+    "id": "684",
+    "name": "Cottage Grove Wp LLC"
+  },
+  {
+    "id": "685",
+    "name": "Project Caring"
+  },
+  {
+    "id": "686",
+    "name": "Crystal Seasons Assisted Livin"
+  },
+  {
+    "id": "687",
+    "name": "Woodcrest Assisted Living"
+  },
+  {
+    "id": "688",
+    "name": "Campus A/L"
+  },
+  {
+    "id": "689",
+    "name": "Vista Prairie North Pointe"
+  },
+  {
+    "id": "690",
+    "name": "Madonna Meadows Of Rochester"
+  },
+  {
+    "id": "691",
+    "name": "Americare Lodges Inc"
+  },
+  {
+    "id": "692",
+    "name": "Vitacare Living"
+  },
+  {
+    "id": "693",
+    "name": "Oak Park Place Of Albert Lea"
+  },
+  {
+    "id": "694",
+    "name": "Wildwood Grove"
+  },
+  {
+    "id": "695",
+    "name": "Silver Maple Residence Inc"
+  },
+  {
+    "id": "697",
+    "name": "Alex Assisted Living LLC"
+  },
+  {
+    "id": "698",
+    "name": "Villa Court LLC"
+  },
+  {
+    "id": "699",
+    "name": "Oak Ridge Place"
+  },
+  {
+    "id": "700",
+    "name": "Mankato Lodge Senior Living"
+  },
+  {
+    "id": "701",
+    "name": "Cornerstone Residence Of Bagle"
+  },
+  {
+    "id": "702",
+    "name": "Arlington Place Assisted Lvg"
+  },
+  {
+    "id": "703",
+    "name": "The Hummingbird"
+  },
+  {
+    "id": "704",
+    "name": "Edgewood Alexandria Senior Liv"
+  },
+  {
+    "id": "705",
+    "name": "Traditions Of Montgomery LLC"
+  },
+  {
+    "id": "706",
+    "name": "Park Lane Estates"
+  },
+  {
+    "id": "707",
+    "name": "The Waterview Shores Assisted"
+  },
+  {
+    "id": "708",
+    "name": "Jones Harrison Assisted Living"
+  },
+  {
+    "id": "709",
+    "name": "Highview Hills"
+  },
+  {
+    "id": "710",
+    "name": "Autumn Cottages"
+  },
+  {
+    "id": "711",
+    "name": "Good Samaritan Society Blackdu"
+  },
+  {
+    "id": "712",
+    "name": "Edgewood Virginia I Senior Liv"
+  },
+  {
+    "id": "713",
+    "name": "Highland Senior Living Of Litt"
+  },
+  {
+    "id": "714",
+    "name": "Morgan Memorial Foundation Inc"
+  },
+  {
+    "id": "715",
+    "name": "Brandon's Assisted Living"
+  },
+  {
+    "id": "716",
+    "name": "Minnewaska Community Home Care"
+  },
+  {
+    "id": "717",
+    "name": "Lino Lakes Assisted Living"
+  },
+  {
+    "id": "718",
+    "name": "Epiphany Care Homes LLC"
+  },
+  {
+    "id": "719",
+    "name": "Touch Of Home"
+  },
+  {
+    "id": "720",
+    "name": "Oak Ridge Assisted Living Of H"
+  },
+  {
+    "id": "721",
+    "name": "The Commons On Marice"
+  },
+  {
+    "id": "722",
+    "name": "Arbor Lakes Senior Living LLC"
+  },
+  {
+    "id": "723",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "724",
+    "name": "New Perspective Carlson Parkwa"
+  },
+  {
+    "id": "725",
+    "name": "Ecumen Seasons At Apple Valley"
+  },
+  {
+    "id": "726",
+    "name": "Edgewood May Creek LLC"
+  },
+  {
+    "id": "727",
+    "name": "Home And Comfort Inc Of Grand"
+  },
+  {
+    "id": "728",
+    "name": "The Wellstead Of Rogers"
+  },
+  {
+    "id": "729",
+    "name": "Gracepointe Crossing"
+  },
+  {
+    "id": "730",
+    "name": "The Lodges Company"
+  },
+  {
+    "id": "731",
+    "name": "Arbor Lane"
+  },
+  {
+    "id": "732",
+    "name": "Holly Ridge Manor"
+  },
+  {
+    "id": "733",
+    "name": "Ecumen Sand Prairie"
+  },
+  {
+    "id": "734",
+    "name": "Prairie Senior Cottages Of New"
+  },
+  {
+    "id": "736",
+    "name": "Park View Village"
+  },
+  {
+    "id": "737",
+    "name": "Cornerstone Residence Senior C"
+  },
+  {
+    "id": "738",
+    "name": "York Gardens Senior Living"
+  },
+  {
+    "id": "739",
+    "name": "Minnehaha Senior Living"
+  },
+  {
+    "id": "740",
+    "name": "Cottage Grove Wp Ii LLC"
+  },
+  {
+    "id": "741",
+    "name": "Ecumen Prairie Hill"
+  },
+  {
+    "id": "742",
+    "name": "Faribault Senior Living"
+  },
+  {
+    "id": "743",
+    "name": "Lindenwood Assisted Living"
+  },
+  {
+    "id": "744",
+    "name": "Prairie Senior Cottages Of Hut"
+  },
+  {
+    "id": "745",
+    "name": "Warroad Senior Living Center"
+  },
+  {
+    "id": "746",
+    "name": "Bethel Haven Care"
+  },
+  {
+    "id": "747",
+    "name": "Watkins Manor"
+  },
+  {
+    "id": "748",
+    "name": "Brookridge"
+  },
+  {
+    "id": "749",
+    "name": "Willows & Waters Senior Living"
+  },
+  {
+    "id": "750",
+    "name": "Sterling Pointe Senior Living"
+  },
+  {
+    "id": "751",
+    "name": "The Wealshire Of Bloomington"
+  },
+  {
+    "id": "752",
+    "name": "Grand Arbor"
+  },
+  {
+    "id": "753",
+    "name": "Benedictine Court"
+  },
+  {
+    "id": "754",
+    "name": "Grace Haven Assisted Living"
+  },
+  {
+    "id": "755",
+    "name": "Prairie Senior Cottages Of Isa"
+  },
+  {
+    "id": "756",
+    "name": "Harmony River Living Center"
+  },
+  {
+    "id": "757",
+    "name": "The Waters Of Eden Prairie"
+  },
+  {
+    "id": "758",
+    "name": "Elim Wellspring Assisted Livin"
+  },
+  {
+    "id": "759",
+    "name": "Garden House Estates Ltd"
+  },
+  {
+    "id": "760",
+    "name": "West View Assisted Living Apt"
+  },
+  {
+    "id": "761",
+    "name": "Guardian Angels By The Lake"
+  },
+  {
+    "id": "762",
+    "name": "South Grove Lodge Senior Livin"
+  },
+  {
+    "id": "763",
+    "name": "Whittier Place"
+  },
+  {
+    "id": "764",
+    "name": "Heritage House Elder Care"
+  },
+  {
+    "id": "765",
+    "name": "American Eagle Owatonna"
+  },
+  {
+    "id": "766",
+    "name": "Edgewood Hermantown I Sr Lvg"
+  },
+  {
+    "id": "767",
+    "name": "Gianna Homes Sursum Corda"
+  },
+  {
+    "id": "768",
+    "name": "Westwood Of Duluth"
+  },
+  {
+    "id": "769",
+    "name": "Valleyview Of Jordan LLC"
+  },
+  {
+    "id": "770",
+    "name": "Oak Terrace Assisted Living Of"
+  },
+  {
+    "id": "771",
+    "name": "The Brooks On St Paul"
+  },
+  {
+    "id": "772",
+    "name": "Lakewood Pines"
+  },
+  {
+    "id": "773",
+    "name": "St Mark's Heritage Community"
+  },
+  {
+    "id": "774",
+    "name": "Woodland Manor"
+  },
+  {
+    "id": "775",
+    "name": "The Meadows Of Grand Meadow"
+  },
+  {
+    "id": "776",
+    "name": "Oak Hills Living Center Assist"
+  },
+  {
+    "id": "777",
+    "name": "Our Home Your Home"
+  },
+  {
+    "id": "778",
+    "name": "Engel Haus"
+  },
+  {
+    "id": "779",
+    "name": "Boulder Creek Assisted Living"
+  },
+  {
+    "id": "780",
+    "name": "Majestic Pines"
+  },
+  {
+    "id": "781",
+    "name": "Marywood"
+  },
+  {
+    "id": "782",
+    "name": "Golden Pond Champlin"
+  },
+  {
+    "id": "783",
+    "name": "N&v Helpful Heart Care Inc"
+  },
+  {
+    "id": "784",
+    "name": "Autumn Glen Senior Living"
+  },
+  {
+    "id": "785",
+    "name": "Cedar Ridge Place"
+  },
+  {
+    "id": "787",
+    "name": "The Waters Of Oakdale"
+  },
+  {
+    "id": "788",
+    "name": "Nagel Assisted Living"
+  },
+  {
+    "id": "789",
+    "name": "Peaceful Living LLC"
+  },
+  {
+    "id": "790",
+    "name": "Carefree Cottages Of Maplewood"
+  },
+  {
+    "id": "791",
+    "name": "Polar Ridge Senior Living"
+  },
+  {
+    "id": "793",
+    "name": "Twin Cities Nursing Care"
+  },
+  {
+    "id": "794",
+    "name": "Croixdale"
+  },
+  {
+    "id": "795",
+    "name": "Stoney River Ramsey"
+  },
+  {
+    "id": "796",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "797",
+    "name": "Highland Gw LLC"
+  },
+  {
+    "id": "798",
+    "name": "Beehive Homes Of Duluth"
+  },
+  {
+    "id": "800",
+    "name": "Aviva River Bend"
+  },
+  {
+    "id": "801",
+    "name": "Brookview Cottage Inc"
+  },
+  {
+    "id": "802",
+    "name": "Aurora Carefree Living Inc"
+  },
+  {
+    "id": "803",
+    "name": "Estherra Care LLC"
+  },
+  {
+    "id": "804",
+    "name": "Elmore Assisted Living"
+  },
+  {
+    "id": "805",
+    "name": "Prelude Homes & Services LLC"
+  },
+  {
+    "id": "806",
+    "name": "Legacy Place LLC"
+  },
+  {
+    "id": "807",
+    "name": "Garden View At Hilltop"
+  },
+  {
+    "id": "808",
+    "name": "Clara City Assisted Living"
+  },
+  {
+    "id": "809",
+    "name": "The Waters On Mayowood"
+  },
+  {
+    "id": "810",
+    "name": "Destiny Home Care Services"
+  },
+  {
+    "id": "811",
+    "name": "Farmstead Care Of Moorhead Lp"
+  },
+  {
+    "id": "812",
+    "name": "Hadley House"
+  },
+  {
+    "id": "813",
+    "name": "Willows Of Ramsey Hill"
+  },
+  {
+    "id": "814",
+    "name": "Bel Rae Senior Living"
+  },
+  {
+    "id": "815",
+    "name": "Silvercreek On Main"
+  },
+  {
+    "id": "816",
+    "name": "Blaine Wp Ii LLC"
+  },
+  {
+    "id": "817",
+    "name": "Savage Senior Living"
+  },
+  {
+    "id": "818",
+    "name": "New Perspective Woodbury"
+  },
+  {
+    "id": "819",
+    "name": "Our Caring Hands Llp"
+  },
+  {
+    "id": "820",
+    "name": "Lino Lakes Gracewood"
+  },
+  {
+    "id": "821",
+    "name": "Hillcrest Senior Living"
+  },
+  {
+    "id": "822",
+    "name": "Eagan Pointe Senior Living LLC"
+  },
+  {
+    "id": "823",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "824",
+    "name": "Amira Choice Forest Lake"
+  },
+  {
+    "id": "825",
+    "name": "Minnetonka Care Residence"
+  },
+  {
+    "id": "826",
+    "name": "Elysian Senior Homes Of Lake C"
+  },
+  {
+    "id": "827",
+    "name": "Morning Glory Homes Incorporat"
+  },
+  {
+    "id": "828",
+    "name": "River Oaks At Lake Pepin LLC"
+  },
+  {
+    "id": "829",
+    "name": "Grace Homes"
+  },
+  {
+    "id": "830",
+    "name": "The Lodge Of Taylors Falls LLC"
+  },
+  {
+    "id": "831",
+    "name": "The Waters Of Highland Park"
+  },
+  {
+    "id": "832",
+    "name": "Meadow Ridge Senior Living"
+  },
+  {
+    "id": "833",
+    "name": "Maple Hill Senior Living LLC"
+  },
+  {
+    "id": "834",
+    "name": "Northern Lakes Senior Living"
+  },
+  {
+    "id": "835",
+    "name": "Heart To Home Incorporated"
+  },
+  {
+    "id": "836",
+    "name": "Parkinson's Specialty Care"
+  },
+  {
+    "id": "837",
+    "name": "Bethany Assisted Living"
+  },
+  {
+    "id": "838",
+    "name": "Keystone Place At Lavalle Fiel"
+  },
+  {
+    "id": "839",
+    "name": "Totalcare Assisted Living Svcs"
+  },
+  {
+    "id": "840",
+    "name": "Birchwood Cottages"
+  },
+  {
+    "id": "841",
+    "name": "Residential Care Nine Mile Crk"
+  },
+  {
+    "id": "842",
+    "name": "Twin Cities Assisted Living In"
+  },
+  {
+    "id": "843",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "844",
+    "name": "Lifestone Health Care Inc"
+  },
+  {
+    "id": "845",
+    "name": "The Rosemount"
+  },
+  {
+    "id": "846",
+    "name": "Oak House LLC"
+  },
+  {
+    "id": "848",
+    "name": "Scenic Hills Alternative Care"
+  },
+  {
+    "id": "849",
+    "name": "Benedict House"
+  },
+  {
+    "id": "850",
+    "name": "Golden Maple Homes Inc"
+  },
+  {
+    "id": "851",
+    "name": "Sunrise View Assisted Living"
+  },
+  {
+    "id": "852",
+    "name": "Twin Cities Assisted Living In"
+  },
+  {
+    "id": "853",
+    "name": "Walker Methodist Plaza Gardens"
+  },
+  {
+    "id": "854",
+    "name": "Restoration Services Of Mn Inc"
+  },
+  {
+    "id": "855",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "856",
+    "name": "Benedictine Living Community |"
+  },
+  {
+    "id": "858",
+    "name": "Prelude Homes & Services LLC"
+  },
+  {
+    "id": "859",
+    "name": "Glacial Trails Memory Care"
+  },
+  {
+    "id": "861",
+    "name": "Franciscan Sisters Of Little F"
+  },
+  {
+    "id": "862",
+    "name": "Assured Care"
+  },
+  {
+    "id": "864",
+    "name": "St Therese Of Woodbury LLC"
+  },
+  {
+    "id": "865",
+    "name": "Highland Path"
+  },
+  {
+    "id": "866",
+    "name": "N&v Helpful Heart Care Inc"
+  },
+  {
+    "id": "867",
+    "name": "Gable Pines At Vadnais Heights"
+  },
+  {
+    "id": "869",
+    "name": "The Legacy"
+  },
+  {
+    "id": "870",
+    "name": "Oak Terrace Senior Housing Of"
+  },
+  {
+    "id": "871",
+    "name": "The Meadows"
+  },
+  {
+    "id": "872",
+    "name": "Edgemont Place"
+  },
+  {
+    "id": "873",
+    "name": "The Lodges Company"
+  },
+  {
+    "id": "874",
+    "name": "Vitality Living Of Remer LLC"
+  },
+  {
+    "id": "875",
+    "name": "Waters Edge"
+  },
+  {
+    "id": "876",
+    "name": "Empowerment Healthcare"
+  },
+  {
+    "id": "877",
+    "name": "Chaska Heights Senior Living"
+  },
+  {
+    "id": "878",
+    "name": "Yorkshire Of Edina Senior Lvg"
+  },
+  {
+    "id": "879",
+    "name": "Mercy Link LLC"
+  },
+  {
+    "id": "880",
+    "name": "The Sanctuary At West St Paul"
+  },
+  {
+    "id": "881",
+    "name": "Golden Pond Wbl"
+  },
+  {
+    "id": "882",
+    "name": "Perham Living Northwinds"
+  },
+  {
+    "id": "883",
+    "name": "Pioneer Estates"
+  },
+  {
+    "id": "884",
+    "name": "James Residences"
+  },
+  {
+    "id": "885",
+    "name": "Ma's Room And Board"
+  },
+  {
+    "id": "887",
+    "name": "The Homestead At Rochester"
+  },
+  {
+    "id": "888",
+    "name": "Rivers Edge Assisted Living"
+  },
+  {
+    "id": "889",
+    "name": "Crest View Senior Community At"
+  },
+  {
+    "id": "890",
+    "name": "River Oaks At Shady Ridge LLC"
+  },
+  {
+    "id": "891",
+    "name": "Goodness And Mercy Health Serv"
+  },
+  {
+    "id": "892",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "893",
+    "name": "Aurora On France Senior Living"
+  },
+  {
+    "id": "894",
+    "name": "Stanton House W Services Inc"
+  },
+  {
+    "id": "895",
+    "name": "Abiitan Mill City"
+  },
+  {
+    "id": "896",
+    "name": "Wellness Homes Inc"
+  },
+  {
+    "id": "897",
+    "name": "Cherrywood South St Cloud"
+  },
+  {
+    "id": "898",
+    "name": "Compassionate Cottage LLC"
+  },
+  {
+    "id": "899",
+    "name": "Volante Of Hanover"
+  },
+  {
+    "id": "900",
+    "name": "Butterfly Bound Care"
+  },
+  {
+    "id": "901",
+    "name": "Primus Healthcare Services"
+  },
+  {
+    "id": "902",
+    "name": "New Perspective White Bear Lak"
+  },
+  {
+    "id": "903",
+    "name": "A Janesville Senior Living LLC"
+  },
+  {
+    "id": "904",
+    "name": "Generations Home Care Inc"
+  },
+  {
+    "id": "905",
+    "name": "Harbor Crossing"
+  },
+  {
+    "id": "906",
+    "name": "Virginia Carefree Living"
+  },
+  {
+    "id": "907",
+    "name": "Dis-Generation Group Inc"
+  },
+  {
+    "id": "909",
+    "name": "Cardigan Ridge Senior Living"
+  },
+  {
+    "id": "910",
+    "name": "Maple Care Homes"
+  },
+  {
+    "id": "911",
+    "name": "Heartfelt Care LLC"
+  },
+  {
+    "id": "913",
+    "name": "Kubra Home Care Inc"
+  },
+  {
+    "id": "914",
+    "name": "Serenity Village Asst Lvg"
+  },
+  {
+    "id": "915",
+    "name": "Destiny Home Care Services"
+  },
+  {
+    "id": "916",
+    "name": "First Choice Nursing Services"
+  },
+  {
+    "id": "917",
+    "name": "Holistic Home Care LLC"
+  },
+  {
+    "id": "919",
+    "name": "Meadow Place Assisted Living"
+  },
+  {
+    "id": "920",
+    "name": "Ultimate Care Group Inc"
+  },
+  {
+    "id": "921",
+    "name": "Serenity Place On 7th"
+  },
+  {
+    "id": "922",
+    "name": "The Harbors Senior Living Of F"
+  },
+  {
+    "id": "923",
+    "name": "A Helping Hand Senior Care Ser"
+  },
+  {
+    "id": "924",
+    "name": "A Helping Hand Senior Care Ser"
+  },
+  {
+    "id": "925",
+    "name": "A Helping Hand Senior Care Ser"
+  },
+  {
+    "id": "926",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "927",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "928",
+    "name": "Golden Horizons"
+  },
+  {
+    "id": "930",
+    "name": "Suite Living Senior Care Of Va"
+  },
+  {
+    "id": "931",
+    "name": "Amira Choice Roseville At Lexi"
+  },
+  {
+    "id": "933",
+    "name": "The Legacy Of Farmington"
+  },
+  {
+    "id": "936",
+    "name": "Oasis Care Home LLC"
+  },
+  {
+    "id": "937",
+    "name": "Assurant Care Homes LLC"
+  },
+  {
+    "id": "938",
+    "name": "The Meadows Of Wadena"
+  },
+  {
+    "id": "939",
+    "name": "Lewiston Senior Living"
+  },
+  {
+    "id": "940",
+    "name": "Arbor Glen Senior Living"
+  },
+  {
+    "id": "941",
+    "name": "Amira Choice Minnetonka"
+  },
+  {
+    "id": "942",
+    "name": "Shorewood Landing"
+  },
+  {
+    "id": "943",
+    "name": "Generations Home Care Inc"
+  },
+  {
+    "id": "944",
+    "name": "Peterson Colonial Homes 2"
+  },
+  {
+    "id": "945",
+    "name": "Peterson Colonial Homes 1"
+  },
+  {
+    "id": "946",
+    "name": "Wellness Homes Inc"
+  },
+  {
+    "id": "947",
+    "name": "Good Quality Home Health Servi"
+  },
+  {
+    "id": "948",
+    "name": "Assured Care"
+  },
+  {
+    "id": "949",
+    "name": "Birchwood Cottages"
+  },
+  {
+    "id": "950",
+    "name": "Great Home Mn Aviary"
+  },
+  {
+    "id": "951",
+    "name": "Maple Care Homes"
+  },
+  {
+    "id": "952",
+    "name": "Suncrest Assisted Living"
+  },
+  {
+    "id": "955",
+    "name": "Woodcrest Of Country Manor"
+  },
+  {
+    "id": "956",
+    "name": "Peaceful Lodge"
+  },
+  {
+    "id": "957",
+    "name": "Restful Home LLC"
+  },
+  {
+    "id": "958",
+    "name": "Harmony View Assisted Living"
+  },
+  {
+    "id": "959",
+    "name": "Levande"
+  },
+  {
+    "id": "960",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "961",
+    "name": "Ashby Living Center"
+  },
+  {
+    "id": "962",
+    "name": "Willows Of Arbor Lakes"
+  },
+  {
+    "id": "963",
+    "name": "Cornerstone Care LLC"
+  },
+  {
+    "id": "964",
+    "name": "Nervana's Caring Hands Inc"
+  },
+  {
+    "id": "965",
+    "name": "Claddagh Senior Living"
+  },
+  {
+    "id": "967",
+    "name": "Careview Winchester Home"
+  },
+  {
+    "id": "968",
+    "name": "The Moments Of Lakeville"
+  },
+  {
+    "id": "969",
+    "name": "Heart To Home Incorporated"
+  },
+  {
+    "id": "970",
+    "name": "Reliacare Home Health Inc"
+  },
+  {
+    "id": "971",
+    "name": "Reliacare Home Health Inc"
+  },
+  {
+    "id": "972",
+    "name": "Beautiful Hearts LLC"
+  },
+  {
+    "id": "973",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "974",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "975",
+    "name": "Edgewood Place"
+  },
+  {
+    "id": "976",
+    "name": "Golden Pond Crystal"
+  },
+  {
+    "id": "977",
+    "name": "Golden Pond Mounds View"
+  },
+  {
+    "id": "978",
+    "name": "Restful Living"
+  },
+  {
+    "id": "979",
+    "name": "Fortunate Homes LLC"
+  },
+  {
+    "id": "982",
+    "name": "Legacy Care Home"
+  },
+  {
+    "id": "983",
+    "name": "Amira Choice Plymouth"
+  },
+  {
+    "id": "984",
+    "name": "Goodness And Mercy Health Serv"
+  },
+  {
+    "id": "985",
+    "name": "D & D's Caring Hearts"
+  },
+  {
+    "id": "986",
+    "name": "Beehive Homes Of Elk River"
+  },
+  {
+    "id": "987",
+    "name": "Lange Board And Room Inc"
+  },
+  {
+    "id": "988",
+    "name": "Jmkay Healthcare Services Inc"
+  },
+  {
+    "id": "989",
+    "name": "Wealshire Of Medina"
+  },
+  {
+    "id": "990",
+    "name": "Chev's Place LLC"
+  },
+  {
+    "id": "991",
+    "name": "The Sanctuary At St Cloud"
+  },
+  {
+    "id": "992",
+    "name": "Global Case Management"
+  },
+  {
+    "id": "993",
+    "name": "Miakarseh House"
+  },
+  {
+    "id": "994",
+    "name": "Comfort Care Homes"
+  },
+  {
+    "id": "996",
+    "name": "Omocare LLC"
+  },
+  {
+    "id": "997",
+    "name": "All Hopes Incorporated"
+  },
+  {
+    "id": "999",
+    "name": "Bay Harbor Senior Living"
+  },
+  {
+    "id": "1001",
+    "name": "Golden Maple Homes Inc"
+  },
+  {
+    "id": "1002",
+    "name": "Athanor Housing And Residentia"
+  },
+  {
+    "id": "1003",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "1004",
+    "name": "The James Inc"
+  },
+  {
+    "id": "1008",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1009",
+    "name": "Scandi Haven Of Cura"
+  },
+  {
+    "id": "1010",
+    "name": "Family Tree Care Homes"
+  },
+  {
+    "id": "1012",
+    "name": "Residential Care Nine Mile Cre"
+  },
+  {
+    "id": "1013",
+    "name": "Eden Homes Inc"
+  },
+  {
+    "id": "1015",
+    "name": "Adapta"
+  },
+  {
+    "id": "1016",
+    "name": "The Sanctuary At Brooklyn Cent"
+  },
+  {
+    "id": "1017",
+    "name": "Orchard Path"
+  },
+  {
+    "id": "1018",
+    "name": "Midwest Group Living Inc"
+  },
+  {
+    "id": "1019",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "1020",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1021",
+    "name": "Uplifted Care Services LLC"
+  },
+  {
+    "id": "1023",
+    "name": "Syncare Grande"
+  },
+  {
+    "id": "1024",
+    "name": "Good Life Assisted Living & Me"
+  },
+  {
+    "id": "1025",
+    "name": "Birchwood Cottages"
+  },
+  {
+    "id": "1027",
+    "name": "Whispering Pines Assisted Livi"
+  },
+  {
+    "id": "1029",
+    "name": "Serenity Suites Senior Living"
+  },
+  {
+    "id": "1030",
+    "name": "Suite Living Senior Care Of Li"
+  },
+  {
+    "id": "1032",
+    "name": "Hope Rest Homes Inc"
+  },
+  {
+    "id": "1033",
+    "name": "Havenwood Of Richfield"
+  },
+  {
+    "id": "1034",
+    "name": "2 Caring Hands"
+  },
+  {
+    "id": "1035",
+    "name": "Stonehaven Of Eagan Senior Liv"
+  },
+  {
+    "id": "1036",
+    "name": "Careview Idaho Home"
+  },
+  {
+    "id": "1037",
+    "name": "Caring Heart Home Healthcare"
+  },
+  {
+    "id": "1038",
+    "name": "Maple Woods Assisted Living"
+  },
+  {
+    "id": "1039",
+    "name": "Aah Mercy Home Health"
+  },
+  {
+    "id": "1040",
+    "name": "First Choice Nursing Services"
+  },
+  {
+    "id": "1041",
+    "name": "Legacy Of Brownsdale"
+  },
+  {
+    "id": "1042",
+    "name": "Goodness And Mercy Health Serv"
+  },
+  {
+    "id": "1043",
+    "name": "Greatercare Facilities LLC"
+  },
+  {
+    "id": "1044",
+    "name": "N&v Helpful Heart Care Inc"
+  },
+  {
+    "id": "1045",
+    "name": "Hoffman Senior Living"
+  },
+  {
+    "id": "1046",
+    "name": "Providence Villa LLC"
+  },
+  {
+    "id": "1047",
+    "name": "Serenity Assisted Living & Mem"
+  },
+  {
+    "id": "1048",
+    "name": "Gabby Care Homes LLC"
+  },
+  {
+    "id": "1049",
+    "name": "The Blessed Home Care"
+  },
+  {
+    "id": "1050",
+    "name": "Ivy Hill Senior Care Inc"
+  },
+  {
+    "id": "1051",
+    "name": "Mercy Housing LLC"
+  },
+  {
+    "id": "1052",
+    "name": "Home Joy Home Care Inc"
+  },
+  {
+    "id": "1053",
+    "name": "Tranquil Living"
+  },
+  {
+    "id": "1055",
+    "name": "Bethel Pavilion Homecare LLC"
+  },
+  {
+    "id": "1056",
+    "name": "Elk River Senior Living"
+  },
+  {
+    "id": "1057",
+    "name": "The Lodge Of New Hope LLC"
+  },
+  {
+    "id": "1058",
+    "name": "The Waters Of Excelsior"
+  },
+  {
+    "id": "1059",
+    "name": "Harrison Bay Senior Living"
+  },
+  {
+    "id": "1061",
+    "name": "Estherra Care LLC"
+  },
+  {
+    "id": "1062",
+    "name": "Sabainah Healthcare Inc"
+  },
+  {
+    "id": "1063",
+    "name": "Healthpoint Hws @ 93rd"
+  },
+  {
+    "id": "1064",
+    "name": "Keller Lake Commons"
+  },
+  {
+    "id": "1065",
+    "name": "Preciousliveshomevadnaisheight"
+  },
+  {
+    "id": "1066",
+    "name": "Maple House LLC"
+  },
+  {
+    "id": "1067",
+    "name": "Caring Nurses LLC"
+  },
+  {
+    "id": "1069",
+    "name": "Mercy Link LLC"
+  },
+  {
+    "id": "1070",
+    "name": "Mercy Link LLC"
+  },
+  {
+    "id": "1071",
+    "name": "Sunrise Residential Services L"
+  },
+  {
+    "id": "1072",
+    "name": "Anne's Place LLC"
+  },
+  {
+    "id": "1074",
+    "name": "Holistic Home Care LLC"
+  },
+  {
+    "id": "1076",
+    "name": "Primus Healthcare Services"
+  },
+  {
+    "id": "1078",
+    "name": "All Hopes Incorporated"
+  },
+  {
+    "id": "1079",
+    "name": "River Oaks At Watertown"
+  },
+  {
+    "id": "1080",
+    "name": "Olydia Home Care Inc"
+  },
+  {
+    "id": "1081",
+    "name": "Mill City Senior Living"
+  },
+  {
+    "id": "1082",
+    "name": "The Geneva Suites"
+  },
+  {
+    "id": "1084",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1085",
+    "name": "Crystal Brook Senior Living"
+  },
+  {
+    "id": "1087",
+    "name": "Baikah Homes LLC"
+  },
+  {
+    "id": "1088",
+    "name": "Amerigrace Home Care LLC"
+  },
+  {
+    "id": "1089",
+    "name": "The Gardens At Foley Assisted"
+  },
+  {
+    "id": "1091",
+    "name": "Minnesota Wellness Center LLC"
+  },
+  {
+    "id": "1092",
+    "name": "Better Care Services LLC"
+  },
+  {
+    "id": "1094",
+    "name": "Ultimate Care Assisted Living"
+  },
+  {
+    "id": "1095",
+    "name": "Capital Home Health Care LLC"
+  },
+  {
+    "id": "1096",
+    "name": "Cure Home Health Inc"
+  },
+  {
+    "id": "1097",
+    "name": "Triple Angels Healthcare"
+  },
+  {
+    "id": "1098",
+    "name": "Riverview Landing"
+  },
+  {
+    "id": "1099",
+    "name": "Belevo Health Services"
+  },
+  {
+    "id": "1100",
+    "name": "Beautiful Hearts LLC"
+  },
+  {
+    "id": "1101",
+    "name": "Joy Care Homes LLC"
+  },
+  {
+    "id": "1102",
+    "name": "Fortunate Homes LLC"
+  },
+  {
+    "id": "1103",
+    "name": "The Pillars Of Mankato"
+  },
+  {
+    "id": "1104",
+    "name": "Aliya Care Inc"
+  },
+  {
+    "id": "1105",
+    "name": "American Best Home Care Inc"
+  },
+  {
+    "id": "1106",
+    "name": "Boden Senior Lvg - Maplewood"
+  },
+  {
+    "id": "1107",
+    "name": "Jabez Customized Living Servi"
+  },
+  {
+    "id": "1108",
+    "name": "Journeys Home Care LLC"
+  },
+  {
+    "id": "1109",
+    "name": "Praha Village"
+  },
+  {
+    "id": "1111",
+    "name": "Assurant Care Homes LLC"
+  },
+  {
+    "id": "1112",
+    "name": "Assured Wellness LLC"
+  },
+  {
+    "id": "1114",
+    "name": "Derman Senior Care Inc"
+  },
+  {
+    "id": "1116",
+    "name": "Empire Systems Home Care"
+  },
+  {
+    "id": "1117",
+    "name": "Empire Systems Home Care"
+  },
+  {
+    "id": "1118",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1119",
+    "name": "Bridgewater At Mankato"
+  },
+  {
+    "id": "1120",
+    "name": "Northwoods Villa Inc"
+  },
+  {
+    "id": "1121",
+    "name": "Joyful Home Health Care LLC"
+  },
+  {
+    "id": "1122",
+    "name": "Vitality Living Of New York Mi"
+  },
+  {
+    "id": "1123",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "1124",
+    "name": "Golden Touch Health Care LLC"
+  },
+  {
+    "id": "1125",
+    "name": "Prelude Homes & Services, LLC"
+  },
+  {
+    "id": "1126",
+    "name": "Dis-Generation Group Inc"
+  },
+  {
+    "id": "1127",
+    "name": "Hope Residential Homes LLC"
+  },
+  {
+    "id": "1128",
+    "name": "Bright Living LLC"
+  },
+  {
+    "id": "1129",
+    "name": "Sisters Assistant Living Care"
+  },
+  {
+    "id": "1130",
+    "name": "Essence Care Center"
+  },
+  {
+    "id": "1131",
+    "name": "Angels Homes LLC"
+  },
+  {
+    "id": "1132",
+    "name": "Havenwood Of Minnetonka"
+  },
+  {
+    "id": "1133",
+    "name": "Liberty Mathan Health Care Ser"
+  },
+  {
+    "id": "1134",
+    "name": "Marcella Manor LLC"
+  },
+  {
+    "id": "1135",
+    "name": "Elysian Senior Homes Of Northf"
+  },
+  {
+    "id": "1136",
+    "name": "Paradise Care Homes LLC"
+  },
+  {
+    "id": "1137",
+    "name": "Safe Harbor Residential Care H"
+  },
+  {
+    "id": "1138",
+    "name": "Hope Assisted Living LLC"
+  },
+  {
+    "id": "1139",
+    "name": "24 - Seven Home Care Inc"
+  },
+  {
+    "id": "1140",
+    "name": "Vikings Home Health Care LLC"
+  },
+  {
+    "id": "1141",
+    "name": "Millers Landing Senior Living"
+  },
+  {
+    "id": "1142",
+    "name": "Best Choice Home Care LLC"
+  },
+  {
+    "id": "1143",
+    "name": "Orchards Of Minnetonka"
+  },
+  {
+    "id": "1144",
+    "name": "Empathy Home Care Inc"
+  },
+  {
+    "id": "1146",
+    "name": "Suite Living Of Little Canada"
+  },
+  {
+    "id": "1147",
+    "name": "Beehive Homes Of Moorhead"
+  },
+  {
+    "id": "1148",
+    "name": "Teman Homes"
+  },
+  {
+    "id": "1149",
+    "name": "Golden Hearts Home Care Servic"
+  },
+  {
+    "id": "1150",
+    "name": "Mission Hill Group Home Srvs"
+  },
+  {
+    "id": "1151",
+    "name": "Paradise Assisted Living Inc"
+  },
+  {
+    "id": "1152",
+    "name": "Chateau Waters"
+  },
+  {
+    "id": "1153",
+    "name": "Bestvalue Healthcare Inc"
+  },
+  {
+    "id": "1154",
+    "name": "Heliopolis Home Healthcare LLC"
+  },
+  {
+    "id": "1155",
+    "name": "The Friendship Place LLC"
+  },
+  {
+    "id": "1156",
+    "name": "Kindheart Homes Inc"
+  },
+  {
+    "id": "1157",
+    "name": "Integra Home Health Profession"
+  },
+  {
+    "id": "1158",
+    "name": "Caring Heart Home Healthcare L"
+  },
+  {
+    "id": "1159",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "1160",
+    "name": "Rhodium Healthcare Services"
+  },
+  {
+    "id": "1161",
+    "name": "Comfort Care Homes"
+  },
+  {
+    "id": "1163",
+    "name": "At Home With Us LLC"
+  },
+  {
+    "id": "1164",
+    "name": "Lilac Homes Enh As Liv Mem Car"
+  },
+  {
+    "id": "1166",
+    "name": "Harding Place"
+  },
+  {
+    "id": "1169",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1170",
+    "name": "Talamore Senior Living"
+  },
+  {
+    "id": "1171",
+    "name": "Serendipitous Living"
+  },
+  {
+    "id": "1172",
+    "name": "Perfection Health Care Service"
+  },
+  {
+    "id": "1173",
+    "name": "Hope Rest Homes Inc"
+  },
+  {
+    "id": "1174",
+    "name": "Metropolitan Sincerity HC"
+  },
+  {
+    "id": "1175",
+    "name": "Guardian Homes Inc"
+  },
+  {
+    "id": "1176",
+    "name": "Global Case Mgmt East St Paul"
+  },
+  {
+    "id": "1177",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1178",
+    "name": "We Care Home Health Services"
+  },
+  {
+    "id": "1179",
+    "name": "Mercy Care Home"
+  },
+  {
+    "id": "1180",
+    "name": "Comfort Group Homes Inc"
+  },
+  {
+    "id": "1181",
+    "name": "Bridgewater At Owatonna"
+  },
+  {
+    "id": "1182",
+    "name": "Estherra Care LLC"
+  },
+  {
+    "id": "1183",
+    "name": "Bobby's House"
+  },
+  {
+    "id": "1185",
+    "name": "Totalcare Assisted Living"
+  },
+  {
+    "id": "1186",
+    "name": "Our Caring Hands Llp"
+  },
+  {
+    "id": "1187",
+    "name": "Sabainah Healthcare Inc"
+  },
+  {
+    "id": "1188",
+    "name": "Seven Hills Senior Living"
+  },
+  {
+    "id": "1190",
+    "name": "Careview Yates Home"
+  },
+  {
+    "id": "1191",
+    "name": "Willow House LLC"
+  },
+  {
+    "id": "1192",
+    "name": "Shiloh Assisted Living"
+  },
+  {
+    "id": "1193",
+    "name": "Richangel Care Inc"
+  },
+  {
+    "id": "1194",
+    "name": "Creekside Villas Assisted Livi"
+  },
+  {
+    "id": "1195",
+    "name": "Midwest Homes Inc"
+  },
+  {
+    "id": "1199",
+    "name": "Heritage Of Edina Inc"
+  },
+  {
+    "id": "1200",
+    "name": "Heritage Of Edina Inc"
+  },
+  {
+    "id": "1201",
+    "name": "Mn Best Homecare LLC"
+  },
+  {
+    "id": "1202",
+    "name": "Open Arms LLC"
+  },
+  {
+    "id": "1203",
+    "name": "Watchful Caregivers LLC"
+  },
+  {
+    "id": "1205",
+    "name": "Vitality Living Of Kimball LLC"
+  },
+  {
+    "id": "1206",
+    "name": "Eden Prairie Senior Living LLC"
+  },
+  {
+    "id": "1207",
+    "name": "The Lodge"
+  },
+  {
+    "id": "1208",
+    "name": "Pelican Landing Senior Living"
+  },
+  {
+    "id": "1209",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1210",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1211",
+    "name": "Chase Courageous Health Servic"
+  },
+  {
+    "id": "1212",
+    "name": "Eagle Group Home LLC"
+  },
+  {
+    "id": "1213",
+    "name": "Doodi's Best Care"
+  },
+  {
+    "id": "1214",
+    "name": "Life Inspired"
+  },
+  {
+    "id": "1215",
+    "name": "Beehive Homes Of Maple Grove"
+  },
+  {
+    "id": "1216",
+    "name": "Beehive Homes Of Lakeville"
+  },
+  {
+    "id": "1217",
+    "name": "Christian Homes"
+  },
+  {
+    "id": "1218",
+    "name": "Shires Group Home Inc"
+  },
+  {
+    "id": "1219",
+    "name": "Eagle Group Home LLC"
+  },
+  {
+    "id": "1220",
+    "name": "True Care Homes Inc"
+  },
+  {
+    "id": "1221",
+    "name": "Topcare Health Services LLC"
+  },
+  {
+    "id": "1222",
+    "name": "Enhance Living Inc"
+  },
+  {
+    "id": "1223",
+    "name": "Premier Home Care LLC"
+  },
+  {
+    "id": "1224",
+    "name": "Healthguard Partners"
+  },
+  {
+    "id": "1225",
+    "name": "Grace Group Home LLC"
+  },
+  {
+    "id": "1226",
+    "name": "Kind Heart Care Home Inc"
+  },
+  {
+    "id": "1227",
+    "name": "Serenity Group Homes LLC"
+  },
+  {
+    "id": "1228",
+    "name": "Riley Crossing Senior Living"
+  },
+  {
+    "id": "1230",
+    "name": "Charity Care Inc"
+  },
+  {
+    "id": "1231",
+    "name": "Nervana's Caring Hands Inc"
+  },
+  {
+    "id": "1232",
+    "name": "Safe & Compassionate Homecare"
+  },
+  {
+    "id": "1233",
+    "name": "Angel Care Homes"
+  },
+  {
+    "id": "1234",
+    "name": "Goldenlightassistedliving LLC"
+  },
+  {
+    "id": "1235",
+    "name": "First Light Residential Care"
+  },
+  {
+    "id": "1236",
+    "name": "Universal Health Services LLC"
+  },
+  {
+    "id": "1237",
+    "name": "Urbana Place Senior Living"
+  },
+  {
+    "id": "1238",
+    "name": "Twin Cities Assisted Living In"
+  },
+  {
+    "id": "1239",
+    "name": "First Choice Nursing Services"
+  },
+  {
+    "id": "1240",
+    "name": "Souriyathay Enterprises LLC"
+  },
+  {
+    "id": "1242",
+    "name": "Risen Home Care LLC"
+  },
+  {
+    "id": "1243",
+    "name": "Grace Hand Group Home LLC"
+  },
+  {
+    "id": "1244",
+    "name": "Unique Homes LLC"
+  },
+  {
+    "id": "1246",
+    "name": "His Services Home Care LLC"
+  },
+  {
+    "id": "1247",
+    "name": "Hands Care Llp"
+  },
+  {
+    "id": "1248",
+    "name": "Angels Assisted Living Inc"
+  },
+  {
+    "id": "1249",
+    "name": "Adams Health Care Services LLC"
+  },
+  {
+    "id": "1250",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1251",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1252",
+    "name": "Sunshine Assisted Living Servi"
+  },
+  {
+    "id": "1253",
+    "name": "Ama Group Home Inc"
+  },
+  {
+    "id": "1254",
+    "name": "Ace Homes Inc"
+  },
+  {
+    "id": "1255",
+    "name": "Tc Care LLC"
+  },
+  {
+    "id": "1256",
+    "name": "Clinique Healthcare Services I"
+  },
+  {
+    "id": "1257",
+    "name": "Olu's Home Incorporated"
+  },
+  {
+    "id": "1258",
+    "name": "Star Care Health Services LLC"
+  },
+  {
+    "id": "1259",
+    "name": "Delight Home Healthcare LLC"
+  },
+  {
+    "id": "1260",
+    "name": "Alizah Family Services"
+  },
+  {
+    "id": "1261",
+    "name": "United Chapters Living"
+  },
+  {
+    "id": "1262",
+    "name": "Relief Homecare LLC"
+  },
+  {
+    "id": "1264",
+    "name": "Horizon Home Care Services Inc"
+  },
+  {
+    "id": "1265",
+    "name": "Primary Living Inc"
+  },
+  {
+    "id": "1267",
+    "name": "Benedictine Living Community N"
+  },
+  {
+    "id": "1268",
+    "name": "Parks' Place"
+  },
+  {
+    "id": "1269",
+    "name": "First Choice Assisted Living I"
+  },
+  {
+    "id": "1270",
+    "name": "Compassionate Hearts LLC"
+  },
+  {
+    "id": "1272",
+    "name": "Mangers Way Home"
+  },
+  {
+    "id": "1274",
+    "name": "Paradise Care Homes LLC"
+  },
+  {
+    "id": "1275",
+    "name": "Paradise Care Homes LLC"
+  },
+  {
+    "id": "1276",
+    "name": "Angels Homes LLC"
+  },
+  {
+    "id": "1277",
+    "name": "Aliya Care Inc"
+  },
+  {
+    "id": "1278",
+    "name": "Stonecrest Living"
+  },
+  {
+    "id": "1279",
+    "name": "Suite Living Of North St Paul"
+  },
+  {
+    "id": "1283",
+    "name": "Joyful Home Healthcare LLC"
+  },
+  {
+    "id": "1284",
+    "name": "Twin Valley Assisted Living"
+  },
+  {
+    "id": "1285",
+    "name": "Great Home Minnesota LLC"
+  },
+  {
+    "id": "1286",
+    "name": "Lakeview Senior Housing"
+  },
+  {
+    "id": "1287",
+    "name": "Healing Residences Inc"
+  },
+  {
+    "id": "1288",
+    "name": "Rejuvn Care LLC"
+  },
+  {
+    "id": "1290",
+    "name": "Arise Homecare Services Pllc"
+  },
+  {
+    "id": "1291",
+    "name": "Attentive Care"
+  },
+  {
+    "id": "1292",
+    "name": "Everbloom Home Health Care"
+  },
+  {
+    "id": "1293",
+    "name": "Tender Cares"
+  },
+  {
+    "id": "1295",
+    "name": "Prairie Bluffs Senior Living"
+  },
+  {
+    "id": "1296",
+    "name": "Empire Systems Home Care"
+  },
+  {
+    "id": "1297",
+    "name": "Access Minnesota LLC"
+  },
+  {
+    "id": "1298",
+    "name": "Minn Care Home Health"
+  },
+  {
+    "id": "1299",
+    "name": "Alliance Homes Corporation"
+  },
+  {
+    "id": "1300",
+    "name": "Kindheart Homes Inc"
+  },
+  {
+    "id": "1302",
+    "name": "Gabby Care Homes LLC Cilla Hou"
+  },
+  {
+    "id": "1303",
+    "name": "Big Hearts Home Care Inc"
+  },
+  {
+    "id": "1304",
+    "name": "Living Grace Home Care"
+  },
+  {
+    "id": "1305",
+    "name": "Caring Home Health Inc"
+  },
+  {
+    "id": "1306",
+    "name": "Heart Group Home"
+  },
+  {
+    "id": "1307",
+    "name": "Najma Group Home LLC"
+  },
+  {
+    "id": "1308",
+    "name": "Alliance Homes Corporation"
+  },
+  {
+    "id": "1309",
+    "name": "Tailored Care Residence Inc"
+  },
+  {
+    "id": "1310",
+    "name": "Global Pointe Senior Living"
+  },
+  {
+    "id": "1311",
+    "name": "Abraham's Bosom Care LLC"
+  },
+  {
+    "id": "1312",
+    "name": "Care Partners Homecare LLC"
+  },
+  {
+    "id": "1313",
+    "name": "Customize Living LLC"
+  },
+  {
+    "id": "1314",
+    "name": "Benedictine Asher Haus"
+  },
+  {
+    "id": "1315",
+    "name": "Liberty Mathan Health Care Ser"
+  },
+  {
+    "id": "1316",
+    "name": "Angel's Health & Home Care Ser"
+  },
+  {
+    "id": "1318",
+    "name": "Care4life Home LLC"
+  },
+  {
+    "id": "1319",
+    "name": "Midwest Homes Inc"
+  },
+  {
+    "id": "1321",
+    "name": "Careservices LLC"
+  },
+  {
+    "id": "1322",
+    "name": "Carver Ridge Senior Living"
+  },
+  {
+    "id": "1323",
+    "name": "Nasiye Group Home Corp"
+  },
+  {
+    "id": "1324",
+    "name": "Minnesota Group Homes LLC"
+  },
+  {
+    "id": "1325",
+    "name": "Kingsway Healthcare Svcs LLC"
+  },
+  {
+    "id": "1326",
+    "name": "Global Alliance Home Health Ca"
+  },
+  {
+    "id": "1327",
+    "name": "Agapecare Services LLC"
+  },
+  {
+    "id": "1328",
+    "name": "Sotam Homecare LLC"
+  },
+  {
+    "id": "1330",
+    "name": "Generations Home Care Inc"
+  },
+  {
+    "id": "1331",
+    "name": "Premium Home Healthcare LLC"
+  },
+  {
+    "id": "1332",
+    "name": "Clark Crossings Of Wells"
+  },
+  {
+    "id": "1334",
+    "name": "Healthpoint Hws @ Morgan"
+  },
+  {
+    "id": "1335",
+    "name": "Tristar Home Care LLC"
+  },
+  {
+    "id": "1336",
+    "name": "Graceful Lodge Home Care"
+  },
+  {
+    "id": "1338",
+    "name": "Okalee Of Medina"
+  },
+  {
+    "id": "1339",
+    "name": "Joy Care Homes LLC"
+  },
+  {
+    "id": "1340",
+    "name": "Jabez Customized Living Srvcs"
+  },
+  {
+    "id": "1341",
+    "name": "Upend Home Health Care"
+  },
+  {
+    "id": "1342",
+    "name": "Joy Care Homes LLC"
+  },
+  {
+    "id": "1343",
+    "name": "All Hopes Incorporated"
+  },
+  {
+    "id": "1344",
+    "name": "Butterfly Bound Care"
+  },
+  {
+    "id": "1345",
+    "name": "Butterfly Bound Care"
+  },
+  {
+    "id": "1346",
+    "name": "Greatercare Facilities LLC"
+  },
+  {
+    "id": "1347",
+    "name": "Epic Homes LLC"
+  },
+  {
+    "id": "1348",
+    "name": "Epic Homes LLC"
+  },
+  {
+    "id": "1349",
+    "name": "Destiny Home"
+  },
+  {
+    "id": "1350",
+    "name": "Adna Homes LLC"
+  },
+  {
+    "id": "1351",
+    "name": "Seed Home Healthcare LLC"
+  },
+  {
+    "id": "1352",
+    "name": "Mercy Caregivers Of Minnesota"
+  },
+  {
+    "id": "1353",
+    "name": "Karen Home"
+  },
+  {
+    "id": "1354",
+    "name": "Accurate Homes LLC"
+  },
+  {
+    "id": "1355",
+    "name": "People's Choice Home Care Sers"
+  },
+  {
+    "id": "1356",
+    "name": "Best Home Health Care Service"
+  },
+  {
+    "id": "1357",
+    "name": "Whitefish At The Lakes Senior"
+  },
+  {
+    "id": "1358",
+    "name": "Golden Heart Home"
+  },
+  {
+    "id": "1359",
+    "name": "Grace Assisted Living LLC"
+  },
+  {
+    "id": "1360",
+    "name": "Havenwood Of Burnsville"
+  },
+  {
+    "id": "1361",
+    "name": "Hands At The Cross Care Home"
+  },
+  {
+    "id": "1362",
+    "name": "New Life Health Service"
+  },
+  {
+    "id": "1363",
+    "name": "Joy Living Inc"
+  },
+  {
+    "id": "1364",
+    "name": "Golden Touch Health Care LLC"
+  },
+  {
+    "id": "1365",
+    "name": "Indigo Healthcare Services LLC"
+  },
+  {
+    "id": "1366",
+    "name": "Partners In Cares Inc"
+  },
+  {
+    "id": "1367",
+    "name": "Touching Lives Community"
+  },
+  {
+    "id": "1368",
+    "name": "Delight Home Healthcare LLC"
+  },
+  {
+    "id": "1369",
+    "name": "Sisters Home Health Care LLC"
+  },
+  {
+    "id": "1370",
+    "name": "Greatercare Facilities LLC"
+  },
+  {
+    "id": "1371",
+    "name": "New Bridge Care LLC"
+  },
+  {
+    "id": "1372",
+    "name": "Noah Assisting Living Inc"
+  },
+  {
+    "id": "1373",
+    "name": "Golden Oaks Home Care LLC"
+  },
+  {
+    "id": "1375",
+    "name": "83rd Place"
+  },
+  {
+    "id": "1376",
+    "name": "Morning Star Health Care Ser"
+  },
+  {
+    "id": "1377",
+    "name": "Carriage House Senior Living"
+  },
+  {
+    "id": "1378",
+    "name": "Comfort Care Assisted Living L"
+  },
+  {
+    "id": "1379",
+    "name": "Dignity Home Care LLC"
+  },
+  {
+    "id": "1381",
+    "name": "Peace Homecare Services LLC"
+  },
+  {
+    "id": "1382",
+    "name": "Welcome Homes Best Care"
+  },
+  {
+    "id": "1383",
+    "name": "Metro Assisted Living"
+  },
+  {
+    "id": "1384",
+    "name": "Minnewaska Community Home Care"
+  },
+  {
+    "id": "1385",
+    "name": "Aspen Home Health Care Inc"
+  },
+  {
+    "id": "1386",
+    "name": "Heartfelt Care LLC"
+  },
+  {
+    "id": "1387",
+    "name": "Three Stars Group Homes LLC"
+  },
+  {
+    "id": "1388",
+    "name": "Center Care Inc"
+  },
+  {
+    "id": "1389",
+    "name": "Cerenity Care Center - Marian"
+  },
+  {
+    "id": "1390",
+    "name": "Applewood Home Health Care LLC"
+  },
+  {
+    "id": "1391",
+    "name": "Tender Care Group Homes LLC"
+  },
+  {
+    "id": "1392",
+    "name": "Rivers Of Life"
+  },
+  {
+    "id": "1393",
+    "name": "Carextra Home Health LLC"
+  },
+  {
+    "id": "1395",
+    "name": "Noah Home Care Inc"
+  },
+  {
+    "id": "1396",
+    "name": "Zubeer Group Home LLC"
+  },
+  {
+    "id": "1397",
+    "name": "Horizon Care LLC"
+  },
+  {
+    "id": "1398",
+    "name": "Revive Care Services Inc"
+  },
+  {
+    "id": "1399",
+    "name": "Brookview Cottage"
+  },
+  {
+    "id": "1400",
+    "name": "The Beatitudes Homes LLC"
+  },
+  {
+    "id": "1401",
+    "name": "Solbakken Inc"
+  },
+  {
+    "id": "1403",
+    "name": "Eleged Home Care Inc"
+  },
+  {
+    "id": "1404",
+    "name": "Smc Ashton Inc"
+  },
+  {
+    "id": "1405",
+    "name": "Gabby Care Homes LLC - Faith's"
+  },
+  {
+    "id": "1406",
+    "name": "Gabby Care Homes LLC Sam's Hou"
+  },
+  {
+    "id": "1409",
+    "name": "Lightcare Group Homes LLC"
+  },
+  {
+    "id": "1410",
+    "name": "Roseville's Preserve"
+  },
+  {
+    "id": "1411",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "1412",
+    "name": "Apple Group Home Inc"
+  },
+  {
+    "id": "1413",
+    "name": "Elite Nursing Services Inc"
+  },
+  {
+    "id": "1415",
+    "name": "Bayview Case Management LLC"
+  },
+  {
+    "id": "1416",
+    "name": "Skyblu Residential Services"
+  },
+  {
+    "id": "1417",
+    "name": "Love & Care LLC"
+  },
+  {
+    "id": "1418",
+    "name": "Redesign Lifestyle Care LLC"
+  },
+  {
+    "id": "1419",
+    "name": "H And S Residence LLC"
+  },
+  {
+    "id": "1420",
+    "name": "Procare Health Corp"
+  },
+  {
+    "id": "1421",
+    "name": "Manzmed Start Corporations"
+  },
+  {
+    "id": "1422",
+    "name": "Millennium Homes LLC"
+  },
+  {
+    "id": "1424",
+    "name": "Artis Senior Lvg Of Woodbury"
+  },
+  {
+    "id": "1425",
+    "name": "Flourish Apartments LLC"
+  },
+  {
+    "id": "1426",
+    "name": "Minnesota Wellness Center LLC"
+  },
+  {
+    "id": "1428",
+    "name": "Royal Health"
+  },
+  {
+    "id": "1430",
+    "name": "Bella Vie Living LLC"
+  },
+  {
+    "id": "1431",
+    "name": "Merrcy Care Home LLC"
+  },
+  {
+    "id": "1432",
+    "name": "Rise Home Health Care LLC"
+  },
+  {
+    "id": "1433",
+    "name": "Derman Senior Care Inc"
+  },
+  {
+    "id": "1434",
+    "name": "Noble Cares LLC"
+  },
+  {
+    "id": "1435",
+    "name": "Care Plus Home Care LLC"
+  },
+  {
+    "id": "1437",
+    "name": "Caring Hearts Home Care Inc"
+  },
+  {
+    "id": "1438",
+    "name": "Divine Home Care Services LLC"
+  },
+  {
+    "id": "1439",
+    "name": "Team Home Health Care LLC"
+  },
+  {
+    "id": "1440",
+    "name": "Midwest Homes Inc"
+  },
+  {
+    "id": "1442",
+    "name": "Cosmo Home Healthcare Services"
+  },
+  {
+    "id": "1443",
+    "name": "Morningstar Care Services LLC"
+  },
+  {
+    "id": "1444",
+    "name": "Armstrong Homes Inc"
+  },
+  {
+    "id": "1445",
+    "name": "Park Point Inc"
+  },
+  {
+    "id": "1446",
+    "name": "Eagancare Behavioral Health"
+  },
+  {
+    "id": "1447",
+    "name": "Nova Ewing Home"
+  },
+  {
+    "id": "1449",
+    "name": "Gentle Care Homes Inc"
+  },
+  {
+    "id": "1450",
+    "name": "Champions Village LLC"
+  },
+  {
+    "id": "1451",
+    "name": "Goldstar Residential Services"
+  },
+  {
+    "id": "1453",
+    "name": "Generous Home Care Services"
+  },
+  {
+    "id": "1454",
+    "name": "Hope Wellness Center Inc"
+  },
+  {
+    "id": "1455",
+    "name": "Midtown Housing Services LLC"
+  },
+  {
+    "id": "1456",
+    "name": "The Pillars Of Prospect Park"
+  },
+  {
+    "id": "1457",
+    "name": "Sharmarke Care Home Inc"
+  },
+  {
+    "id": "1458",
+    "name": "Caring Friends LLC"
+  },
+  {
+    "id": "1459",
+    "name": "Qualicare Homes Corporation"
+  },
+  {
+    "id": "1460",
+    "name": "Wellness Group Home Corporatio"
+  },
+  {
+    "id": "1461",
+    "name": "United Assisted Living LLC"
+  },
+  {
+    "id": "1462",
+    "name": "Pure Heart Health Services"
+  },
+  {
+    "id": "1463",
+    "name": "Warm Touch Home Care Inc"
+  },
+  {
+    "id": "1464",
+    "name": "Americare Lodges"
+  },
+  {
+    "id": "1465",
+    "name": "Prosper Home Health & Transpor"
+  },
+  {
+    "id": "1466",
+    "name": "The Guardian Home Care LLC"
+  },
+  {
+    "id": "1467",
+    "name": "Carelink Skilled Nursing & HC"
+  },
+  {
+    "id": "1468",
+    "name": "Comfort Living Inc"
+  },
+  {
+    "id": "1469",
+    "name": "3care Health LLC"
+  },
+  {
+    "id": "1470",
+    "name": "1st Care Inc"
+  },
+  {
+    "id": "1472",
+    "name": "Eagle Group Home LLC"
+  },
+  {
+    "id": "1473",
+    "name": "Rushseba Station Assisted Livi"
+  },
+  {
+    "id": "1474",
+    "name": "True Care Living"
+  },
+  {
+    "id": "1475",
+    "name": "Arden Homes LLC"
+  },
+  {
+    "id": "1476",
+    "name": "Uplifted Care Services LLC"
+  },
+  {
+    "id": "1477",
+    "name": "Vaimar Suites LLC"
+  },
+  {
+    "id": "1478",
+    "name": "Twin Cities Group Homes LLC"
+  },
+  {
+    "id": "1479",
+    "name": "Amana Home Care LLC"
+  },
+  {
+    "id": "1480",
+    "name": "Star Group Home Inc"
+  },
+  {
+    "id": "1481",
+    "name": "Skyline Assisted Living"
+  },
+  {
+    "id": "1482",
+    "name": "In House Home Health"
+  },
+  {
+    "id": "1483",
+    "name": "Honesty Care Home LLC"
+  },
+  {
+    "id": "1484",
+    "name": "Millennium Home Senior Care"
+  },
+  {
+    "id": "1485",
+    "name": "Angel Hearts Health Care Ser L"
+  },
+  {
+    "id": "1486",
+    "name": "Goodneighbors-Maplewood Manor"
+  },
+  {
+    "id": "1487",
+    "name": "United Homes Services"
+  },
+  {
+    "id": "1489",
+    "name": "Evygabs Healthcare Systems LLC"
+  },
+  {
+    "id": "1490",
+    "name": "New Hope Health Care LLC"
+  },
+  {
+    "id": "1491",
+    "name": "Belong Health Care LLC"
+  },
+  {
+    "id": "1493",
+    "name": "Benedictine Living Community"
+  },
+  {
+    "id": "1494",
+    "name": "New Horizon Assisted Living"
+  },
+  {
+    "id": "1495",
+    "name": "Topcare Health Services LLC"
+  },
+  {
+    "id": "1496",
+    "name": "Carestay Homes LLC"
+  },
+  {
+    "id": "1497",
+    "name": "Bayda Group Home Inc"
+  },
+  {
+    "id": "1498",
+    "name": "Suburban Residential Care LLC"
+  },
+  {
+    "id": "1500",
+    "name": "S&o's Assisted Living LLC"
+  },
+  {
+    "id": "1501",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1502",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1503",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1504",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1505",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1506",
+    "name": "Loving Homes Inc"
+  },
+  {
+    "id": "1507",
+    "name": "Golden Pond Bp"
+  },
+  {
+    "id": "1508",
+    "name": "Partners In Care Inc"
+  },
+  {
+    "id": "1510",
+    "name": "Olympic Group Home LLC"
+  },
+  {
+    "id": "1511",
+    "name": "Stanton House W Services Inc"
+  },
+  {
+    "id": "1512",
+    "name": "Berkeley Heights Homes Of Mn"
+  },
+  {
+    "id": "1513",
+    "name": "Alliance Group Home LLC"
+  },
+  {
+    "id": "1514",
+    "name": "Millennium Health Care LLC"
+  },
+  {
+    "id": "1515",
+    "name": "Brightcare Services Inc"
+  },
+  {
+    "id": "1516",
+    "name": "In My Father's House LLC"
+  },
+  {
+    "id": "1517",
+    "name": "Care Homes LLC"
+  },
+  {
+    "id": "1518",
+    "name": "Goldenview Healthcare Services"
+  },
+  {
+    "id": "1520",
+    "name": "Fantum Home Health Care LLC"
+  },
+  {
+    "id": "1521",
+    "name": "Amerigrace Home Care LLC"
+  },
+  {
+    "id": "1522",
+    "name": "Adapta"
+  },
+  {
+    "id": "1523",
+    "name": "We Care Home Health Services L"
+  },
+  {
+    "id": "1524",
+    "name": "Solace Health Services LLC"
+  },
+  {
+    "id": "1525",
+    "name": "1st Attentive Services LLC"
+  },
+  {
+    "id": "1526",
+    "name": "Souriyathay Enterprises LLC"
+  },
+  {
+    "id": "1527",
+    "name": "Healing Homes Living Services"
+  },
+  {
+    "id": "1528",
+    "name": "Gentle Haven LLC"
+  },
+  {
+    "id": "1529",
+    "name": "Cure Home Health Inc"
+  },
+  {
+    "id": "1530",
+    "name": "Senior Living LLC"
+  },
+  {
+    "id": "1532",
+    "name": "Open Arms Housing Inc"
+  },
+  {
+    "id": "1533",
+    "name": "Martha House LLC"
+  },
+  {
+    "id": "1534",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "1535",
+    "name": "Suite Living Of Brooklyn Park"
+  },
+  {
+    "id": "1536",
+    "name": "Suite Living Senior Care Of Li"
+  },
+  {
+    "id": "1537",
+    "name": "Suite Living Sr Of Igh"
+  },
+  {
+    "id": "1538",
+    "name": "Safecare Homes Inc"
+  },
+  {
+    "id": "1540",
+    "name": "Havenwood Of Buffalo"
+  },
+  {
+    "id": "1542",
+    "name": "Mn Best Homecare LLC"
+  },
+  {
+    "id": "1543",
+    "name": "St Jude Home Health LLC"
+  },
+  {
+    "id": "1544",
+    "name": "Delight Home Healthcare LLC"
+  },
+  {
+    "id": "1545",
+    "name": "Delight Home Healthcare LLC"
+  },
+  {
+    "id": "1546",
+    "name": "Advance Group Homes Inc"
+  },
+  {
+    "id": "1547",
+    "name": "Cornerstone Villa"
+  },
+  {
+    "id": "1548",
+    "name": "Elysian Senior Homes Of Duluth"
+  },
+  {
+    "id": "1549",
+    "name": "Royal Age Assisted Living LLC"
+  },
+  {
+    "id": "1550",
+    "name": "Cedar Creek Senior Living"
+  },
+  {
+    "id": "1551",
+    "name": "Charity Care Inc"
+  },
+  {
+    "id": "1552",
+    "name": "Golden Pond Mwd"
+  },
+  {
+    "id": "1553",
+    "name": "Total Home Health Services LLC"
+  },
+  {
+    "id": "1555",
+    "name": "Bethel Care Services Inc"
+  },
+  {
+    "id": "1556",
+    "name": "Lexington Pointe Senior Living"
+  },
+  {
+    "id": "1557",
+    "name": "Heart Of A Star Homecare LLC"
+  },
+  {
+    "id": "1559",
+    "name": "Kind Care LLC"
+  },
+  {
+    "id": "1560",
+    "name": "All Wullancare Inc"
+  },
+  {
+    "id": "1562",
+    "name": "Open Arms Group Home LLC"
+  },
+  {
+    "id": "1563",
+    "name": "Lakeview Home Health Care"
+  },
+  {
+    "id": "1564",
+    "name": "Tender Care Providers LLC"
+  },
+  {
+    "id": "1567",
+    "name": "Generations Home Care Inc"
+  },
+  {
+    "id": "1568",
+    "name": "Derman Senior Care Inc"
+  },
+  {
+    "id": "1570",
+    "name": "Hopeville Homes"
+  },
+  {
+    "id": "1573",
+    "name": "Motivate Home Services"
+  },
+  {
+    "id": "1574",
+    "name": "Universal Care Homes LLC"
+  },
+  {
+    "id": "1575",
+    "name": "Helpful Hands Home Care LLC"
+  },
+  {
+    "id": "1576",
+    "name": "Topcare Health Services LLC"
+  },
+  {
+    "id": "1578",
+    "name": "Recovery Home Health Care"
+  },
+  {
+    "id": "1579",
+    "name": "Mill City Home Health Care Inc"
+  },
+  {
+    "id": "1580",
+    "name": "Amran Home Health Care LLC"
+  },
+  {
+    "id": "1581",
+    "name": "Minnesota Group Homes LLC"
+  },
+  {
+    "id": "1582",
+    "name": "Stonebay Senior Living"
+  },
+  {
+    "id": "1583",
+    "name": "Loyalty Home Health Care LLC"
+  },
+  {
+    "id": "1584",
+    "name": "Heaven Homes Inc"
+  },
+  {
+    "id": "1585",
+    "name": "Stonecrest Living"
+  },
+  {
+    "id": "1586",
+    "name": "Stonecrest Living"
+  },
+  {
+    "id": "1587",
+    "name": "Seed Home Healthcare LLC"
+  },
+  {
+    "id": "1588",
+    "name": "The Beatitudes Homes LLC"
+  },
+  {
+    "id": "1589",
+    "name": "Secured Health And Home Care I"
+  },
+  {
+    "id": "1590",
+    "name": "Healing Home Services LLC"
+  },
+  {
+    "id": "1591",
+    "name": "Arkhaven Home Care LLC"
+  },
+  {
+    "id": "1593",
+    "name": "United Providers LLC"
+  },
+  {
+    "id": "1594",
+    "name": "Midwest Group Home LLC"
+  },
+  {
+    "id": "1595",
+    "name": "Arms Home Health Care"
+  },
+  {
+    "id": "1596",
+    "name": "Bestvalue Healthcare Inc"
+  },
+  {
+    "id": "1597",
+    "name": "Prairie Residence Care LLC"
+  },
+  {
+    "id": "1598",
+    "name": "Caringhands LLC"
+  },
+  {
+    "id": "1599",
+    "name": "Anchor On Century"
+  },
+  {
+    "id": "1600",
+    "name": "Vaimar Suites LLC"
+  },
+  {
+    "id": "1601",
+    "name": "Solution Home Care LLC"
+  },
+  {
+    "id": "1602",
+    "name": "Mercy Link LLC"
+  },
+  {
+    "id": "1603",
+    "name": "Absolute Homes Inc"
+  },
+  {
+    "id": "1605",
+    "name": "United Social Services Of Mn L"
+  },
+  {
+    "id": "1606",
+    "name": "Care Plus Home Care LLC"
+  },
+  {
+    "id": "1608",
+    "name": "Golden Heart Home 2"
+  },
+  {
+    "id": "1609",
+    "name": "Caring Rose Homes LLC"
+  },
+  {
+    "id": "1610",
+    "name": "Melkezedek Care LLC"
+  },
+  {
+    "id": "1611",
+    "name": "Capital Home Health Care LLC"
+  },
+  {
+    "id": "1612",
+    "name": "Blissful Care Services LLC"
+  },
+  {
+    "id": "1613",
+    "name": "Diane's Place LLC"
+  },
+  {
+    "id": "1614",
+    "name": "Moonlight Home Health Care LLC"
+  },
+  {
+    "id": "1615",
+    "name": "S & H Health Care Services"
+  },
+  {
+    "id": "1616",
+    "name": "Personal Care Senior Livingllc"
+  },
+  {
+    "id": "1617",
+    "name": "Berkeley Heights Homes Of Mn"
+  },
+  {
+    "id": "1620",
+    "name": "Fieldcrest Assisted Living"
+  },
+  {
+    "id": "1621",
+    "name": "Y M Care Inc"
+  },
+  {
+    "id": "1622",
+    "name": "Harmony Homes LLC"
+  },
+  {
+    "id": "1623",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "1624",
+    "name": "Angel's Health & Home Care Ser"
+  },
+  {
+    "id": "1626",
+    "name": "Tr Homes"
+  },
+  {
+    "id": "1628",
+    "name": "Hope Residential Homes LLC"
+  },
+  {
+    "id": "1629",
+    "name": "Tr Homes"
+  },
+  {
+    "id": "1630",
+    "name": "Lexington Landing"
+  },
+  {
+    "id": "1631",
+    "name": "Kindheart Homes Inc"
+  },
+  {
+    "id": "1632",
+    "name": "Prime Care Services Inc"
+  },
+  {
+    "id": "1633",
+    "name": "Caring Hearts Residential"
+  },
+  {
+    "id": "1634",
+    "name": "Better Living Residential Care"
+  },
+  {
+    "id": "1635",
+    "name": "Premium Health Care Inc"
+  },
+  {
+    "id": "1636",
+    "name": "Infinity Care Corp"
+  },
+  {
+    "id": "1637",
+    "name": "Amira Choice Bloomington"
+  },
+  {
+    "id": "1638",
+    "name": "A Daughter's Love Inc"
+  },
+  {
+    "id": "1639",
+    "name": "Cozy Baraka Home Care Inc"
+  },
+  {
+    "id": "1640",
+    "name": "Relief Homecare LLC"
+  },
+  {
+    "id": "1641",
+    "name": "Hayden Grove Senior Living"
+  },
+  {
+    "id": "1642",
+    "name": "Safe Harbor Rsdntl Care Home"
+  },
+  {
+    "id": "1644",
+    "name": "Sunrise Assisted Living"
+  },
+  {
+    "id": "1645",
+    "name": "Careservices LLC"
+  },
+  {
+    "id": "1646",
+    "name": "Sunshine Group Home LLC"
+  },
+  {
+    "id": "1647",
+    "name": "1st Choice Home LLC"
+  },
+  {
+    "id": "1648",
+    "name": "Miles Vents Inc"
+  },
+  {
+    "id": "1650",
+    "name": "Crescent Group Home LLC"
+  },
+  {
+    "id": "1651",
+    "name": "Compassion Home Health Care Ll"
+  },
+  {
+    "id": "1652",
+    "name": "Heritage House"
+  },
+  {
+    "id": "1653",
+    "name": "Adeg Group Home LLC"
+  },
+  {
+    "id": "1654",
+    "name": "Beka Home Inc"
+  },
+  {
+    "id": "1655",
+    "name": "Estherra Care LLC"
+  },
+  {
+    "id": "1656",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1658",
+    "name": "Alliance Assisted Living Inc"
+  },
+  {
+    "id": "1659",
+    "name": "Bright Path Homes LLC"
+  },
+  {
+    "id": "1660",
+    "name": "New Hope Care LLC"
+  },
+  {
+    "id": "1661",
+    "name": "Merry Lake LLC"
+  },
+  {
+    "id": "1662",
+    "name": "First Mercy Homes LLC"
+  },
+  {
+    "id": "1663",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1664",
+    "name": "24 Seven Home Care Inc"
+  },
+  {
+    "id": "1665",
+    "name": "Renewed Spirit"
+  },
+  {
+    "id": "1666",
+    "name": "Sunset Homes Assisted Living I"
+  },
+  {
+    "id": "1667",
+    "name": "Mn Care Access LLC"
+  },
+  {
+    "id": "1668",
+    "name": "Nest Care Inc"
+  },
+  {
+    "id": "1669",
+    "name": "Risen Home Care LLC"
+  },
+  {
+    "id": "1671",
+    "name": "New Life Home"
+  },
+  {
+    "id": "1672",
+    "name": "Esteem Home Health Services Ll"
+  },
+  {
+    "id": "1673",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1674",
+    "name": "Arise Homecare Services LLC"
+  },
+  {
+    "id": "1675",
+    "name": "New Life Care LLC"
+  },
+  {
+    "id": "1677",
+    "name": "Rest Care Home Services LLC"
+  },
+  {
+    "id": "1679",
+    "name": "Unity Trust Home Care"
+  },
+  {
+    "id": "1681",
+    "name": "Assured Wellness LLC"
+  },
+  {
+    "id": "1682",
+    "name": "Amerigrace Home Care LLC"
+  },
+  {
+    "id": "1683",
+    "name": "Blue Moon Center LLC"
+  },
+  {
+    "id": "1684",
+    "name": "Mission Group Home LLC"
+  },
+  {
+    "id": "1686",
+    "name": "Minn Care Home Health"
+  },
+  {
+    "id": "1687",
+    "name": "Calm Home Health Care LLC"
+  },
+  {
+    "id": "1688",
+    "name": "Greater Heights Care"
+  },
+  {
+    "id": "1689",
+    "name": "Horizon Home Care Services Inc"
+  },
+  {
+    "id": "1690",
+    "name": "Boulder Ponds Senior Living"
+  },
+  {
+    "id": "1692",
+    "name": "Cc Group Home Care Inc"
+  },
+  {
+    "id": "1693",
+    "name": "Bridges Health LLC"
+  },
+  {
+    "id": "1694",
+    "name": "Sisters Home Health Care LLC"
+  },
+  {
+    "id": "1695",
+    "name": "The Beatitudes Homes LLC"
+  },
+  {
+    "id": "1696",
+    "name": "Mercy Link LLC"
+  },
+  {
+    "id": "1697",
+    "name": "Sunshine Wellness Center Inc"
+  },
+  {
+    "id": "1698",
+    "name": "Bright Path Homes"
+  },
+  {
+    "id": "1699",
+    "name": "Miles Vents Incorporated"
+  },
+  {
+    "id": "1701",
+    "name": "1st Attentive Services LLC"
+  },
+  {
+    "id": "1702",
+    "name": "Nuvision Homecare Services LLC"
+  },
+  {
+    "id": "1703",
+    "name": "Greatercare Facilities LLC"
+  },
+  {
+    "id": "1704",
+    "name": "Caring Group Home LLC"
+  },
+  {
+    "id": "1705",
+    "name": "Legend Health Care Resources"
+  },
+  {
+    "id": "1706",
+    "name": "Paramount Care"
+  },
+  {
+    "id": "1707",
+    "name": "Friendship Village Bloomington"
+  },
+  {
+    "id": "1709",
+    "name": "St John Home Care LLC"
+  },
+  {
+    "id": "1710",
+    "name": "Havenwood Of Maple Grove"
+  },
+  {
+    "id": "1712",
+    "name": "Obed-Edom Assisted Living LLC"
+  },
+  {
+    "id": "1713",
+    "name": "Open Heart Residence Limited"
+  },
+  {
+    "id": "1714",
+    "name": "New Life Care LLC"
+  },
+  {
+    "id": "1715",
+    "name": "Miles Vents Inc"
+  },
+  {
+    "id": "1716",
+    "name": "Delight Home Healthcare LLC"
+  },
+  {
+    "id": "1718",
+    "name": "Mia's House St Cloud"
+  },
+  {
+    "id": "1719",
+    "name": "Vision2020 Group Homes LLC"
+  },
+  {
+    "id": "1720",
+    "name": "Fortunate Homes LLC"
+  },
+  {
+    "id": "1721",
+    "name": "Sakinah Homes LLC"
+  },
+  {
+    "id": "1722",
+    "name": "Unique Homes LLC"
+  },
+  {
+    "id": "1723",
+    "name": "24 Seven Home Care Inc"
+  },
+  {
+    "id": "1724",
+    "name": "Push Services Inc"
+  },
+  {
+    "id": "1725",
+    "name": "Midwest Living Group Inc"
+  },
+  {
+    "id": "1726",
+    "name": "Heliopolis Home Healthcare LLC"
+  },
+  {
+    "id": "1729",
+    "name": "Optimum Healthcare Services Ll"
+  },
+  {
+    "id": "1730",
+    "name": "Eagancare Behavioral Health Se"
+  },
+  {
+    "id": "1732",
+    "name": "Minn Care Home Health"
+  },
+  {
+    "id": "1734",
+    "name": "Residential Care Nine Mile Crk"
+  },
+  {
+    "id": "1735",
+    "name": "Syncare Joy Home"
+  },
+  {
+    "id": "1736",
+    "name": "Cosmo Home Healthcare Services"
+  },
+  {
+    "id": "1737",
+    "name": "Help Home Care LLC"
+  },
+  {
+    "id": "1738",
+    "name": "611 Flats LLC"
+  },
+  {
+    "id": "1739",
+    "name": "Haven Homes Assisted Living"
+  },
+  {
+    "id": "1740",
+    "name": "Gabby Care Homes LLC Oregon Ho"
+  },
+  {
+    "id": "1741",
+    "name": "Inspire Care Inc"
+  },
+  {
+    "id": "1742",
+    "name": "Uplifted Care Services LLC"
+  },
+  {
+    "id": "1743",
+    "name": "Norbella Senior Living Prior L"
+  },
+  {
+    "id": "1744",
+    "name": "Bright Path Homes"
+  },
+  {
+    "id": "1746",
+    "name": "Vaimar Suites LLC"
+  },
+  {
+    "id": "1747",
+    "name": "Brooklyn Park Assisted Living"
+  },
+  {
+    "id": "1748",
+    "name": "Serendipitous Living"
+  },
+  {
+    "id": "1749",
+    "name": "Icare Homes LLC"
+  },
+  {
+    "id": "1751",
+    "name": "Care Partners Homecare LLC"
+  },
+  {
+    "id": "1752",
+    "name": "New Hope Health Care LLC"
+  },
+  {
+    "id": "1753",
+    "name": "Northwoods Villa Inc"
+  },
+  {
+    "id": "1754",
+    "name": "Mercy Caregivers Of Minnesota"
+  },
+  {
+    "id": "1755",
+    "name": "Caring Home Health Inc"
+  },
+  {
+    "id": "1756",
+    "name": "Cozy Baraka Home Care Inc"
+  },
+  {
+    "id": "1758",
+    "name": "Maple Care Homes"
+  },
+  {
+    "id": "1761",
+    "name": "Cure Home Health Inc"
+  },
+  {
+    "id": "1762",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1763",
+    "name": "Olydia Home Care Inc"
+  },
+  {
+    "id": "1767",
+    "name": "United Social Service Of Mn"
+  },
+  {
+    "id": "1768",
+    "name": "Sunshine Corporation"
+  },
+  {
+    "id": "1769",
+    "name": "Loving Touch Inc"
+  },
+  {
+    "id": "1771",
+    "name": "Topcare Health Services LLC"
+  },
+  {
+    "id": "1779",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1780",
+    "name": "Midwest Residential Inc"
+  },
+  {
+    "id": "1782",
+    "name": "Agapecare Services LLC"
+  },
+  {
+    "id": "1783",
+    "name": "Garden Home Al LLC"
+  },
+  {
+    "id": "1784",
+    "name": "Maplewood Homes Of Faribault"
+  },
+  {
+    "id": "1785",
+    "name": "Prime Choice Living"
+  },
+  {
+    "id": "1786",
+    "name": "The Watkins House"
+  },
+  {
+    "id": "1787",
+    "name": "Maplewood Homes Of Faribault"
+  },
+  {
+    "id": "1788",
+    "name": "Assurant Care Homes LLC"
+  },
+  {
+    "id": "1790",
+    "name": "Point One Home Health LLC"
+  },
+  {
+    "id": "1791",
+    "name": "Asian American Elderly Al"
+  },
+  {
+    "id": "1793",
+    "name": "Seed Home Healthcare LLC"
+  },
+  {
+    "id": "1796",
+    "name": "Journeys Home Care LLC"
+  },
+  {
+    "id": "1797",
+    "name": "St Jude Home Health LLC"
+  },
+  {
+    "id": "1798",
+    "name": "Willows Landing Senior Living"
+  },
+  {
+    "id": "1800",
+    "name": "Grace Hand Group Home LLC"
+  },
+  {
+    "id": "1801",
+    "name": "Golden Hearts Home Care Servic"
+  },
+  {
+    "id": "1802",
+    "name": "Everbloom Home Healthcare LLC"
+  },
+  {
+    "id": "1803",
+    "name": "Duale Inc"
+  },
+  {
+    "id": "1805",
+    "name": "Brightcare Services Inc"
+  },
+  {
+    "id": "1806",
+    "name": "Risen Home Care LLC"
+  },
+  {
+    "id": "1807",
+    "name": "Golden Oaks Home Care LLC"
+  },
+  {
+    "id": "1808",
+    "name": "Premium Home Healthcare LLC"
+  },
+  {
+    "id": "1809",
+    "name": "Greatercare Facilitiesllc"
+  },
+  {
+    "id": "1810",
+    "name": "Bethel Pavilion Homecare LLC"
+  },
+  {
+    "id": "1811",
+    "name": "Bethel Pavilion Homecare LLC"
+  },
+  {
+    "id": "1812",
+    "name": "Applewood Home Health Care LLC"
+  },
+  {
+    "id": "1813",
+    "name": "First Light Residential Care L"
+  },
+  {
+    "id": "1814",
+    "name": "Rejuvn Care LLC"
+  },
+  {
+    "id": "1815",
+    "name": "Rejuvn Care LLC"
+  },
+  {
+    "id": "1818",
+    "name": "Solace Health Services LLC"
+  },
+  {
+    "id": "1819",
+    "name": "Comfort Care Center LLC"
+  },
+  {
+    "id": "1820",
+    "name": "Dis-Generation Group Inc"
+  },
+  {
+    "id": "1821",
+    "name": "Serenity Court"
+  },
+  {
+    "id": "1822",
+    "name": "Cascade Creek Memory Care"
+  },
+  {
+    "id": "1823",
+    "name": "Aurora Assisted Living LLC"
+  },
+  {
+    "id": "1824",
+    "name": "A To Z Group Homes Limited"
+  },
+  {
+    "id": "1825",
+    "name": "Happy Place Care Services LLC"
+  },
+  {
+    "id": "1826",
+    "name": "Lindstrom Senior Living"
+  },
+  {
+    "id": "1827",
+    "name": "Bluemoon Comfort"
+  },
+  {
+    "id": "1828",
+    "name": "Senior Living LLC"
+  },
+  {
+    "id": "1830",
+    "name": "Berkeley Heights Home Of Mn"
+  },
+  {
+    "id": "1831",
+    "name": "Avian Care LLC"
+  },
+  {
+    "id": "1832",
+    "name": "Divine Mercy Homes LLC"
+  },
+  {
+    "id": "1833",
+    "name": "Blessed Hands Healthcare"
+  },
+  {
+    "id": "1835",
+    "name": "Norbella Senior Living Savage"
+  },
+  {
+    "id": "1836",
+    "name": "Bright Side Healthcare LLC"
+  },
+  {
+    "id": "1837",
+    "name": "Living Hope Homes Audrey's Pla"
+  },
+  {
+    "id": "1838",
+    "name": "Broadwell Plymouth Senior Livi"
+  },
+  {
+    "id": "1839",
+    "name": "Cannon Country"
+  },
+  {
+    "id": "1840",
+    "name": "H & H Group Home LLC"
+  },
+  {
+    "id": "1841",
+    "name": "Aspen Grove Alternative Senior"
+  },
+  {
+    "id": "1842",
+    "name": "American Volunteers Homes LLC"
+  },
+  {
+    "id": "1843",
+    "name": "Universal Home Health Of Mn Ll"
+  },
+  {
+    "id": "1844",
+    "name": "Ng&ng Services Group LLC"
+  },
+  {
+    "id": "1845",
+    "name": "Living Well Home Care LLC"
+  },
+  {
+    "id": "1846",
+    "name": "Loving Care Cottage LLC"
+  },
+  {
+    "id": "1847",
+    "name": "We Care Assisted Living"
+  },
+  {
+    "id": "1848",
+    "name": "Zari Homes"
+  },
+  {
+    "id": "1849",
+    "name": "Victory Homes"
+  },
+  {
+    "id": "1850",
+    "name": "Compassion Connect LLC"
+  },
+  {
+    "id": "1851",
+    "name": "Twins Home Care Service"
+  },
+  {
+    "id": "1852",
+    "name": "Pleasant Assisted Living LLC"
+  },
+  {
+    "id": "1855",
+    "name": "Bell Assisted Living LLC"
+  },
+  {
+    "id": "1856",
+    "name": "True Care Living LLC"
+  },
+  {
+    "id": "1857",
+    "name": "New Life Health Service"
+  },
+  {
+    "id": "1858",
+    "name": "Open Heart Residence"
+  },
+  {
+    "id": "1859",
+    "name": "Caringhands Home Health Care I"
+  },
+  {
+    "id": "1860",
+    "name": "Belevo Health Services LLC"
+  },
+  {
+    "id": "1861",
+    "name": "Universal Healthcare Solutions"
+  },
+  {
+    "id": "1863",
+    "name": "Direct Home Care Services LLC"
+  },
+  {
+    "id": "1864",
+    "name": "Hopeville Homes"
+  },
+  {
+    "id": "1865",
+    "name": "Nevada Home"
+  },
+  {
+    "id": "1866",
+    "name": "Door Of Grace LLC"
+  },
+  {
+    "id": "1867",
+    "name": "Passionate Health Care Service"
+  },
+  {
+    "id": "1868",
+    "name": "Roberts House"
+  },
+  {
+    "id": "1869",
+    "name": "Caritas Home Care LLC"
+  },
+  {
+    "id": "1870",
+    "name": "Golden Bright Homes"
+  },
+  {
+    "id": "1871",
+    "name": "Bethesda North Pointe"
+  },
+  {
+    "id": "1872",
+    "name": "Holistic Health Care Services"
+  },
+  {
+    "id": "1873",
+    "name": "West Metro Care Services LLC"
+  },
+  {
+    "id": "1874",
+    "name": "Bright Side Healthcare LLC"
+  },
+  {
+    "id": "1875",
+    "name": "Wright Way Home Care LLC"
+  },
+  {
+    "id": "1876",
+    "name": "Second Horizon Living LLC"
+  },
+  {
+    "id": "1877",
+    "name": "Second Home Healthcare LLC"
+  },
+  {
+    "id": "1878",
+    "name": "Golden Hearts Inc"
+  },
+  {
+    "id": "1879",
+    "name": "Twincities Loyal Holistic Care"
+  },
+  {
+    "id": "1882",
+    "name": "Chez Michael Care LLC"
+  },
+  {
+    "id": "1883",
+    "name": "Care Homes LLC"
+  },
+  {
+    "id": "1884",
+    "name": "Family Tree Care Homes"
+  },
+  {
+    "id": "1886",
+    "name": "Bimsol Homecare LLC"
+  },
+  {
+    "id": "1887",
+    "name": "Epic Homes LLC"
+  },
+  {
+    "id": "1888",
+    "name": "Epic Homes LLC"
+  },
+  {
+    "id": "1889",
+    "name": "Living Hope Homes Cottage Cres"
+  },
+  {
+    "id": "1890",
+    "name": "Reliacare Home Health Inc"
+  },
+  {
+    "id": "1891",
+    "name": "Horizon Home Care Services Inc"
+  },
+  {
+    "id": "1892",
+    "name": "Noble Residential Living"
+  },
+  {
+    "id": "1893",
+    "name": "Healthguard Living"
+  },
+  {
+    "id": "1894",
+    "name": "Mas Home Health Care LLC"
+  },
+  {
+    "id": "1895",
+    "name": "Quality Care"
+  },
+  {
+    "id": "1896",
+    "name": "Assurant Care Homes LLC"
+  },
+  {
+    "id": "1897",
+    "name": "New Life Health Service"
+  },
+  {
+    "id": "1898",
+    "name": "New Creation Social Services L"
+  },
+  {
+    "id": "1900",
+    "name": "The Pillars Of Grand Rapids"
+  },
+  {
+    "id": "1901",
+    "name": "Home Partners LLC"
+  },
+  {
+    "id": "1902",
+    "name": "Suite Living Senior Care"
+  },
+  {
+    "id": "1903",
+    "name": "Ee And E Sisters Caring Home L"
+  },
+  {
+    "id": "1904",
+    "name": "Parkview Group Home LLC"
+  },
+  {
+    "id": "1905",
+    "name": "Immaculate Home Inc"
+  },
+  {
+    "id": "1906",
+    "name": "Abrahams Bosom Care"
+  },
+  {
+    "id": "1907",
+    "name": "Guardian Care Homes Inc"
+  },
+  {
+    "id": "1908",
+    "name": "Fortunate Homes LLC"
+  },
+  {
+    "id": "1909",
+    "name": "Smarys Home Healthcare LLC"
+  },
+  {
+    "id": "1910",
+    "name": "Dph Sp"
+  },
+  {
+    "id": "1912",
+    "name": "Koronis Place"
+  },
+  {
+    "id": "1913",
+    "name": "Generations Child & Memory Car"
+  },
+  {
+    "id": "1914",
+    "name": "Golden Arms Home Health Care"
+  },
+  {
+    "id": "1915",
+    "name": "Happy Care Inc"
+  },
+  {
+    "id": "1916",
+    "name": "Shamaani Assistant Living LLC"
+  },
+  {
+    "id": "1917",
+    "name": "Care4u Home Care Services LLC"
+  },
+  {
+    "id": "1918",
+    "name": "National Home Healthcare Inc"
+  },
+  {
+    "id": "1919",
+    "name": "American Spirit LLC"
+  },
+  {
+    "id": "1920",
+    "name": "Thrive Better Assisted Living"
+  },
+  {
+    "id": "1921",
+    "name": "Unitedcare Assist LLC"
+  },
+  {
+    "id": "1923",
+    "name": "Care Partners Homecare LLC"
+  },
+  {
+    "id": "1924",
+    "name": "Open Arms Senior Living"
+  },
+  {
+    "id": "1925",
+    "name": "Together Home Services LLC"
+  },
+  {
+    "id": "1926",
+    "name": "Home From Home Assisted Living"
+  },
+  {
+    "id": "1927",
+    "name": "Daystar Homecare LLC"
+  },
+  {
+    "id": "1928",
+    "name": "Berkeley Heights Homes Of Mn"
+  },
+  {
+    "id": "1929",
+    "name": "Tender Care Homes"
+  },
+  {
+    "id": "1930",
+    "name": "Horizon Residential Care Inc"
+  },
+  {
+    "id": "1931",
+    "name": "Alliance Home Health Care LLC"
+  },
+  {
+    "id": "1932",
+    "name": "Carechoice Homes LLC"
+  },
+  {
+    "id": "1933",
+    "name": "Hope Homes LLC"
+  },
+  {
+    "id": "1934",
+    "name": "Boden Senior Living - Apple Va"
+  },
+  {
+    "id": "1935",
+    "name": "Suite Living Senior Care Of We"
+  },
+  {
+    "id": "1936",
+    "name": "Precious Health Services Llf"
+  },
+  {
+    "id": "1937",
+    "name": "Caring Angels"
+  },
+  {
+    "id": "1938",
+    "name": "Pioneer Home Care Limited"
+  },
+  {
+    "id": "1939",
+    "name": "Park Point Inc"
+  },
+  {
+    "id": "1940",
+    "name": "Friendship House LLC"
+  },
+  {
+    "id": "1941",
+    "name": "Shelter Arm LLC"
+  },
+  {
+    "id": "1942",
+    "name": "Serenity Living Care Inc"
+  },
+  {
+    "id": "1943",
+    "name": "Camilia Rose Assisted Living"
+  },
+  {
+    "id": "1944",
+    "name": "Avid Home And Community Health"
+  },
+  {
+    "id": "1945",
+    "name": "Prestigious Care Homes"
+  },
+  {
+    "id": "1946",
+    "name": "Noble Cares LLC"
+  },
+  {
+    "id": "1947",
+    "name": "Living Hope Homes Sparrows Lan"
+  },
+  {
+    "id": "1948",
+    "name": "Lifepoint Home LLC"
+  },
+  {
+    "id": "1949",
+    "name": "Golden Heart Home 3"
+  },
+  {
+    "id": "1950",
+    "name": "Suite Living Senior Care Of Cr"
+  },
+  {
+    "id": "1951",
+    "name": "Good Shepherd Healthcare Servi"
+  },
+  {
+    "id": "1952",
+    "name": "Utmost Home Health Care LLC"
+  },
+  {
+    "id": "1953",
+    "name": "Unified Health Care"
+  },
+  {
+    "id": "1954",
+    "name": "Arden Homes LLC"
+  },
+  {
+    "id": "1956",
+    "name": "Olabig Healthcare LLC"
+  },
+  {
+    "id": "1957",
+    "name": "Center Light Care LLC"
+  },
+  {
+    "id": "1958",
+    "name": "Family Choice Assisted Living"
+  },
+  {
+    "id": "1959",
+    "name": "Able View Assisted Living Inc"
+  },
+  {
+    "id": "1960",
+    "name": "Gifted Home Health Care LLC"
+  },
+  {
+    "id": "1961",
+    "name": "Live Well Mn Home Health Care"
+  },
+  {
+    "id": "1962",
+    "name": "Willows Bend"
+  },
+  {
+    "id": "1963",
+    "name": "Fremont Village Senior Living"
+  },
+  {
+    "id": "1964",
+    "name": "Golden Star Residential Care L"
+  },
+  {
+    "id": "1966",
+    "name": "Twins Home Care Service LLC"
+  },
+  {
+    "id": "1967",
+    "name": "Ontime Care LLC"
+  },
+  {
+    "id": "1969",
+    "name": "Norbella Of Champlin"
+  },
+  {
+    "id": "1971",
+    "name": "Vitality Living Of Upsala, LLC"
+  },
+  {
+    "id": "1972",
+    "name": "Round Lake Senior Living"
+  },
+  {
+    "id": "1973",
+    "name": "Cedar Heart Homes Inc"
+  },
+  {
+    "id": "1974",
+    "name": "New Dream Home Services LLC"
+  },
+  {
+    "id": "1975",
+    "name": "True Alliance Inc"
+  },
+  {
+    "id": "1976",
+    "name": "Healing Heart Nursing Care LLC"
+  },
+  {
+    "id": "1977",
+    "name": "Divine Heights Healthcare"
+  },
+  {
+    "id": "1979",
+    "name": "Goodhue Living"
+  },
+  {
+    "id": "1980",
+    "name": "Epiphany Care Homes LLC"
+  },
+  {
+    "id": "1982",
+    "name": "Compass Assisted Living LLC"
+  },
+  {
+    "id": "1983",
+    "name": "Burale Care Services Inc"
+  },
+  {
+    "id": "1984",
+    "name": "Suite Living Senior Care"
+  },
+  {
+    "id": "1985",
+    "name": "Tabernacle Home Care"
+  },
+  {
+    "id": "1986",
+    "name": "Imed Home Care LLC"
+  },
+  {
+    "id": "1987",
+    "name": "Grace Home And Healthcare Inc"
+  },
+  {
+    "id": "1988",
+    "name": "New Horizon Assisted Living"
+  },
+  {
+    "id": "1989",
+    "name": "Rise Up Home Care LLC"
+  },
+  {
+    "id": "1990",
+    "name": "Pure Heart Health Services Inc"
+  },
+  {
+    "id": "1993",
+    "name": "Benedetta Home Care Services L"
+  },
+  {
+    "id": "1994",
+    "name": "Northern Meadows"
+  },
+  {
+    "id": "1995",
+    "name": "Eastern Home Care Inc"
+  },
+  {
+    "id": "1996",
+    "name": "Lakeview Estate"
+  },
+  {
+    "id": "1999",
+    "name": "Destiny Healthcare Services Ll"
+  },
+  {
+    "id": "2000",
+    "name": "Executive Health Services LLC"
+  },
+  {
+    "id": "2002",
+    "name": "Prairie Winds Senior And Assis"
+  },
+  {
+    "id": "2003",
+    "name": "Diversity Home Care"
+  },
+  {
+    "id": "2004",
+    "name": "Goldies Group Homes LLC"
+  },
+  {
+    "id": "2005",
+    "name": "Keshi Health Care Services Inc"
+  },
+  {
+    "id": "2006",
+    "name": "Uplift Home Care Services LLC"
+  },
+  {
+    "id": "2007",
+    "name": "Azalea Homes LLC"
+  },
+  {
+    "id": "2008",
+    "name": "Norbella Centerville"
+  },
+  {
+    "id": "2009",
+    "name": "Customize Living"
+  },
+  {
+    "id": "2010",
+    "name": "Butterfly Assisted Living LLC"
+  },
+  {
+    "id": "2011",
+    "name": "Highview Home Care LLC"
+  },
+  {
+    "id": "2012",
+    "name": "Hillcrest Terrace"
+  },
+  {
+    "id": "2013",
+    "name": "Hillcrest Suites"
+  },
+  {
+    "id": "2014",
+    "name": "Mount Zion Care Services LLC"
+  },
+  {
+    "id": "2015",
+    "name": "Rise Residential Services Sc"
+  },
+  {
+    "id": "2017",
+    "name": "Suite Living Senior Care Of La"
+  },
+  {
+    "id": "2018",
+    "name": "Deep Harmony Home Care LLC"
+  },
+  {
+    "id": "2019",
+    "name": "Harmony Homes & Services LLC"
+  },
+  {
+    "id": "2022",
+    "name": "Care Partners Homecare LLC"
+  },
+  {
+    "id": "2023",
+    "name": "English Rose Suites"
+  },
+  {
+    "id": "2024",
+    "name": "Adequate Home Care LLC"
+  },
+  {
+    "id": "2025",
+    "name": "Metro Assisted Living"
+  },
+  {
+    "id": "2026",
+    "name": "Talamore Senior Living Woodbur"
+  },
+  {
+    "id": "2028",
+    "name": "Scott Care Home Inc"
+  },
+  {
+    "id": "2029",
+    "name": "Agape Assisted Living And Hous"
+  },
+  {
+    "id": "2030",
+    "name": "Agape Assisted Living And Hous"
+  },
+  {
+    "id": "2031",
+    "name": "Always Amazing Home Care LLC"
+  },
+  {
+    "id": "2032",
+    "name": "Suite Living Senior Care Of Li"
+  },
+  {
+    "id": "2033",
+    "name": "Independent Group Home Inc"
+  },
+  {
+    "id": "2036",
+    "name": "Mandas House St Cloud"
+  },
+  {
+    "id": "2038",
+    "name": "Hopeville Homes"
+  },
+  {
+    "id": "2039",
+    "name": "Hayden Grove Of St Anthony"
+  },
+  {
+    "id": "2042",
+    "name": "Integrity Home Health Care LLC"
+  },
+  {
+    "id": "2043",
+    "name": "Seed Senior Living LLC"
+  },
+  {
+    "id": "2044",
+    "name": "Marvella"
+  },
+  {
+    "id": "2046",
+    "name": "Kekeli Care Center LLC"
+  },
+  {
+    "id": "2048",
+    "name": "Destiny Homecare Services Inc"
+  },
+  {
+    "id": "2050",
+    "name": "Sunshine Hopecare LLC"
+  },
+  {
+    "id": "2051",
+    "name": "H&a Assisted Living Inc"
+  },
+  {
+    "id": "2053",
+    "name": "Harmony Gardens"
+  },
+  {
+    "id": "2054",
+    "name": "Horizon Home Care Services Inc"
+  },
+  {
+    "id": "2057",
+    "name": "Pleasant Assisted Living LLC"
+  },
+  {
+    "id": "2058",
+    "name": "The Pillars Of Lakeville"
+  },
+  {
+    "id": "2059",
+    "name": "Skyblu Residential Services"
+  },
+  {
+    "id": "2060",
+    "name": "Alltracare LLC"
+  },
+  {
+    "id": "2062",
+    "name": "Kind Way Homes"
+  },
+  {
+    "id": "2063",
+    "name": "Betty Care Services LLC"
+  },
+  {
+    "id": "2064",
+    "name": "1st Attentive Services LLC"
+  },
+  {
+    "id": "2065",
+    "name": "Alpha Home Care Services L"
+  },
+  {
+    "id": "2066",
+    "name": "Lifecare Assisted Living LLC"
+  },
+  {
+    "id": "2067",
+    "name": "Alabama Residence"
+  },
+  {
+    "id": "2068",
+    "name": "Homefelt Assisted Living"
+  },
+  {
+    "id": "2069",
+    "name": "Associate Healthcare LLC"
+  },
+  {
+    "id": "2070",
+    "name": "Homefelt Assisted Living"
+  },
+  {
+    "id": "2071",
+    "name": "Rest Care Homes Inc"
+  },
+  {
+    "id": "2072",
+    "name": "Well Care Health Services"
+  },
+  {
+    "id": "2073",
+    "name": "Primary Living Inc"
+  },
+  {
+    "id": "2074",
+    "name": "Suite Living Senior Care Of Sh"
+  },
+  {
+    "id": "2075",
+    "name": "1 On 1 Comprehensive Healthcar"
+  },
+  {
+    "id": "2076",
+    "name": "Everlasting Care Homes LLC"
+  },
+  {
+    "id": "2077",
+    "name": "Reign Service LLC"
+  },
+  {
+    "id": "2079",
+    "name": "Lakeland Health Services LLC"
+  },
+  {
+    "id": "2080",
+    "name": "New Perspective Arden Hills"
+  },
+  {
+    "id": "2081",
+    "name": "Caring Angels Health Care Serv"
+  },
+  {
+    "id": "2082",
+    "name": "Perfection Health Care Service"
+  },
+  {
+    "id": "2083",
+    "name": "Pride N Living Home Care Inc"
+  },
+  {
+    "id": "2085",
+    "name": "Above Assisted Living"
+  },
+  {
+    "id": "2086",
+    "name": "Helpful Hands LLC"
+  },
+  {
+    "id": "2087",
+    "name": "Stelix Care LLC"
+  },
+  {
+    "id": "2088",
+    "name": "Peoples Choice Home Care Servi"
+  },
+  {
+    "id": "2090",
+    "name": "Anchor Care Services LLC"
+  },
+  {
+    "id": "2091",
+    "name": "3mb Health Services LLC"
+  },
+  {
+    "id": "2093",
+    "name": "Golden Caring Homes LLC"
+  },
+  {
+    "id": "2094",
+    "name": "Grace Assisted Living"
+  },
+  {
+    "id": "2095",
+    "name": "Optimal Home Of Richfield Limi"
+  },
+  {
+    "id": "2096",
+    "name": "Spirit Care Homes"
+  },
+  {
+    "id": "2097",
+    "name": "Wiltima Assisted Living LLC"
+  },
+  {
+    "id": "2098",
+    "name": "Tru Health Services LLC"
+  },
+  {
+    "id": "2099",
+    "name": "Bridgeway Counseling LLC"
+  },
+  {
+    "id": "2100",
+    "name": "A 1 Home Care LLC"
+  },
+  {
+    "id": "2102",
+    "name": "Optimal Home Of Maple Grove Ll"
+  },
+  {
+    "id": "2103",
+    "name": "Timber Pines Assisted Living"
+  },
+  {
+    "id": "2104",
+    "name": "Golden Assisted Living LLC"
+  },
+  {
+    "id": "2105",
+    "name": "Atlas Villas Memory Care"
+  },
+  {
+    "id": "2106",
+    "name": "High Drive Customized Assisted"
+  },
+  {
+    "id": "2107",
+    "name": "Living Hope Homes Eagles View"
+  },
+  {
+    "id": "2108",
+    "name": "Living Hope Homes Oak Grove"
+  },
+  {
+    "id": "2109",
+    "name": "Golden Heart Home 4"
+  },
+  {
+    "id": "2110",
+    "name": "Golden Path Home Care Services"
+  },
+  {
+    "id": "2111",
+    "name": "Bright View Residential LLC"
+  },
+  {
+    "id": "2113",
+    "name": "A Future Goals"
+  },
+  {
+    "id": "2115",
+    "name": "Miles Vents Inc"
+  },
+  {
+    "id": "2116",
+    "name": "Alma Care LLC"
+  },
+  {
+    "id": "2117",
+    "name": "South Metro Healthcare LLC"
+  },
+  {
+    "id": "2118",
+    "name": "Genesis Assisted Living LLC"
+  },
+  {
+    "id": "2119",
+    "name": "St Charles Retirement Cmty"
+  },
+  {
+    "id": "2120",
+    "name": "Divine Home Healthcare LLC"
+  },
+  {
+    "id": "2121",
+    "name": "Personal Care Solutions LLC"
+  },
+  {
+    "id": "2124",
+    "name": "Alliance Wellness Homes LLC"
+  },
+  {
+    "id": "2125",
+    "name": "Veracity Assisted Living LLC"
+  },
+  {
+    "id": "2126",
+    "name": "Golden Maple Homes Inc"
+  },
+  {
+    "id": "2127",
+    "name": "Golden Maple Homes Inc"
+  },
+  {
+    "id": "2128",
+    "name": "Tranquility Homes LLC"
+  },
+  {
+    "id": "2130",
+    "name": "Green Lakes Homes"
+  },
+  {
+    "id": "2131",
+    "name": "Kayli Residence LLC"
+  },
+  {
+    "id": "2133",
+    "name": "The Meadows Senior Living"
+  },
+  {
+    "id": "2134",
+    "name": "Carepoint Home Inc"
+  },
+  {
+    "id": "2136",
+    "name": "Gentle Care Assisted Living Ll"
+  },
+  {
+    "id": "2137",
+    "name": "Access Health LLC"
+  },
+  {
+    "id": "2138",
+    "name": "Advanced Group Home LLC"
+  },
+  {
+    "id": "2139",
+    "name": "Safe Harbor Residential Care H"
+  },
+  {
+    "id": "2140",
+    "name": "Valley View Of Long Prairie In"
+  },
+  {
+    "id": "2141",
+    "name": "Fanutm Home Health Care LLC"
+  },
+  {
+    "id": "2142",
+    "name": "Align Care Mn LLC"
+  },
+  {
+    "id": "2143",
+    "name": "Comfort Assisted Living LLC"
+  },
+  {
+    "id": "2144",
+    "name": "Bestlife Healthcare Services L"
+  },
+  {
+    "id": "2145",
+    "name": "Estherra Care LLC"
+  },
+  {
+    "id": "2146",
+    "name": "Affinity Quality Living LLC"
+  },
+  {
+    "id": "2148",
+    "name": "Advocate Homes LLC"
+  },
+  {
+    "id": "2149",
+    "name": "Sunshine Assisted Living LLC"
+  },
+  {
+    "id": "2150",
+    "name": "Allied Gardens Care"
+  },
+  {
+    "id": "2151",
+    "name": "Blissful Home Care Inc"
+  },
+  {
+    "id": "2152",
+    "name": "Mira Home Health Services LLC"
+  },
+  {
+    "id": "2153",
+    "name": "Attentive Care LLC"
+  },
+  {
+    "id": "2154",
+    "name": "Oakland Assisted Living LLC"
+  },
+  {
+    "id": "2155",
+    "name": "Ayan Care Inc"
+  },
+  {
+    "id": "2156",
+    "name": "Chimney Pines"
+  },
+  {
+    "id": "2157",
+    "name": "Axis Home Health Care LLC"
+  },
+  {
+    "id": "2160",
+    "name": "Gardenview Home Health LLC"
+  },
+  {
+    "id": "2162",
+    "name": "Dignity And Compassion Homes L"
+  },
+  {
+    "id": "2163",
+    "name": "Daystar Homecare LLC"
+  },
+  {
+    "id": "2164",
+    "name": "Key Living LLC"
+  },
+  {
+    "id": "2165",
+    "name": "Hope Healthcare LLC"
+  },
+  {
+    "id": "2167",
+    "name": "Bimsol Home Care LLC"
+  },
+  {
+    "id": "2168",
+    "name": "Caring Squads LLC"
+  },
+  {
+    "id": "2169",
+    "name": "Mighty Love Home Care Inc"
+  },
+  {
+    "id": "2170",
+    "name": "Fardi Homes LLC"
+  },
+  {
+    "id": "2171",
+    "name": "Live Well Mn Home Healthcare"
+  },
+  {
+    "id": "2174",
+    "name": "Minnesota Home And Health Care"
+  },
+  {
+    "id": "2175",
+    "name": "Remmys Tender Care LLC Limited"
+  },
+  {
+    "id": "2177",
+    "name": "Quality Living Care LLC"
+  },
+  {
+    "id": "2178",
+    "name": "Northwoods Memory Care Suites"
+  },
+  {
+    "id": "2179",
+    "name": "Hash Baz Home LLC"
+  },
+  {
+    "id": "2181",
+    "name": "Baikah Homes LLC"
+  },
+  {
+    "id": "2182",
+    "name": "Goodwill Foundation Inc"
+  },
+  {
+    "id": "2183",
+    "name": "Living Hope Homes Hummingbird"
+  },
+  {
+    "id": "2184",
+    "name": "Grace Assisted Living LLC"
+  },
+  {
+    "id": "2185",
+    "name": "Blessing Residential Care LLC"
+  },
+  {
+    "id": "2186",
+    "name": "Providence Health Care Service"
+  },
+  {
+    "id": "2187",
+    "name": "Harmony Assisted Living Inc"
+  },
+  {
+    "id": "2188",
+    "name": "Abound Home Care Services LLC"
+  },
+  {
+    "id": "2189",
+    "name": "Emq Services Inc"
+  },
+  {
+    "id": "2190",
+    "name": "Primetime Living"
+  },
+  {
+    "id": "2191",
+    "name": "Sayid Care LLC"
+  },
+  {
+    "id": "2192",
+    "name": "Evergreen Assisted Living Home"
+  },
+  {
+    "id": "2193",
+    "name": "Caring Nest Home Health LLC"
+  },
+  {
+    "id": "2194",
+    "name": "Dream Care Center LLC"
+  },
+  {
+    "id": "2195",
+    "name": "Living Well Home Care LLC"
+  },
+  {
+    "id": "2197",
+    "name": "Prime Home Services LLC"
+  },
+  {
+    "id": "2198",
+    "name": "Enrogel Health"
+  },
+  {
+    "id": "2199",
+    "name": "Choice Living LLC"
+  },
+  {
+    "id": "2200",
+    "name": "Aspen Care Inc"
+  },
+  {
+    "id": "2201",
+    "name": "Abundant Home Health Services"
+  },
+  {
+    "id": "2202",
+    "name": "Crystal Edge LLC"
+  },
+  {
+    "id": "2203",
+    "name": "Sunshine Senior Living LLC"
+  },
+  {
+    "id": "2204",
+    "name": "We Care Residential Inc"
+  },
+  {
+    "id": "2205",
+    "name": "Heart Of A Star Home Care LLC"
+  },
+  {
+    "id": "2206",
+    "name": "Lyngblomsten At Lino Lakes LLC"
+  },
+  {
+    "id": "2207",
+    "name": "Loon Home Health Care LLC"
+  },
+  {
+    "id": "2208",
+    "name": "Bari Care Homes LLC"
+  },
+  {
+    "id": "2209",
+    "name": "Bloomington Home Health"
+  },
+  {
+    "id": "2210",
+    "name": "Comfort Zone Home Care LLC"
+  },
+  {
+    "id": "2213",
+    "name": "Mtc Senior Residence"
+  },
+  {
+    "id": "2214",
+    "name": "The Haven At Peace Village"
+  },
+  {
+    "id": "2215",
+    "name": "Personal Care Senior Living"
+  },
+  {
+    "id": "2216",
+    "name": "Personal Care Senior Living Ll"
+  },
+  {
+    "id": "2217",
+    "name": "Hayste Group LLC"
+  },
+  {
+    "id": "2218",
+    "name": "Ability Homes Inc"
+  },
+  {
+    "id": "2219",
+    "name": "Rejoice Home Care LLC"
+  },
+  {
+    "id": "2221",
+    "name": "Well Wish Residential LLC"
+  },
+  {
+    "id": "2223",
+    "name": "Isaiah Home And Assisted Livin"
+  },
+  {
+    "id": "2225",
+    "name": "Totalcare Assisted Living Serv"
+  },
+  {
+    "id": "2227",
+    "name": "Suite Living Senior Care Of Fo"
+  },
+  {
+    "id": "2228",
+    "name": "Golden Pond Loretto"
+  },
+  {
+    "id": "2229",
+    "name": "Mina Safe House LLC"
+  },
+  {
+    "id": "2230",
+    "name": "H & H Group Home LLC"
+  },
+  {
+    "id": "2231",
+    "name": "Gada LLC"
+  },
+  {
+    "id": "2232",
+    "name": "Beehive Homes Of Lakeville Sou"
+  },
+  {
+    "id": "2233",
+    "name": "Evergreen Assisted Living Care"
+  },
+  {
+    "id": "2234",
+    "name": "Care Suite Healthcare Services"
+  },
+  {
+    "id": "2237",
+    "name": "Unity Homes Inc"
+  },
+  {
+    "id": "2238",
+    "name": "Comfort Care Center LLC"
+  },
+  {
+    "id": "2239",
+    "name": "Rivers Of Life"
+  },
+  {
+    "id": "2240",
+    "name": "Absolute Residential Care LLC"
+  },
+  {
+    "id": "2241",
+    "name": "Js And Y Assisted Living Maple"
+  },
+  {
+    "id": "2242",
+    "name": "Grace Assisted Living LLC"
+  },
+  {
+    "id": "2243",
+    "name": "Hyatt Home Healthcare Inc"
+  },
+  {
+    "id": "2244",
+    "name": "Heritage Living"
+  },
+  {
+    "id": "2245",
+    "name": "Compassion Home Health Care Ll"
+  },
+  {
+    "id": "2246",
+    "name": "Entrusted Home Healthcare LLC"
+  },
+  {
+    "id": "2248",
+    "name": "Raliance Group Home LLC"
+  },
+  {
+    "id": "2249",
+    "name": "Horizon Care LLC"
+  },
+  {
+    "id": "2250",
+    "name": "Alnas Lodge LLC"
+  },
+  {
+    "id": "2251",
+    "name": "Prosper Home Health And Transp"
+  },
+  {
+    "id": "2252",
+    "name": "Ozif Healthcare Services LLC"
+  },
+  {
+    "id": "2253",
+    "name": "Shekky Care Services Professio"
+  },
+  {
+    "id": "2254",
+    "name": "Grace Assisted Living Home LLC"
+  },
+  {
+    "id": "2255",
+    "name": "Avalon Care LLC"
+  },
+  {
+    "id": "2256",
+    "name": "Strong Hope Home Health Care L"
+  },
+  {
+    "id": "2257",
+    "name": "Median Community And Care LLC"
+  },
+  {
+    "id": "2258",
+    "name": "Belong Health Care LLC"
+  },
+  {
+    "id": "2259",
+    "name": "Kangars Residential Home LLC"
+  },
+  {
+    "id": "2260",
+    "name": "Live In Care Home Health LLC"
+  },
+  {
+    "id": "2261",
+    "name": "Evygabs Healthcare Systems"
+  },
+  {
+    "id": "2262",
+    "name": "Best Care Group Home LLC"
+  },
+  {
+    "id": "2263",
+    "name": "Sheridan Special Care"
+  },
+  {
+    "id": "2264",
+    "name": "Cannon Country"
+  },
+  {
+    "id": "2266",
+    "name": "Pleasant Light LLC"
+  },
+  {
+    "id": "2267",
+    "name": "Ally Group Homes LLC"
+  },
+  {
+    "id": "2268",
+    "name": "Sweeties Home Care LLC"
+  },
+  {
+    "id": "2269",
+    "name": "Noble Cares LLC"
+  },
+  {
+    "id": "2270",
+    "name": "Nedka Care LLC"
+  },
+  {
+    "id": "2271",
+    "name": "Wabe Home Residential Services"
+  },
+  {
+    "id": "2272",
+    "name": "Suite Living Senior Care Of Ed"
+  },
+  {
+    "id": "2273",
+    "name": "Passion Care Homes"
+  },
+  {
+    "id": "2274",
+    "name": "Zae Assisted Living LLC"
+  },
+  {
+    "id": "2275",
+    "name": "Walnut Grove Home"
+  },
+  {
+    "id": "2276",
+    "name": "Joyful Home Health Care LLC"
+  },
+  {
+    "id": "2277",
+    "name": "Rhythm Assisted Living"
+  },
+  {
+    "id": "2278",
+    "name": "Gentle Haven LLC"
+  },
+  {
+    "id": "2279",
+    "name": "The Fantasia View Assisted Liv"
+  },
+  {
+    "id": "2280",
+    "name": "Evergreen Assisted Living Home"
+  },
+  {
+    "id": "2281",
+    "name": "Skyview Housing Inc"
+  },
+  {
+    "id": "2284",
+    "name": "Inspired Help LLC"
+  },
+  {
+    "id": "2285",
+    "name": "Living Hope Homes Peaceful Pin"
+  },
+  {
+    "id": "2286",
+    "name": "Franklin Martins LLC"
+  },
+  {
+    "id": "2287",
+    "name": "Total Care Connections Inc"
+  },
+  {
+    "id": "2288",
+    "name": "A Plus Assisted Living LLC"
+  },
+  {
+    "id": "2289",
+    "name": "1st Assured Care LLC"
+  },
+  {
+    "id": "2291",
+    "name": "Emalina Cares LLC"
+  },
+  {
+    "id": "2292",
+    "name": "The Pillars Of Hermantown"
+  },
+  {
+    "id": "2293",
+    "name": "3d Innovative Cares LLC"
+  },
+  {
+    "id": "2295",
+    "name": "Norbella Of Rogers"
+  },
+  {
+    "id": "2296",
+    "name": "Tamay Home Healthcare LLC"
+  },
+  {
+    "id": "2297",
+    "name": "Lilly Js Housing And Services"
+  },
+  {
+    "id": "2298",
+    "name": "Unity Home Care LLC"
+  },
+  {
+    "id": "2300",
+    "name": "M3 Home Services"
+  },
+  {
+    "id": "2301",
+    "name": "Universal Health Care Solution"
+  },
+  {
+    "id": "2302",
+    "name": "Accessible Assisted Living Inc"
+  },
+  {
+    "id": "2304",
+    "name": "Agape Home Health Care LLC"
+  },
+  {
+    "id": "2305",
+    "name": "Home Joy Home Care Inc"
+  },
+  {
+    "id": "2306",
+    "name": "Vaimar Suites LLC"
+  },
+  {
+    "id": "2307",
+    "name": "Cultivate Care LLC"
+  },
+  {
+    "id": "2309",
+    "name": "Ibson Health Services LLC"
+  },
+  {
+    "id": "2310",
+    "name": "Suite Living Senior Care Of Ro"
+  },
+  {
+    "id": "2311",
+    "name": "Humanity Care LLC"
+  },
+  {
+    "id": "2312",
+    "name": "Harmony Hands Home Health Care"
+  },
+  {
+    "id": "2313",
+    "name": "Restoration Health Care Llp"
+  },
+  {
+    "id": "2314",
+    "name": "First Light Residential Care L"
+  },
+  {
+    "id": "2315",
+    "name": "Gentle Homes LLC"
+  },
+  {
+    "id": "2316",
+    "name": "Sincere Care Inc"
+  },
+  {
+    "id": "2317",
+    "name": "Warm Touch Home Care Inc"
+  },
+  {
+    "id": "2318",
+    "name": "Avalanche Residential Care Inc"
+  },
+  {
+    "id": "2319",
+    "name": "Patient Focus Homecare LLC"
+  },
+  {
+    "id": "2320",
+    "name": "Suite Living Senior Care Of Ma"
+  },
+  {
+    "id": "2321",
+    "name": "Destiny Healthcare Services Ll"
+  },
+  {
+    "id": "2322",
+    "name": "Northstar Of Owatonna LLC"
+  },
+  {
+    "id": "2323",
+    "name": "Sisu Home Health LLC"
+  },
+  {
+    "id": "2324",
+    "name": "A Plus Assisted Living LLC"
+  },
+  {
+    "id": "2325",
+    "name": "Riverview Home, LLC"
+  },
+  {
+    "id": "2326",
+    "name": "Great Health Care LLC"
+  },
+  {
+    "id": "2327",
+    "name": "Solace Healing LLC"
+  },
+  {
+    "id": "2328",
+    "name": "Goldenview Healthcare Services"
+  },
+  {
+    "id": "2329",
+    "name": "Humble Health Services LLC"
+  },
+  {
+    "id": "2330",
+    "name": "Big Hearts Home Care Inc"
+  },
+  {
+    "id": "2331",
+    "name": "Chezmichael Care LLC"
+  },
+  {
+    "id": "2332",
+    "name": "Loving Touch Inc"
+  },
+  {
+    "id": "2333",
+    "name": "Hmn Home Healthcare LLC"
+  },
+  {
+    "id": "2334",
+    "name": "Calvary Assisted Living LLC"
+  },
+  {
+    "id": "2335",
+    "name": "Guidance Healthcare LLC"
+  },
+  {
+    "id": "2336",
+    "name": "Westview Health Inc"
+  },
+  {
+    "id": "2337",
+    "name": "Helpful Living LLC"
+  },
+  {
+    "id": "2338",
+    "name": "Anchor Care Services LLC"
+  },
+  {
+    "id": "2339",
+    "name": "1 On 1 Comprehensive Healthcar"
+  },
+  {
+    "id": "2341",
+    "name": "Imran Healthcare Services LLC"
+  },
+  {
+    "id": "2342",
+    "name": "Angels Health And Home Care Se"
+  },
+  {
+    "id": "2343",
+    "name": "Boka Haven Inc"
+  },
+  {
+    "id": "2344",
+    "name": "Caretta Senior Living Maplewoo"
+  },
+  {
+    "id": "2345",
+    "name": "Sokha Assisted Living LLC"
+  },
+  {
+    "id": "2346",
+    "name": "Atlantic Health LLC"
+  },
+  {
+    "id": "2347",
+    "name": "Syncare Grandview"
+  },
+  {
+    "id": "2348",
+    "name": "Elevation Home Healthcare Serv"
+  },
+  {
+    "id": "2349",
+    "name": "Allianze Healthcare LLC"
+  },
+  {
+    "id": "2350",
+    "name": "Goshen Concept Care LLC"
+  },
+  {
+    "id": "2351",
+    "name": "Sotam Homecare LLC"
+  },
+  {
+    "id": "2352",
+    "name": "New Light Assisted Living Care"
+  },
+  {
+    "id": "2353",
+    "name": "Jacob Services LLC"
+  },
+  {
+    "id": "2354",
+    "name": "Evergreen Assisted Living Home"
+  },
+  {
+    "id": "2355",
+    "name": "Prime Healthcare Services LLC"
+  },
+  {
+    "id": "2356",
+    "name": "Brightstar Health Services LLC"
+  },
+  {
+    "id": "2357",
+    "name": "Ra&z Nurses Assisted Living Ll"
+  },
+  {
+    "id": "2358",
+    "name": "Amerigrace Home Care LLC"
+  },
+  {
+    "id": "2359",
+    "name": "Aspire Residential And Communi"
+  },
+  {
+    "id": "2360",
+    "name": "Healing Homecare LLC"
+  },
+  {
+    "id": "2361",
+    "name": "Arden Homes LLC"
+  },
+  {
+    "id": "2362",
+    "name": "Ayya Assisted Living LLC"
+  },
+  {
+    "id": "2363",
+    "name": "Comfort Care Group LLC"
+  },
+  {
+    "id": "2364",
+    "name": "Summerwoods Healthcare Service"
+  },
+  {
+    "id": "2365",
+    "name": "Agape Home Care Services LLC"
+  },
+  {
+    "id": "2366",
+    "name": "Universal Health"
+  },
+  {
+    "id": "2367",
+    "name": "Zencare Health Inc"
+  },
+  {
+    "id": "2368",
+    "name": "Caremate Assisted Living Inc"
+  },
+  {
+    "id": "2369",
+    "name": "1st Alternative Care LLC"
+  },
+  {
+    "id": "2370",
+    "name": "Sunflower Homes Health LLC"
+  },
+  {
+    "id": "2371",
+    "name": "Better Stay Homes LLC"
+  },
+  {
+    "id": "2372",
+    "name": "Caretta Senior Living Maplewoo"
+  },
+  {
+    "id": "2373",
+    "name": "Land Of Lakes Residence LLC"
+  },
+  {
+    "id": "2374",
+    "name": "Royal Health"
+  },
+  {
+    "id": "2375",
+    "name": "Turning A New Leaf Homecare Ll"
+  },
+  {
+    "id": "2376",
+    "name": "Arden Homes LLC"
+  },
+  {
+    "id": "2377",
+    "name": "Hearts Of Hope Home Care Servi"
+  },
+  {
+    "id": "2378",
+    "name": "Magnanimous Living LLC"
+  },
+  {
+    "id": "2379",
+    "name": "Country Living Cares LLC"
+  },
+  {
+    "id": "2380",
+    "name": "Victory Homecare LLC"
+  },
+  {
+    "id": "2381",
+    "name": "Delightful Healthcare"
+  },
+  {
+    "id": "2382",
+    "name": "Liberty Care LLC"
+  },
+  {
+    "id": "2383",
+    "name": "Luxe Home Residential Services"
+  },
+  {
+    "id": "2384",
+    "name": "Gentlehands Home Health Care L"
+  },
+  {
+    "id": "2385",
+    "name": "Nestle Care LLC"
+  },
+  {
+    "id": "2386",
+    "name": "Kayo Health Care Center LLC"
+  },
+  {
+    "id": "2387",
+    "name": "Bella Vie Living LLC"
+  },
+  {
+    "id": "2388",
+    "name": "Aurora Assisted Living Inc"
+  },
+  {
+    "id": "2389",
+    "name": "Tenacity Living LLC"
+  },
+  {
+    "id": "2390",
+    "name": "Richangel Care Inc"
+  },
+  {
+    "id": "2392",
+    "name": "Bond Home Care LLC"
+  },
+  {
+    "id": "2393",
+    "name": "Park Point Inc"
+  },
+  {
+    "id": "2394",
+    "name": "Graceful Living LLC"
+  },
+  {
+    "id": "2395",
+    "name": "Comfort Care Plus LLC"
+  },
+  {
+    "id": "2396",
+    "name": "Graceland Home Services LLC"
+  },
+  {
+    "id": "2397",
+    "name": "Zuriel Assisted Living LLC"
+  },
+  {
+    "id": "2398",
+    "name": "Refine Living Services LLC"
+  },
+  {
+    "id": "2399",
+    "name": "Peaceful Heart Health Group Ll"
+  },
+  {
+    "id": "2400",
+    "name": "Care Partners Healthcare Servi"
+  },
+  {
+    "id": "2401",
+    "name": "Able View Asst Lvg Inc Totem"
+  },
+  {
+    "id": "2402",
+    "name": "Minnesota Healthcare Services"
+  },
+  {
+    "id": "2403",
+    "name": "Victory Home Health Care LLC"
+  },
+  {
+    "id": "2404",
+    "name": "Saint Therese Of Corcoran LLC"
+  },
+  {
+    "id": "2405",
+    "name": "Prosper Home Care LLC"
+  },
+  {
+    "id": "2406",
+    "name": "Serenity Living Residential In"
+  },
+  {
+    "id": "2407",
+    "name": "Ama Group Home Inc"
+  },
+  {
+    "id": "2408",
+    "name": "Evergreen Assisted Living Home"
+  },
+  {
+    "id": "2409",
+    "name": "Angel Living Care Inc"
+  },
+  {
+    "id": "2410",
+    "name": "Oakdale Care Community LLC"
+  },
+  {
+    "id": "2411",
+    "name": "Aspire Care Services LLC"
+  },
+  {
+    "id": "2412",
+    "name": "Maplewood Assisted Living Inc"
+  },
+  {
+    "id": "2413",
+    "name": "Mungu Capable Homes LLC"
+  },
+  {
+    "id": "2414",
+    "name": "Island Living, Inc"
+  },
+  {
+    "id": "2415",
+    "name": "Nordic Wood Assisted Living"
+  },
+  {
+    "id": "2416",
+    "name": "Birchview Gardens Assisted Liv"
+  },
+  {
+    "id": "2417",
+    "name": "Angel Care Assisted Living LLC"
+  },
+  {
+    "id": "2418",
+    "name": "Highlinks Holdings LLC"
+  },
+  {
+    "id": "2419",
+    "name": "Auroza Homes Inc"
+  },
+  {
+    "id": "2420",
+    "name": "Jayne Healthcare LLC"
+  },
+  {
+    "id": "2421",
+    "name": "Loon Home Health Care LLC"
+  },
+  {
+    "id": "2422",
+    "name": "Gentle Hearts LLC"
+  },
+  {
+    "id": "2423",
+    "name": "Sorella Home Health"
+  },
+  {
+    "id": "2424",
+    "name": "Promise Care LLC"
+  },
+  {
+    "id": "2425",
+    "name": "At Home Residential Care Inc"
+  },
+  {
+    "id": "2426",
+    "name": "Bridge Health Care Services Ll"
+  },
+  {
+    "id": "2427",
+    "name": "Mn Best Home Care LLC"
+  },
+  {
+    "id": "2428",
+    "name": "Mai Hero LLC"
+  },
+  {
+    "id": "2429",
+    "name": "Residential Home Health Care C"
+  },
+  {
+    "id": "2430",
+    "name": "Aar Care Services LLC"
+  },
+  {
+    "id": "2431",
+    "name": "Optimal Loving Care"
+  },
+  {
+    "id": "2432",
+    "name": "Noble Crest Home & Services In"
+  },
+  {
+    "id": "2433",
+    "name": "New Care LLC"
+  },
+  {
+    "id": "2434",
+    "name": "Peace Healthcare Systems LLC"
+  },
+  {
+    "id": "2435",
+    "name": "Divine Mercy Homes LLC"
+  },
+  {
+    "id": "2436",
+    "name": "St Jude Home Health LLC"
+  },
+  {
+    "id": "2437",
+    "name": "Safe Haven Livings LLC"
+  },
+  {
+    "id": "2438",
+    "name": "Premium Home Healthcare LLC"
+  },
+  {
+    "id": "2439",
+    "name": "Wholesome Senior Living LLC"
+  },
+  {
+    "id": "2440",
+    "name": "Bright Path Living LLC"
+  },
+  {
+    "id": "2441",
+    "name": "Abundance Home Care LLC"
+  },
+  {
+    "id": "2442",
+    "name": "Golden Frontier Home Care Inc"
+  },
+  {
+    "id": "2443",
+    "name": "Caring Connection Homes LLC"
+  },
+  {
+    "id": "2444",
+    "name": "Well Care Health Services LLC"
+  },
+  {
+    "id": "2445",
+    "name": "3mb Health Services LLC"
+  },
+  {
+    "id": "2446",
+    "name": "Samey Inc"
+  },
+  {
+    "id": "2447",
+    "name": "Ilza Assisted Living LLC"
+  },
+  {
+    "id": "2448",
+    "name": "Caringbridge Haven LLC"
+  },
+  {
+    "id": "2449",
+    "name": "Michaela Residential Care LLC"
+  },
+  {
+    "id": "2450",
+    "name": "Promise Assisted Living LLC"
+  },
+  {
+    "id": "2451",
+    "name": "Huuno Care LLC"
+  },
+  {
+    "id": "2452",
+    "name": "Saint Therese Of Corcoran LLC"
+  },
+  {
+    "id": "2453",
+    "name": "Oasis Health Services LLC"
+  },
+  {
+    "id": "2454",
+    "name": "Oakland Park Communities Inc"
+  },
+  {
+    "id": "2455",
+    "name": "Shepherds Way Home"
+  },
+  {
+    "id": "2456",
+    "name": "Warmheart Healthcare LLC"
+  },
+  {
+    "id": "2457",
+    "name": "Good Heart LLC"
+  },
+  {
+    "id": "2458",
+    "name": "Volante Of Hanover"
+  },
+  {
+    "id": "2459",
+    "name": "Eden Oak Assisted Living"
+  },
+  {
+    "id": "2460",
+    "name": "Somcare LLC"
+  },
+  {
+    "id": "2461",
+    "name": "Honest Care LLC"
+  },
+  {
+    "id": "2462",
+    "name": "Joyful Journeys LLC"
+  },
+  {
+    "id": "2463",
+    "name": "Golden Years Residence LLC"
+  },
+  {
+    "id": "2464",
+    "name": "Bakuli Easy Living LLC"
+  },
+  {
+    "id": "2465",
+    "name": "Fortunate Quality Care LLC"
+  },
+  {
+    "id": "2466",
+    "name": "Hope Residential Care LLC"
+  },
+  {
+    "id": "2467",
+    "name": "Grove Living Company"
+  },
+  {
+    "id": "2468",
+    "name": "Risen Home Care LLC"
+  },
+  {
+    "id": "2469",
+    "name": "Push Services Inc"
+  },
+  {
+    "id": "2470",
+    "name": "Graceful Lodge Home Care"
+  },
+  {
+    "id": "2471",
+    "name": "Acacia Grove Assisted Living L"
+  },
+  {
+    "id": "2472",
+    "name": "Faith Home Assisted Living LLC"
+  },
+  {
+    "id": "2473",
+    "name": "Platinum Peaks Homecare Servic"
+  },
+  {
+    "id": "2474",
+    "name": "Kheyrcare LLC"
+  },
+  {
+    "id": "2475",
+    "name": "Harb Services LLC"
+  },
+  {
+    "id": "2476",
+    "name": "Lenox Homes LLC"
+  },
+  {
+    "id": "2477",
+    "name": "Village Corner Assisted Living"
+  },
+  {
+    "id": "2478",
+    "name": "Sharons Faith Home Healthcare"
+  },
+  {
+    "id": "2479",
+    "name": "Pleasant Assisted Living LLC"
+  },
+  {
+    "id": "2480",
+    "name": "Grace Assisted Living LLC"
+  },
+  {
+    "id": "2481",
+    "name": "Amia Assisted Living LLC"
+  },
+  {
+    "id": "2482",
+    "name": "Amal Home Health Care Inc"
+  },
+  {
+    "id": "2483",
+    "name": "Supportive Living LLC"
+  },
+  {
+    "id": "2484",
+    "name": "Evergreen Home Healthcare Ser"
+  },
+  {
+    "id": "2485",
+    "name": "Eden Health Care LLC"
+  },
+  {
+    "id": "2486",
+    "name": "Rise Home Health Care LLC"
+  },
+  {
+    "id": "2487",
+    "name": "Ng And Ng Services Group LLC"
+  },
+  {
+    "id": "2488",
+    "name": "Happy Hearts Homecare Corporat"
+  },
+  {
+    "id": "2489",
+    "name": "Ladnan Health Care LLC"
+  },
+  {
+    "id": "2490",
+    "name": "Serenity Living Care Inc"
+  },
+  {
+    "id": "2491",
+    "name": "Triple B Home Care LLC"
+  },
+  {
+    "id": "2492",
+    "name": "Minnehaha Care"
+  },
+  {
+    "id": "2493",
+    "name": "The Fountains Living LLC"
+  },
+  {
+    "id": "2494",
+    "name": "Skyview Home Care LLC"
+  },
+  {
+    "id": "2495",
+    "name": "1 On 1 Comprehensive Healthcar"
+  },
+  {
+    "id": "2496",
+    "name": "Suitable Community Living LLC"
+  },
+  {
+    "id": "2497",
+    "name": "Woodbury Assisted Living Facil"
+  },
+  {
+    "id": "2498",
+    "name": "Aalluring Residential Care LLC"
+  },
+  {
+    "id": "2499",
+    "name": "Pro Homes And Assisted Living"
+  },
+  {
+    "id": "2500",
+    "name": "Amazing Grace Care LLC"
+  },
+  {
+    "id": "2501",
+    "name": "Giftin Assisted Living Inc"
+  },
+  {
+    "id": "2502",
+    "name": "Spes Residential Care LLC"
+  },
+  {
+    "id": "2503",
+    "name": "Rejuvn Care LLC"
+  },
+  {
+    "id": "2504",
+    "name": "Accessible Hearts Care LLC"
+  },
+  {
+    "id": "2505",
+    "name": "Twin Cities Living Assistance"
+  },
+  {
+    "id": "2506",
+    "name": "True Hands LLC"
+  },
+  {
+    "id": "2507",
+    "name": "Companions Of Comfort LLC"
+  },
+  {
+    "id": "2508",
+    "name": "Musa Miracle Living Inc"
+  },
+  {
+    "id": "2509",
+    "name": "Goshen Care LLC"
+  },
+  {
+    "id": "2510",
+    "name": "Bright Home Alc"
+  },
+  {
+    "id": "2511",
+    "name": "We Do Care LLC"
+  },
+  {
+    "id": "2512",
+    "name": "Amana Care Center LLC"
+  },
+  {
+    "id": "2513",
+    "name": "A Caring Living LLC"
+  },
+  {
+    "id": "2514",
+    "name": "Everlasting Care Residence LLC"
+  },
+  {
+    "id": "2515",
+    "name": "Act Assisted Living LLC"
+  },
+  {
+    "id": "2516",
+    "name": "Belex Home Health Services Sc"
+  },
+  {
+    "id": "2517",
+    "name": "Alliance Home & Care Provider"
+  },
+  {
+    "id": "2518",
+    "name": "Peaceful Living LLC"
+  },
+  {
+    "id": "2519",
+    "name": "Living Hope Homes Cardinal Cre"
+  },
+  {
+    "id": "2520",
+    "name": "Timber Creek Assisted Living L"
+  },
+  {
+    "id": "2521",
+    "name": "A Caring Living LLC"
+  },
+  {
+    "id": "2522",
+    "name": "Compassion Connect LLC"
+  },
+  {
+    "id": "2523",
+    "name": "Daystar Homecare LLC"
+  },
+  {
+    "id": "2524",
+    "name": "1st Attentive Services LLC"
+  },
+  {
+    "id": "2525",
+    "name": "Arden Glades Assisted Living"
+  },
+  {
+    "id": "2526",
+    "name": "Rejoyce Health Care LLC"
+  },
+  {
+    "id": "2527",
+    "name": "Reliacare Home Health Inc"
+  },
+  {
+    "id": "2528",
+    "name": "Palisade Assisted Living Inc"
+  },
+  {
+    "id": "2529",
+    "name": "Skyblu Residential Services"
+  },
+  {
+    "id": "2530",
+    "name": "Aaran Assisted Living Inc"
+  },
+  {
+    "id": "2531",
+    "name": "Assisted Co LLC"
+  },
+  {
+    "id": "2532",
+    "name": "Summit Assisted Living LLC"
+  },
+  {
+    "id": "2533",
+    "name": "Golden Touch Health Care LLC"
+  },
+  {
+    "id": "2534",
+    "name": "Alphas Health Care LLC"
+  },
+  {
+    "id": "2535",
+    "name": "Silver Meadows Assisted Living"
+  },
+  {
+    "id": "2536",
+    "name": "Perfection Health Care Service"
+  },
+  {
+    "id": "2537",
+    "name": "Bright Homes Health Services L"
+  },
+  {
+    "id": "2538",
+    "name": "Mercy Care Center LLC"
+  },
+  {
+    "id": "2539",
+    "name": "Crystal Homes LLC"
+  },
+  {
+    "id": "2540",
+    "name": "Mayceekids Healthcare LLC"
+  },
+  {
+    "id": "2541",
+    "name": "Champions Village Ii LLC"
+  },
+  {
+    "id": "2542",
+    "name": "Elysian Fields Red Wing"
+  },
+  {
+    "id": "2543",
+    "name": "Carefirst Assisted Living LLC"
+  },
+  {
+    "id": "2544",
+    "name": "Median Care LLC"
+  },
+  {
+    "id": "2545",
+    "name": "Safe Heaven Homes LLC"
+  },
+  {
+    "id": "2546",
+    "name": "Brightview Al Inc"
+  },
+  {
+    "id": "2547",
+    "name": "Brightview Al Inc"
+  },
+  {
+    "id": "2548",
+    "name": "Crystal Edge 2 LLC"
+  },
+  {
+    "id": "2549",
+    "name": "Delightful Home Healthcare LLC"
+  },
+  {
+    "id": "2550",
+    "name": "Kind Hearts Assisted Living Ll"
+  },
+  {
+    "id": "2551",
+    "name": "Aspire Aid Healthcare LLC"
+  },
+  {
+    "id": "2552",
+    "name": "Companion Home Care LLC"
+  },
+  {
+    "id": "2553",
+    "name": "Franalish Care LLC"
+  },
+  {
+    "id": "2554",
+    "name": "Golden Haven LLC"
+  },
+  {
+    "id": "2555",
+    "name": "Living Well Home Care LLC"
+  },
+  {
+    "id": "2556",
+    "name": "Angel Arms Care LLC"
+  },
+  {
+    "id": "2557",
+    "name": "Everbright Place LLC"
+  },
+  {
+    "id": "2558",
+    "name": "Hopeland Assisted Living LLC"
+  },
+  {
+    "id": "2559",
+    "name": "Bright Haven LLC"
+  },
+  {
+    "id": "2560",
+    "name": "Lifetime Home Care Corp"
+  },
+  {
+    "id": "2561",
+    "name": "Blaine Health Services LLC"
+  },
+  {
+    "id": "2562",
+    "name": "Serene Haven LLC"
+  },
+  {
+    "id": "2563",
+    "name": "Hearthside Living LLC"
+  },
+  {
+    "id": "2564",
+    "name": "Careluxe LLC"
+  },
+  {
+    "id": "2565",
+    "name": "Premier Living"
+  }
+]

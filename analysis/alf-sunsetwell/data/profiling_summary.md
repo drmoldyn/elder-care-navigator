@@ -1,0 +1,58 @@
+# SunsetWell Intake Snapshot — 2025-10-14
+
+## Facility Counts by State
+- CA: 12,522 facilities
+- CO: 686 facilities
+- FL: 2,987 facilities
+- MN: 2,297 facilities
+- NY: 533 facilities
+- TX: 2,005 facilities
+
+## Field Coverage (non-null ratios)
+- state: 1.000
+- state_license_number: 1.000
+- facility_name: 1.000
+- address: 1.000
+- city: 1.000
+- zip_code: 1.000
+- county: 0.890
+- phone: 0.996
+- license_status: 1.000
+- licensed_capacity: 1.000
+- license_issue_date: 0.656
+- license_expiration_date: 0.691
+- facility_type: 0.763
+- provider_type: 1.000
+- administrator_name: 0.595
+- licensee_name: 0.595
+- memory_care_certified: 0.749
+- medicare_accepted: 0.833
+- medicaid_accepted: 0.095
+- description: 0.858
+- source: 0.858
+- complaint_count: 0.142
+- sanction_count: 0.142
+- fine_amount: 0.142
+- deficiencies_total: 0.142
+- deficiency_class1: 0.142
+- deficiency_class2: 0.142
+- deficiency_class3: 0.142
+- deficiency_class4: 0.142
+- activities_count: 0.133
+- nurse_availability_count: 0.131
+- special_programs_count: 0.070
+- deficiency_unclassified: 0.142
+- latitude: 0.303
+- longitude: 0.303
+- licenseid: 0.142
+- file_number: 0.142
+- address_line2: 0.000
+- phone_extension: 0.002
+- is_closed: 0.142
+- activities_list: 0.133
+- nurse_availability_list: 0.089
+- special_programs_list: 0.070
+- facility_type_detail: 0.033
+- facility_type_code: 0.167
+- last_updated_date: 0.167
+- report_date: 0.109

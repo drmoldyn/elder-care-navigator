@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 import { getFacilityById } from "@/lib/facilities/queries";
 import { generateLocationSlug } from "@/lib/locations/queries";
-import { getSunsetWellScoreBadge, getSunsetWellScoreColor, getStarRating } from "@/lib/utils/score-helpers";
+import { getStarRating } from "@/lib/utils/score-helpers";
 import { ensureAbsoluteUrl, formatPhoneNumber } from "@/lib/utils/url";
 
 export const dynamic = 'force-dynamic';

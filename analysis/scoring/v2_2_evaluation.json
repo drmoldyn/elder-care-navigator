@@ -1,0 +1,128 @@
+{
+  "complaints": {
+    "overall": {
+      "label": "CMS Overall",
+      "n": 992,
+      "sw": {
+        "pearson": 0.31479348080757424,
+        "spearman": 0.42269797512964113
+      },
+      "alt": {
+        "pearson": 0.395145779243929,
+        "spearman": 0.6024733209449316
+      }
+    },
+    "inspect": {
+      "label": "CMS Health Inspection",
+      "n": 992,
+      "sw": {
+        "pearson": 0.31479348080757424,
+        "spearman": 0.42269797512964113
+      },
+      "alt": {
+        "pearson": 0.43472410142659906,
+        "spearman": 0.6155805782399258
+      }
+    },
+    "staffing": {
+      "label": "CMS Staffing",
+      "n": 987,
+      "sw": {
+        "pearson": 0.31397538755287563,
+        "spearman": 0.4196077636783919
+      },
+      "alt": {
+        "pearson": 0.22271870070989244,
+        "spearman": 0.44570781609877663
+      }
+    },
+    "quality": {
+      "label": "CMS Quality Measures",
+      "n": 987,
+      "sw": {
+        "pearson": 0.31558773138408547,
+        "spearman": 0.42117156402424516
+      },
+      "alt": {
+        "pearson": 0.02542630312982799,
+        "spearman": 0.31218281093124645
+      }
+    }
+  },
+  "incidents": {
+    "overall": {
+      "label": "CMS Overall",
+      "n": 992,
+      "sw": {
+        "pearson": 0.282518883362562,
+        "spearman": 0.3871575184849987
+      },
+      "alt": {
+        "pearson": 0.3220288999415633,
+        "spearman": 0.540696321222943
+      }
+    },
+    "inspect": {
+      "label": "CMS Health Inspection",
+      "n": 992,
+      "sw": {
+        "pearson": 0.282518883362562,
+        "spearman": 0.3871575184849987
+      },
+      "alt": {
+        "pearson": 0.3621430959794488,
+        "spearman": 0.558863775293301
+      }
+    },
+    "staffing": {
+      "label": "CMS Staffing",
+      "n": 987,
+      "sw": {
+        "pearson": 0.2815899170105406,
+        "spearman": 0.38730648157926817
+      },
+      "alt": {
+        "pearson": 0.03087193961005927,
+        "spearman": 0.3594085330182403
+      }
+    },
+    "quality": {
+      "label": "CMS Quality Measures",
+      "n": 987,
+      "sw": {
+        "pearson": 0.2849816309999631,
+        "spearman": 0.3868065022843341
+      },
+      "alt": {
+        "pearson": 0.077865609785788,
+        "spearman": 0.44420999989042165
+      }
+    }
+  },
+  "deciles": {
+    "complaints": [
+      15.77,
+      7.4,
+      7.33,
+      5.97,
+      4.55,
+      4.633663366336633,
+      3.56,
+      2.7373737373737375,
+      2.08,
+      1.64
+    ],
+    "incidents": [
+      3.68,
+      2.49,
+      2.37,
+      2.17,
+      1.49,
+      1.603960396039604,
+      1.1,
+      1.02020202020202,
+      0.78,
+      0.77
+    ]
+  }
+}

@@ -17,8 +17,8 @@ interface FacilityRow {
   states?: string[] | null;
   zip_code?: string | null;
   county?: string | null;
-  phone?: string | null;
-  website?: string | null;
+  contact_phone?: string | null;
+  url?: string | null;
   total_beds?: number | null;
   ownership_type?: string | null;
   latitude?: number | null;
@@ -93,8 +93,8 @@ function mapFacilityRow(row: FacilityRow): FacilitySummary {
     city: row.city ?? null,
     state: states.length > 0 ? states[0] ?? null : null,
     zipCode: row.zip_code ?? null,
-    phone: row.phone ?? null,
-    website: row.website ?? null,
+    phone: row.contact_phone ?? null,
+    website: row.url ?? null,
     sunsetwellScore: score,
     sunsetwellPercentile: percentile,
   };
@@ -153,7 +153,7 @@ export async function getFacilitiesByFacilityIds(
         city,
         states,
         zip_code,
-        phone,
+        contact_phone,
         website,
         sunsetwell_scores!inner(overall_score, overall_percentile, calculation_date)
       `
@@ -189,7 +189,7 @@ export async function getFacilityById(id: string): Promise<FacilityDetail | null
         states,
         zip_code,
         county,
-        phone,
+        contact_phone,
         website,
         total_beds,
         ownership_type,

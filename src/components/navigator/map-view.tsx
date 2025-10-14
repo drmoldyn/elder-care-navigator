@@ -315,6 +315,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
         zip: summary.zip ?? undefined,
         overall_rating: summary.overallRating ?? undefined,
         sunsetwell_score: summary.sunsetwellScore ?? undefined,
+        sunsetwell_percentile: summary.sunsetwellPercentile ?? undefined,
         distance: summary.distanceMiles ?? undefined,
         service_area_match: summary.serviceAreaMatch ?? false,
         service_area_zip: summary.serviceAreaZip ?? undefined,
@@ -563,6 +564,49 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
                     <p className="text-xs text-slate-500">
                       {[resource.city, resource.state, resource.zip].filter(Boolean).join(", ")}
                     </p>
+
+                    {/* SunsetWell Score Badge */}
+                    {resource.sunsetwell_score !== undefined && resource.sunsetwell_score !== null && (
+                      <div className="mt-2">
+                        <div className={`inline-block px-2 py-1 rounded text-xs font-bold ${
+                          resource.sunsetwell_score >= 90
+                            ? "bg-green-700 text-white"
+                            : resource.sunsetwell_score >= 75
+                            ? "bg-green-500 text-white"
+                            : resource.sunsetwell_score >= 60
+                            ? "bg-yellow-400 text-gray-900"
+                            : resource.sunsetwell_score >= 40
+                            ? "bg-orange-500 text-white"
+                            : "bg-red-500 text-white"
+                        }`}>
+                          SunsetWell: {resource.sunsetwell_score.toFixed(0)}
+                        </div>
+                        <div className="text-[10px] text-gray-700 mt-0.5">
+                          {resource.sunsetwell_score >= 90
+                            ? "Excellent"
+                            : resource.sunsetwell_score >= 75
+                            ? "Very Good"
+                            : resource.sunsetwell_score >= 60
+                            ? "Good"
+                            : resource.sunsetwell_score >= 40
+                            ? "Fair"
+                            : "Needs improvement"}
+                          {resource.sunsetwell_percentile !== undefined && resource.sunsetwell_percentile !== null && resource.state && (
+                            <span className="text-gray-600 ml-1">
+                              •{" "}
+                              {resource.sunsetwell_percentile >= 90
+                                ? `Top 10% in ${resource.state}`
+                                : resource.sunsetwell_percentile >= 75
+                                ? `Top 25% in ${resource.state}`
+                                : resource.sunsetwell_percentile >= 50
+                                ? `Above avg in ${resource.state}`
+                                : `${resource.sunsetwell_percentile}th %ile`}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-500">
                       {resource.distance !== undefined && (
                         <Badge variant="outline" className="border-sunset-orange/40 text-sunset-orange">
@@ -579,7 +623,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
                         </Badge>
                       )}
                       {resource.overall_rating !== undefined && resource.overall_rating !== null && (
-                        <span>⭐ {resource.overall_rating.toFixed(1)} / 5</span>
+                        <span>⭐ CMS: {resource.overall_rating.toFixed(1)} / 5</span>
                       )}
                     </div>
                     <div className="mt-2 flex gap-2 text-xs">
@@ -591,6 +635,13 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
                       </a>
                       <span className="text-slate-300">|</span>
                       <a
+                        href="/about/scoring"
+                        className="text-indigo-600 hover:text-indigo-800"
+                      >
+                        About scoring
+                      </a>
+                      <span className="text-slate-300">|</span>
+                      <a
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                           `${resource.title} ${resource.city ?? ""} ${resource.state ?? ""}`
                         )}`}
@@ -598,7 +649,7 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
                         rel="noreferrer"
                         className="text-sky-blue hover:text-sky-blue/80"
                       >
-                        Open in Google Maps
+                        Google Maps
                       </a>
                     </div>
                   </div>

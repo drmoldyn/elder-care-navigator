@@ -1,4 +1,6 @@
-# Regression Analysis for SunsetWell Score Weights
+# ARCHIVED: Regression Analysis for SunsetWell Score Weights
+
+This document captures exploratory analyses used to inform earlier versions of the score. The current scoring system uses an absolute 0–100 composite with peer percentiles and versioned, empirically derived weights aligned to adverse outcome benchmarks. Exact formulas and parameters are proprietary and not disclosed.
 
 ## Objective
 Derive empirical weights for scoring components by analyzing which metrics best predict facility quality outcomes.

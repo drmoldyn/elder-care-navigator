@@ -1,0 +1,105 @@
+# ALF SunsetWell Data Audit
+
+_Date: 2025-10-14_
+
+## Scope
+- Evaluate the assisted living facility dataset currently staged at `data/assisted-living/processed/alf-processed.csv`.
+- Focus on the six-state SunsetWell prototype (CA, FL, TX, CO, NY, MN) now feeding the analytical notebooks.
+- Determine whether the available fields support an empirical scoring workflow (UMAP + percentile scoring) comparable to the SNF SunriseWell Score pipeline.
+
+## Snapshot Metrics
+
+### National marketing feed (legacy baseline)
+
+| State | Rows | License Number | Total Beds | Ownership Type | Phone | Email | Medicaid Accepted | Latitude / Longitude |
+|-------|------|----------------|------------|----------------|-------|-------|-------------------|----------------------|
+| CA    | 8,042 | **0%** | 100% | **0%** | 100% | 99.3% | 100% | 100% |
+| FL    | 3,157 | 100% | 100% | 100% | 99.8% | **0%** | 100% | 100% |
+| TX    | 2,024 | 100% | 100% | **26.1%** | 98.6% | 98.2% | 100% | 100% |
+
+### State feed progress (2025-10-14)
+
+| State | Rows | License ID | Address | Phone | License Status | Capacity | Key Enhancements |
+|-------|------|------------|---------|-------|----------------|----------|------------------|
+| CA    | 12,522 | 100% | ≥99.99% | 100% | 100% | 100% | Added `scripts/process-alf-ca.ts` alias handling + date parsing; file `data/state/ca/alf-processed_20251012.csv` (source CSV cached under `data/state/ca/raw/`). |
+| FL    | 2,987 | 100% | 100% | 100% | 100% | 100% | Extracted via HealthFinder embedded JSON; merged feature metrics (activities, nurse availability, special programs) and capacity into `data/state/fl/alf-processed_20251012.csv` (raw HTML snapshots stored under `data/state/fl/raw/`). |
+| TX    | 2,005 | 100% | 100% | 100% | 100% | 100% | Pulled HHSC directory (`https://apps.hhs.texas.gov/providers/directories/al.xlsx`); licensing metadata imported to `data/state/tx/alf-processed_20251012.csv` (no inspection metrics yet). |
+| CO    |   686 | 100% | 100% | 100% | 100% | 95% | New pipeline: `scripts/process-alf-co.ts` parses the CDPHE GeoJSON feed filtered to assisted living residences; output `data/state/co/alf-processed_20251013.csv` with geocodes + status dates. |
+| NY    |   533 | 100% | 100% | 100% | 100% | 100% | New ingest: `scripts/process-alf-ny.ts` merges Health Data NY general and certification datasets; derives ALF capacity and latest effective dates in `data/state/ny/alf-processed_20251013.csv`. |
+| MN    | 2,297 | 100% | 100% | 100% | 100% | 100% | New scraper: `scripts/process-alf-mn.ts` simulates the Assisted Living Report Card workflows; export `data/state/mn/alf-processed_20251014.csv` with license status, capacity, and geocoded map coordinates (no complaints yet). |
+
+Remaining gaps after ingesting CA, FL, TX, CO, NY, and MN licensing feeds:
+- California, Colorado, Texas, New York, and Minnesota feeds omit inspection/violation metrics and specialty certifications (FL remains the only state with complaints/deficiencies at source).
+- Florida feed offers rich quality signals but no Medicaid participation flag; `medicaid_accepted` remains null.
+- Texas directory lacks inspections, complaints, and specialty service fields; only licensing + capacity are available.
+- New York roster lacks explicit enforcement/service metrics; ALR/EALR/SNALR bed counts captured but no complaints.
+- Minnesota roster provides license status, capacity, and map coordinates but omits county assignments and enforcement history.
+- All six feeds need integration into Supabase before downstream scoring.
+
+Additional observations:
+- `facility_id` is unique per state, but name+city duplicates are common (CA: 1,496 occurrences, FL: 41, TX: 241, CO: 59, NY: 22, MN: 135 duplicate pairings).
+- Ownership category is null for every California facility; Texas is missing ownership for ~74% of records; Colorado and Minnesota feeds do not expose operator names; New York retains ownership type but lacks operator contact details beyond address.
+- Florida email addresses are missing entirely in the processed export.
+
+## Missing Critical Features
+
+Compared with the Supabase schema (`supabase/migrations/0013_assisted_living_data.sql`), the original marketing CSV lacked almost every ALF-specific attribute required for scoring. State feeds are closing the gap, but remaining deficits are:
+- **Inspection & enforcement**: CA, CO, TX, NY, and MN feeds do not yet expose inspection/violation tables (future work: pull supplemental feeds or request from regulators); FL remains the only state with complaint/deficiency metrics.
+- **Service flags**: Memory care, secure-unit, Medicaid participation, etc. are still absent or sparsely populated outside Florida; placeholders remain in the processed outputs for CA/TX/CO/NY/MN.
+- **Pricing**: No state feed captured monthly cost data yet.
+- **TX coverage**: Texas still relies on manual TULIP lookups; no structured bulk export available in this repo.
+
+## Source Check
+
+The current processed file is generated by `scripts/process-alf-data.ts`, which normalizes the national marketing CSV (`data/assisted-living/assisted-living-facilities.csv`) and does **not** pull the richer state datasets. Dedicated state processors now exist for CA, FL, TX, CO, NY, and MN (`scripts/process-alf-{state}.ts`). Raw feeds live under `data/state/{ca,fl,tx,co,ny,mn}/raw/`.
+
+## Readiness Assessment
+
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| Unique, state-issued identifiers | ✅ | All six state feeds supply license IDs. |
+| Inspection / violation metrics | ❌ | None of the feeds include inspection/violation tables yet (FL provides complaints/deficiencies only; NY and MN lack enforcement). |
+| Specialty service flags (ECC, memory care) | ⚠️ | FL exposes activity/program counts; CA/TX/CO/NY/MN still lack directly reported service details. |
+| Ownership data coverage | ⚠️ | Ownership remains absent in CA/CO/MN feeds and partial in TX; NY provides ownership type but minimal operator contacts; national marketing feed unreliable. |
+| Basic geospatial & capacity attributes | ✅ | All feeds include physical addresses, phones, and licensed capacity (CO/NY/MN provide lat/long directly). |
+
+Conclusion: the available dataset is **not** sufficient to train an empirical ALF scoring model or to support UMAP-driven feature discovery. We must ingest the state licensing and inspection feeds before continuing.
+
+## Recommended Next Steps
+
+1. **Ingest State Feeds**
+   - ✅ CA: Complete (automated via `scripts/process-alf-ca.ts`).
+   - ✅ FL: Complete (HealthFinder extraction merged with feature metrics saved to `data/state/fl/alf-processed_20251012.csv`).
+   - ✅ TX (licensing only): HHSC directory downloaded (`data/state/tx/alf-processed_20251012.csv`). Enforcement datasets still pending (requires HHSC public information request or scoped scraper).
+   - ✅ CO: New CDPHE GeoJSON ingestion (`data/state/co/alf-processed_20251013.csv`) with geocodes and status dates; still lacks complaints/service flags.
+   - ✅ NY: Health Data NY pipeline (`data/state/ny/alf-processed_20251013.csv`) merging general + certification exports; capacity derived but enforcement metrics absent.
+   - ✅ MN: Assisted Living Report Card scraper (`data/state/mn/alf-processed_20251014.csv`) captures licensing status, capacity, and map coordinates; no enforcement metrics or county fields yet.
+   - Next: extend TX/CO/NY/MN processors when enforcement data becomes available so the pipeline can ingest complaints/violations alongside licensing.
+2. **Load into Supabase**
+   - Use `scripts/match-alf-to-resources.ts` (or a dedicated importer) to merge state outputs into `resources` and related tables, ensuring the new ALF columns are populated.
+3. **Profile Post-Import Metrics**
+   - Re-run this audit notebook/table to confirm coverage of the critical fields (license status ≥95%, inspection dates ≥70%, capacity distributions sane, etc.).
+4. **Only then Bootstrap Modeling**
+   - Once the enriched fields are available for CA/FL/TX/CO/NY/MN, proceed with the UMAP exploratory notebook and scoring research plan.
+
+**Texas acquisition notes**
+- Licensing roster now sourced from `https://apps.hhs.texas.gov/providers/directories/al.xlsx` (processed via `scripts/process-alf-tx.ts`).
+- Public portal (`https://apps.hhs.texas.gov/LTCSearch/`) still exposes inspections/violations only through interactive HTML. HHSC recommends public information requests for bulk inspection data.
+- Scraping remains a fallback option (county-by-county queries with polite rate limiting) if request timelines lag.
+
+**Colorado acquisition notes**
+- Licensing directory and status metadata exposed via CDPHE feature service (`CDPHE_Health_Facilities` layer); filtered to assisted living residences in `scripts/process-alf-co.ts`.
+- Feed includes geocodes and facility type detail, but no complaints, survey results, or Medicaid participation fields.
+- CDPHE indicates enforcement reports require separate open-records request; next step is to scope request template and backlog.
+
+**New York acquisition notes**
+- General roster (`vn5v-hh5r`) and certification details (`2g9y-7kqm`) downloaded via Health Data NY API; combined using `scripts/process-alf-ny.ts`.
+- Provides operating certificate numbers, county, coordinates, and bed counts by program (ALR/EALR/SNALR/ALP) but lacks public complaints or deficiency metrics.
+- Capacity derived from “Overall Capacity (AH/EHP)” with fallback to summed assisted living bed categories; effective dates captured as `last_updated_date` for monitoring.
+
+**Minnesota acquisition notes**
+- Assisted Living Report Card (`https://alreportcard.dhs.mn.gov/`) renders content via server-side anti-forgery forms; `scripts/process-alf-mn.ts` simulates the Facilities + ResultsList workflow with cookie persistence.
+- Output includes facility name, address, phone, license status (including dementia endorsements), capacity, and map coordinates published on the site.
+- County assignments, enforcement actions, and service flags are not exposed; requires follow-up request to Minnesota Department of Health for complaints/deficiencies.
+
+All stats above were generated with ad-hoc pandas summaries; see `/analysis/alf-sunsetwell/notebooks` (to be added) for reproducible code once source datasets land.

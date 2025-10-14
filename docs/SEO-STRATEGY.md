@@ -11,7 +11,7 @@ Comprehensive SEO implementation for senior care facility search platform target
 
 **Meta Tags & Structured Metadata**
 - ✅ Comprehensive `<title>` tags with template system
-- ✅ Meta descriptions optimized for CTR (75,000+ facilities, Medicare.gov data)
+- ✅ Meta descriptions optimized for CTR (73,000+ facilities, Medicare.gov data)
 - ✅ Open Graph tags for social sharing
 - ✅ Twitter Card metadata
 - ✅ Robots meta directives for indexing control
@@ -258,7 +258,7 @@ Target backlinks from:
 ### Differentiation Strategy
 
 **What Sets Us Apart:**
-1. ✅ **CMS-Verified Data**: 75,000+ facilities with Medicare.gov accuracy
+1. ✅ **CMS-Verified Data**: 73,000+ facilities with Medicare.gov accuracy
 2. ✅ **Daily Updates**: Fresher data than competitors
 3. ✅ **Insurance-First Search**: Filter by Medicare, Medicaid, VA, Private
 4. ✅ **Professional Tools**: Built for social workers (roadmap: docs/PROFESSIONAL-FEATURES.md)
@@ -275,7 +275,7 @@ Target backlinks from:
 
 ### 1. Add Facility Count to Homepage Hero
 Change: "Find the right care"
-To: "Search 75,000+ senior care facilities"
+To: "Search 73,000+ senior care facilities"
 *Why:* Social proof, keyword inclusion
 
 ### 2. Add Trust Badges to Footer

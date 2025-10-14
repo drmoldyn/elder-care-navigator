@@ -125,8 +125,22 @@ function normalizeCapacity(capacity: string | undefined): string {
 function formatDate(dateStr: string | undefined): string {
   if (!dateStr) return "";
   try {
+    const trimmed = dateStr.trim();
+
+    if (/^\d{8}$/.test(trimmed)) {
+      const month = Number(trimmed.slice(0, 2));
+      const day = Number(trimmed.slice(2, 4));
+      const year = Number(trimmed.slice(4));
+      if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+        const parsed = new Date(year, month - 1, day);
+        if (!Number.isNaN(parsed.getTime())) {
+          return parsed.toISOString().split("T")[0];
+        }
+      }
+    }
+
     // Try to parse various date formats
-    const date = new Date(dateStr);
+    const date = new Date(trimmed);
     if (isNaN(date.getTime())) return "";
     // Return in YYYY-MM-DD format
     return date.toISOString().split("T")[0];
@@ -139,9 +153,54 @@ function getFieldValue(
   row: CaliforniaRCFERow,
   possibleFields: string[]
 ): string {
-  for (const field of possibleFields) {
-    if (row[field]) return row[field] || "";
+  const cache = new Map<string, string | undefined>();
+
+  function lookup(fieldName: string): string | undefined {
+    if (row[fieldName] !== undefined) return row[fieldName];
+
+    const lowered = fieldName.toLowerCase();
+    if (cache.has(lowered)) return cache.get(lowered);
+
+    for (const key of Object.keys(row)) {
+      cache.set(key.toLowerCase(), row[key]);
+    }
+
+    return cache.get(lowered);
   }
+
+  for (const field of possibleFields) {
+    const direct = lookup(field);
+    if (direct !== undefined && direct !== null && String(direct).trim() !== "") {
+      return direct as string;
+    }
+
+    const normalized = field
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/_+/g, "_")
+      .replace(/^_|_$/g, "");
+
+    const fallback = lookup(normalized);
+    if (fallback !== undefined && fallback !== null && String(fallback).trim() !== "") {
+      return fallback as string;
+    }
+
+    for (const key of Object.keys(row)) {
+      const normalizedKey = key
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/_+/g, "_")
+        .replace(/^_|_$/g, "");
+
+      if (normalizedKey === normalized || normalizedKey.endsWith(`_${normalized}`)) {
+        const candidate = row[key];
+        if (candidate !== undefined && candidate !== null && String(candidate).trim() !== "") {
+          return candidate;
+        }
+      }
+    }
+  }
+
   return "";
 }
 
@@ -182,27 +241,29 @@ function processCaliforniaRCFE(inputFile: string): ProcessedALFRow[] {
     const address =
       getFieldValue(row, ["Facility Address", "Address", "Street Address"]) ||
       "";
-    const city = row["City"] || "";
+    const city =
+      getFieldValue(row, ["City", "Facility City", "facility_city"]) || "";
     const zipCode = normalizeZipCode(
-      getFieldValue(row, ["ZIP", "Zip Code", "ZIP Code"])
+      getFieldValue(row, ["ZIP", "Zip Code", "ZIP Code", "facility_zip"])
     );
-    const county = row["County"] || "";
+    const county =
+      getFieldValue(row, ["County", "County Name", "county_name"]) || "";
     const phone = normalizePhoneNumber(
-      getFieldValue(row, ["Phone", "Phone Number"])
+      getFieldValue(row, ["Phone", "Phone Number", "facility_telephone_number"])
     );
 
     // Extract license information
     const licenseStatus = normalizeLicenseStatus(
-      getFieldValue(row, ["License Status", "Facility Status", "Status"])
+      getFieldValue(row, ["License Status", "Facility Status", "Status", "facility_status"])
     );
     const capacity = normalizeCapacity(
-      getFieldValue(row, ["Capacity", "Licensed Capacity"])
+      getFieldValue(row, ["Capacity", "Licensed Capacity", "facility_capacity"])
     );
     const licenseIssueDate = formatDate(
-      getFieldValue(row, ["License Issue Date", "Issue Date"])
+      getFieldValue(row, ["License Issue Date", "Issue Date", "license_first_date"])
     );
     const licenseExpirationDate = formatDate(
-      getFieldValue(row, ["License Expiration Date", "Expiration Date"])
+      getFieldValue(row, ["License Expiration Date", "Expiration Date", "license_expiration_date", "file_date"])
     );
 
     // Extract operator information

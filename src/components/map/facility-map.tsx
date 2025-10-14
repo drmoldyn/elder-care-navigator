@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
-import { getMarkerColor, getSunsetWellScoreBadge } from "@/lib/utils/score-helpers";
+import { getMarkerColor } from "@/lib/utils/score-helpers";
 import { geocodeZip, getCachedZipCoordinates, ZipCoordinates } from "@/lib/location/geocode";
 import { haversineDistanceMiles } from "@/lib/location/distance";
 

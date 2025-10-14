@@ -32,11 +32,10 @@ download_dataset() {
 
   echo -e "${YELLOW}Downloading ${DATASET_NAME}...${NC}"
 
-  # Construct download URL using Socrata API
-  # Format: https://data.medicare.gov/resource/{id}.csv
+  # Construct download URL using Socrata API (medicare.gov)
   URL="https://data.medicare.gov/api/views/${DATASET_ID}/rows.csv?accessType=DOWNLOAD"
 
-  # Download with curl
+  # Download with curl (primary)
   if curl -f -L -o "$OUTPUT_FILE" "$URL"; then
     # Get file size
     FILE_SIZE=$(ls -lh "$OUTPUT_FILE" | awk '{print $5}')
@@ -52,9 +51,23 @@ download_dataset() {
 
     return 0
   else
-    echo -e "${RED}✗ Failed to download ${DATASET_NAME}${NC}"
-    echo "ERROR: $DATASET_NAME - Failed - $(date)" >> "$LOG_FILE"
-    return 1
+    echo -e "${YELLOW}Primary source failed. Trying data.cms.gov provider-data API...${NC}"
+    # Fallback: data.cms.gov provider-data API
+    ALT_URL="https://data.cms.gov/provider-data/api/1/datastore/query/${DATASET_ID}/0/download?format=csv"
+    if curl -f -L -o "$OUTPUT_FILE" "$ALT_URL"; then
+      FILE_SIZE=$(ls -lh "$OUTPUT_FILE" | awk '{print $5}')
+      LINE_COUNT=$(wc -l < "$OUTPUT_FILE")
+      echo -e "${GREEN}✓ Downloaded ${DATASET_NAME} (via data.cms.gov)${NC}"
+      echo "  File: $OUTPUT_FILE"
+      echo "  Size: $FILE_SIZE"
+      echo "  Lines: $LINE_COUNT"
+      echo "SUCCESS: $DATASET_NAME (fallback) - $FILE_SIZE - $LINE_COUNT lines - $(date)" >> "$LOG_FILE"
+      return 0
+    else
+      echo -e "${RED}✗ Failed to download ${DATASET_NAME}${NC}"
+      echo "ERROR: $DATASET_NAME - Failed - $(date)" >> "$LOG_FILE"
+      return 1
+    fi
   fi
 }
 

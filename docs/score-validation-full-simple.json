@@ -1,0 +1,24 @@
+{
+  "analysis_date": "2025-10-13T21:07:41.297Z",
+  "n_facilities": 14429,
+  "method": "simplified_core_metrics_only",
+  "complaints": {
+    "sunsetwell": {
+      "r_squared": 0.27092538383834663
+    },
+    "cms": {
+      "r_squared": 0.27502507451270375
+    },
+    "ratio": 0.9850933930965348,
+    "improvement_percent": -1.5
+  },
+  "incidents": {
+    "sunsetwell": {
+      "r_squared": 0.10468220039317333
+    },
+    "cms": {
+      "r_squared": 0.12498964094590947
+    },
+    "ratio": 0.8375270110462643
+  }
+}

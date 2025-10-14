@@ -44,3 +44,6 @@ next-env.d.ts
 /data/cms/*.csv
 /data/cms/processed/*.csv
 /data/cms/geocoded/*.csv
+/data/cms/raw/*.csv
+/data/state/**/*.csv
+/analysis/**/*.csv

@@ -1,0 +1,31 @@
+{
+  "analysis_date": "2025-10-13T21:02:34.221Z",
+  "n_facilities": 666,
+  "outcome_complaints": {
+    "sunsetwell_score": {
+      "r_squared": 0.3873681026318184,
+      "slope": -0.02413950829925068,
+      "intercept": 2.3765317766460896
+    },
+    "cms_overall_rating": {
+      "r_squared": 0.3357481231650391,
+      "slope": -0.4595235321997387,
+      "intercept": 2.4973778130193853
+    },
+    "performance_ratio": 1.1537461445209782,
+    "improvement_percent": 15.4
+  },
+  "outcome_incidents": {
+    "sunsetwell_score": {
+      "r_squared": 0.14558565665140488,
+      "slope": -0.009237972063030123,
+      "intercept": 1.0144381386652903
+    },
+    "cms_overall_rating": {
+      "r_squared": 0.13787774394900343,
+      "slope": -0.1838225990418036,
+      "intercept": 1.0847416062984347
+    },
+    "performance_ratio": 1.0559039659457465
+  }
+}

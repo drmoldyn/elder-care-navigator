@@ -1,5 +1,26 @@
 #!/usr/bin/env tsx
 
+/**
+ * ⚠️ WARNING: This script is for METRIC NORMALIZATION ONLY
+ *
+ * DO NOT USE THIS FOR FINAL SUNSETWELL SCORE CALCULATION
+ *
+ * This script:
+ * ✅ Calculates z-scores for individual metrics within peer groups
+ * ✅ Stores normalized metrics in `facility_metrics_normalized`
+ * ❌ INCORRECTLY converts weighted z-scores to percentiles (line 206-212)
+ * ❌ Should NOT be used for final scoring
+ *
+ * For final SunsetWell scores, use:
+ * → scripts/calculate-sunsetwell-scores-full.ts
+ *
+ * That script correctly generates:
+ * - overall_score: Non-normalized weighted composite (0-100)
+ * - overall_percentile: Peer-group ranking (0-100)
+ *
+ * See: docs/scoring-model.md and FACILITY-INVENTORY.md for correct methodology
+ */
+
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
@@ -214,15 +235,43 @@ async function normalizeMetrics() {
     ...Array.from(new Set(metricsToProcess.map((m) => m.column))),
   ];
 
-  const { data, error } = await supabase
-    .from<FacilityRow>("resources")
-    .select(selectColumns.join(", "));
+  // Fetch ALL facilities with pagination
+  console.log("Loading all facilities with pagination...");
+  let allFacilities: FacilityRow[] = [];
+  let page = 0;
+  const pageSize = 1000;
+  let hasMore = true;
 
-  if (error || !data) {
-    throw new Error(`Failed to load resources: ${error?.message}`);
+  while (hasMore) {
+    const from = page * pageSize;
+    const to = from + pageSize - 1;
+
+    const { data, error } = await supabase
+      .from<FacilityRow>("resources")
+      .select(selectColumns.join(", "))
+      .range(from, to);
+
+    if (error) {
+      throw new Error(`Failed to load resources: ${error.message}`);
+    }
+
+    if (!data || data.length === 0) {
+      hasMore = false;
+    } else {
+      allFacilities.push(...data);
+      console.log(`  Loaded page ${page + 1}: ${data.length} facilities (total: ${allFacilities.length})`);
+
+      if (data.length < pageSize) {
+        hasMore = false;
+      } else {
+        page++;
+      }
+    }
   }
 
-  const facilities = data.filter((row) => row.provider_type);
+  console.log(`✅ Loaded ${allFacilities.length} facilities total\n`);
+
+  const facilities = allFacilities.filter((row) => row.provider_type);
   const now = new Date().toISOString();
   const customWeights = await fetchWeights();
 
@@ -325,9 +374,19 @@ async function normalizeMetrics() {
     }
   }
 
+  // Deduplicate normalized rows (keep last occurrence)
+  const dedupeMap = new Map<string, NormalizedMetricRow>();
+  for (const row of normalizedRows) {
+    const key = `${row.facility_id}|${row.metric_key}|${row.score_version}`;
+    dedupeMap.set(key, row);
+  }
+  const dedupedRows = Array.from(dedupeMap.values());
+
+  console.log(`Deduped ${normalizedRows.length} rows to ${dedupedRows.length} unique rows`);
+
   const batchSize = 500;
-  for (let i = 0; i < normalizedRows.length; i += batchSize) {
-    const batch = normalizedRows.slice(i, i + batchSize);
+  for (let i = 0; i < dedupedRows.length; i += batchSize) {
+    const batch = dedupedRows.slice(i, i + batchSize);
     const { error } = await supabase
       .from("facility_metrics_normalized")
       .upsert(batch, { onConflict: "facility_id,metric_key,score_version" });
@@ -336,7 +395,7 @@ async function normalizeMetrics() {
     }
   }
 
-  console.log(`Upserted ${normalizedRows.length} normalized metric rows.`);
+  console.log(`Upserted ${dedupedRows.length} normalized metric rows.`);
 
   // Prepare score rows
   const scoreRows: ScoreRow[] = Object.entries(scoreAccumulator).map(([key, value]) => {

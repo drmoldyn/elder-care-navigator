@@ -37,7 +37,7 @@ export default function Home() {
         "name": "How do I find nursing homes near me?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use SunsetWell's search tool to find nursing homes by ZIP code. You can filter by insurance type (Medicare, Medicaid, VA, private), view Medicare.gov star ratings, and see distances from your location. Our database includes 75,000+ verified facilities nationwide."
+          "text": "Use SunsetWell's search tool to find nursing homes by ZIP code. You can filter by insurance type (Medicare, Medicaid, VA, private), view Medicare.gov star ratings, and see distances from your location. Our database includes 73,000+ verified facilities nationwide."
         }
       },
       {
@@ -69,7 +69,7 @@ export default function Home() {
         "name": "Is the senior care facility data on SunsetWell accurate?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all facility data comes directly from Medicare.gov's official database and is updated daily. SunsetWell provides CMS-verified information on 75,000+ facilities nationwide, ensuring you have access to the most current and accurate data."
+          "text": "Yes, all facility data comes directly from Medicare.gov's official database and is updated daily. SunsetWell provides CMS-verified information on 73,000+ facilities nationwide, ensuring you have access to the most current and accurate data."
         }
       }
     ]
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2">
               <span className="flex items-center justify-center w-5 h-5 bg-white/20 rounded-full text-xs font-bold">✓</span>
-              <span>59,000+ facilities nationwide</span>
+              <span>73,000+ facilities nationwide</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="flex items-center justify-center w-5 h-5 bg-white/20 rounded-full text-xs font-bold">✓</span>

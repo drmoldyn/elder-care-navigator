@@ -240,6 +240,42 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
     ],
   };
 
+  // ItemList schema for AI extraction of top facilities
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Top Nursing Homes in ${data.metro}`,
+    description: `${data.count} Medicare-certified nursing homes ranked by SunsetWell predictive harm scores. ${data.highPerformerShare}% score 75+ (high-performing).`,
+    numberOfItems: Math.min(data.table.length, 20),
+    itemListElement: data.table.slice(0, 20).map((facility, index) => {
+      const summary = facilitiesByFacilityId.get(String(facility.facilityId));
+      const addressParts = summary ? [summary.city, summary.state].filter(Boolean) : [];
+
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'NursingHome',
+          name: facility.title,
+          url: summary ? `https://sunsetwell.com/facility/${summary.id}` : undefined,
+          address: addressParts.length > 0 ? {
+            '@type': 'PostalAddress',
+            addressLocality: summary?.city,
+            addressRegion: summary?.state,
+            postalCode: summary?.zipCode,
+          } : undefined,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: (facility.score / 20).toFixed(1), // Convert 0-100 to 0-5 scale
+            bestRating: '5',
+            worstRating: '0',
+            ratingCount: '1',
+          },
+        },
+      };
+    }),
+  };
+
   return (
     <main className="min-h-screen relative overflow-hidden">
       {/* Structured Data */}
@@ -252,6 +288,10 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
       {/* Hero Background */}
@@ -300,6 +340,31 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
             </div>
           </div>
         </div>
+
+        {/* Answer Block for AI Extraction */}
+        {data.table.length > 0 && (
+          <div className="mb-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg shadow-md">
+            <h2 className="text-sm font-semibold text-blue-800 uppercase mb-2">Quick Answer</h2>
+            <p className="text-gray-800 text-lg leading-relaxed">
+              {data.metro} has <strong>{data.count} Medicare-certified nursing homes</strong> with
+              an average SunsetWell score of <strong>{avgScore.toFixed(1)}/100</strong>.{' '}
+              {data.table[0] && (
+                <>
+                  Top-rated facility: <strong>{data.table[0].title}</strong> (score: {data.table[0].score}).{' '}
+                </>
+              )}
+              {data.enhancedNarrative?.costAnalysis?.monthlyEstimate ? (
+                <>Average monthly cost: <strong>{data.enhancedNarrative.costAnalysis.monthlyEstimate}</strong>.{' '}</>
+              ) : (
+                <>Typical costs range <strong>$6,000-$12,000/month</strong> for private pay.{' '}</>
+              )}
+              <strong>{data.highPerformerShare}%</strong> of facilities score 75+ (high-performing).
+              {data.enhancedNarrative?.keyStats?.medicaidFacilityCount && (
+                <> <strong>{Math.round((data.enhancedNarrative.keyStats.medicaidFacilityCount / data.count) * 100)}%</strong> accept Medicaid.</>
+              )}
+            </p>
+          </div>
+        )}
 
       {data.table.length === 0 ? (
         <div className="p-6 bg-amber-50 border border-amber-200 rounded-lg">

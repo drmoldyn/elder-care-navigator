@@ -2,21 +2,23 @@
 
 **A production-ready tool to help families find nursing homes and assisted living facilities with empirically-derived quality scores and peer-group comparisons.**
 
-🔍 **75,000+ facilities nationwide** | 📊 **SunsetWell Score** | 💊 **Medicare.gov verified** | 📱 **Mobile-optimized**
+🔍 **73,000+ facilities nationwide** | 📊 **SunsetWell Score** | 💊 **Medicare.gov verified** | 📱 **Mobile-optimized**
 
 ---
 
 ## ✨ Features
 
-### 🌟 SunsetWell Score (NEW)
-- **Empirical Scoring Model**: Composite 0-100 score derived from regression analysis of safety outcomes
-- **Peer-Group Normalization**: Facilities compared within their region and facility type for fair "apples-to-apples" comparisons
-- **Component Breakdown**:
-  - Inspection & Compliance (53%)
-  - Staffing Capacity & Hours (32%)
-  - Safety & Stability (15%)
-- **Visual Quality Indicators**: Color-coded scores (green/yellow/orange/red) in table view and map markers
-- **Transparent Methodology**: Weights based on predicting substantiated complaints and facility-reported incidents
+### 🌟 SunsetWell Score (v2.3 Predictive Harm Model)
+- **Absolute Composite (0–100)**: Empirical weights learned from PHI labels span 27 CMS predictors (inspection depth, staffing coverage & turnover, long-stay MDS harm measures, complaint/incident rates, per-bed state benchmarks).
+- **Peer Percentile (0–100)**: Separate rank within state/division + size/ownership groups so families can compare similar facilities instantly.
+- **Component Coverage**:
+  - Inspection & Enforcement (scope/severity index, deficiency volume)
+  - Staffing Capacity & Stability (RN/LPN/CNA & weekend hours, turnover, bed scale)
+  - Patient Outcomes (falls, pressure injuries, antipsychotics, weight loss, incontinence, complaint/incident rates)
+  - Market Context (state per-bed harm benchmarks for calibration)
+- **Visual Quality Indicators**: Color-coded scores (green/yellow/orange/red) drive table view, map markers, and badges.
+- **Transparent Methodology**: Reproducible scripts + configuration documented in `docs/scoring-model.md` & `docs/SCORING-CHANGELOG.md`.
+- **Reliability & Calibration**: Percentile context retained; 5th–95th national range sits ~18–77 for intuitive reading.
 
 ### Search & Discovery
 - **Table View**: Scannable comparison table showing distance, quality metrics, and SunsetWell Score
@@ -74,19 +76,42 @@ Open [http://localhost:3004](http://localhost:3004) in your browser.
 ## 📊 Database
 
 ### Current Status
-- **61,346 facilities** loaded and searchable
-- **16,708 nursing homes** (CMS Medicare.gov)
+- **73,129 facilities** loaded and searchable
+- **14,752 skilled nursing facilities** (CMS Medicare.gov)
 - **44,636 assisted living facilities** (State databases)
+- **13,741 home health agencies** (CMS Medicare.gov)
 
-### Data Quality
-- ✅ 99.7% have street addresses
-- ✅ 89.7% have bed counts
-- ✅ 27% have quality ratings (nursing homes only)
+### Data Quality & Coverage
+
+#### Skilled Nursing Facilities (SNFs)
+- ✅ 14,752 total facilities (100%)
+- ✅ 14,752 with CCN identifiers (100%)
+- ✅ 14,752 with precise geolocation (100%)
+- ✅ 14,752 with state data for peer grouping (100%)
+- ✅ 14,614 with CMS quality metrics (99.1%)
+- ✅ **14,752 with SunsetWell Scores (100.0%)**
+- 📈 Harm model now includes MDS harm measures, deficiency severity index, per-bed complaint/incident rates, and staffing depth metrics for every SNF.
+
+#### Assisted Living Facilities (ALFs)
+- ✅ 44,636 total facilities (100%)
+- ✅ 39,216 with facility IDs (87.9%)
+- ✅ 44,229 with precise geolocation (99.1%)
+- ✅ 44,636 with state data for peer grouping (100%)
+- ✅ **39,463 with SunsetWell Scores (88.4%)**
+
+#### Home Health Agencies
+- ✅ 13,741 total facilities (100%)
+- ✅ 13,741 with CCN identifiers (100%)
+- ✅ 13,740 with precise geolocation (100.0%)
+- ✅ 13,741 with state data for peer grouping (100%)
+- ⏳ 0 with SunsetWell Scores (CMS data import pending)
+
+**Note**: SunsetWell Scores require sufficient CMS reporting across staffing, quality, safety, and harm dimensions. Nursing homes now reach full coverage (14,752 / 14,752) via imputed harm features; assisted living remains limited by state reporting (88.4%).
 
 ### Test Data Quality
 
 ```bash
-pnpm tsx scripts/test-data-quality.ts
+pnpm tsx scripts/comprehensive-facility-survey.ts
 ```
 
 ### Test Search Functionality
@@ -167,6 +192,7 @@ src/
 
 ### Core Documentation
 - **[docs/scoring-model.md](./docs/scoring-model.md)**: SunsetWell Score methodology and peer group strategy ⭐ **SCORING**
+- **[docs/SCORING-CHANGELOG.md](./docs/SCORING-CHANGELOG.md)**: Versioned scoring updates
 - **[docs/SUNSETWELL-SCORE-UI-SPEC.md](./docs/SUNSETWELL-SCORE-UI-SPEC.md)**: UI specification for score integration
 - **[GEOCODING-SETUP.md](./GEOCODING-SETUP.md)**: Complete geocoding setup guide
 - **[docs/GEOCODING.md](./docs/GEOCODING.md)**: Technical geocoding documentation
@@ -204,13 +230,13 @@ src/
 
 ### Data Quality Test
 ```bash
-pnpm tsx scripts/test-data-quality.ts
+pnpm tsx scripts/comprehensive-facility-survey.ts
 ```
 
 **Output**:
-- Total facilities: 61,346
-- Insurance coverage: 99.997% (Medicare/Medicaid)
-- Sample facilities with ratings and addresses
+- Total facilities by type (SNF / ALF / Home Health)
+- SunsetWell coverage counts (expect 14,752 / 14,752 SNFs scored)
+- Missing data diagnostics for scored metrics
 
 ### Search Functionality Test
 ```bash
@@ -257,10 +283,10 @@ See [PRODUCTION-READY-SUMMARY.md](./PRODUCTION-READY-SUMMARY.md) for complete li
 ## 📈 Roadmap
 
 ### Phase 1 (COMPLETED ✅)
-- ✅ Database: 75,000+ facilities (nursing homes, assisted living, home health, hospice)
+- ✅ Database: 73,129 facilities (14,752 nursing homes, 44,636 assisted living, 13,741 home health)
 - ✅ Search: ZIP code + insurance filtering with distance sorting
 - ✅ Design: Professional, mobile-responsive with table & map views
-- ✅ Address-level geocoding for precise distance calculations
+- ✅ Address-level geocoding for precise distance calculations (99.9% coverage)
 - ✅ Google Maps integration with interactive markers
 - ✅ Production deployment on Vercel (sunsetwell.com)
 
@@ -280,6 +306,13 @@ See [PRODUCTION-READY-SUMMARY.md](./PRODUCTION-READY-SUMMARY.md) for complete li
 - [ ] **Crisis Mode Page**: `/urgent-placement` with emergency contact forms
 - [ ] **SEO Optimization**: Location-specific landing pages
 - [ ] **Elder Law Directory**: Attorney referral network integration
+
+#### Near-Term SEO & Traffic Priorities
+1. Launch crawlable facility detail pages with HealthcareProvider schema, canonical URLs, and internal links from search/location experiences to capture long-tail intent while increasing AdSense-eligible inventory.
+2. Scale programmatic location coverage (state → city → ZIP) with static generation, sitemap inclusion, and navigation surfacing so bots and users can reach hundreds of geo-specific pages.
+3. Publish an editorial guides hub (coverage checklists, Medicare vs. Medicaid explainers, discharge playbooks) to deepen content quality and support both SEO breadth and AdSense policy alignment.
+4. Close technical SEO gaps: supply the referenced logo asset for organization schema, fix broken nav targets (e.g., `/urgent-placement`, `/results/compare`), and generate XML sitemap indexes for new sections.
+5. Finalize AdSense readiness by replacing placeholder slot IDs, optimizing placements across results and navigator flows, and monitoring layout shifts to satisfy policy and Core Web Vitals requirements.
 
 See [docs/ADDITIONAL_SERVICES.md](./docs/ADDITIONAL_SERVICES.md) and [docs/roadmap-codex.md](./docs/roadmap-codex.md) for full roadmap.
 
@@ -323,3 +356,30 @@ For questions or issues:
 **Status**: Ready for production testing
 **Version**: 1.0.0-beta
 **Last Updated**: 2025-10-10
+### Evaluate Scoring Performance
+
+```bash
+pnpm tsx scripts/evaluate-sunsetwell-vs-cms.ts
+```
+
+Outputs correlation of SunsetWell Score and CMS Stars vs hospitalization rates per 1,000 resident-days.
+
+### Optimize Metric Weights (v2.1)
+
+Preview optimized weights vs. long-stay hospitalization/ED:
+
+```bash
+pnpm tsx scripts/optimize-weights.ts
+```
+
+Persist optimized global weights (and division overrides when beneficial):
+
+```bash
+NEW_SCORE_VERSION=v2.1 APPLY_WEIGHTS=true pnpm tsx scripts/optimize-weights.ts
+```
+
+Apply them in scoring:
+
+```bash
+METRIC_SCORE_VERSION=v2.1 pnpm tsx scripts/calculate-sunsetwell-scores-full.ts
+```

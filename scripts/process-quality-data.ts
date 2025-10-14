@@ -179,6 +179,25 @@ function parseBoolean(value: string | undefined): string {
   return cleaned === "y" || cleaned === "yes" || cleaned === "true" ? "true" : "false";
 }
 
+// Helpers to tolerate alternate header names (provider-data API vs medicare.gov)
+function normalizeRowKeys(row: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(row)) {
+    out[k.trim().toLowerCase()] = v;
+  }
+  return out;
+}
+
+function getField(rowLower: Record<string, unknown>, aliases: string[]): string | undefined {
+  for (const a of aliases) {
+    const key = a.trim().toLowerCase();
+    if (rowLower[key] != null && String(rowLower[key]).trim() !== "") {
+      return String(rowLower[key]);
+    }
+  }
+  return undefined;
+}
+
 function getScopeFromCode(code: string | undefined): string {
   if (!code) return "";
 
@@ -227,28 +246,47 @@ function processDeficiencies(): number {
 
   console.log(`   Found ${records.length} deficiency records`);
 
-  const processed: ProcessedDeficiency[] = records
-    .filter((row) => row["Federal Provider Number"]) // Must have provider ID
-    .map((row) => {
-      const scopeSeverityCode = cleanString(row["Scope Severity Code"]);
-
-      return {
-        provider_id: cleanString(row["Federal Provider Number"]),
-        provider_name: cleanString(row["Provider Name"]),
-        deficiency_tag: cleanString(row["Deficiency Tag"]),
-        deficiency_description: cleanString(row["Tag Description"]),
-        scope: cleanString(row["Scope"]) || getScopeFromCode(scopeSeverityCode),
-        severity: cleanString(row["Severity"]) || getSeverityFromCode(scopeSeverityCode),
-        scope_severity_code: scopeSeverityCode,
-        survey_date: parseDate(row["Inspection Date"]),
-        survey_type: cleanString(row["Survey Type"]),
-        inspection_id: cleanString(row["Inspection ID"]),
-        correction_date: parseDate(row["Correction Date"]),
-        is_corrected: parseBoolean(row["Deficiency Corrected"]),
-        displayed_on_care_compare: parseBoolean(row["Standard Survey Health Deficiency"]) || "true",
-        data_as_of: parseDate(row["Filedate"]) || new Date().toISOString().split("T")[0],
-      };
+  const processed: ProcessedDeficiency[] = [];
+  for (const r of records as any[]) {
+    const row = normalizeRowKeys(r);
+    const prov = getField(row, [
+      "CMS Certification Number (CCN)",
+      "Federal Provider Number",
+      "federal provider number",
+      "federal_provider_number",
+      "federalprovider_number",
+      "federal_provider_no",
+    ]);
+    if (!prov) continue;
+    const scopeSeverityCode = cleanString(
+      getField(row, ["Scope Severity Code", "scope_severity_code"]) || ""
+    );
+    processed.push({
+      provider_id: cleanString(prov),
+      provider_name: cleanString(getField(row, ["Provider Name", "provider_name"]) || ""),
+      deficiency_tag: cleanString(getField(row, ["Deficiency Tag", "Deficiency Tag Number", "deficiency_tag"]) || ""),
+      deficiency_description: cleanString(getField(row, ["Tag Description", "Deficiency Description", "tag_description"]) || ""),
+      scope: cleanString(getField(row, ["Scope", "scope"]) || "") || getScopeFromCode(scopeSeverityCode),
+      severity: cleanString(getField(row, ["Severity", "severity"]) || "") || getSeverityFromCode(scopeSeverityCode),
+      scope_severity_code: scopeSeverityCode,
+      survey_date: parseDate(getField(row, ["Inspection Date", "inspection date", "inspection_date"]) ),
+      survey_type: cleanString(getField(row, ["Survey Type", "survey_type"]) || ""),
+      inspection_id: cleanString(getField(row, ["Inspection ID", "inspection_id"]) || ""),
+      correction_date: parseDate(getField(row, ["Correction Date", "correction_date"]) ),
+      is_corrected: ((): string => {
+        const v = getField(row, ["Deficiency Corrected", "deficiency_corrected"]) || "";
+        const t = v.toLowerCase();
+        if (t.includes("deficient") || t.startsWith("y") || t.startsWith("t")) return "true";
+        return "false";
+      })(),
+      displayed_on_care_compare: ((): string => {
+        const v = getField(row, ["Standard Deficiency", "Standard Survey Health Deficiency", "standard_survey_health_deficiency"]) || "";
+        const t = v.toLowerCase();
+        return (t.startsWith("y") || t.startsWith("t")) ? "true" : "false";
+      })(),
+      data_as_of: parseDate(getField(row, ["Filedate", "filedate", "Processing Date", "processing date"])) || new Date().toISOString().split("T")[0],
     });
+  }
 
   const outputPath = "data/cms/processed/deficiencies-processed.csv";
   fs.mkdirSync("data/cms/processed", { recursive: true });
@@ -278,23 +316,27 @@ function processPenalties(): number {
 
   console.log(`   Found ${records.length} penalty records`);
 
-  const processed: ProcessedPenalty[] = records
-    .filter((row) => row["Federal Provider Number"]) // Must have provider ID
-    .map((row) => ({
-      provider_id: cleanString(row["Federal Provider Number"]),
-      provider_name: cleanString(row["Provider Name"]),
-      provider_address: cleanString(row["Provider Address"]),
-      provider_city: cleanString(row["Provider City"]),
-      provider_state: cleanString(row["Provider State"]),
-      provider_zip: cleanString(row["Provider Zip Code"]),
-      penalty_type: cleanString(row["Penalty Type"]),
-      penalty_date: parseDate(row["Penalty Date"]),
-      fine_amount: parseNumeric(row["Fine Amount"]),
-      payment_denial_start_date: parseDate(row["Payment Denial Start Date"]),
-      payment_denial_end_date: parseDate(row["Payment Denial End Date"]),
-      processing_date: parseDate(row["Processing Date"]),
-      data_as_of: parseDate(row["Filedate"]) || new Date().toISOString().split("T")[0],
-    }));
+  const processed: ProcessedPenalty[] = [];
+  for (const r of records as any[]) {
+    const row = normalizeRowKeys(r);
+    const prov = getField(row, ["CMS Certification Number (CCN)", "Federal Provider Number", "federal_provider_number", "federal provider number"]);
+    if (!prov) continue;
+    processed.push({
+      provider_id: cleanString(prov),
+      provider_name: cleanString(getField(row, ["Provider Name", "provider_name"]) || ""),
+      provider_address: cleanString(getField(row, ["Provider Address", "provider_address"]) || ""),
+      provider_city: cleanString(getField(row, ["Provider City", "provider_city"]) || ""),
+      provider_state: cleanString(getField(row, ["Provider State", "provider_state"]) || ""),
+      provider_zip: cleanString(getField(row, ["Provider Zip Code", "provider_zip_code", "zip", "zip_code"]) || ""),
+      penalty_type: cleanString(getField(row, ["Penalty Type", "penalty_type"]) || ""),
+      penalty_date: parseDate(getField(row, ["Penalty Date", "penalty_date"]) ),
+      fine_amount: parseNumeric(getField(row, ["Fine Amount", "fine_amount"]) ),
+      payment_denial_start_date: parseDate(getField(row, ["Payment Denial Start Date", "payment_denial_start_date"]) ),
+      payment_denial_end_date: parseDate(getField(row, ["Payment Denial End Date", "payment_denial_end_date"]) ),
+      processing_date: parseDate(getField(row, ["Processing Date", "processing_date"]) ),
+      data_as_of: parseDate(getField(row, ["Filedate", "filedate"])) || new Date().toISOString().split("T")[0],
+    });
+  }
 
   const outputPath = "data/cms/processed/penalties-processed.csv";
   fs.writeFileSync(outputPath, stringify(processed, { header: true }));
@@ -327,28 +369,30 @@ function processQualityMeasures(): number {
 
   console.log(`   Found ${records.length} quality measure records`);
 
-  const processed: ProcessedQualityMetric[] = records
-    .filter((row) => row["Federal Provider Number"]) // Must have provider ID
-    .map((row) => {
-      // Parse measure period (e.g., "Q4 2024" or "2024 Q4")
-      const period = cleanString(row["Measure Period"] || row["Quarter"] || "");
-      const { startDate, endDate } = parseMeasurePeriod(period);
-
-      return {
-        provider_id: cleanString(row["Federal Provider Number"]),
-        provider_name: cleanString(row["Provider Name"]),
-        measure_code: cleanString(row["Measure Code"]),
-        measure_name: cleanString(row["Measure Description"]),
-        measure_period_start: startDate,
-        measure_period_end: endDate,
-        score: parseNumeric(row["Four Quarter Average Score"] || row["Score"]),
-        denominator: parseNumeric(row["Denominator"]),
-        numerator: parseNumeric(row["Numerator"]),
-        performance_category: cleanString(row["Performance Rating"]),
-        footnote: cleanString(row["Footnote"]),
-        data_as_of: parseDate(row["Filedate"]) || new Date().toISOString().split("T")[0],
-      };
+  const processed: ProcessedQualityMetric[] = [];
+  for (const r of records as any[]) {
+    const row = normalizeRowKeys(r);
+    const prov = getField(row, ["CMS Certification Number (CCN)", "Federal Provider Number", "federal_provider_number", "federal provider number"]);
+    if (!prov) continue;
+    const periodRaw = cleanString(
+      getField(row, ["Measure Period", "Quarter", "measure_period", "quarter"]) || ""
+    );
+    const { startDate, endDate } = parseMeasurePeriod(periodRaw);
+    processed.push({
+      provider_id: cleanString(prov),
+      provider_name: cleanString(getField(row, ["Provider Name", "provider_name"]) || ""),
+      measure_code: cleanString(getField(row, ["Measure Code", "measure_code"]) || ""),
+      measure_name: cleanString(getField(row, ["Measure Description", "measure_description"]) || ""),
+      measure_period_start: startDate,
+      measure_period_end: endDate,
+      score: parseNumeric(getField(row, ["Four Quarter Average Score", "Score", "score"]) ),
+      denominator: parseNumeric(getField(row, ["Denominator", "denominator"]) ),
+      numerator: parseNumeric(getField(row, ["Numerator", "numerator"]) ),
+      performance_category: cleanString(getField(row, ["Performance Rating", "performance_rating"]) || ""),
+      footnote: cleanString(getField(row, ["Footnote", "footnote"]) || ""),
+      data_as_of: parseDate(getField(row, ["Filedate", "filedate"])) || new Date().toISOString().split("T")[0],
     });
+  }
 
   const outputPath = "data/cms/processed/quality-metrics-processed.csv";
   fs.writeFileSync(outputPath, stringify(processed, { header: true }));
@@ -363,33 +407,26 @@ function parseMeasurePeriod(period: string): { startDate: string; endDate: strin
   if (!period) return { startDate: "", endDate: "" };
 
   // Try to extract year and quarter
+  // Handle range format like "2024Q2-2025Q1"
+  const rangeMatch = period.match(/(20\d{2})Q([1-4])\s*-\s*(20\d{2})Q([1-4])/i);
+  if (rangeMatch) {
+    const year1 = parseInt(rangeMatch[1]);
+    const q1 = parseInt(rangeMatch[2]);
+    const year2 = parseInt(rangeMatch[3]);
+    const q2 = parseInt(rangeMatch[4]);
+    const start = { 1: `${year1}-01-01`, 2: `${year1}-04-01`, 3: `${year1}-07-01`, 4: `${year1}-10-01` } as const;
+    const end = { 1: `${year2}-03-31`, 2: `${year2}-06-30`, 3: `${year2}-09-30`, 4: `${year2}-12-31` } as const;
+    return { startDate: start[q1 as 1|2|3|4] || "", endDate: end[q2 as 1|2|3|4] || "" };
+  }
+
   const yearMatch = period.match(/20\d{2}/);
-  const quarterMatch = period.match(/Q([1-4])/i);
-
-  if (!yearMatch) return { startDate: "", endDate: "" };
-
+  const quarterMatch = period.match(/Q\s*([1-4])/i);
+  if (!yearMatch || !quarterMatch) return { startDate: "", endDate: "" };
   const year = parseInt(yearMatch[0]);
-  const quarter = quarterMatch ? parseInt(quarterMatch[1]) : 4; // Default to Q4
-
-  // Calculate start and end dates for the quarter
-  const quarterStarts = {
-    1: `${year}-01-01`,
-    2: `${year}-04-01`,
-    3: `${year}-07-01`,
-    4: `${year}-10-01`,
-  };
-
-  const quarterEnds = {
-    1: `${year}-03-31`,
-    2: `${year}-06-30`,
-    3: `${year}-09-30`,
-    4: `${year}-12-31`,
-  };
-
-  return {
-    startDate: quarterStarts[quarter as keyof typeof quarterStarts] || "",
-    endDate: quarterEnds[quarter as keyof typeof quarterEnds] || "",
-  };
+  const quarter = parseInt(quarterMatch[1]);
+  const quarterStarts = { 1: `${year}-01-01`, 2: `${year}-04-01`, 3: `${year}-07-01`, 4: `${year}-10-01` } as const;
+  const quarterEnds = { 1: `${year}-03-31`, 2: `${year}-06-30`, 3: `${year}-09-30`, 4: `${year}-12-31` } as const;
+  return { startDate: quarterStarts[quarter as 1|2|3|4] || "", endDate: quarterEnds[quarter as 1|2|3|4] || "" };
 }
 
 // ============================================================================

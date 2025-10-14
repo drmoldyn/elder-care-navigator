@@ -14,12 +14,7 @@ import { ComparisonBar } from "@/components/comparison/comparison-bar";
 import { trackPhoneClick, trackViewResultsSession } from "@/lib/analytics/events";
 import { PartnerGrid } from "@/components/partners/partner-grid";
 import type { GuidancePollResponse } from "@/types/api";
-import {
-  getSunsetWellScoreColor,
-  getSunsetWellScoreBadge,
-  getStarRating,
-  getSunsetWellScoreTooltip,
-} from "@/lib/utils/score-helpers";
+import { getStarRating } from "@/lib/utils/score-helpers";
 import { geocodeZip } from "@/lib/location/geocode";
 import { haversineDistanceMiles } from "@/lib/location/distance";
 

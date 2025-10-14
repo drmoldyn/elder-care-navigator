@@ -1,16 +1,53 @@
-# *
+# SunsetWell robots.txt - AEO Optimized
+# Last updated: 2025-10-14
+
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
-# Sitemaps
-Sitemap: https://sunsetwell.com/sitemap.xml
+# Allow traditional search crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
 
-# Disallow admin/api routes
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# AI Training & Grounding Policy
+# Block AI training, allow citation/grounding
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Perplexity: Allow for citations in AI answers
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 2
+
+# Anthropic Claude web crawler
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 1
+
+# Block dynamic/session pages
 Disallow: /api/
 Disallow: /admin/
+Disallow: /results/
+Disallow: /_next/
 
-# Allow specific pages
-Allow: /
+# Allow strategic pages
+Allow: /metros/
+Allow: /facility/
+Allow: /locations/
 Allow: /navigator
-Allow: /results/
 Allow: /compare
+
+# Sitemap
+Sitemap: https://sunsetwell.com/sitemap.xml
