@@ -131,30 +131,86 @@ async function main() {
   }
 
   // Extract all city names from metro name (e.g., "New York–Newark–Jersey City" → ["New York", "Newark", "Jersey City"])
-  function extractCitiesFromMetro(metroName: string): string[] {
-    return metroName
-      .split(/[–—-]/) // Split on dashes/hyphens
-      .map(s => s.trim())
-      .filter(s => s.length > 0 && !/^(The|County)$/i.test(s)); // Remove "The", "County"
-  }
+function extractCitiesFromMetro(metroName: string): string[] {
+  return metroName
+    .split(/[–—-]/) // Split on dashes/hyphens
+    .map(s => s.trim())
+    .filter(s => s.length > 0 && !/^(The|County)$/i.test(s)); // Remove "The", "County"
+}
+
+  // Multi-state allowances for major multi-state metros
+  const METRO_STATES: Record<string, string[]> = {
+    'New York–Newark–Jersey City': ['NY', 'NJ', 'PA'],
+    'Chicago–Naperville–Elgin': ['IL', 'IN', 'WI'],
+    'Washington–Arlington–Alexandria': ['DC', 'VA', 'MD'],
+  };
+
+  // City alias expansions to better capture metro area facilities
+  const METRO_CITY_ALIASES: Record<string, string[]> = {
+    'New York–Newark–Jersey City': ['Brooklyn', 'Bronx', 'Queens', 'Staten Island', 'Manhattan'],
+    'Los Angeles–Long Beach–Anaheim': ['Santa Ana', 'Glendale', 'Pasadena', 'Torrance', 'Inglewood', 'Burbank', 'Fullerton', 'Garden Grove', 'Huntington Beach'],
+    'Chicago–Naperville–Elgin': ['Evanston', 'Skokie', 'Cicero', 'Oak Park', 'Schaumburg', 'Arlington Heights'],
+    'San Francisco–Oakland–Berkeley': ['San Mateo', 'Redwood City', 'Daly City', 'Fremont', 'San Leandro', 'Hayward', 'Walnut Creek'],
+    'Seattle–Tacoma–Bellevue': ['Redmond', 'Kirkland', 'Renton', 'Kent', 'Federal Way', 'Auburn'],
+  };
 
   const topN = metroList.map(m => {
     const cities = extractCitiesFromMetro(m.name);
+    const allowedStates = METRO_STATES[m.name] || [m.state];
+    const expandedCities = [...cities, ...(METRO_CITY_ALIASES[m.name] || [])];
+    const BROAD_CITY_ALIASES: Record<string, string[]> = {
+      'New York–Newark–Jersey City': [
+        'Yonkers','New Rochelle','Mount Vernon','White Plains','Hoboken','Bayonne','Union City','West New York','Fort Lee','Clifton','Passaic','Hackensack','Paterson','Elizabeth','Staten Island','Brooklyn','Bronx','Queens','Manhattan','Newark','Jersey City'
+      ],
+      'Los Angeles–Long Beach–Anaheim': [
+        'Santa Monica','Beverly Hills','Santa Ana','Glendale','Pasadena','Torrance','Inglewood','Burbank','Fullerton','Garden Grove','Huntington Beach','Irvine','Anaheim','Long Beach','Los Angeles'
+      ],
+      'Chicago–Naperville–Elgin': [
+        'Evanston','Skokie','Cicero','Oak Park','Schaumburg','Arlington Heights','Naperville','Elgin','Chicago'
+      ],
+    };
     const allRows: Row[] = [];
     const seen = new Set<string>();
 
     // Match facilities from any city in the metro area, filtering by state
-    for (const cityName of cities) {
+    for (const cityName of expandedCities) {
       const cityRows = byCity.get(cityName.toUpperCase()) || [];
       for (const row of cityRows) {
         const facilityId = (row as any).facility_id || (row as any).id;
         const facilityState = Array.isArray((row as any).states) && (row as any).states[0] ? String((row as any).states[0]).trim() : '';
 
-        // Match if facility is in the metro's state (or adjacent states for multi-state metros)
-        if (facilityId && !seen.has(facilityId) && (facilityState === m.state || m.name.includes(facilityState))) {
+        // Match if facility is in the metro's state set
+        if (facilityId && !seen.has(facilityId) && (allowedStates.includes(facilityState))) {
           allRows.push(row);
           seen.add(facilityId);
         }
+      }
+    }
+
+    // If we still have fewer than 20, top up with best-scoring facilities from broader alias cities within allowed states
+    if (allRows.length < 20) {
+      const broad = BROAD_CITY_ALIASES[m.name] || [];
+      const broadUpper = new Set(broad.map(c => c.toUpperCase()));
+      const broadCandidates: Row[] = [];
+      for (const cityName of broadUpper) {
+        const rowsForCity = byCity.get(cityName) || [];
+        for (const r of rowsForCity) {
+          const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
+          const fid = (r as any).facility_id || (r as any).id;
+          if (fid && !seen.has(fid) && allowedStates.includes(st)) {
+            broadCandidates.push(r);
+            seen.add(fid);
+          }
+        }
+      }
+      broadCandidates.sort((a, b) => {
+        const sa = (Array.isArray((a as any).sunsetwell_scores) && (a as any).sunsetwell_scores[0]?.overall_score) || 0;
+        const sb = (Array.isArray((b as any).sunsetwell_scores) && (b as any).sunsetwell_scores[0]?.overall_score) || 0;
+        return sb - sa;
+      });
+      for (const r of broadCandidates) {
+        if (allRows.length >= 20) break;
+        allRows.push(r);
       }
     }
 

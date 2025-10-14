@@ -2,190 +2,70 @@
   "metro": "Chicago–Naperville–Elgin",
   "city": "Chicago",
   "state": "IL",
-  "count": 4,
-  "averageScore": "39.0",
-  "highPerformerShare": 25,
+  "count": 5,
+  "averageScore": "32.0",
+  "highPerformerShare": 20,
   "narrative": "Overall, Chicago shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
   "table": [
     {
       "rank": 1,
-      "facilityId": "146165",
-      "title": "ADMIRAL AT THE LAKE, THE",
+      "facilityId": "145878",
+      "title": "ST PATRICK'S RESIDENCE",
       "score": 85,
       "percentile": 85,
       "health": 4,
       "staffing": 4,
-      "quality": 2,
+      "quality": 3,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
       "rank": 2,
-      "facilityId": "146198",
-      "title": "ALL AMERICAN VLGE NRSG & RHB",
+      "facilityId": "146164",
+      "title": "COMMUNITY CARE NURSING CENTER",
       "score": 35,
-      "percentile": 35,
+      "percentile": 36,
       "health": 2,
       "staffing": 1,
-      "quality": 5,
+      "quality": 4,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
       "rank": 3,
-      "facilityId": "146191",
-      "title": "MADO HEALTHCARE - UPTOWN",
-      "score": 25,
-      "percentile": 26,
-      "health": 2,
-      "staffing": 1,
-      "quality": null,
+      "facilityId": "145308",
+      "title": "RIVER VIEW REHAB CENTER",
+      "score": 19,
+      "percentile": 20,
+      "health": 1,
+      "staffing": 3,
+      "quality": 2,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
       "rank": 4,
-      "facilityId": "146161",
-      "title": "SOUTHVIEW MANOR",
-      "score": 12,
-      "percentile": 12,
+      "facilityId": "146062",
+      "title": "CENTER HOME HISPANIC ELDERLY",
+      "score": 15,
+      "percentile": 16,
+      "health": 1,
+      "staffing": 2,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 5,
+      "facilityId": "145764",
+      "title": "MORGAN PARK HEALTHCARE",
+      "score": 5,
+      "percentile": 5,
       "health": 1,
       "staffing": 1,
-      "quality": 4,
+      "quality": 3,
       "rnHours": null,
       "totalNurseHours": null
     }
-  ],
-  "enhancedNarrative": {
-    "marketOverview": {
-      "qualityLandscape": "Chicago's skilled nursing landscape shows quality concerns across multiple facilities. With 4 facilities averaging a SunsetWell score of 39.0, families have limited but focused options to consider. 25% of facilities score 75 or higher, indicating moderate availability of high-performing care.\n\nThe market is led by ADMIRAL AT THE LAKE, THE (score: 85), which ranks in the 85th percentile among peer facilities. ALL AMERICAN VLGE NRSG & RHB (35) and MADO HEALTHCARE - UPTOWN (25) provide additional quality options for families seeking excellence.\n\nHowever, 3 facilities score below 40, indicating significant quality concerns. The 73-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
-      "supplyDemand": "Chicago has a relatively small skilled nursing market with just 4 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
-      "regionalTrends": "IL offers a range of skilled nursing options with quality varying by location and ownership structure.\n\nChicago's market reflects regional challenges common in competitive healthcare markets. While top-tier options exist, families may need to balance quality preferences with availability and location convenience.",
-      "medicaidAccess": "Approximately 3 of 4 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nIL Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
-    },
-    "costAnalysis": {
-      "averageDailyRate": 345,
-      "priceRangeByTier": {
-        "exceptional": "N/A",
-        "excellent": "$483-587/day",
-        "aboveAverage": "N/A",
-        "mixed": "N/A",
-        "lower": "$241-311/day"
-      },
-      "monthlyEstimate": "$8,280-22,770/month",
-      "stateComparison": "Comparable to state average",
-      "fundingOptions": [
-        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
-        "IL Medicaid: Covers long-term care for eligible residents with assets below $2,000",
-        "Long-Term Care Insurance: Most facilities accept major LTC policies",
-        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
-        "Private Pay: Personal savings, home equity, or family support",
-        "Life Insurance Conversion: Some policies allow accelerated death benefits"
-      ]
-    },
-    "decisionFramework": {
-      "qualityPriority": {
-        "recommendation": "Choose from Chicago's top-rated facilities",
-        "facilities": [
-          "ADMIRAL AT THE LAKE, THE"
-        ],
-        "reasoning": "These facilities score 75+ and demonstrate consistent excellence in health inspections, staffing, and quality measures. Worth the waitlist and premium pricing for peace of mind."
-      },
-      "medicaidNeeded": {
-        "recommendation": "Contact facilities directly to verify Medicaid bed availability",
-        "facilities": [],
-        "reasoning": "Limited options with quality scores in Medicaid-accepting range. Thorough facility tours essential.",
-        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
-      },
-      "urgentPlacement": {
-        "recommendation": "Contact these facilities first for fastest placement",
-        "facilities": [
-          "ADMIRAL AT THE LAKE, THE"
-        ],
-        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
-      },
-      "budgetConstrained": {
-        "recommendation": "Focus on these value options with reasonable quality",
-        "facilities": [
-          "ADMIRAL AT THE LAKE, THE"
-        ],
-        "costSavingTips": [
-          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
-          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
-          "Apply for Medicaid early: 45-60 day process; plan ahead",
-          "Check VA benefits: Veterans may qualify for Aid & Attendance",
-          "Consult elder law attorney: Medicaid planning can preserve assets"
-        ]
-      }
-    },
-    "faqs": [
-      {
-        "question": "How long are waitlists at top Chicago facilities?",
-        "answer": "Top facilities like ADMIRAL AT THE LAKE, THE usually have 2-3 month waitlists. Mid-tier options (scores 60-74) typically have 2-4 week availability. Apply early to multiple facilities.",
-        "category": "waitlist"
-      },
-      {
-        "question": "Which Chicago nursing homes accept Medicaid?",
-        "answer": "Approximately 3 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. IL Medicaid requires assets below $2,000 with 45-60 day application process.",
-        "category": "medicaid"
-      },
-      {
-        "question": "What makes ADMIRAL AT THE LAKE, THE worth the cost?",
-        "answer": "ADMIRAL AT THE LAKE, THE's 85 score reflects excellent 4-star health ratings, above-average staffing, and solid quality performance. Premium pricing buys clinical excellence, experienced staff, better amenities, and peace of mind. However, only pay premium prices if financially sustainable without creating hardship.",
-        "category": "quality"
-      },
-      {
-        "question": "What should I look for during facility tours?",
-        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. You may want to be more cautious with facilities that have 1-2 star health inspections—Chicago has 3 facilities in this range. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
-        "category": "quality"
-      },
-      {
-        "question": "What if I need urgent placement in Chicago today?",
-        "answer": "Best immediate options: Contact ADMIRAL AT THE LAKE, THE first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact IL Senior Services hotline for urgent placement assistance.",
-        "category": "placement"
-      },
-      {
-        "question": "How much does nursing home care cost in Chicago?",
-        "answer": "Chicago nursing home costs average $314/day ($9,420/month) but vary significantly by quality tier. Premium facilities (90+ score): $628/day. Excellent options (75-89): $471/day. Mid-tier (60-74): $314/day. Budget options: $236/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
-        "category": "cost"
-      },
-      {
-        "question": "How do I pay for long-term nursing home care?",
-        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, IL Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
-        "category": "cost"
-      },
-      {
-        "question": "How often should I visit after placement?",
-        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
-        "category": "other"
-      }
-    ],
-    "localResources": {
-      "stateOmbudsman": {
-        "name": "IL Long-Term Care Ombudsman",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "areaAgencyOnAging": {
-        "name": "IL Area Agency on Aging",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "stateHealthDept": {
-        "name": "IL Department of Health",
-        "website": "#"
-      },
-      "elderLawReferral": {
-        "name": "IL State Bar Elder Law Section",
-        "website": "#"
-      }
-    },
-    "keyStats": {
-      "topTierCount": 1,
-      "medicaidFacilityCount": 3,
-      "averageWaitlistWeeks": 2,
-      "hasUrgentOptions": false,
-      "qualityGap": 73
-    }
-  }
+  ]
 }

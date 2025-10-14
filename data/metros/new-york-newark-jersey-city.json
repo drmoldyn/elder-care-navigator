@@ -2,178 +2,118 @@
   "metro": "New York–Newark–Jersey City",
   "city": "New York",
   "state": "NY",
-  "count": 3,
-  "averageScore": "39.3",
-  "highPerformerShare": 0,
-  "narrative": "Overall, New York shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "count": 9,
+  "averageScore": "59.8",
+  "highPerformerShare": 44,
+  "narrative": "Overall, New York shows a sizable cluster of high-performing facilities. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
   "table": [
     {
       "rank": 1,
-      "facilityId": "335403",
-      "title": "WAYNE HEALTH CARE",
-      "score": 67,
-      "percentile": 68,
-      "health": 3,
+      "facilityId": "315512",
+      "title": "HOBOKEN UNIVERSITY MEDICAL CENTER TCU",
+      "score": 98,
+      "percentile": 98,
+      "health": 4,
+      "staffing": 5,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "335648",
+      "title": "DITMAS PARK CARE CENTER",
+      "score": 86,
+      "percentile": 86,
+      "health": 4,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "335583",
+      "title": "ARCHCARE AT PROVIDENCE REST",
+      "score": 77,
+      "percentile": 77,
+      "health": 4,
+      "staffing": 3,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 4,
+      "facilityId": "335751",
+      "title": "HIGHBRIDGE WOODYCREST CENTER",
+      "score": 76,
+      "percentile": 76,
+      "health": 4,
       "staffing": 4,
       "quality": 5,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
-      "rank": 2,
-      "facilityId": "335100",
-      "title": "ISABELLA GERIATRIC CENTER INC",
-      "score": 31,
-      "percentile": 32,
+      "rank": 5,
+      "facilityId": "335780",
+      "title": "CASA PROMESA",
+      "score": 54,
+      "percentile": 54,
       "health": 2,
-      "staffing": 3,
-      "quality": 3,
+      "staffing": 5,
+      "quality": 5,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
-      "rank": 3,
-      "facilityId": "335792",
-      "title": "NORTHERN MANHATTAN REHABILITATION AND NURSING CTR",
-      "score": 19,
-      "percentile": 20,
-      "health": 2,
-      "staffing": 1,
-      "quality": 3,
+      "rank": 6,
+      "facilityId": "335048",
+      "title": "WILLIAMSBRIDGE CENTER FOR REHABILITATION AND NRSG",
+      "score": 53,
+      "percentile": 53,
+      "health": 3,
+      "staffing": 2,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 7,
+      "facilityId": "335753",
+      "title": "BRONXCARE SPECIAL CARE CENTER",
+      "score": 50,
+      "percentile": 51,
+      "health": 3,
+      "staffing": 3,
+      "quality": 1,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 8,
+      "facilityId": "315483",
+      "title": "PLAZA HEALTHCARE & REHABILITATION CENTER",
+      "score": 24,
+      "percentile": 25,
+      "health": 1,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 9,
+      "facilityId": "315344",
+      "title": "OPTIMA CARE CASTLE HILL",
+      "score": 20,
+      "percentile": 22,
+      "health": 1,
+      "staffing": 4,
+      "quality": 5,
       "rnHours": null,
       "totalNurseHours": null
     }
-  ],
-  "enhancedNarrative": {
-    "marketOverview": {
-      "qualityLandscape": "New York's skilled nursing landscape shows quality concerns across multiple facilities. With 3 facilities averaging a SunsetWell score of 39.3, families have limited but focused options to consider. 0% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by WAYNE HEALTH CARE (score: 67), which ranks in the 68th percentile among peer facilities. ISABELLA GERIATRIC CENTER INC (31) and NORTHERN MANHATTAN REHABILITATION AND NURSING CTR (19) provide additional quality options for families seeking excellence.\n\nHowever, 2 facilities score below 40, indicating significant quality concerns. The 48-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
-      "supplyDemand": "New York has a relatively small skilled nursing market with just 3 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
-      "regionalTrends": "New York's strict state regulations and high labor costs create market pressure, resulting in both premium options and budget facilities with quality concerns.\n\nNew York's market reflects regional challenges common in competitive healthcare markets. Families may want to consider expanding their search radius to access higher-quality facilities in neighboring markets.",
-      "medicaidAccess": "Approximately 3 of 3 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nNY Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
-    },
-    "costAnalysis": {
-      "averageDailyRate": 502,
-      "priceRangeByTier": {
-        "exceptional": "N/A",
-        "excellent": "N/A",
-        "aboveAverage": "$502-653/day",
-        "mixed": "N/A",
-        "lower": "$351-452/day"
-      },
-      "monthlyEstimate": "$12,048-33,132/month",
-      "stateComparison": "Comparable to state average",
-      "fundingOptions": [
-        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
-        "NY Medicaid: Covers long-term care for eligible residents with assets below $2,000",
-        "Long-Term Care Insurance: Most facilities accept major LTC policies",
-        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
-        "Private Pay: Personal savings, home equity, or family support",
-        "Life Insurance Conversion: Some policies allow accelerated death benefits"
-      ]
-    },
-    "decisionFramework": {
-      "qualityPriority": {
-        "recommendation": "Consider expanding search to nearby metros for premium options",
-        "facilities": [],
-        "reasoning": "New York's current market lacks facilities scoring 75+. Nearby metros may offer better quality options worth the additional travel distance."
-      },
-      "medicaidNeeded": {
-        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
-        "facilities": [
-          "WAYNE HEALTH CARE"
-        ],
-        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
-        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
-      },
-      "urgentPlacement": {
-        "recommendation": "Contact these facilities first for fastest placement",
-        "facilities": [
-          "WAYNE HEALTH CARE"
-        ],
-        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
-      },
-      "budgetConstrained": {
-        "recommendation": "Focus on these value options with reasonable quality",
-        "facilities": [
-          "WAYNE HEALTH CARE"
-        ],
-        "costSavingTips": [
-          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
-          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
-          "Apply for Medicaid early: 45-60 day process; plan ahead",
-          "Check VA benefits: Veterans may qualify for Aid & Attendance",
-          "Consult elder law attorney: Medicaid planning can preserve assets"
-        ]
-      }
-    },
-    "faqs": [
-      {
-        "question": "How long are waitlists at top New York facilities?",
-        "answer": "New York's facilities generally have shorter waitlists due to market conditions. Most facilities can accommodate placements within 1-3 weeks, though quality evaluation remains essential.",
-        "category": "waitlist"
-      },
-      {
-        "question": "Which New York nursing homes accept Medicaid?",
-        "answer": "Approximately 2 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. NY Medicaid requires assets below $2,000 with 45-60 day application process.",
-        "category": "medicaid"
-      },
-      {
-        "question": "What makes WAYNE HEALTH CARE worth the cost?",
-        "answer": "WAYNE HEALTH CARE scores 67, representing the best available option in New York. While not premium-tier, it offers reliable quality with 3-star health rating and 4-star staffing.",
-        "category": "quality"
-      },
-      {
-        "question": "What should I look for during facility tours?",
-        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. You may want to be more cautious with facilities that have 1-2 star health inspections—New York has 2 facilities in this range. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
-        "category": "quality"
-      },
-      {
-        "question": "What if I need urgent placement in New York today?",
-        "answer": "Best immediate options: Contact WAYNE HEALTH CARE first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact NY Senior Services hotline for urgent placement assistance.",
-        "category": "placement"
-      },
-      {
-        "question": "How much does nursing home care cost in New York?",
-        "answer": "New York nursing home costs average $456/day ($13,680/month) but vary significantly by quality tier. Premium facilities (90+ score): $912/day. Excellent options (75-89): $684/day. Mid-tier (60-74): $456/day. Budget options: $342/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
-        "category": "cost"
-      },
-      {
-        "question": "How do I pay for long-term nursing home care?",
-        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, NY Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
-        "category": "cost"
-      },
-      {
-        "question": "How often should I visit after placement?",
-        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
-        "category": "other"
-      }
-    ],
-    "localResources": {
-      "stateOmbudsman": {
-        "name": "NY Long-Term Care Ombudsman",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "areaAgencyOnAging": {
-        "name": "NY Area Agency on Aging",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "stateHealthDept": {
-        "name": "NY Department of Health",
-        "website": "#"
-      },
-      "elderLawReferral": {
-        "name": "NY State Bar Elder Law Section",
-        "website": "#"
-      }
-    },
-    "keyStats": {
-      "topTierCount": 0,
-      "medicaidFacilityCount": 2,
-      "averageWaitlistWeeks": 2,
-      "hasUrgentOptions": false,
-      "qualityGap": 48
-    }
-  }
+  ]
 }

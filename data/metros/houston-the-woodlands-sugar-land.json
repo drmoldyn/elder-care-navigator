@@ -2,148 +2,70 @@
   "metro": "Houston–The Woodlands–Sugar Land",
   "city": "Houston",
   "state": "TX",
-  "count": 1,
-  "averageScore": "0.0",
-  "highPerformerShare": 0,
-  "narrative": "Overall, Houston shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "count": 5,
+  "averageScore": "68.2",
+  "highPerformerShare": 40,
+  "narrative": "Overall, Houston shows a sizable cluster of high-performing facilities. The average SunsetWell score suggests solid quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
   "table": [
     {
       "rank": 1,
-      "facilityId": "676435",
-      "title": "HOUSTON TRANSITIONAL CARE",
-      "score": 0,
-      "percentile": 0,
+      "facilityId": "676333",
+      "title": "MAGNOLIA CROSSING NURSING AND REHABILITATION CENTE",
+      "score": 90,
+      "percentile": 90,
       "health": 5,
-      "staffing": 1,
+      "staffing": 2,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "455333",
+      "title": "SHARPVIEW RESIDENCE AND REHABILITATION CENTER",
+      "score": 83,
+      "percentile": 83,
+      "health": 4,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "675791",
+      "title": "BIRCHWOOD OF GOLFCREST",
+      "score": 74,
+      "percentile": 74,
+      "health": 3,
+      "staffing": 4,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 4,
+      "facilityId": "675423",
+      "title": "ASHFORD GARDENS",
+      "score": 58,
+      "percentile": 59,
+      "health": 3,
+      "staffing": 2,
       "quality": 5,
       "rnHours": null,
       "totalNurseHours": null
+    },
+    {
+      "rank": 5,
+      "facilityId": "675789",
+      "title": "ARDEN WOOD",
+      "score": 36,
+      "percentile": 37,
+      "health": 1,
+      "staffing": 4,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
     }
-  ],
-  "enhancedNarrative": {
-    "marketOverview": {
-      "qualityLandscape": "Houston's skilled nursing landscape shows significant quality challenges throughout the market. With 1 facilities averaging a SunsetWell score of 0.0, families have limited but focused options to consider. 0% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by HOUSTON TRANSITIONAL CARE (score: 0), which ranks in the 0th percentile among peer facilities. \n\nHowever, 1 facility scores below 40, indicating significant quality concerns. The 0-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
-      "supplyDemand": "Houston has a relatively small skilled nursing market with just 1 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
-      "regionalTrends": "Texas' less stringent regulatory environment creates variable quality across markets, making careful facility evaluation essential.\n\nHouston's market reflects regional challenges common in competitive healthcare markets. Families may want to consider expanding their search radius to access higher-quality facilities in neighboring markets.",
-      "medicaidAccess": "Approximately 1 of 1 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nTX Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
-    },
-    "costAnalysis": {
-      "averageDailyRate": 293,
-      "priceRangeByTier": {
-        "exceptional": "N/A",
-        "excellent": "N/A",
-        "aboveAverage": "N/A",
-        "mixed": "N/A",
-        "lower": "$205-264/day"
-      },
-      "monthlyEstimate": "$7,032-19,338/month",
-      "stateComparison": "Comparable to state average",
-      "fundingOptions": [
-        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
-        "TX Medicaid: Covers long-term care for eligible residents with assets below $2,000",
-        "Long-Term Care Insurance: Most facilities accept major LTC policies",
-        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
-        "Private Pay: Personal savings, home equity, or family support",
-        "Life Insurance Conversion: Some policies allow accelerated death benefits"
-      ]
-    },
-    "decisionFramework": {
-      "qualityPriority": {
-        "recommendation": "Consider expanding search to nearby metros for premium options",
-        "facilities": [],
-        "reasoning": "Houston's current market lacks facilities scoring 75+. Nearby metros may offer better quality options worth the additional travel distance."
-      },
-      "medicaidNeeded": {
-        "recommendation": "Contact facilities directly to verify Medicaid bed availability",
-        "facilities": [],
-        "reasoning": "Limited options with quality scores in Medicaid-accepting range. Thorough facility tours essential.",
-        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
-      },
-      "urgentPlacement": {
-        "recommendation": "Consider temporary respite care while waitlisted",
-        "facilities": [],
-        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
-      },
-      "budgetConstrained": {
-        "recommendation": "Explore state financial assistance programs",
-        "facilities": [],
-        "costSavingTips": [
-          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
-          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
-          "Apply for Medicaid early: 45-60 day process; plan ahead",
-          "Check VA benefits: Veterans may qualify for Aid & Attendance",
-          "Consult elder law attorney: Medicaid planning can preserve assets"
-        ]
-      }
-    },
-    "faqs": [
-      {
-        "question": "How long are waitlists at top Houston facilities?",
-        "answer": "Houston's facilities generally have shorter waitlists due to market conditions. Most facilities can accommodate placements within 1-3 weeks, though quality evaluation remains essential.",
-        "category": "waitlist"
-      },
-      {
-        "question": "Which Houston nursing homes accept Medicaid?",
-        "answer": "Approximately 1 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. TX Medicaid requires assets below $2,000 with 45-60 day application process.",
-        "category": "medicaid"
-      },
-      {
-        "question": "What makes HOUSTON TRANSITIONAL CARE worth the cost?",
-        "answer": "HOUSTON TRANSITIONAL CARE scores 0, representing the best available option in Houston. While not premium-tier, it offers reliable quality with 5-star health rating and 1-star staffing.",
-        "category": "quality"
-      },
-      {
-        "question": "What should I look for during facility tours?",
-        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. You may want to be more cautious with facilities that have 1-2 star health inspections—Houston has 1 facilities in this range. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
-        "category": "quality"
-      },
-      {
-        "question": "What if I need urgent placement in Houston today?",
-        "answer": "Houston has limited immediate high-quality options. Strategies: (1) Expand search radius to nearby cities, (2) Request temporary respite care at better facilities while waitlisted, (3) Contact TX Area Agency on Aging for emergency placement assistance, (4) Don't rush into low-scoring facilities - quality matters even in emergencies.",
-        "category": "placement"
-      },
-      {
-        "question": "How much does nursing home care cost in Houston?",
-        "answer": "Houston nursing home costs average $266/day ($7,980/month) but vary significantly by quality tier. Premium facilities (90+ score): $532/day. Excellent options (75-89): $399/day. Mid-tier (60-74): $266/day. Budget options: $200/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
-        "category": "cost"
-      },
-      {
-        "question": "How do I pay for long-term nursing home care?",
-        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, TX Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
-        "category": "cost"
-      },
-      {
-        "question": "How often should I visit after placement?",
-        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
-        "category": "other"
-      }
-    ],
-    "localResources": {
-      "stateOmbudsman": {
-        "name": "Texas Long-Term Care Ombudsman",
-        "phone": "1-800-252-2412",
-        "website": "https://www.dads.state.tx.us/services/ombudsman"
-      },
-      "areaAgencyOnAging": {
-        "name": "Texas Health and Human Services",
-        "phone": "1-877-438-5658",
-        "website": "https://www.hhs.texas.gov/services/aging"
-      },
-      "stateHealthDept": {
-        "name": "Texas Department of State Health Services",
-        "website": "https://www.dshs.texas.gov"
-      },
-      "elderLawReferral": {
-        "name": "State Bar of Texas Elder Law Section",
-        "website": "https://www.texasbar.com"
-      }
-    },
-    "keyStats": {
-      "topTierCount": 0,
-      "medicaidFacilityCount": 1,
-      "averageWaitlistWeeks": 2,
-      "hasUrgentOptions": false,
-      "qualityGap": 0
-    }
-  }
+  ]
 }

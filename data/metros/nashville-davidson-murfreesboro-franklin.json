@@ -2,135 +2,22 @@
   "metro": "Nashville–Davidson–Murfreesboro–Franklin",
   "city": "Nashville",
   "state": "TN",
-  "count": 0,
-  "averageScore": "0.0",
-  "highPerformerShare": 0,
-  "narrative": "Overall, Nashville shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": [],
-  "enhancedNarrative": {
-    "marketOverview": {
-      "qualityLandscape": "Nashville's skilled nursing landscape shows significant quality challenges throughout the market. With 0 facilities averaging a SunsetWell score of 0.0, families have limited but focused options to consider. 0% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nQuality is relatively consistent across the market, though families should still verify current inspection reports and tour facilities personally.",
-      "supplyDemand": "Nashville has a relatively small skilled nursing market with just 0 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
-      "regionalTrends": "TN offers a range of skilled nursing options with quality varying by location and ownership structure.\n\nNashville's market reflects regional challenges common in competitive healthcare markets. Families may want to consider expanding their search radius to access higher-quality facilities in neighboring markets.",
-      "medicaidAccess": "Nashville appears to have limited Medicaid acceptance among tracked facilities. Families requiring Medicaid coverage should contact facilities directly to verify bed availability, as acceptance policies change frequently. Consider consulting with TN Department of Health and Human Services for Medicaid-certified facility listings."
-    },
-    "costAnalysis": {
-      "averageDailyRate": 282,
-      "priceRangeByTier": {
-        "exceptional": "N/A",
-        "excellent": "N/A",
-        "aboveAverage": "N/A",
-        "mixed": "N/A",
-        "lower": "N/A"
-      },
-      "monthlyEstimate": "$6,768-18,612/month",
-      "stateComparison": "Comparable to state average",
-      "fundingOptions": [
-        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
-        "TN Medicaid: Covers long-term care for eligible residents with assets below $2,000",
-        "Long-Term Care Insurance: Most facilities accept major LTC policies",
-        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
-        "Private Pay: Personal savings, home equity, or family support",
-        "Life Insurance Conversion: Some policies allow accelerated death benefits"
-      ]
-    },
-    "decisionFramework": {
-      "qualityPriority": {
-        "recommendation": "Consider expanding search to nearby metros for premium options",
-        "facilities": [],
-        "reasoning": "Nashville's current market lacks facilities scoring 75+. Nearby metros may offer better quality options worth the additional travel distance."
-      },
-      "medicaidNeeded": {
-        "recommendation": "Contact facilities directly to verify Medicaid bed availability",
-        "facilities": [],
-        "reasoning": "Limited options with quality scores in Medicaid-accepting range. Thorough facility tours essential.",
-        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
-      },
-      "urgentPlacement": {
-        "recommendation": "Consider temporary respite care while waitlisted",
-        "facilities": [],
-        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
-      },
-      "budgetConstrained": {
-        "recommendation": "Explore state financial assistance programs",
-        "facilities": [],
-        "costSavingTips": [
-          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
-          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
-          "Apply for Medicaid early: 45-60 day process; plan ahead",
-          "Check VA benefits: Veterans may qualify for Aid & Attendance",
-          "Consult elder law attorney: Medicaid planning can preserve assets"
-        ]
-      }
-    },
-    "faqs": [
-      {
-        "question": "How long are waitlists at top Nashville facilities?",
-        "answer": "Nashville's facilities generally have shorter waitlists due to market conditions. Most facilities can accommodate placements within 1-3 weeks, though quality evaluation remains essential.",
-        "category": "waitlist"
-      },
-      {
-        "question": "Which Nashville nursing homes accept Medicaid?",
-        "answer": "Nashville has limited Medicaid acceptance among tracked facilities. Contact TN Department of Health and Human Services for complete Medicaid-certified facility listings. Consider facilities in nearby areas if local options are limited.",
-        "category": "medicaid"
-      },
-      {
-        "question": "What makes Nashville's top facility worth the cost?",
-        "answer": "Nashville's facilities show variable quality. Carefully evaluate inspection reports, staffing levels, and resident outcomes before making decisions. Consider nearby markets for additional options.",
-        "category": "quality"
-      },
-      {
-        "question": "What should I look for during facility tours?",
-        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. Some families become concerned when a facility has immediate availability while others have waitlists, or if staff seem evasive when discussing their inspection history. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
-        "category": "quality"
-      },
-      {
-        "question": "What if I need urgent placement in Nashville today?",
-        "answer": "Nashville has limited immediate high-quality options. Strategies: (1) Expand search radius to nearby cities, (2) Request temporary respite care at better facilities while waitlisted, (3) Contact TN Area Agency on Aging for emergency placement assistance, (4) Don't rush into low-scoring facilities - quality matters even in emergencies.",
-        "category": "placement"
-      },
-      {
-        "question": "How much does nursing home care cost in Nashville?",
-        "answer": "Nashville nursing home costs average $304/day ($9,120/month) but vary significantly by quality tier. Premium facilities (90+ score): $608/day. Excellent options (75-89): $456/day. Mid-tier (60-74): $304/day. Budget options: $228/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
-        "category": "cost"
-      },
-      {
-        "question": "How do I pay for long-term nursing home care?",
-        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, TN Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
-        "category": "cost"
-      },
-      {
-        "question": "How often should I visit after placement?",
-        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
-        "category": "other"
-      }
-    ],
-    "localResources": {
-      "stateOmbudsman": {
-        "name": "TN Long-Term Care Ombudsman",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "areaAgencyOnAging": {
-        "name": "TN Area Agency on Aging",
-        "phone": "1-800-XXX-XXXX",
-        "website": "#"
-      },
-      "stateHealthDept": {
-        "name": "TN Department of Health",
-        "website": "#"
-      },
-      "elderLawReferral": {
-        "name": "TN State Bar Elder Law Section",
-        "website": "#"
-      }
-    },
-    "keyStats": {
-      "topTierCount": 0,
-      "medicaidFacilityCount": 0,
-      "averageWaitlistWeeks": 2,
-      "hasUrgentOptions": false,
-      "qualityGap": 0
+  "count": 1,
+  "averageScore": "97.8",
+  "highPerformerShare": 100,
+  "narrative": "Overall, Nashville shows a sizable cluster of high-performing facilities. The average SunsetWell score suggests generally excellent quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "445534",
+      "title": "STONES RIVER MANOR, INC",
+      "score": 98,
+      "percentile": 98,
+      "health": 4,
+      "staffing": 5,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
     }
-  }
+  ]
 }
