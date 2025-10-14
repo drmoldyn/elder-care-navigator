@@ -60,7 +60,6 @@ export function NavigatorMapView({ defaultCareType = "facility" }: NavigatorMapV
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const initialSearchState = useMemo<SearchState>(() => {
     const insuranceParam = searchParams.get("insurance") ?? "";

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import dynamic from "next/dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MobileTabs } from "@/components/results/mobile-tabs";
@@ -145,6 +146,21 @@ function ResultsPageContent() {
     }
     setViewParam(tab);
   };
+
+  // Lazy-load the interactive map for results (no SSR)
+  const FacilityMap = dynamic(
+    () => import("@/components/map/facility-map").then((m) => m.FacilityMap),
+    {
+      ssr: false,
+      loading: () => (
+        <div className="h-full w-full flex items-center justify-center bg-white">
+          <div className="text-center px-4">
+            <p className="text-sm text-slate-600">Loading map…</p>
+          </div>
+        </div>
+      ),
+    }
+  );
   useEffect(() => {
     let isActive = true;
 
@@ -982,25 +998,37 @@ function ResultsPageContent() {
 
         {/* Right: Map (desktop always, mobile only when map tab active) */}
         <div className={`w-full lg:w-[500px] bg-gray-100 ${mobileTab !== "map" ? "hidden lg:block" : "block"}`}>
-          <div className="sticky top-0 h-screen">
-            {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
-              <iframe
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/search?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=nursing+homes+near+me&zoom=11`}
-              />
-            ) : (
-              <div className="h-full w-full flex items-center justify-center bg-white">
-                <div className="text-center px-4">
-                  <p className="text-sm text-slate-600">Map unavailable</p>
-                  <p className="mt-1 text-xs text-slate-500">Google Maps API key is not configured for this environment.</p>
-                </div>
-              </div>
-            )}
+          <div className="sticky top-0 h-screen p-2">
+            {/* Use FacilityMap to render actual matched facilities */}
+            {(() => {
+              const mapResources = facilityResources
+                .filter((r) => typeof r.latitude === 'number' && typeof r.longitude === 'number')
+                .map((r) => ({
+                  id: r.id,
+                  title: r.title,
+                  latitude: r.latitude ?? undefined,
+                  longitude: r.longitude ?? undefined,
+                  provider_type: r.provider_type ?? undefined,
+                  address: r.address ?? undefined,
+                  city: r.city ?? undefined,
+                  state: r.state ?? undefined,
+                  zip: r.zip ?? undefined,
+                  overall_rating: r.overall_rating ?? undefined,
+                  sunsetwell_score: r.sunsetwell_score ?? undefined,
+                  sunsetwell_percentile: r.sunsetwell_percentile ?? undefined,
+                  distance: typeof r.distance === 'number' ? r.distance : undefined,
+                  service_area_match: false,
+                  service_area_zip: undefined,
+                }));
+              return (
+                <FacilityMap
+                  resources={mapResources}
+                  userZip={sessionDetails?.zip_code}
+                  userLocation={null}
+                  onVisibleChange={() => {}}
+                />
+              );
+            })()}
           </div>
         </div>
       </div>

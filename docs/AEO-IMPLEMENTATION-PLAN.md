@@ -268,9 +268,8 @@ Disallow: /admin/
 # Sponsored content markers
 # (Note: Use rel="sponsored" in HTML, not here)
 
+# Single canonical sitemap
 Sitemap: https://sunsetwell.com/sitemap.xml
-Sitemap: https://sunsetwell.com/sitemap-facilities.xml
-Sitemap: https://sunsetwell.com/sitemap-questions.xml
 ```
 
 **Policy Decisions:**

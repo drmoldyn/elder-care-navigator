@@ -4,8 +4,12 @@ export interface ZipCoordinates {
 }
 
 const CACHE_KEY = "sunsetwell:zip-geocode-cache";
+const NEG_CACHE_KEY = "sunsetwell:zip-geocode-negative";
+const NEG_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 const memoryCache = new Map<string, ZipCoordinates>();
 let localCacheLoaded = false;
+let localNegCacheLoaded = false;
+const negativeCache = new Map<string, number>(); // zip -> expiresAt
 
 function normalizeZip(zip: string): string {
   return zip.trim().slice(0, 5);
@@ -30,6 +34,27 @@ function loadLocalStorageCache() {
     console.warn("Failed to load ZIP geocode cache", error);
   } finally {
     localCacheLoaded = true;
+  }
+}
+
+function loadLocalStorageNegativeCache() {
+  if (localNegCacheLoaded || typeof window === "undefined") {
+    return;
+  }
+  try {
+    const raw = window.localStorage.getItem(NEG_CACHE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Record<string, number>;
+      Object.entries(parsed).forEach(([zip, expiresAt]) => {
+        if (typeof expiresAt === "number" && expiresAt > Date.now()) {
+          negativeCache.set(zip, expiresAt);
+        }
+      });
+    }
+  } catch (error) {
+    console.warn("Failed to load ZIP negative cache", error);
+  } finally {
+    localNegCacheLoaded = true;
   }
 }
 
@@ -84,6 +109,15 @@ export async function geocodeZip(zip: string): Promise<ZipCoordinates | null> {
     return null;
   }
 
+  if (!localNegCacheLoaded) {
+    loadLocalStorageNegativeCache();
+  }
+
+  const neg = negativeCache.get(normalized);
+  if (typeof neg === "number" && neg > Date.now()) {
+    return null;
+  }
+
   const cached = getCachedZipCoordinates(normalized);
   if (cached) {
     return cached;
@@ -99,6 +133,18 @@ export async function geocodeZip(zip: string): Promise<ZipCoordinates | null> {
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
       console.warn("Failed to geocode ZIP via API", normalized, error);
+      // Record negative cache for a day to avoid retries
+      const expiresAt = Date.now() + NEG_TTL_MS;
+      negativeCache.set(normalized, expiresAt);
+      if (typeof window !== "undefined") {
+        try {
+          const obj: Record<string, number> = {};
+          negativeCache.forEach((v, k) => {
+            if (v > Date.now()) obj[k] = v;
+          });
+          window.localStorage.setItem(NEG_CACHE_KEY, JSON.stringify(obj));
+        } catch {}
+      }
       return null;
     }
 
@@ -112,5 +158,17 @@ export async function geocodeZip(zip: string): Promise<ZipCoordinates | null> {
     console.error("Failed to geocode ZIP via API", normalized, error);
   }
 
+  // Default: add a short negative cache to prevent hammering
+  const expiresAt = Date.now() + NEG_TTL_MS;
+  negativeCache.set(normalized, expiresAt);
+  if (typeof window !== "undefined") {
+    try {
+      const obj: Record<string, number> = {};
+      negativeCache.forEach((v, k) => {
+        if (v > Date.now()) obj[k] = v;
+      });
+      window.localStorage.setItem(NEG_CACHE_KEY, JSON.stringify(obj));
+    } catch {}
+  }
   return null;
 }

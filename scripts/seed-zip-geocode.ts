@@ -1,6 +1,8 @@
 #!/usr/bin/env tsx
-import 'dotenv/config';
 import fs from 'fs';
+import dotenv from 'dotenv';
+if (fs.existsSync('.env.local')) dotenv.config({ path: '.env.local' });
+else dotenv.config();
 import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { createClient } from '@supabase/supabase-js';
@@ -81,4 +83,3 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
-

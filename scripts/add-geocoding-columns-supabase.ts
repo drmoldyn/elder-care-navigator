@@ -49,9 +49,11 @@ async function runMigration() {
     for (let i = 0; i < statements.length; i++) {
       console.log(`\n${i + 1}. Executing statement ${i + 1}/${statements.length}...`);
 
-      const { error } = await supabase.rpc('exec_sql', {
-        sql: statements[i]
-      });
+      // Prefer { query } param; fall back to { sql }
+      let { error } = await supabase.rpc('exec_sql', { query: statements[i] as any });
+      if (error) {
+        ({ error } = await supabase.rpc('exec_sql', { sql: statements[i] as any }));
+      }
 
       if (error) {
         // Try alternative method using REST API

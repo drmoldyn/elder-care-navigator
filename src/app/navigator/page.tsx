@@ -34,7 +34,6 @@ function NavigatorContent() {
   const searchParams = useSearchParams();
   const [state, setState] = useState(createInitialNavigatorState());
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const isMapView = searchParams.get("view") === "map";
 
