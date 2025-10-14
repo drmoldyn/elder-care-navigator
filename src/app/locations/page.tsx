@@ -23,8 +23,8 @@ const FALLBACK_CITIES: Array<{ city: string; state: string; slug: string; count?
   .slice(0, 50);
 
 export const runtime = 'nodejs';
-// Cache this page on the server/CDN; data updates daily
-export const revalidate = 86400; // 24 hours
+// Cache this page on the server/CDN; refresh weekly (use on-demand to refresh sooner)
+export const revalidate = 604800; // 7 days
 
 export default async function LocationsIndexPage() {
   const supabaseLocations = await getTopRankedLocations(120);

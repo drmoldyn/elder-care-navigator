@@ -10,8 +10,8 @@ import { ensureAbsoluteUrl, formatPhoneNumber } from "@/lib/utils/url";
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-static';
-// Cache facility profiles; refresh daily
-export const revalidate = 86400;
+// Cache facility profiles; refresh weekly (on-demand revalidation will keep fresh)
+export const revalidate = 604800; // 7 days
 
 interface FacilityPageProps {
   params: Promise<{ id: string }>;

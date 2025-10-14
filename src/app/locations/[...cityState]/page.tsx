@@ -12,8 +12,8 @@ interface LocationPageProps {
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-static';
-// Cache page output per path; refresh daily
-export const revalidate = 86400;
+// Cache page output per path; refresh weekly (on-demand revalidation will keep fresh)
+export const revalidate = 604800; // 7 days
 
 function toSlug(cityState: string[]): string {
   return (cityState || []).join("/") || "";
