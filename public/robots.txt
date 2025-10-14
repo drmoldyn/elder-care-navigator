@@ -4,15 +4,16 @@
 User-agent: *
 Allow: /
 Crawl-delay: 1
-
-# Allow traditional search crawlers
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 0
+# Global path rules
+Disallow: /api/
+Disallow: /admin/
+Disallow: /results/
+Disallow: /_next/
+Allow: /metros/
+Allow: /facility/
+Allow: /locations/
+Allow: /navigator
+Allow: /compare
 
 # AI Training & Grounding Policy
 # Block AI training, allow citation/grounding
@@ -30,19 +31,24 @@ Disallow: /
 User-agent: PerplexityBot
 Allow: /
 Crawl-delay: 2
+Disallow: /api/
+Disallow: /admin/
+Disallow: /results/
+Disallow: /_next/
+Allow: /metros/
+Allow: /facility/
+Allow: /locations/
+Allow: /navigator
+Allow: /compare
 
 # Anthropic Claude web crawler
 User-agent: anthropic-ai
 Allow: /
 Crawl-delay: 1
-
-# Block dynamic/session pages
 Disallow: /api/
 Disallow: /admin/
 Disallow: /results/
 Disallow: /_next/
-
-# Allow strategic pages
 Allow: /metros/
 Allow: /facility/
 Allow: /locations/

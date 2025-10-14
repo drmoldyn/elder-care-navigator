@@ -154,7 +154,7 @@ export async function getFacilitiesByFacilityIds(
         states,
         zip_code,
         contact_phone,
-        website,
+        url,
         sunsetwell_scores!inner(overall_score, overall_percentile, calculation_date)
       `
     )
@@ -175,6 +175,7 @@ export async function getFacilityById(id: string): Promise<FacilityDetail | null
     return null;
   }
 
+  // First try by primary key `id`
   const { data, error } = await supabaseServer
     .from("resources")
     .select(
@@ -190,7 +191,7 @@ export async function getFacilityById(id: string): Promise<FacilityDetail | null
         zip_code,
         county,
         contact_phone,
-        website,
+        url,
         total_beds,
         ownership_type,
         accepts_medicare,
@@ -220,9 +221,59 @@ export async function getFacilityById(id: string): Promise<FacilityDetail | null
     return null;
   }
 
-  if (!data) {
+  if (data) {
+    return mapFacilityDetailRow(data as FacilityRow);
+  }
+
+  // Fallback: if not found by `id`, attempt lookup by `facility_id` (e.g., CMS CCN)
+  const { data: byFacilityId, error: err2 } = await supabaseServer
+    .from("resources")
+    .select(
+      `
+        id,
+        facility_id,
+        title,
+        provider_type,
+        description,
+        street_address,
+        city,
+        states,
+        zip_code,
+        county,
+        contact_phone,
+        url,
+        total_beds,
+        ownership_type,
+        accepts_medicare,
+        accepts_medicaid,
+        accepts_private_pay,
+        overall_rating,
+        health_inspection_rating,
+        staffing_rating,
+        quality_measure_rating,
+        total_nurse_hours_per_resident_per_day,
+        rn_staffing_hours_per_resident_per_day,
+        number_of_substantiated_complaints,
+        number_of_facility_reported_incidents,
+        number_of_fines,
+        latitude,
+        longitude,
+        sunsetwell_scores!inner(overall_score, overall_percentile, calculation_date)
+      `
+    )
+    .eq("facility_id", id)
+    .order("calculation_date", { ascending: false, referencedTable: "sunsetwell_scores" })
+    .limit(1, { referencedTable: "sunsetwell_scores" })
+    .maybeSingle();
+
+  if (err2) {
+    console.error(`[getFacilityById] Fallback by facility_id failed for ${id}`, err2);
     return null;
   }
 
-  return mapFacilityDetailRow(data as FacilityRow);
+  if (!byFacilityId) {
+    return null;
+  }
+
+  return mapFacilityDetailRow(byFacilityId as FacilityRow);
 }

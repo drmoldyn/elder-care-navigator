@@ -26,8 +26,7 @@ import type {
 import type { MatchResponsePayload } from "@/types/api";
 import { geocodeZip } from "@/lib/location/geocode";
 
-// Disable static generation for this page since it uses searchParams
-export const dynamic = 'force-dynamic';
+// Client page; allow static output and client-side interactivity
 
 function NavigatorContent() {
   const router = useRouter();

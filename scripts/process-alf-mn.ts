@@ -29,6 +29,12 @@ type CookieJar = Map<string, string>;
 
 const REQUEST_DELAY_MS_RAW = Number.parseInt(process.env.MN_DELAY_MS ?? "100", 10);
 const REQUEST_DELAY_MS = Number.isNaN(REQUEST_DELAY_MS_RAW) ? 100 : REQUEST_DELAY_MS_RAW;
+const MAX_ATTEMPTS_RAW = Number.parseInt(process.env.MN_MAX_ATTEMPTS ?? "3", 10);
+const MAX_ATTEMPTS = Number.isNaN(MAX_ATTEMPTS_RAW) ? 3 : Math.max(1, MAX_ATTEMPTS_RAW);
+const CONCURRENCY_RAW = Number.parseInt(process.env.MN_CONCURRENCY ?? "3", 10);
+const CONCURRENCY = Number.isNaN(CONCURRENCY_RAW)
+  ? 3
+  : Math.min(8, Math.max(1, CONCURRENCY_RAW));
 
 interface FacilityRecord {
   state: string;
@@ -400,43 +406,79 @@ async function main() {
     ? Math.min(facilityList.length, Number(process.env.MN_LIMIT))
     : facilityList.length;
 
-  const records: FacilityRecord[] = [];
-  for (let i = 0; i < limit; i += 1) {
-    const facility = facilityList[i];
-    let attempts = 0;
-    let processed = false;
-    while (!processed && attempts < 3) {
-      try {
-        const result = await processFacility(facility, session);
-        session = result.session;
+  const records: Array<FacilityRecord | null> = Array(limit).fill(null);
+  const skippedFacilities: FacilitySummary[] = [];
+  let processedCount = 0;
+  let nextIndex = 0;
 
-        if (result.success && result.record) {
-          records.push(result.record);
-          processed = true;
-        } else {
-          attempts += 1;
-          if (attempts < 3) {
-            session = await createSession();
+  const workerCount = Math.min(CONCURRENCY, limit);
+  if (workerCount > 1) {
+    console.log(`⚙️  Using ${workerCount} concurrent sessions`);
+  }
+
+  const workers = Array.from({ length: workerCount }, async (_, workerIdx) => {
+    let workerSession = workerIdx === 0 ? session : await createSession();
+
+    while (true) {
+      const idx = nextIndex;
+      if (idx >= limit) {
+        break;
+      }
+      nextIndex += 1;
+
+      const facility = facilityList[idx];
+      let attempts = 0;
+      let success = false;
+
+      while (attempts < MAX_ATTEMPTS && !success) {
+        try {
+          const result = await processFacility(facility, workerSession);
+          workerSession = result.session;
+
+          if (result.success && result.record) {
+            records[idx] = result.record;
+            success = true;
           } else {
-            console.warn(`⚠️  Skipping facility ${facility.id} after ${attempts} attempts`);
+            attempts += 1;
+            if (attempts < MAX_ATTEMPTS) {
+              workerSession = await createSession();
+            }
+          }
+        } catch (error) {
+          attempts += 1;
+          console.warn(`⚠️  Error processing facility ${facility.id}:`, error);
+          if (attempts < MAX_ATTEMPTS) {
+            workerSession = await createSession();
           }
         }
-      } catch (error) {
-        attempts += 1;
-        console.warn(`⚠️  Error processing facility ${facility.id}:`, error);
-        if (attempts < 3) {
-          session = await createSession();
-        }
+      }
+
+      if (!success) {
+        skippedFacilities.push(facility);
+      }
+
+      const processedSoFar = ++processedCount;
+      if (processedSoFar % 100 === 0 || processedSoFar === limit) {
+        console.log(`   → Processed ${processedSoFar} / ${limit}`);
+      }
+
+      if (REQUEST_DELAY_MS > 0 && processedSoFar < limit) {
+        await sleep(Math.max(0, REQUEST_DELAY_MS));
       }
     }
+  });
 
-    if ((i + 1) % 100 === 0 || i === limit - 1) {
-      console.log(`   → Processed ${i + 1} / ${limit}`);
-    }
+  await Promise.all(workers);
 
-    if (i !== facilityList.length - 1) {
-      await sleep(Math.max(0, REQUEST_DELAY_MS));
-    }
+  const outputRecords = records.filter((record): record is FacilityRecord => record !== null);
+
+  if (skippedFacilities.length > 0) {
+    console.warn(
+      `⚠️  Skipped ${skippedFacilities.length} facilities due to repeated failures: ${skippedFacilities
+        .slice(0, 10)
+        .map((fac) => fac.id)
+        .join(", ")}${skippedFacilities.length > 10 ? " ..." : ""}`
+    );
   }
 
   const dateStamp = new Date().toISOString().split("T")[0].replace(/-/g, "");
@@ -444,11 +486,16 @@ async function main() {
   fs.mkdirSync(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, `alf-processed_${dateStamp}.csv`);
 
-  const columns = Object.keys(records[0] ?? {});
-  const csv = stringify(records, { header: true, columns });
+  const columnSource = outputRecords[0] ?? records.find((record): record is FacilityRecord => record !== null);
+  if (!columnSource) {
+    throw new Error("No facility records were processed successfully.");
+  }
+
+  const columns = Object.keys(columnSource);
+  const csv = stringify(outputRecords, { header: true, columns });
   fs.writeFileSync(outputPath, csv);
 
-  console.log(`✅ MN facilities processed: ${records.length}`);
+  console.log(`✅ MN facilities processed: ${outputRecords.length}`);
   console.log(`📝 Output written to ${outputPath}`);
 }
 

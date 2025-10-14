@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-// Disable static generation for this page since it uses context
-export const dynamic = 'force-dynamic';
+// Client page; static shell with client context
 
 export default function ComparePage() {
   const { selectedFacilities, removeFacility, clearAll } = useComparison();

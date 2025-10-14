@@ -12,11 +12,11 @@
 - state: 1.000
 - state_license_number: 1.000
 - facility_name: 1.000
-- address: 1.000
+- address: 0.892
 - city: 1.000
-- zip_code: 1.000
+- zip_code: 0.892
 - county: 0.890
-- phone: 0.996
+- phone: 0.888
 - license_status: 1.000
 - licensed_capacity: 1.000
 - license_issue_date: 0.656
@@ -54,5 +54,5 @@
 - special_programs_list: 0.070
 - facility_type_detail: 0.033
 - facility_type_code: 0.167
-- last_updated_date: 0.167
-- report_date: 0.109
+- last_updated_date: 0.059
+- report_date: 0.001

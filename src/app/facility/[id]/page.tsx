@@ -8,12 +8,13 @@ import { generateLocationSlug } from "@/lib/locations/queries";
 import { getStarRating } from "@/lib/utils/score-helpers";
 import { ensureAbsoluteUrl, formatPhoneNumber } from "@/lib/utils/url";
 
-export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
-export const revalidate = 0;
+export const dynamic = 'force-static';
+// Cache facility profiles; refresh daily
+export const revalidate = 86400;
 
 interface FacilityPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 function buildDescription(
@@ -50,7 +51,8 @@ function buildDescription(
 }
 
 export async function generateMetadata({ params }: FacilityPageProps): Promise<Metadata> {
-  const facility = await getFacilityById(params.id);
+  const { id } = await params;
+  const facility = await getFacilityById(id);
 
   if (!facility) {
     return {
@@ -84,7 +86,8 @@ export async function generateMetadata({ params }: FacilityPageProps): Promise<M
 }
 
 export default async function FacilityPage({ params }: FacilityPageProps) {
-  const facility = await getFacilityById(params.id);
+  const { id } = await params;
+  const facility = await getFacilityById(id);
   if (!facility) {
     notFound();
   }

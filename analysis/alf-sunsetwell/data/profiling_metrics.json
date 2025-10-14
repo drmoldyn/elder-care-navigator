@@ -9,19 +9,19 @@
     "coverage":1.0
   },
   "address":{
-    "coverage":1.0
+    "coverage":0.89191631
   },
   "city":{
     "coverage":0.9999524489
   },
   "zip_code":{
-    "coverage":0.9999048978
+    "coverage":0.8918212078
   },
   "county":{
     "coverage":0.8904897765
   },
   "phone":{
-    "coverage":0.9963861151
+    "coverage":0.8883024251
   },
   "license_status":{
     "coverage":1.0
@@ -135,9 +135,9 @@
     "coverage":0.167189729
   },
   "last_updated_date":{
-    "coverage":0.1671421778
+    "coverage":0.0590584879
   },
   "report_date":{
-    "coverage":0.1092249168
+    "coverage":0.0011412268
   }
 }

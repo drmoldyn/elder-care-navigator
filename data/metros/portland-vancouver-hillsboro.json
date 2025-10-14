@@ -2,30 +2,30 @@
   "metro": "Portland–Vancouver–Hillsboro",
   "city": "Portland",
   "state": "OR",
-  "count": 8,
-  "averageScore": "51.9",
-  "highPerformerShare": 25,
-  "narrative": "Overall, Portland shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "count": 7,
+  "averageScore": "42.0",
+  "highPerformerShare": 14,
+  "narrative": "Overall, Portland shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
   "table": [
     {
       "rank": 1,
-      "facilityId": "385274",
-      "title": "MIRABELLA PORTLAND",
-      "score": 89,
-      "percentile": 100,
+      "facilityId": "385259",
+      "title": "HOLLADAY PARK PLAZA",
+      "score": 91,
+      "percentile": 91,
       "health": 5,
-      "staffing": 5,
-      "quality": 4,
+      "staffing": 4,
+      "quality": 5,
       "rnHours": null,
       "totalNurseHours": null
     },
     {
       "rank": 2,
-      "facilityId": "385259",
-      "title": "HOLLADAY PARK PLAZA",
-      "score": 85,
-      "percentile": 96,
-      "health": 5,
+      "facilityId": "38E157",
+      "title": "EAST PORTLAND CARE CENTER",
+      "score": 70,
+      "percentile": 69,
+      "health": 3,
       "staffing": 4,
       "quality": 5,
       "rnHours": null,
@@ -33,22 +33,10 @@
     },
     {
       "rank": 3,
-      "facilityId": "385251",
-      "title": "AVAMERE REHABILITATION OF HILLSBORO",
-      "score": 55,
-      "percentile": 62,
-      "health": 3,
-      "staffing": 4,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 4,
-      "facilityId": "38E157",
-      "title": "EAST PORTLAND CARE CENTER",
-      "score": 55,
-      "percentile": 61,
+      "facilityId": "385264",
+      "title": "SECORA REHABILITATION OF CASCADIA",
+      "score": 52,
+      "percentile": 52,
       "health": 3,
       "staffing": 4,
       "quality": 5,
@@ -56,23 +44,11 @@
       "totalNurseHours": null
     },
     {
-      "rank": 5,
-      "facilityId": "385268",
-      "title": "GATEWAY CARE AND RETIREMENT",
-      "score": 51,
-      "percentile": 54,
-      "health": 3,
-      "staffing": 3,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 6,
-      "facilityId": "385228",
-      "title": "PORTLAND HEALTH & REHABILITATION CENTER",
-      "score": 40,
-      "percentile": 38,
+      "rank": 4,
+      "facilityId": "385277",
+      "title": "BELMONT CARE AND REHABILITATION",
+      "score": 42,
+      "percentile": 43,
       "health": 2,
       "staffing": 4,
       "quality": 3,
@@ -80,11 +56,23 @@
       "totalNurseHours": null
     },
     {
-      "rank": 7,
+      "rank": 5,
+      "facilityId": "38A026",
+      "title": "MARQUIS AUTUMN HILLS MEMORY CARE",
+      "score": 39,
+      "percentile": 41,
+      "health": 2,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 6,
       "facilityId": "385284",
       "title": "CEDAR CROSSINGS",
-      "score": 20,
-      "percentile": 13,
+      "score": 0,
+      "percentile": 0,
       "health": 1,
       "staffing": 3,
       "quality": 3,
@@ -92,156 +80,16 @@
       "totalNurseHours": null
     },
     {
-      "rank": 8,
-      "facilityId": "38E188",
-      "title": "GRACELEN CARE CENTER",
-      "score": 20,
-      "percentile": 13,
-      "health": 1,
-      "staffing": 3,
-      "quality": 3,
+      "rank": 7,
+      "facilityId": "385251",
+      "title": "AVAMERE REHABILITATION OF HILLSBORO",
+      "score": 0,
+      "percentile": 0,
+      "health": 3,
+      "staffing": 4,
+      "quality": 4,
       "rnHours": null,
       "totalNurseHours": null
     }
-  ],
-  "enhancedNarrative": {
-    "marketOverview": {
-      "qualityLandscape": "Portland's skilled nursing landscape shows variable quality requiring careful evaluation. With 8 facilities averaging a SunsetWell score of 51.9, families have limited but focused options to consider. 25% of facilities score 75 or higher, indicating moderate availability of high-performing care.\n\nThe market is led by MIRABELLA PORTLAND (score: 89), which ranks in the 100th percentile among peer facilities. HOLLADAY PARK PLAZA (85) and AVAMERE REHABILITATION OF HILLSBORO (55) provide additional quality options for families seeking excellence.\n\nHowever, 2 facilities score below 40, indicating significant quality concerns. The 69-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
-      "supplyDemand": "Portland has a relatively small skilled nursing market with just 8 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
-      "regionalTrends": "Oregon facilities benefit from strong state oversight and community-based care initiatives, though smaller markets like Portland face capacity constraints.\n\nPortland's market reflects mixed regional dynamics with both strong performers and facilities facing challenges. While top-tier options exist, families may need to balance quality preferences with availability and location convenience.",
-      "medicaidAccess": "Approximately 6 of 8 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nOR Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
-    },
-    "costAnalysis": {
-      "averageDailyRate": 397,
-      "priceRangeByTier": {
-        "exceptional": "N/A",
-        "excellent": "$556-675/day",
-        "aboveAverage": "N/A",
-        "mixed": "$318-397/day",
-        "lower": "$278-357/day"
-      },
-      "monthlyEstimate": "$9,528-26,202/month",
-      "stateComparison": "Comparable to state average",
-      "fundingOptions": [
-        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
-        "OR Medicaid: Covers long-term care for eligible residents with assets below $2,000",
-        "Long-Term Care Insurance: Most facilities accept major LTC policies",
-        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
-        "Private Pay: Personal savings, home equity, or family support",
-        "Life Insurance Conversion: Some policies allow accelerated death benefits"
-      ]
-    },
-    "decisionFramework": {
-      "qualityPriority": {
-        "recommendation": "Choose from Portland's top-rated facilities",
-        "facilities": [
-          "MIRABELLA PORTLAND",
-          "HOLLADAY PARK PLAZA"
-        ],
-        "reasoning": "These facilities score 75+ and demonstrate consistent excellence in health inspections, staffing, and quality measures. Worth the waitlist and premium pricing for peace of mind."
-      },
-      "medicaidNeeded": {
-        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
-        "facilities": [
-          "AVAMERE REHABILITATION OF HILLSBORO",
-          "EAST PORTLAND CARE CENTER",
-          "GATEWAY CARE AND RETIREMENT"
-        ],
-        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
-        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
-      },
-      "urgentPlacement": {
-        "recommendation": "Contact these facilities first for fastest placement",
-        "facilities": [
-          "MIRABELLA PORTLAND",
-          "HOLLADAY PARK PLAZA"
-        ],
-        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
-      },
-      "budgetConstrained": {
-        "recommendation": "Focus on these value options with reasonable quality",
-        "facilities": [
-          "MIRABELLA PORTLAND",
-          "HOLLADAY PARK PLAZA",
-          "AVAMERE REHABILITATION OF HILLSBORO"
-        ],
-        "costSavingTips": [
-          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
-          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
-          "Apply for Medicaid early: 45-60 day process; plan ahead",
-          "Check VA benefits: Veterans may qualify for Aid & Attendance",
-          "Consult elder law attorney: Medicaid planning can preserve assets"
-        ]
-      }
-    },
-    "faqs": [
-      {
-        "question": "How long are waitlists at top Portland facilities?",
-        "answer": "Top facilities like MIRABELLA PORTLAND usually have 2-3 month waitlists. Mid-tier options (scores 60-74) typically have 2-4 week availability. Apply early to multiple facilities.",
-        "category": "waitlist"
-      },
-      {
-        "question": "Which Portland nursing homes accept Medicaid?",
-        "answer": "Approximately 6 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. OR Medicaid requires assets below $2,000 with 45-60 day application process.",
-        "category": "medicaid"
-      },
-      {
-        "question": "What makes MIRABELLA PORTLAND worth the cost?",
-        "answer": "MIRABELLA PORTLAND's 89 score reflects perfect 5-star health inspections, exceptional staffing levels, and excellent resident outcomes. Premium pricing buys clinical excellence, experienced staff, better amenities, and peace of mind. However, only pay premium prices if financially sustainable without creating hardship.",
-        "category": "quality"
-      },
-      {
-        "question": "What should I look for during facility tours?",
-        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. You may want to be more cautious with facilities that have 1-2 star health inspections—Portland has 2 facilities in this range. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
-        "category": "quality"
-      },
-      {
-        "question": "What if I need urgent placement in Portland today?",
-        "answer": "Best immediate options: Contact MIRABELLA PORTLAND and HOLLADAY PARK PLAZA first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact OR Senior Services hotline for urgent placement assistance.",
-        "category": "placement"
-      },
-      {
-        "question": "How much does nursing home care cost in Portland?",
-        "answer": "Portland nursing home costs average $361/day ($10,830/month) but vary significantly by quality tier. Premium facilities (90+ score): $722/day. Excellent options (75-89): $542/day. Mid-tier (60-74): $361/day. Budget options: $271/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
-        "category": "cost"
-      },
-      {
-        "question": "How do I pay for long-term nursing home care?",
-        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, OR Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
-        "category": "cost"
-      },
-      {
-        "question": "How often should I visit after placement?",
-        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
-        "category": "other"
-      }
-    ],
-    "localResources": {
-      "stateOmbudsman": {
-        "name": "Oregon Long-Term Care Ombudsman",
-        "phone": "1-800-522-2602",
-        "website": "https://www.oregon.gov/aging/pages/ltc-ombudsman.aspx"
-      },
-      "areaAgencyOnAging": {
-        "name": "Oregon Department of Human Services - Aging and People with Disabilities",
-        "phone": "1-855-673-2372",
-        "website": "https://www.oregon.gov/dhs/seniors-disabilities"
-      },
-      "stateHealthDept": {
-        "name": "Oregon Health Authority",
-        "website": "https://www.oregon.gov/oha"
-      },
-      "elderLawReferral": {
-        "name": "Oregon State Bar Elder Law Section",
-        "website": "https://www.osbar.org"
-      }
-    },
-    "keyStats": {
-      "topTierCount": 2,
-      "medicaidFacilityCount": 6,
-      "averageWaitlistWeeks": 2,
-      "hasUrgentOptions": true,
-      "qualityGap": 69
-    }
-  }
+  ]
 }

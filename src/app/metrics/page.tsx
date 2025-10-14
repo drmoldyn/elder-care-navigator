@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { supabaseBrowser } from "@/lib/supabase/client";
 
-export const dynamic = 'force-dynamic';
+// Client-only analytics view; allow static output
 
 interface MetricData {
   facility_id: string;

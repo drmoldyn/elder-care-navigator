@@ -27,7 +27,15 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ zip, latitude: coords.lat, longitude: coords.lng });
+    return NextResponse.json(
+      { zip, latitude: coords.lat, longitude: coords.lng },
+      {
+        headers: {
+          // Cache successful lookups at the CDN for 30 days; allow SWR
+          "Cache-Control": "public, s-maxage=2592000, stale-while-revalidate=86400",
+        },
+      }
+    );
   } catch (error) {
     console.error("[api/geocode] Unexpected error", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

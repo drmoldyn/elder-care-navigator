@@ -10,9 +10,10 @@ interface LocationPageProps {
   params: Promise<{ cityState: string[] }>;
 }
 
-export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
-export const revalidate = 0;
+export const dynamic = 'force-static';
+// Cache page output per path; refresh daily
+export const revalidate = 86400;
 
 function toSlug(cityState: string[]): string {
   return (cityState || []).join("/") || "";
@@ -63,14 +64,6 @@ export default async function LocationPage({ params }: LocationPageProps) {
     if (score >= 60) return "Good";
     if (score >= 40) return "Average";
     return "Below Average";
-  }
-
-  function getScoreColor(score: number): string {
-    if (score >= 90) return "text-emerald-700";
-    if (score >= 75) return "text-emerald-600";
-    if (score >= 60) return "text-blue-600";
-    if (score >= 40) return "text-slate-600";
-    return "text-slate-500";
   }
 
   return (

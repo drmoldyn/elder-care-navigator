@@ -257,7 +257,10 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
         item: {
           '@type': 'NursingHome',
           name: facility.title,
-          url: summary ? `https://sunsetwell.com/facility/${summary.id}` : undefined,
+          // Prefer DB id from Supabase summary; fallback to facilityId (e.g., CMS CCN)
+          url: summary
+            ? `https://sunsetwell.com/facility/${summary.id}`
+            : (facility.facilityId ? `https://sunsetwell.com/facility/${facility.facilityId}` : undefined),
           address: addressParts.length > 0 ? {
             '@type': 'PostalAddress',
             addressLocality: summary?.city,
@@ -266,10 +269,11 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
           } : undefined,
           aggregateRating: {
             '@type': 'AggregateRating',
-            ratingValue: (facility.score / 20).toFixed(1), // Convert 0-100 to 0-5 scale
-            bestRating: '5',
-            worstRating: '0',
-            ratingCount: '1',
+            // Convert 0-100 to 0-5 scale; ensure numeric for validators
+            ratingValue: Number((facility.score / 20).toFixed(1)),
+            bestRating: 5,
+            worstRating: 0,
+            ratingCount: 1,
           },
         },
       };
