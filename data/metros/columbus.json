@@ -79,5 +79,143 @@
       "rnHours": null,
       "totalNurseHours": null
     }
-  ]
+  ],
+  "enhancedNarrative": {
+    "marketOverview": {
+      "qualityLandscape": "Columbus's skilled nursing landscape shows quality concerns across multiple facilities. With 6 facilities averaging a SunsetWell score of 35.3, families have limited but focused options to consider. 17% of facilities score 75 or higher, indicating limited availability of high-performing care.\n\nThe market is led by WORTHINGTON CHRISTIAN VILLAGE (score: 93), which ranks in the 93th percentile among peer facilities. HIGHBANKS CARE CENTER (69) and MOTHER ANGELINE MCCRORY MANOR (50) provide additional quality options for families seeking excellence.\n\nHowever, 3 facilities score below 40, indicating significant quality concerns. The 93-point gap between highest and lowest-rated facilities highlights the importance of thorough evaluation.",
+      "supplyDemand": "Columbus has a relatively small skilled nursing market with just 6 facilities. This limited supply means that top-performing facilities often maintain waitlists of 2-6 months, particularly for private-pay residents. Families should start the application process early and consider expanding their search to nearby metro areas if immediate placement is needed.",
+      "regionalTrends": "OH offers a range of skilled nursing options with quality varying by location and ownership structure.\n\nColumbus's market reflects regional challenges common in competitive healthcare markets. While top-tier options exist, families may need to balance quality preferences with availability and location convenience.",
+      "medicaidAccess": "Approximately 5 of 6 facilities likely accept Medicaid residents, though acceptance varies by facility and bed availability. Higher-scoring facilities (75+) typically limit Medicaid beds to 10-30% of capacity, while lower-tier facilities may accept 60-80% Medicaid residents.\n\nOH Medicaid eligibility requires assets below $2,000 for individuals ($3,000 for couples in some states), with a 45-60 day application process. Families should apply to multiple facilities simultaneously, as Medicaid bed waitlists can extend 2-6 months at preferred facilities. Facilities scoring 60+ with Medicaid acceptance offer the best balance of quality and accessibility."
+    },
+    "costAnalysis": {
+      "averageDailyRate": 293,
+      "priceRangeByTier": {
+        "exceptional": "$527-645/day",
+        "excellent": "N/A",
+        "aboveAverage": "$293-381/day",
+        "mixed": "$234-293/day",
+        "lower": "$205-264/day"
+      },
+      "monthlyEstimate": "$7,032-19,338/month",
+      "stateComparison": "Comparable to state average",
+      "fundingOptions": [
+        "Medicare: Covers up to 100 days post-hospitalization (days 1-20 fully covered, days 21-100 with copay)",
+        "OH Medicaid: Covers long-term care for eligible residents with assets below $2,000",
+        "Long-Term Care Insurance: Most facilities accept major LTC policies",
+        "Veterans Aid & Attendance: Up to $2,431/month for eligible veterans (2024 rates)",
+        "Private Pay: Personal savings, home equity, or family support",
+        "Life Insurance Conversion: Some policies allow accelerated death benefits"
+      ]
+    },
+    "decisionFramework": {
+      "qualityPriority": {
+        "recommendation": "Choose from Columbus's top-rated facilities",
+        "facilities": [
+          "WORTHINGTON CHRISTIAN VILLAGE"
+        ],
+        "reasoning": "These facilities score 75+ and demonstrate consistent excellence in health inspections, staffing, and quality measures. Worth the waitlist and premium pricing for peace of mind."
+      },
+      "medicaidNeeded": {
+        "recommendation": "Apply to multiple mid-tier facilities simultaneously",
+        "facilities": [
+          "HIGHBANKS CARE CENTER",
+          "MOTHER ANGELINE MCCRORY MANOR"
+        ],
+        "reasoning": "These facilities likely accept Medicaid while maintaining adequate quality scores (40-74). Balance of accessibility and care standards.",
+        "waitlistInfo": "Limited Medicaid capacity may result in 3-6 month waitlists"
+      },
+      "urgentPlacement": {
+        "recommendation": "Contact these facilities first for fastest placement",
+        "facilities": [
+          "WORTHINGTON CHRISTIAN VILLAGE",
+          "HIGHBANKS CARE CENTER"
+        ],
+        "alternatives": "Expand search to nearby cities or consider temporary respite placement at higher-quality facilities while waiting for permanent openings."
+      },
+      "budgetConstrained": {
+        "recommendation": "Focus on these value options with reasonable quality",
+        "facilities": [
+          "WORTHINGTON CHRISTIAN VILLAGE",
+          "HIGHBANKS CARE CENTER",
+          "MOTHER ANGELINE MCCRORY MANOR"
+        ],
+        "costSavingTips": [
+          "Start with Medicare: Use 100-day Medicare benefit before transitioning to private pay",
+          "Choose semi-private rooms: Save $1,500-4,500/month vs. private",
+          "Apply for Medicaid early: 45-60 day process; plan ahead",
+          "Check VA benefits: Veterans may qualify for Aid & Attendance",
+          "Consult elder law attorney: Medicaid planning can preserve assets"
+        ]
+      }
+    },
+    "faqs": [
+      {
+        "question": "How long are waitlists at top Columbus facilities?",
+        "answer": "Premium facilities like WORTHINGTON CHRISTIAN VILLAGE typically have 3-4 month waitlists for standard admission, 1-2 months for Medicare rehab. Mid-tier facilities (scores 60-74) usually have 1-3 week waits. Lower-tier facilities often have immediate openings.",
+        "category": "waitlist"
+      },
+      {
+        "question": "Which Columbus nursing homes accept Medicaid?",
+        "answer": "Approximately 4 facilities likely accept Medicaid residents, typically those scoring 40-70. Higher-scoring facilities may have limited Medicaid beds (10-30% capacity). Lower-scoring facilities often accept 60-80% Medicaid. Contact facilities directly to verify current bed availability, as policies change frequently. OH Medicaid requires assets below $2,000 with 45-60 day application process.",
+        "category": "medicaid"
+      },
+      {
+        "question": "What makes WORTHINGTON CHRISTIAN VILLAGE worth the cost?",
+        "answer": "WORTHINGTON CHRISTIAN VILLAGE's 93 score reflects strong health compliance, exceptional staffing levels, and superior quality measures. Premium pricing buys clinical excellence, experienced staff, better amenities, and peace of mind. However, only pay premium prices if financially sustainable without creating hardship.",
+        "category": "quality"
+      },
+      {
+        "question": "What should I look for during facility tours?",
+        "answer": "When visiting facilities, many families find it helpful to observe how staff interact with residents throughout the day. You might notice whether staff members are attentive and kind, or if they seem rushed and impersonal. It's also worth paying attention to how residents look and whether they appear clean, well-groomed, and engaged in their surroundings. The overall atmosphere can tell you a lot—some families watch for whether the facility feels fresh and well-maintained or if there are concerning odors. Things to watch for that can help you feel more confident in your choice include seeing residents participating in activities, observing clean common areas and resident rooms, and getting straightforward answers when you ask about staffing levels. You may want to be more cautious with facilities that have 1-2 star health inspections—Columbus has 3 facilities in this range. Many families choose to visit at different times of day, including evenings and weekends, to get a fuller picture of daily life at the facility.",
+        "category": "quality"
+      },
+      {
+        "question": "What if I need urgent placement in Columbus today?",
+        "answer": "Best immediate options: Contact WORTHINGTON CHRISTIAN VILLAGE and HIGHBANKS CARE CENTER first - usually 1-2 week availability with decent quality. If unavailable, expand search to nearby metros or use temporary respite care while waiting for preferred facility openings. Push back on hospital discharge pressure - don't accept first available facility without evaluation. Contact OH Senior Services hotline for urgent placement assistance.",
+        "category": "placement"
+      },
+      {
+        "question": "How much does nursing home care cost in Columbus?",
+        "answer": "Columbus nursing home costs average $304/day ($9,120/month) but vary significantly by quality tier. Premium facilities (90+ score): $608/day. Excellent options (75-89): $456/day. Mid-tier (60-74): $304/day. Budget options: $228/day. Costs include room, meals, nursing care, and activities. Extra costs: private room upgrade (+$50-150/day), cable TV, phone service, personal supplies. Semi-private rooms save $1,500-4,500/month vs. private rooms.",
+        "category": "cost"
+      },
+      {
+        "question": "How do I pay for long-term nursing home care?",
+        "answer": "Many families navigate nursing home costs by using a combination of funding sources. Medicare can cover up to 100 days following a hospitalization for skilled nursing care, which gives families time to plan for longer-term arrangements. For ongoing care, OH Medicaid can help cover costs if your loved one's assets are below $2,000, though the application process typically takes 45-60 days, so many families find it helpful to apply early. If you have long-term care insurance, most facilities will accept those policies. Veterans and their spouses may qualify for Aid and Attendance benefits, which can provide up to $2,431 per month toward care costs. Some families choose to pay privately using savings or home equity. A strategy many families use is to start with Medicare's 100-day benefit, then transition to Medicaid if eligible. If you're planning ahead, consulting with an elder law attorney 6-12 months before placement can help you understand options for protecting assets while qualifying for assistance programs.",
+        "category": "cost"
+      },
+      {
+        "question": "How often should I visit after placement?",
+        "answer": "Your presence can make a tremendous difference in how your loved one adjusts to their new home. In those early days and weeks, frequent visits help them feel less alone during a significant transition. Your familiar face and voice provide comfort and reassurance when everything else feels new and unfamiliar. Many families find that being there regularly helps their loved one begin to trust the staff and feel more secure in their new environment. As you spend time with them, you'll naturally notice how they're settling in—whether they seem comfortable, whether their basic needs are being met, and whether they're forming connections with caregivers and other residents. Your ongoing presence isn't just about checking on care; it's about maintaining your relationship and letting them know they haven't been forgotten. You might share meals together, take walks if they're able, or simply sit and talk about their day. These visits help you understand their emotional state and whether they're finding moments of contentment in their new routine. When you're there, you can also notice the small things that matter to their comfort—whether they're warm enough, whether their favorite belongings are within reach, or whether they need help advocating for something they're hesitant to ask staff about. Trust your instincts about what your loved one needs from you, and don't hesitate to speak up if something concerns you about their wellbeing or safety.",
+        "category": "other"
+      }
+    ],
+    "localResources": {
+      "stateOmbudsman": {
+        "name": "OH Long-Term Care Ombudsman",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "areaAgencyOnAging": {
+        "name": "OH Area Agency on Aging",
+        "phone": "1-800-XXX-XXXX",
+        "website": "#"
+      },
+      "stateHealthDept": {
+        "name": "OH Department of Health",
+        "website": "#"
+      },
+      "elderLawReferral": {
+        "name": "OH State Bar Elder Law Section",
+        "website": "#"
+      }
+    },
+    "keyStats": {
+      "topTierCount": 1,
+      "medicaidFacilityCount": 4,
+      "averageWaitlistWeeks": 2,
+      "hasUrgentOptions": true,
+      "qualityGap": 93
+    }
+  }
 }
