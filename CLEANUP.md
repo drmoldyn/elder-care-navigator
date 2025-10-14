@@ -48,10 +48,11 @@ This report catalogs places to clean up, dedupe, archive, enhance, or fix for lo
   - FAQPage is generated from `enhancedNarrative.faqs` and injected (src/app/metros/[slug]/page.tsx:283–287); ensure production includes these blocks after narrative enrichment (we ran enrich script).
 
 ## Data Generation (Metros)
-- Always‑20 top-up may include out-of-metro facilities by state fallback (as intended per decision). Example: LA might include non-LA CA facilities due to state top-up.
-  - File: scripts/generate-metro-rankings.ts: added aliases + multi-state and top-ups (scripts/generate-metro-rankings.ts:1).
-  - Action: Consider adding a distance filter (e.g., within 75 miles of a core centroid) to keep “metro relevance” stronger while still achieving 20.
-  - Action: Consider labeling state-top-up items distinctly (data flag) to allow UI disclosure (“nearby best options”).
+- Implemented radius-constrained selection using a centroid of anchor facilities (defining city first; otherwise expanded cities). Default radius 150 miles (`METRO_RADIUS_MILES`).
+  - If ≥ 12 facilities fall within the radius, use only those (cap at 20; allow fewer than 20).
+  - If < 12 within the radius, top up from allowed states (IL/IN/WI for Chicago; NY/NJ/PA for NYC; etc.) by score to a max of 20.
+  - Top-ups outside the radius are labeled with `topUp: true` in `data/metros/*.json` for transparency.
+  - File: scripts/generate-metro-rankings.ts
 
 ## App UI Linking (Website-first policy)
 - Implemented facility name → website linking (with Maps fallback) across:
@@ -74,13 +75,15 @@ This report catalogs places to clean up, dedupe, archive, enhance, or fix for lo
 - AEO docs vs code:
   - AEO-IMPLEMENTATION-PLAN.md references `/data` page with Dataset schema which does not exist yet. Either build it or remove references.
 
-- RPC naming consistency (as above). Choose `{ query: sql }` or `{ sql: sql }` and standardize.
-  - Multiple migration helpers exist (apply-migration.ts, run-service-area-migration.ts, run-migration-direct.ts, run-migration-pg.ts). Consider consolidating to a single utility with flags (e.g., `--file`, `--direct`, `--rpc=exec_sql`).
-  - New utility present: `scripts/generate-revalidate-list.ts`. Ensure it’s referenced in docs or workflows, or move to `scripts/tools/` with brief README.
-  - ESLint warnings:
-    - `src/app/navigator/page.tsx:37` unused `googleApiKey`.
-    - `src/components/navigator/map-view.tsx:63` unused `googleApiKey`.
-    - Action: Dropped unused variable in map-view; navigator page no longer declares it.
+## Scripts: Consolidation & Consistency
+- RPC consistency: Attempted confirmation of `exec_sql` param; RPC function not found in local schema cache, so retained compatibility fallback in helper. Preferred param going forward: `{ query }`.
+  - New: `scripts/lib/exec-sql.ts`
+  - Updated to use helper: `scripts/apply-migration.ts`, `scripts/run-service-area-migration.ts`, `scripts/add-geocoding-columns-supabase.ts`
+  - Script documentation: Added `scripts/README.md` covering common tasks.
+  - Remaining: Consider consolidating separate migration helpers into a single CLI with flags.
+- ESLint warnings:
+  - `src/app/navigator/page.tsx:37` unused `googleApiKey` (follow-up removal recommended).
+  - `src/components/navigator/map-view.tsx` unused var removed.
 
 ## API & Types Consistency
 - Match response summaries (snake vs camel): `MatchResponseResourceSummary` uses camelCase (src/types/api.ts:14). Ensure API payloads match exactly; normalize server responses if needed.
@@ -100,7 +103,7 @@ This report catalogs places to clean up, dedupe, archive, enhance, or fix for lo
 ## Suggested Next Steps (Quick Wins)
 - Rotate Supabase keys; remove `.env.local` from repo (and purge from history if needed).
 - Run `pnpm migration:check --strict` locally and plan to remove/rename legacy duplicates over time.
-- Align RPC parameter naming across scripts (`exec_sql` signature) and update docs.
-- Replace results map iframe with `FacilityMap` component.
+- Confirm DB `exec_sql` function signature uses `query text`; once confirmed, we can remove the `{ sql }` fallback in the helper.
+- Results map replacement completed; monitor for UX improvements.
 - Decide on multi-sitemap strategy; update robots and docs accordingly.
 - Add README to `docs/ARCHIVE` and move duplicates into `deprecated/` with pointers to current docs.

@@ -7,6 +7,7 @@ import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { execSql } from './lib/exec-sql';
 
 dotenv.config({ path: '.env.local' });
 
@@ -48,34 +49,12 @@ async function runMigration() {
 
     for (let i = 0; i < statements.length; i++) {
       console.log(`\n${i + 1}. Executing statement ${i + 1}/${statements.length}...`);
-
-      // Prefer { query } param; fall back to { sql }
-      let { error } = await supabase.rpc('exec_sql', { query: statements[i] as any });
-      if (error) {
-        ({ error } = await supabase.rpc('exec_sql', { sql: statements[i] as any }));
-      }
-
-      if (error) {
-        // Try alternative method using REST API
-        console.log('   Trying alternative method...');
-
-        const response = await fetch(`${supabaseUrl}/rest/v1/rpc/exec`, {
-          method: 'POST',
-          headers: {
-            'apikey': supabaseServiceKey,
-            'Authorization': `Bearer ${supabaseServiceKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: statements[i] }),
-        });
-
-        if (!response.ok) {
-          console.error(`   ❌ Failed: ${error.message}`);
-          console.log('\n⚠️  Note: Supabase client cannot execute DDL statements directly');
-          console.log('   Please run the migration manually in Supabase SQL Editor:');
-          console.log(`   https://supabase.com/dashboard/project/cxadvvjhouprybyvryyd/sql\n`);
-          return;
-        }
+      const result = await execSql(supabase, statements[i], { supabaseUrl, serviceKey: supabaseServiceKey });
+      if (!result.ok) {
+        console.error('   ❌ Failed to execute statement via RPC/REST.');
+        console.error('   Error:', result.error);
+        console.log('\n⚠️  Please run this statement manually in Supabase SQL Editor.');
+        return;
       }
 
       console.log('   ✅ Success');

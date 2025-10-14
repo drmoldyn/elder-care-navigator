@@ -2,9 +2,88 @@
   "metro": "Providence–Warwick",
   "city": "Providence",
   "state": "RI",
-  "count": 0,
-  "averageScore": "0.0",
-  "highPerformerShare": 0,
+  "count": 6,
+  "averageScore": "59.1",
+  "highPerformerShare": 17,
   "narrative": "Overall, Providence shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": []
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "415070",
+      "title": "CRESTWOOD NURSING & REHABILITATION CENTER, INC",
+      "score": 82,
+      "percentile": 81,
+      "health": 4,
+      "staffing": 4,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": true
+    },
+    {
+      "rank": 2,
+      "facilityId": "415008",
+      "title": "GREENWOOD CENTER",
+      "score": 69,
+      "percentile": 69,
+      "health": 3,
+      "staffing": 4,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": false
+    },
+    {
+      "rank": 3,
+      "facilityId": "415054",
+      "title": "SOUTH KINGSTOWN NURSING AND REHAB CTR",
+      "score": 66,
+      "percentile": 66,
+      "health": 4,
+      "staffing": 3,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": true
+    },
+    {
+      "rank": 4,
+      "facilityId": "415004",
+      "title": "ROYAL OF WESTERLY NURSING CENTER",
+      "score": 65,
+      "percentile": 64,
+      "health": 4,
+      "staffing": 2,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": true
+    },
+    {
+      "rank": 5,
+      "facilityId": "415091",
+      "title": "STEERE HOUSE NURSING AND REHABILITATION CTR",
+      "score": 42,
+      "percentile": 42,
+      "health": 2,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": false
+    },
+    {
+      "rank": 6,
+      "facilityId": "415084",
+      "title": "ELMHURST REHABILITATION & HEALTHCARE CENTER",
+      "score": 31,
+      "percentile": 31,
+      "health": null,
+      "staffing": null,
+      "quality": null,
+      "rnHours": null,
+      "totalNurseHours": null,
+      "topUp": false
+    }
+  ]
 }

@@ -34,6 +34,7 @@ interface Facility {
   quality: number | null;
   rnHours: number | null;
   totalNurseHours: number | null;
+  topUp?: boolean;
 }
 
 interface MetroData {
@@ -512,6 +513,11 @@ export default async function MetroPage({ params }: { params: Promise<{ slug: st
                                     facility.title
                                   )}
                                 </h3>
+                                {facility.topUp && (
+                                  <span className="inline-block mt-1 text-xs rounded-full bg-sky-100 text-sky-700 px-2 py-0.5">
+                                    Nearby best option
+                                  </span>
+                                )}
                                 {addressLine && (
                                   <p className="text-sm text-slate-600 mt-1">{addressLine}</p>
                                 )}

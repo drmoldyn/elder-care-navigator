@@ -2,94 +2,9 @@
   "metro": "Detroit–Warren–Dearborn",
   "city": "Detroit",
   "state": "MI",
-  "count": 7,
-  "averageScore": "61.0",
-  "highPerformerShare": 43,
-  "narrative": "Overall, Detroit shows a sizable cluster of high-performing facilities. The average SunsetWell score suggests solid quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": [
-    {
-      "rank": 1,
-      "facilityId": "235649",
-      "title": "VALLEY HEALTH CENTER",
-      "score": 98,
-      "percentile": 98,
-      "health": 5,
-      "staffing": 5,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 2,
-      "facilityId": "235643",
-      "title": "ST ANNS HOME",
-      "score": 89,
-      "percentile": 88,
-      "health": 5,
-      "staffing": 4,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 3,
-      "facilityId": "235647",
-      "title": "MEDILODGE OF OKEMOS",
-      "score": 87,
-      "percentile": 86,
-      "health": 4,
-      "staffing": 5,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 4,
-      "facilityId": "235657",
-      "title": "REGENCY AT CANTON",
-      "score": 52,
-      "percentile": 51,
-      "health": 3,
-      "staffing": 3,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 5,
-      "facilityId": "235636",
-      "title": "LAURELS OF CARSON CITY",
-      "score": 39,
-      "percentile": 39,
-      "health": 2,
-      "staffing": 4,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 6,
-      "facilityId": "235658",
-      "title": "REGENCY AT BLUFFS PARK",
-      "score": 36,
-      "percentile": 36,
-      "health": 2,
-      "staffing": 4,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 7,
-      "facilityId": "235637",
-      "title": "PLAINWELL PINES NURSING AND REHABILITATION COMMUNI",
-      "score": 27,
-      "percentile": 26,
-      "health": 2,
-      "staffing": 3,
-      "quality": 1,
-      "rnHours": null,
-      "totalNurseHours": null
-    }
-  ]
+  "count": 0,
+  "averageScore": "0.0",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Detroit shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": []
 }

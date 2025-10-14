@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import { execSql } from "./lib/exec-sql";
 
 dotenv.config({ path: ".env.local" });
 
@@ -34,11 +35,9 @@ async function applyMigration() {
   console.log("Applying migration:", path.basename(migrationPath));
   console.log("SQL length:", sql.length);
   
-  // Execute the entire migration as one
-  const { error } = await supabase.rpc("exec_sql", { query: sql });
-  
-  if (error) {
-    console.error("Error applying migration:", error);
+  const result = await execSql(supabase, sql, { supabaseUrl, serviceKey: supabaseServiceKey });
+  if (!result.ok) {
+    console.error("Error applying migration:", result.error);
     process.exit(1);
   }
   

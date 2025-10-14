@@ -120,6 +120,18 @@ async function main() {
   type Metro = { name: string; city: string; state: string };
   const metroList: Metro[] = metros as any;
 
+  // Distance helpers
+  function haversineMiles(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 3958.7613; // miles
+    const toRad = (v: number) => (v * Math.PI) / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+  const DEFAULT_RADIUS = Number(process.env.METRO_RADIUS_MILES || 150);
+
   // Index facilities by uppercase city for quick match
   const byCity = new Map<string, Row[]>();
   for (const r of facilities) {
@@ -170,6 +182,7 @@ function extractCitiesFromMetro(metroName: string): string[] {
       ],
     };
     const allRows: Row[] = [];
+    const topUpIds = new Set<string>();
     const seen = new Set<string>();
 
     // Match facilities from any city in the metro area, filtering by state
@@ -187,8 +200,43 @@ function extractCitiesFromMetro(metroName: string): string[] {
       }
     }
 
+    // Apply radius filter using centroid of defining city (or expanded cities) if available
+    let centroid: { lat: number; lon: number } | null = null;
+    const anchor = byCity.get(m.city.toUpperCase()) || [];
+    const anchorWithCoords = anchor.filter(r => typeof (r as any).latitude === 'number' && typeof (r as any).longitude === 'number');
+    const expandedWithCoords = allRows.filter(r => typeof (r as any).latitude === 'number' && typeof (r as any).longitude === 'number');
+    const centroidSource = anchorWithCoords.length > 0 ? anchorWithCoords : expandedWithCoords;
+    if (centroidSource.length > 0) {
+      const sum = centroidSource.reduce((acc, r: any) => ({ lat: acc.lat + Number(r.latitude), lon: acc.lon + Number(r.longitude) }), { lat: 0, lon: 0 });
+      centroid = { lat: sum.lat / centroidSource.length, lon: sum.lon / centroidSource.length };
+    }
+    if (centroid) {
+      const within = allRows.filter((r: any) => {
+        const lat = Number(r.latitude);
+        const lon = Number(r.longitude);
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return false;
+        const d = haversineMiles(centroid!.lat, centroid!.lon, lat, lon);
+        return d <= DEFAULT_RADIUS;
+      });
+      // If we have at least 12 within radius, prefer within and skip top-ups beyond radius
+      if (within.length >= 12) {
+        // Replace allRows with within and mark seen accordingly
+        seen.clear();
+        allRows.length = 0;
+        for (const r of within) {
+          allRows.push(r);
+          const fid = (r as any).facility_id || (r as any).id;
+          if (fid) seen.add(String(fid));
+        }
+        // Guard: set a flag to bypass broad/state top-ups to keep fewer than 20 allowed
+        if (allRows.length < 20) {
+          // We will not fill further unless below 12 (handled below). So do nothing here.
+        }
+      }
+    }
+
     // If we still have fewer than 20, top up with best-scoring facilities from broader alias cities within allowed states
-    if (allRows.length < 20) {
+    if (allRows.length < 12) {
       const broad = BROAD_CITY_ALIASES[m.name] || [];
       const broadUpper = new Set(broad.map(c => c.toUpperCase()));
       const broadCandidates: Row[] = [];
@@ -210,12 +258,14 @@ function extractCitiesFromMetro(metroName: string): string[] {
       });
       for (const r of broadCandidates) {
         if (allRows.length >= 20) break;
+        const fid = (r as any).facility_id || (r as any).id;
         allRows.push(r);
+        if (fid) topUpIds.add(String(fid));
       }
     }
 
     // Final fallback: if still fewer than 20, fill from any facilities in allowed states by top score
-    if (allRows.length < 20) {
+    if (allRows.length < 12) {
       const stateCandidates = facilities
         .filter(r => {
           const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
@@ -232,6 +282,7 @@ function extractCitiesFromMetro(metroName: string): string[] {
         const fid = (r as any).facility_id || (r as any).id;
         allRows.push(r);
         seen.add(fid);
+        if (fid) topUpIds.add(String(fid));
       }
     }
 
@@ -241,7 +292,8 @@ function extractCitiesFromMetro(metroName: string): string[] {
       rows: allRows,
       count: allRows.length,
       metaName: m.name,
-    };
+      topUpIds: Array.from(topUpIds),
+    } as const;
   });
 
   // Build featured cities JSON directly from metro list
@@ -260,7 +312,7 @@ function extractCitiesFromMetro(metroName: string): string[] {
   lines.push("");
 
   for (const m of topN) {
-    const { city, rows, count, metaName, state } = m;
+    const { city, rows, count, metaName, state, topUpIds } = m as unknown as { city: string; rows: Row[]; count: number; metaName: string; state: string; topUpIds?: string[] };
     const scores = rows
       .map(r => (Array.isArray((r as any).sunsetwell_scores) && (r as any).sunsetwell_scores[0] ? (r as any).sunsetwell_scores[0].overall_score as number : 0))
       .filter(n => typeof n === "number");
@@ -317,7 +369,8 @@ function extractCitiesFromMetro(metroName: string): string[] {
   const metrosDir = path.join(process.cwd(), "data", "metros");
   fs.mkdirSync(metrosDir, { recursive: true });
   for (const m of topN) {
-    const { city, rows, count, metaName, state } = m;
+    const { city, rows, count, metaName, state } = m as any;
+    const topUpIds: string[] = (m as any).topUpIds || [];
 
     // Table rows
     const sorted = [...rows].sort((a, b) => {
@@ -344,6 +397,7 @@ function extractCitiesFromMetro(metroName: string): string[] {
         quality: quality,
         rnHours: null,
         totalNurseHours: null,
+        topUp: fid ? (topUpIds || []).includes(String(fid)) : false,
       };
     });
 

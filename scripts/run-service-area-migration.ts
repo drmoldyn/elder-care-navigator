@@ -3,6 +3,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync, readdirSync } from 'fs';
 import path from 'path';
+import { execSql } from './lib/exec-sql';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local' });
@@ -38,28 +39,21 @@ async function runMigration() {
   const sql = readFileSync(sqlPath, 'utf-8');
 
   try {
-    // Execute the SQL migration
-    const { error } = await supabase.rpc('exec_sql', { query: sql });
-
-    if (error) {
-      // If exec_sql doesn't exist, try direct execution via the REST API
-      console.log('⚠️  exec_sql not available, using direct SQL execution...');
-
-      // Split SQL into individual statements
+    // Execute the migration as a single batch; fallback handles RPC/REST
+    const result = await execSql(supabase, sql, { supabaseUrl, serviceKey: supabaseServiceKey });
+    if (!result.ok) {
+      // Split and try line-by-line if batch fails
+      console.log('⚠️  Batch exec failed; trying statements sequentially...');
       const statements = sql
         .split(';')
         .map(s => s.trim())
         .filter(s => s.length > 0 && !s.startsWith('--'));
-
       for (const statement of statements) {
-        if (statement) {
-          const { error: stmtError } = await supabase.rpc('exec', { query: statement });
-
-          if (stmtError) {
-            console.error(`❌ Error executing statement:`, stmtError.message);
-            console.error('Statement:', statement.substring(0, 100) + '...');
-            throw stmtError;
-          }
+        const step = await execSql(supabase, statement, { supabaseUrl, serviceKey: supabaseServiceKey });
+        if (!step.ok) {
+          console.error('❌ Error executing statement:', step.error);
+          console.error('Statement:', statement.substring(0, 160) + '...');
+          throw step.error;
         }
       }
     }
