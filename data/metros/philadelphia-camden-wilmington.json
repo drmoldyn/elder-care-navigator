@@ -2,22 +2,9 @@
   "metro": "Philadelphia–Camden–Wilmington",
   "city": "Philadelphia",
   "state": "PA",
-  "count": 1,
-  "averageScore": "18.4",
+  "count": 0,
+  "averageScore": "0.0",
   "highPerformerShare": 0,
   "narrative": "Overall, Philadelphia shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": [
-    {
-      "rank": 1,
-      "facilityId": "396076",
-      "title": "MONUMENTALPOSTACUTECARE AT WOODSIDE PARK",
-      "score": 18,
-      "percentile": 19,
-      "health": 2,
-      "staffing": 2,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    }
-  ]
+  "table": []
 }

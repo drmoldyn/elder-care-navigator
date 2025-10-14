@@ -214,6 +214,27 @@ function extractCitiesFromMetro(metroName: string): string[] {
       }
     }
 
+    // Final fallback: if still fewer than 20, fill from any facilities in allowed states by top score
+    if (allRows.length < 20) {
+      const stateCandidates = facilities
+        .filter(r => {
+          const st = Array.isArray((r as any).states) && (r as any).states[0] ? String((r as any).states[0]).trim() : '';
+          const fid = (r as any).facility_id || (r as any).id;
+          return fid && !seen.has(fid) && allowedStates.includes(st);
+        })
+        .sort((a, b) => {
+          const sa = (Array.isArray((a as any).sunsetwell_scores) && (a as any).sunsetwell_scores[0]?.overall_score) || 0;
+          const sb = (Array.isArray((b as any).sunsetwell_scores) && (b as any).sunsetwell_scores[0]?.overall_score) || 0;
+          return sb - sa;
+        });
+      for (const r of stateCandidates) {
+        if (allRows.length >= 20) break;
+        const fid = (r as any).facility_id || (r as any).id;
+        allRows.push(r);
+        seen.add(fid);
+      }
+    }
+
     return {
       city: m.city,
       state: m.state,

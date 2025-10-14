@@ -2,9 +2,46 @@
   "metro": "New Orleans–Metairie",
   "city": "New Orleans",
   "state": "LA",
-  "count": 0,
-  "averageScore": "0.0",
-  "highPerformerShare": 0,
-  "narrative": "Overall, New Orleans shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": []
+  "count": 3,
+  "averageScore": "76.0",
+  "highPerformerShare": 67,
+  "narrative": "Overall, New Orleans shows a sizable cluster of high-performing facilities. The average SunsetWell score suggests generally excellent quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "195412",
+      "title": "AUTUMN LEAVES NURSING AND REHAB CTR, LLC",
+      "score": 84,
+      "percentile": 85,
+      "health": 4,
+      "staffing": 3,
+      "quality": 1,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "195416",
+      "title": "ROSEPINE RETIREMENT & REHAB CENTER, LLC",
+      "score": 78,
+      "percentile": 78,
+      "health": 4,
+      "staffing": 3,
+      "quality": 1,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "195413",
+      "title": "LAKE CHARLES CARE CENTER",
+      "score": 66,
+      "percentile": 67,
+      "health": 4,
+      "staffing": 2,
+      "quality": 1,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
 }

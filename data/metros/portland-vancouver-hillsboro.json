@@ -2,9 +2,22 @@
   "metro": "Portland–Vancouver–Hillsboro",
   "city": "Portland",
   "state": "OR",
-  "count": 0,
-  "averageScore": "0.0",
+  "count": 1,
+  "averageScore": "69.1",
   "highPerformerShare": 0,
-  "narrative": "Overall, Portland shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": []
+  "narrative": "Overall, Portland shows a smaller share of top performers. The average SunsetWell score suggests solid quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "38E173",
+      "title": "AVALON CARE CENTER - PORTLAND",
+      "score": 69,
+      "percentile": 68,
+      "health": 3,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
 }

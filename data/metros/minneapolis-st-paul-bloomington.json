@@ -2,70 +2,9 @@
   "metro": "Minneapolis–St. Paul–Bloomington",
   "city": "Minneapolis",
   "state": "MN",
-  "count": 5,
-  "averageScore": "53.1",
-  "highPerformerShare": 20,
-  "narrative": "Overall, Minneapolis shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": [
-    {
-      "rank": 1,
-      "facilityId": "245556",
-      "title": "PRESBYTERIAN HOMES OF BLOOMINGTON",
-      "score": 84,
-      "percentile": 84,
-      "health": 4,
-      "staffing": 5,
-      "quality": 2,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 2,
-      "facilityId": "245460",
-      "title": "JONES HARRISON RESIDENCE",
-      "score": 68,
-      "percentile": 68,
-      "health": 3,
-      "staffing": 5,
-      "quality": 2,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 3,
-      "facilityId": "245229",
-      "title": "FRIENDSHIP VILLAGE OF BLOOMINGTON",
-      "score": 68,
-      "percentile": 68,
-      "health": 3,
-      "staffing": 5,
-      "quality": 5,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 4,
-      "facilityId": "245071",
-      "title": "MOUNT OLIVET CAREVIEW HOME",
-      "score": 36,
-      "percentile": 36,
-      "health": 1,
-      "staffing": 5,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 5,
-      "facilityId": "245203",
-      "title": "THE VILLAS AT BRYN MAWR LLC",
-      "score": 10,
-      "percentile": 10,
-      "health": 1,
-      "staffing": 4,
-      "quality": 4,
-      "rnHours": null,
-      "totalNurseHours": null
-    }
-  ]
+  "count": 0,
+  "averageScore": "0.0",
+  "highPerformerShare": 0,
+  "narrative": "Overall, Minneapolis shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": []
 }

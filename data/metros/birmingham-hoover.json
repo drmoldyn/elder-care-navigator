@@ -2,34 +2,9 @@
   "metro": "Birmingham–Hoover",
   "city": "Birmingham",
   "state": "AL",
-  "count": 2,
-  "averageScore": "2.0",
+  "count": 0,
+  "averageScore": "0.0",
   "highPerformerShare": 0,
   "narrative": "Overall, Birmingham shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": [
-    {
-      "rank": 1,
-      "facilityId": "015455",
-      "title": "ELITE NURSING AND REHABILITATION CARE CENTER",
-      "score": 4,
-      "percentile": 4,
-      "health": 1,
-      "staffing": 3,
-      "quality": 2,
-      "rnHours": null,
-      "totalNurseHours": null
-    },
-    {
-      "rank": 2,
-      "facilityId": "015464",
-      "title": "ASPIRE PHYSICAL RECOVERY CENTER AT HOOVER, LLC",
-      "score": 0,
-      "percentile": 0,
-      "health": 1,
-      "staffing": 4,
-      "quality": 3,
-      "rnHours": null,
-      "totalNurseHours": null
-    }
-  ]
+  "table": []
 }

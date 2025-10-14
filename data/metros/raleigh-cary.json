@@ -2,9 +2,94 @@
   "metro": "Raleigh–Cary",
   "city": "Raleigh",
   "state": "NC",
-  "count": 0,
-  "averageScore": "0.0",
-  "highPerformerShare": 0,
-  "narrative": "Overall, Raleigh shows a smaller share of top performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
-  "table": []
+  "count": 7,
+  "averageScore": "52.4",
+  "highPerformerShare": 29,
+  "narrative": "Overall, Raleigh shows a meaningful group of above-average performers. The average SunsetWell score suggests mixed quality across the market. Families should still compare options on inspection history, staffing hours, and care stability.",
+  "table": [
+    {
+      "rank": 1,
+      "facilityId": "345501",
+      "title": "CROASDAILE VILLAGE",
+      "score": 93,
+      "percentile": 94,
+      "health": 5,
+      "staffing": 4,
+      "quality": 5,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 2,
+      "facilityId": "345328",
+      "title": "GIVENS HEALTH CENTER",
+      "score": 78,
+      "percentile": 78,
+      "health": 3,
+      "staffing": 5,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 3,
+      "facilityId": "345369",
+      "title": "REX REHAB & NSG CARE CENTER",
+      "score": 61,
+      "percentile": 61,
+      "health": 3,
+      "staffing": 3,
+      "quality": 3,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 4,
+      "facilityId": "345279",
+      "title": "THE CARROLTON OF NASH",
+      "score": 53,
+      "percentile": 52,
+      "health": 3,
+      "staffing": 2,
+      "quality": 2,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 5,
+      "facilityId": "345529",
+      "title": "UNIVERSAL HEALTH CARE/NORTH RALEIGH",
+      "score": 30,
+      "percentile": 29,
+      "health": null,
+      "staffing": null,
+      "quality": null,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 6,
+      "facilityId": "345266",
+      "title": "THE CARROLTON OF PLYMOUTH",
+      "score": 29,
+      "percentile": 28,
+      "health": 2,
+      "staffing": 1,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    },
+    {
+      "rank": 7,
+      "facilityId": "345270",
+      "title": "THE GREENS AT SPRUCE PINES",
+      "score": 22,
+      "percentile": 21,
+      "health": 1,
+      "staffing": 3,
+      "quality": 4,
+      "rnHours": null,
+      "totalNurseHours": null
+    }
+  ]
 }
