@@ -182,7 +182,6 @@ export const US_STATES: Record<string, StateInfo> = {
       monthlyRange: "$8,400-$12,600",
       context: "Florida's nursing home costs are near the national average, with higher prices in South Florida and lower prices in rural areas. Medicare covers skilled nursing for up to 100 days post-hospitalization. Medicaid covers long-term care, and Florida's lack of estate recovery for nursing home care is a significant benefit for families.",
     },
-,
   },
   PA: {
     code: "PA",
