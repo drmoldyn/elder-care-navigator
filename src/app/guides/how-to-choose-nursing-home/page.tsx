@@ -570,8 +570,7 @@ export default function HowToChooseNursingHomePage() {
                 <ul className="space-y-1 text-sm text-amber-900">
                   <li>• Most residents in beds or wheelchairs with no activity</li>
                   <li>• Staff too busy to speak with you or seem frazzled</li>
-                  <li>• High staff turnover (>30% annually)</li>
-                  <li>• Can't provide recent inspection reports immediately</li>
+                            <li>• High staff turnover (&gt;30% annually)</li>li></li>                  <li>• Can't provide recent inspection reports immediately</li>
                   <li>• Vague answers about staffing ratios or nurse availability</li>
                   <li>• Poor food quality or presentation</li>
                   <li>• No posted activity schedule</li>
